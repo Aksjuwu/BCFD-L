@@ -1,2 +1,0 @@
--keep class com.flet.serious_python_android.** { *; }
--keepnames class * { *; }

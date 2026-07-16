@@ -1,167 +1,165 @@
 # FDScript Wiki
 
-> A lightweight scripting language for Discord bots — built into **FDSB**.
-> Scripts run line-by-line; commands start with `$` and take arguments inside `[]` separated by `;`.
+> **FDScript** is a lightweight scripting language for Discord bots — built into **FDSB**.  
+> Scripts run line‑by‑line; commands start with `$` and take arguments inside `[]` separated by `;`.
 
 ---
 
 ## 📑 Table of Contents
 
-### Core
-- [Syntax Rules](#syntax-rules)
-- [Plain Text Lines](#plain-text-lines)
-- [Inline Comments](#inline-comments)
-- [Variable Resolution Order](#variable-resolution-order)
-- [Error System](#error-system)
+<details>
+<summary>Click to expand</summary>
 
-### Variables
-- [`$var` — Temporary Variables](#var--temporary-variables)
-- [`$setVar` / `$getVar` — Persistent Variables](#setvar--getvar--persistent-variables)
-- [Built-in Variables](#built-in-variables)
-
-### Messaging
-- [`$sendMessage`](#sendmessage)
-- [`$reply`](#reply)
-- [`$dm`](#dm)
-- [`$image`](#image)
-
-### Embed Builder
-- [Inline Embed Commands](#embed-builder)
-- [`$sendEmbedMessage`](#sendembedmessage)
-
-### Moderation
-- [`$ban`](#ban)
-- [`$kick`](#kick)
-- [`$unban`](#unban)
-- [`$timeout` / `$untimeout`](#timeout--untimeout)
-- [`$slowmode`](#slowmode)
-- [`$deletecommand`](#deletecommand)
-- [`$clear`](#clear)
-
-### Access Control
-- [`$onlyAdmin`](#onlyadmin)
-- [`$onlyIf`](#onlyif)
-- [`$strictArgs`](#strictargs)
-- [`$cooldown`](#cooldown)
-
-### Math
-- [`$sum` `$sub` `$mul` `$div` `$mod`](#math-commands)
-
-### Randomness
-- [`$randomint`](#randomint)
-- [`$randomstr`](#randomstr)
-- [`$randomUserID`](#randomuserid)
-
-### String Utilities
-- [`$replaceText`](#replacetext)
-
-### Flow Control
-- [`$if` / `$elif` / `$else` / `$endif`](#conditions-if--elif--else--endif)
-- [`$and` / `$or`](#compound-conditions-and--or)
-- [`$while` / `$endwhile`](#while--endwhile)
-- [`$for` / `$endfor`](#for--endfor)
-- [`$break`](#break)
-- [`$wait`](#wait)
-- [`$replyIn`](#replyin)
-
-### Bot Info
-- [`$ping`](#ping)
-- [`$uptime`](#uptime)
-- [`$addTimestamp`](#addtimestamp)
-- [`$getBotInvent`](#getbotinvent)
-- [`$clientTyping`](#clienttyping)
-
-### Logging & Reactions
-- [`$log`](#log)
-- [`$addUserReactions`](#adduserreactions)
-- [`$addBotReactions`](#addbotreactions)
-
-### Return Commands
-- [`$return`](#return)
-- [`$returnGuildUsersID`](#returnguildusersid)
-- [`$returnGuildChannelsID`](#returnguildchannelsid)
-- [`$returnGuildRolesID`](#returnguildrolesid)
-- [`$returnGetReactions`](#returngetreactions)
-
-### Events
-- [`$onJoined`](#onjoined)
-- [`$onLeave`](#onleave)
-- [`$alwaysReply`](#alwaysreply)
-
-### Reference
-- [Separators](#separators)
-- [Color Names](#color-names)
-- [Full Examples](#full-examples)
+1. [Getting Started](#-getting-started)
+   - [Syntax Rules](#syntax-rules)
+   - [Plain Text Lines](#plain-text-lines)
+   - [Inline Comments](#inline-comments)
+   - [Variable Resolution Order](#variable-resolution-order)
+   - [Error System](#error-system)
+2. [Variables & Data](#-variables--data)
+   - [`$var` – Temporary Variables](#var--temporary-variables)
+   - [`$setVar` / `$getVar` – Persistent Variables](#setvar--getvar--persistent-variables)
+   - [Built‑in Variables](#built-in-variables)
+3. [Messaging](#-messaging)
+   - [`$sendMessage`](#sendmessage)
+   - [`$reply`](#reply)
+   - [`$dm`](#dm)
+   - [`$image`](#image)
+4. [Embed Builder](#-embed-builder)
+   - [Inline Embed Commands](#inline-embed-commands)
+   - [`$sendEmbedMessage`](#sendembedmessage)
+5. [Buttons & Reactions](#-buttons--reactions)
+   - [`$addButton`](#addbutton)
+   - [`$editButton`](#editbutton)
+   - [`$removeButtons`](#removebuttons)
+   - [`$removeComponent`](#removecomponent)
+   - [`$addBotReactions`](#addbotreactions)
+   - [`$addUserReactions`](#adduserreactions)
+6. [Moderation](#-moderation)
+   - [`$ban` / `$unban`](#ban--unban)
+   - [`$kick`](#kick)
+   - [`$timeout` / `$untimeout`](#timeout--untimeout)
+   - [`$slowmode`](#slowmode)
+   - [`$deletecommand`](#deletecommand)
+   - [`$clear`](#clear)
+   - [`$createRole` / `$cloneRole` / `$deleteRole` / `$roleAssign`](#role-management)
+   - [`$changeUsername`](#changeusername)
+7. [Access Control](#-access-control)
+   - [`$onlyAdmin`](#onlyadmin)
+   - [`$onlyIf`](#onlyif)
+   - [`$strictArgs`](#strictargs)
+   - [`$cooldown`](#cooldown)
+8. [Math & Numbers](#-math--numbers)
+   - [`$math` (advanced)](#math-advanced)
+   - [`$sum` `$sub` `$mul` `$div` `$mod`](#basic-math-commands)
+   - [`$round`](#round)
+   - [`$isNumber`](#isnumber)
+   - [`$charCount`](#charcount)
+9. [Randomness](#-randomness)
+   - [`$randomint`](#randomint)
+   - [`$randomstr`](#randomstr)
+   - [`$randomUserID`](#randomuserid)
+   - [`$randomRoleID` / `$randomRoleMention`](#randomroleid--randomrolemention)
+10. [String Utilities](#-string-utilities)
+    - [`$replaceText`](#replacetext)
+    - [`$splitIn` / `$splitOut`](#splitin--splitout)
+    - [`$switch`](#switch)
+11. [Flow Control](#-flow-control)
+    - [`$if` / `$elif` / `$else` / `$endif`](#if--elif--else--endif)
+    - [`$and` / `$or` – Compound Conditions](#and--or--compound-conditions)
+    - [`$while` / `$endwhile`](#while--endwhile)
+    - [`$for` / `$endfor`](#for--endfor)
+    - [`$break`](#break)
+    - [`$return` (return variables)](#return)
+12. [Timing & Delays](#-timing--delays)
+    - [`$wait`](#wait)
+    - [`$replyIn`](#replyin)
+    - [`$editIn`](#editin)
+    - [`$addTimestamp`](#addtimestamp)
+13. [Bot Info & Utilities](#-bot-info--utilities)
+    - [`$ping`](#ping)
+    - [`$uptime`](#uptime)
+    - [`$getBotInvent`](#getbotinvent)
+    - [`$clientTyping`](#clienttyping)
+    - [`$log`](#log)
+14. [Return Commands (Data Fetching)](#-return-commands-data-fetching)
+    - [`$returnGuildUsersID`](#returnguildusersid)
+    - [`$returnGuildChannelsID`](#returnguildchannelsid)
+    - [`$returnGuildRolesID`](#returnguildrolesid)
+    - [`$returnGetReactions`](#returngetreactions)
+15. [Events](#-events)
+    - [`$alwaysReply`](#alwaysreply)
+    - [`$messageContains`](#messagecontains)
+    - [`$messageContainsAll`](#messagecontainsall)
+    - [`$onInteraction`](#oninteraction)
+    - [`$onJoined`](#onjoined)
+    - [`$onLeave`](#onleave)
+    - [`$onVoiceJoined`](#onvoicejoined)
+    - [`$onVoiceLeave`](#onvoiceleave)
+16. [Reference](#-reference)
+    - [Separators](#separators)
+    - [Color Names](#color-names)
+    - [Full Examples](#full-examples)
+</details>
 
 ---
 
-## Syntax Rules
+## 🚀 Getting Started
 
-| Rule | Details |
+### Syntax Rules
+
+| Rule | Example |
 |------|---------|
 | Commands start with `$` | `$sendMessage[Hello]` |
 | Arguments go inside `[]` | Separated by `;` |
 | Whitespace is ignored | Around tokens |
-| `#` starts a comment | Whole line or inline (outside brackets) |
-| No `$` prefix → plain text | Sent verbatim to the channel (built-ins resolved first) |
-| Unclosed `[` | → Syntax Error |
-| Extra `]` | → Syntax Error |
-| **Pre-execution validation** | All errors are found and reported before anything runs |
+| `#` starts a comment (whole line or inline outside brackets) | `$var[x; 5]  # set x` |
+| Plain text lines are sent verbatim | `Welcome!` |
+| Unclosed `[` or extra `]` | → Syntax Error |
+| **Pre‑execution validation** catches all errors before anything runs | |
 
-> **Important:** Commands that start with `$` are always treated as commands, regardless of what they do — they can be a mix of functions, variables, and state changes.
+### Plain Text Lines
 
----
-
-## Plain Text Lines
-
-Any line that does **not** start with `$` is sent directly to the channel. Built-in variables and inline commands are resolved inside it before sending.
+Any line that does **not** start with `$` is sent directly to the channel. Built‑in variables and inline commands are resolved inside it.
 
 ```
 Welcome, $authorName!
 Your channel is #$channelName.
 ```
-
 **Output:**
 ```
 Welcome, user!
 Your channel is #general.
 ```
 
----
+### Inline Comments
 
-## Inline Comments
-
-Comments can appear at the end of any line, outside brackets. Everything after a bare `#` at bracket depth 0 is ignored.
+Comments appear after a bare `#` at bracket depth 0.
 
 ```
 $var[score; 100]           # set initial score
 $sendMessage[$var[score]]  # send it
 ```
 
----
+### Variable Resolution Order
 
-## Variable Resolution Order
+When `$var[name]` is used, the interpreter checks:
+1. Temporary variables (`$var[name; value]`)
+2. Built‑in read‑only variables (`$authorID`, `$channelName`, etc.)
 
-When `$var[name]` is encountered, the interpreter resolves in this order:
+> Persistent variables (`$setVar`) are **only** accessible via `$getVar[name]`.  
+> Return variables are **only** accessible via `$return[name]`.
 
-1. Temporary variables set with `$var[name; value]`
-2. Built-in read-only variables (`$authorID`, `$channelName`, etc.)
+### Error System
 
-> Persistent variables (`$setVar`) are **only** accessible via `$getVar[name]` — not through `$var`.
-> Return variables are **only** accessible via `$return[name]` — populated by `$returnXxx` commands.
-
----
-
-## Error System
-
-FDScript validates the **entire script** before execution. If any error is found, **nothing runs** and all errors are reported.
+All errors are reported before execution; nothing runs if any error is found.
 
 | Icon | Category | Common Causes |
 |------|----------|---------------|
 | 🔴 | **Syntax Error** | Unknown command, unclosed bracket, mismatched block |
-| 🟠 | **Logic Error** | Wrong argument count, invalid operator, `$break` outside loop |
-| 🟡 | **Runtime Error** | Division by zero, non-numeric argument, `$for` count not an integer |
-| 🔵 | **Environment Error** | Channel/guild not found, bot lacks permission, DM user not found |
+| 🟠 | **Logic Error** | Wrong arg count, invalid operator, `$break` outside loop |
+| 🟡 | **Runtime Error** | Division by zero, non‑numeric argument |
+| 🔵 | **Environment Error** | Channel/guild not found, missing permissions |
 
 **Example:**
 ```
@@ -173,130 +171,116 @@ $wew[now]
 
 ---
 
-## `$var` — Temporary Variables
+## 📊 Variables & Data
 
-Lives only for the current script execution. Gone when the script ends.
+### `$var` – Temporary Variables
+
+Lives only for the current script execution.
 
 **Set:**
 ```
 $var[name; value]
 ```
-
 **Get (inline):**
 ```
 $var[name]
 ```
-
 **Example:**
 ```
 $var[score; 10]
 $sendMessage[Your score is $var[score]]
 ```
-```
-Your score is 10
-```
+→ `Your score is 10`
 
 ---
 
-## `$setVar` / `$getVar` — Persistent Variables
+### `$setVar` / `$getVar` – Persistent Variables
 
-Saved to disk as `.json` files. Survive across script executions.
+Saved to disk (`.json`). Survive across executions.
 
 ```
 $setVar[name; value]
-$getVar[name]          ← inline only, not standalone
+$getVar[name]          ← inline only
 ```
-
-Variable names are sanitized to alphanumeric, `-`, and `_`.
+Variable names are sanitised to alphanumeric, `-`, and `_`.
 
 **Example:**
 ```
 $setVar[visits; 42]
 $sendMessage[Total visits: $getVar[visits]]
 ```
-```
-Total visits: 42
-```
+→ `Total visits: 42`
 
 ---
 
-## Built-in Variables
+### Built‑in Variables
 
-Read-only. Resolved at runtime. Use them inline anywhere.
+Read‑only; resolved at runtime.
 
 | Variable | Value |
 |----------|-------|
 | `$authorID` | Numeric ID of the message author |
-| `$authorName` | Username of the message author |
-| `$mention` | Mention string of the author (`<@id>`) |
-| `$channelID` | Numeric ID of the current channel |
-| `$channelName` | Name of the current channel |
-| `$guildID` | Numeric ID of the current server |
-| `$guildName` | Name of the current server (`DM` in DMs) |
-| `$membersCount` | Total member count of the current server |
-| `$message` | All text after the command trigger |
-| `$message[n]` | The nth word after the command trigger (1-based) |
-| `$messageID` | Numeric ID of the triggering message |
-| `$botName` | Username of the bot |
-| `$botID` | Numeric ID of the bot |
+| `$authorName` | Username of the author |
+| `$mention` | Mention string (`<@id>`) |
+| `$channelID` | ID of current channel |
+| `$channelName` | Name of current channel |
+| `$guildID` | ID of current server (or `DM`) |
+| `$guildName` | Name of current server |
+| `$membersCount` | Total member count of current server |
+| `$message` | All text after command trigger |
+| `$message[n]` | nth word after trigger (1‑based) |
+| `$messageID` | ID of triggering message |
+| `$botName` | Bot's username |
+| `$botID` | Bot's numeric ID |
 | `$ping` | Bot's WebSocket latency (e.g. `42ms`) |
 | `$uptime` | Time since bot started (`Xd Xh Xm Xs`) |
-| `$addTimestamp` | Discord timestamp for now (default `T` format) |
-| `$randomUserID` | ID of a random non-bot member |
-
-### `$message[n]` — Word indexing
-
-```
-# User types: !cmd hello world
-$sendMessage[$message[1]]   # → hello
-$sendMessage[$message[2]]   # → world
-$sendMessage[$message]      # → hello world
-```
+| `$addTimestamp` | Discord timestamp for now (default `T`) |
+| `$randomUserID` | ID of a random non‑bot member |
+| `$randomRoleID` / `$randomRoleMention` | Random role ID / mention |
+| `$serverOwnerID` | ID of server owner |
 
 ---
 
-## `$sendMessage`
+## 💬 Messaging
 
-Sends a text message to the current channel (or DM target if `$dm` was used).
+### `$sendMessage`
+
+Sends text to the current channel (or DM if `$dm` used).
 
 ```
 $sendMessage[text]
 ```
-
 ```
 $sendMessage[Hello from the bot!]
 ```
 
 ---
 
-## `$reply`
+### `$reply`
 
-Makes all subsequent output in the script reply to the triggering message. Affects plain text, `$sendMessage`, `$image`, embeds, and all send commands.
+Makes all subsequent output reply to the triggering message.
 
 ```
 $reply
 $sendMessage[Here is your answer, $mention!]
 ```
-
-> When the event type is `$alwaysReply`, replies are automatic — no need for `$reply`.
+> In `$alwaysReply` events, replies are automatic.
 
 ---
 
-## `$dm`
+### `$dm`
 
-Redirects all subsequent output to a DM channel.
+Redirects all subsequent output to a DM.
 
-**DM the command author:**
+**DM the author:**
 ```
 $dm
 ```
-
 **DM a specific user:**
 ```
 $dm[userID]
 $dm[<@userID>]
 ```
-
 ```
 $dm
 $sendMessage[This goes to your DMs, $authorName!]
@@ -304,26 +288,23 @@ $sendMessage[This goes to your DMs, $authorName!]
 
 ---
 
-## `$image`
+### `$image`
 
-Sends an image as a Discord embed (image-only). URL must be a direct link starting with `http://` or `https://`.
+Sends an image as a Discord embed (image‑only). URL must be direct (`http://` or `https://`).
 
 ```
 $image[url]
-$image[$var[myImageUrl]]    ← inline usage
+$image[$var[myImageUrl]]    ← inline
 ```
-
 ```
 $image[https://example.com/photo.png]
 ```
 
-> Google Photos share links and similar redirect URLs will **not** display. Use direct image URLs only.
-
 ---
 
-## Embed Builder
+## 🖼️ Embed Builder
 
-Build embeds by setting fields individually. The embed is sent automatically at the end of execution — only if at least one field is set.
+Set embed fields individually. The embed is sent automatically at the end of execution if at least one field is set.
 
 ```
 $title[text]
@@ -331,9 +312,6 @@ $description[text]
 $color[hex or name]
 $footer[text]
 ```
-
-All four fields are optional.
-
 **Example:**
 ```
 $title[Server Update]
@@ -355,71 +333,152 @@ $footer[Posted by the admin team]
 | `navy` | `#2C3E50` | `lime` | `#27AE60` |
 | `brown` | `#A0522D` | `teal` | `#008080` |
 | `magenta` | `#FF00FF` | `blurple` | `#5865F2` |
-| `dark` | `#2B2D31` | | |
-
-Unrecognized colors fall back to `dark` (`#2B2D31`).
+| `dark` (default) | `#2B2D31` | | |
 
 ---
 
-## `$sendEmbedMessage`
+### `$sendEmbedMessage`
 
-Sends a full embed to a **specific channel by ID**. All 5 arguments are required.
+Sends a full embed to a **specific channel by ID**. All 5 args required.
 
 ```
 $sendEmbedMessage[channelID; title; description; color; footer]
 ```
-
 ```
 $sendEmbedMessage[123456789012345678; Announcement; The vote is now open.; blurple; FDBot]
 ```
 
 ---
 
-## `$ban`
+## 🔘 Buttons & Reactions
 
-Bans a user from the server. Requires `Ban Members` permission.
+### `$addButton`
+
+Adds a button to the pending message (or to an existing bot message by ID).
 
 ```
-$ban                    ← bans the message author
-$ban[userID]
-$ban[<@userID>]
-$ban[$message[1]]       ← ban first word of user input
+$addButton[isLink; ID/URL; label; style; (disabled; emoji; messageID)]
+```
+- `isLink` – `yes` / `no`
+- `style` – `primary`, `secondary`, `success`, `danger`, `link`
+- `disabled` – `yes` / `no` (optional)
+- `emoji` – optional custom or Unicode emoji
+- `messageID` – optional, to attach to an already sent bot message
+
+**Example (queue for next message):**
+```
+$addButton[no; vote_yes; Yes; success]
+$addButton[no; vote_no; No; danger]
+$sendMessage[Cast your vote!]
+```
+**Example (add to existing message):**
+```
+$addButton[no; confirm; Confirm; primary; no; ; 123456789012345678]
 ```
 
 ---
 
-## `$kick`
+### `$editButton`
 
-Kicks a user from the server. Requires `Kick Members` permission.
+Edits an existing button (by custom ID or URL) on a queued message, an interaction source, or a specific message ID.
 
 ```
-$kick
+$editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+```
+```
+$editButton[vote_yes; Absolutely Yes; success; no; ✅]
+```
+
+---
+
+### `$removeButtons`
+
+Removes **all** buttons from a queued message, interaction source, or a specific message ID.
+
+```
+$removeButtons[(messageID)]
+```
+```
+$removeButtons[123456789012345678]
+```
+
+---
+
+### `$removeComponent`
+
+Removes one or more specific buttons (by custom ID or URL) from a queued message, interaction source, or a specific message ID.
+
+```
+$removeComponent[customID1; customID2; ...; (messageID)]
+```
+```
+$removeComponent[vote_no; vote_yes]
+```
+
+---
+
+### `$addBotReactions`
+
+Adds reactions to the **last bot message** in this execution. Max 20 emojis.
+
+```
+$addBotReactions[emoji1; emoji2; ...]
+```
+```
+$sendMessage[Vote now!]
+$addBotReactions[👍; 👎]
+```
+
+---
+
+### `$addUserReactions`
+
+Adds reactions to the **user's triggering message**. Max 20 emojis.
+
+```
+$addUserReactions[emoji1; emoji2; ...]
+```
+```
+$addUserReactions[❤️; 🎉]
+```
+
+---
+
+## 🛡️ Moderation
+
+### `$ban` / `$unban`
+
+**Ban** a user; **unban** by ID. Requires `Ban Members`.
+
+```
+$ban                    ← bans the author
+$ban[userID]
+$ban[<@userID>]
+$unban[userID]
+```
+
+---
+
+### `$kick`
+
+Kicks a user. Requires `Kick Members`.
+
+```
 $kick[userID]
 $kick[<@userID>]
 ```
 
 ---
 
-## `$unban`
+### `$timeout` / `$untimeout`
 
-Unbans a user by ID. Requires `Ban Members` permission.
-
-```
-$unban[userID]
-```
-
----
-
-## `$timeout` / `$untimeout`
-
-**Timeout** puts a user in mute for a duration. **Untimeout** removes it. Both require `Moderate Members` permission.
+Timeout mutes a user; untimeout removes it. Requires `Moderate Members`.
 
 ```
 $timeout[userID or mention; duration]
 $untimeout[userID or mention]
 ```
-
-Duration format: number + unit (`s` `m` `h` `d`)
+Duration: number + unit (`s`, `m`, `h`, `d`). Max 28 days.
 
 ```
 $timeout[$message[1]; 10m]
@@ -427,186 +486,240 @@ $timeout[$message[1]; 10m]
 
 ---
 
-## `$slowmode`
+### `$slowmode`
 
-Sets the slowmode interval for the current channel. Requires `Manage Channels` permission. Use `0` to disable.
-
-```
-$slowmode[seconds]
-```
+Sets slowmode interval (seconds) for the current channel. Requires `Manage Channels`. Use `0` to disable.
 
 ```
-$slowmode[5]
+$slowmode[channelID; seconds]
+```
+```
+$slowmode[$channelID; 5]
 ```
 
 ---
 
-## `$deletecommand`
+### `$deletecommand`
 
-Deletes the message that triggered the command. Requires `Manage Messages` permission.
+Deletes the triggering message. Requires `Manage Messages`.
 
 ```
 $deletecommand
 ```
 
-If the bot lacks permission, a 🔵 Environment Error is sent and execution continues.
-
 ---
 
-## `$clear`
+### `$clear`
 
-Bulk-deletes messages from the current channel. Requires `Manage Messages` permission.
+Bulk‑deletes messages from the current channel. Requires `Manage Messages`. Max 100.
 
 ```
 $clear           ← deletes last 10 (default)
 $clear[count]    ← max 100
 ```
-
 ```
 $clear[25]
 ```
 
 ---
 
-## `$onlyAdmin`
+### Role Management
 
-Restricts execution to users with the `Administrator` permission. Script stops immediately if the user is not an admin.
+| Command | Description |
+|---------|-------------|
+| `$createRole[name; color; permissions; (hoist; mentionable)]` | Creates a role. Permissions: `cosmetic`, `member`, `mod`, `manager`, or raw integer. |
+| `$cloneRole[roleID; (newName)]` | Clones an existing role. |
+| `$deleteRole[roleID]` | Deletes a role. |
+| `$roleAssign[user; +role1; -role2; ...]` | Add (`+`) or remove (`-`) roles from a user. |
+
+```
+$createRole[Moderator; #FF0000; mod; yes; yes]
+$roleAssign[$authorID; +123456789; -987654321]
+```
+
+---
+
+### `$changeUsername`
+
+Changes a member's nickname. Requires `Manage Nicknames`.
+
+```
+$changeUsername[userID or mention; newName]
+```
+```
+$changeUsername[$authorID; CoolUser]
+```
+
+---
+
+## 🛡️ Access Control
+
+### `$onlyAdmin`
+
+Restricts execution to server administrators. Stops script immediately if not.
 
 ```
 $onlyAdmin
 $onlyAdmin[error message]
 ```
-
 ```
-$onlyAdmin[❌ You need Administrator permission to use this.]
+$onlyAdmin[❌ You need Administrator permission.]
 $sendMessage[Admin command executed.]
 ```
 
 ---
 
-## `$onlyIf`
+### `$onlyIf`
 
-Stops execution if the given condition is false. Optionally sends an error message.
+Stops execution if condition is false. Optionally sends an error.
 
 ```
 $onlyIf[condition]
 $onlyIf[condition; error message]
 ```
-
 ```
-$onlyIf[$authorID == 123456789; ❌ Only the bot owner can use this.]
+$onlyIf[$authorID == 123456789; ❌ Owner only.]
 $sendMessage[Owner command executed.]
 ```
 
 ---
 
-## `$strictArgs`
+### `$strictArgs`
 
-Validates the number of words the user passed after the command trigger. If the condition fails, the error message is sent and execution **continues**.
+Validates the number of words after the command trigger. If fails, sends error and **continues**.
 
 ```
 $strictArgs[comparison; error text]
 ```
-
-Supported operators: `>` `<` `=` `>=` `<=` `!=`
+Operators: `>` `<` `=` `>=` `<=` `!=`
 
 ```
 $strictArgs[>0; Please provide a username.]
-$strictArgs[=2; Please provide exactly two words.]
+$strictArgs[=2; Exactly two words required.]
 ```
 
 ---
 
-## `$cooldown`
+### `$cooldown`
 
-Limits how often a user can trigger a script. If triggered again before the cooldown expires, the error message is sent and execution stops.
+Limits usage frequency per user per script. If triggered again before cooldown ends, sends error and stops.
 
 ```
 $cooldown[duration; error message]
 ```
-
-| Unit | Meaning |
-|------|---------|
-| `s` | Seconds |
-| `m` | Minutes |
-| `h` | Hours |
-| `d` | Days |
-
-Use `{time}` or `%time%` in the error message to show remaining seconds.
+Units: `s`, `m`, `h`, `d`. Use `{time}` or `%time%` to show remaining seconds.
 
 ```
-$cooldown[30s; ⏳ Please wait {time} before using this again!]
+$cooldown[30s; ⏳ Wait {time} before using this again!]
 $sendMessage[Command executed!]
 ```
 
 ---
 
-## Math Commands
+## ➕ Math & Numbers
 
-All five math commands accept exactly two numeric arguments. They work standalone (result sent to channel) **or** inline inside other arguments.
+### `$math` (advanced)
+
+Evaluates a mathematical expression. Supports `+`, `-`, `*`, `/`, `//` (floor), `%`, `**`, `sqrt()`, `abs()`, `ceil()`, `floor()`, `round()`, `log()`, `sin()`, `cos()`, `tan()`, constants `pi`, `e`, `inf`.
 
 ```
-$sum[a; b]    ← addition
-$sub[a; b]    ← subtraction
-$mul[a; b]    ← multiplication
-$div[a; b]    ← division
-$mod[a; b]    ← modulo (remainder)
-```
-
-Division by zero → 🟡 Runtime Error (no crash).
-Integer results display without a decimal point.
-
-**Standalone example:**
-```
-$var[x; 8]
-$var[y; 3]
-$sendMessage[$sum[$var[x]; $var[y]]]
+$math[expression]
 ```
 ```
-11
-```
-
-**Inline example:**
-```
-$sendMessage[Result is $sum[8; 2]]
-```
-```
-Result is 10
+$sendMessage[$math[2 + 2 * 3]]   → 8
+$sendMessage[$math[sqrt(16)]]    → 4
 ```
 
 ---
 
-## `$randomint`
+### Basic Math Commands
 
-Returns a random integer between `min` and `max` (inclusive). If `min > max`, they are swapped automatically.
+Standalone **or** inline. Work with two numeric arguments.
+
+```
+$sum[a; b]   $sub[a; b]   $mul[a; b]   $div[a; b]   $mod[a; b]
+```
+```
+$sendMessage[$sum[8; 2]]   → 10
+$sendMessage[Result is $sub[10; 3]]   → Result is 7
+```
+
+---
+
+### `$round`
+
+Rounds a number to the nearest integer (standard rounding).
+
+```
+$round[number]
+```
+```
+$sendMessage[$round[1.7]]   → 2
+```
+
+---
+
+### `$isNumber`
+
+Checks if a value matches a numeric type/condition.
+
+```
+$isNumber[formula; value]
+```
+Formulas: `int`, `nat` (positive integer), `pos`, `neg`, `zero`, `even`, `odd`, `dec` (decimal), `frac` (fraction), `num` (any number).
+
+```
+$if[$isNumber[int; $message]]
+  $sendMessage[It's a whole number!]
+$endif
+```
+
+---
+
+### `$charCount`
+
+Counts letters (Unicode letters) and digits in a string.
+
+```
+$charCount[text]
+```
+```
+$sendMessage[$charCount[Hello 123]]   → 8 (5 letters + 3 digits)
+```
+
+---
+
+## 🎲 Randomness
+
+### `$randomint`
+
+Random integer between min and max (inclusive). Swaps if min>max.
 
 ```
 $randomint[min; max]
 ```
-
 ```
-$sendMessage[Your lucky number: $randomint[1; 100]]
+$sendMessage[Lucky number: $randomint[1; 100]]
 ```
 
 ---
 
-## `$randomstr`
+### `$randomstr`
 
-Picks one item at random from a list of strings.
+Picks a random string from a list.
 
 ```
-$randomstr[option1; option2; option3; ...]
+$randomstr[option1; option2; ...]
 ```
-
 ```
 $randomstr[rock; paper; scissors]
 ```
 
 ---
 
-## `$randomUserID`
+### `$randomUserID`
 
-Picks a random non-bot member from the current server and returns their numeric ID. Only works inside a server (not in DMs).
+Returns a random non‑bot member's ID from the current server.
 
 ```
 $randomUserID
@@ -615,26 +728,70 @@ $sendMessage[Random member: $randomUserID]
 
 ---
 
-## `$replaceText`
+### `$randomRoleID` / `$randomRoleMention`
 
-Replaces all occurrences of a substring within a string.
-
-```
-$replaceText[text; search; replacement]
-```
+Returns the ID or mention of a random role (excluding `@everyone`).
 
 ```
-$sendMessage[$replaceText[hello world; world; FDScript]]
+$randomRoleID
+$randomRoleMention
 ```
 ```
-hello FDScript
+$sendMessage[Random role: $randomRoleMention]
 ```
 
 ---
 
-## Conditions: `$if` / `$elif` / `$else` / `$endif`
+## 📝 String Utilities
 
-Evaluates a condition and executes the matching branch.
+### `$replaceText`
+
+Replaces occurrences of a substring. Optional count (default = all).
+
+```
+$replaceText[text; search; replacement; (count)]
+```
+```
+$sendMessage[$replaceText[hello world; world; FDScript]]   → hello FDScript
+```
+
+---
+
+### `$splitIn` / `$splitOut`
+
+Split a text by a delimiter and later retrieve a part by index.
+
+```
+$splitIn[text; delimiter]
+$splitOut[index]   ← inline or standalone
+```
+Index can be a number (1‑based), `<` (first), or `>` (last).
+
+```
+$splitIn[apple;banana;cherry; ;]
+$sendMessage[$splitOut[2]]   → banana
+```
+
+---
+
+### `$switch`
+
+Returns one of the given items based on a 1‑based index. The last argument is the index.
+
+```
+$switch[item1; item2; ... ; index]
+```
+```
+$sendMessage[$switch[Red; Green; Blue; 2]]   → Green
+```
+
+---
+
+## 🔄 Flow Control
+
+### `$if` / `$elif` / `$else` / `$endif`
+
+Evaluates conditions and executes the matching branch.
 
 ```
 $if[condition]
@@ -645,226 +802,164 @@ $else
   ...
 $endif
 ```
+Operators: `==`, `!=`, `>`, `<`, `>=`, `<=`. Numeric strings compared numerically, others lexicographically.
 
-**Supported operators:** `==` `!=` `>` `<` `>=` `<=`
-
-- Numeric strings → compared numerically
-- Non-numeric strings → lexicographic (only `==` and `!=`)
-
-**Example:**
 ```
 $var[score; 75]
 $if[$var[score] >= 90]
-$sendMessage[Grade: A]
+  $sendMessage[Grade: A]
 $elif[$var[score] >= 60]
-$sendMessage[Grade: B]
+  $sendMessage[Grade: B]
 $else
-$sendMessage[Grade: F]
+  $sendMessage[Grade: F]
 $endif
 ```
-```
-Grade: B
-```
+→ `Grade: B`
 
 ---
 
-## Compound Conditions: `$and` / `$or`
+### `$and` / `$or` – Compound Conditions
 
-Combine multiple conditions inside `$if` or `$elif`. Cannot be used as standalone commands.
+Use inside `$if` / `$elif` to combine conditions.
 
 ```
 $if[$and[condition1; condition2; ...]]
 $if[$or[condition1; condition2; ...]]
 ```
-
-- `$and` → **all** conditions must be true
-- `$or` → **at least one** must be true
-
-**Example:**
 ```
 $var[age; 20]
 $var[score; 85]
 $if[$and[$var[age] >= 18; $var[score] >= 80]]
-$sendMessage[Eligible!]
-$else
-$sendMessage[Not eligible.]
+  $sendMessage[Eligible!]
 $endif
-```
-```
-Eligible!
 ```
 
 ---
 
-## `$while` / `$endwhile`
+### `$while` / `$endwhile`
 
-Repeats a block as long as a condition is true.
+Repeats a block while condition is true.
 
 ```
 $while[condition]
   ...
 $endwhile
 ```
-
-**Example:**
 ```
 $var[n; 1]
 $while[$var[n] <= 3]
-$sendMessage[Iteration $var[n]]
-$var[n; $sum[$var[n]; 1]]
+  $sendMessage[Iteration $var[n]]
+  $var[n; $sum[$var[n]; 1]]
 $endwhile
-```
-```
-Iteration 1
-Iteration 2
-Iteration 3
 ```
 
 ---
 
-## `$for` / `$endfor`
+### `$for` / `$endfor`
 
-Repeats a block a fixed number of times. The count must be a whole number; floats are truncated.
+Repeats a block a fixed number of times (count is a whole number).
 
 ```
 $for[count]
   ...
 $endfor
 ```
-
-**Example:**
 ```
 $for[3]
-$sendMessage[Hello!]
+  $sendMessage[Hello!]
 $endfor
-```
-```
-Hello!
-Hello!
-Hello!
 ```
 
 ---
 
-## `$break`
+### `$break`
 
-Exits the nearest enclosing `$while` or `$for` loop immediately. Using `$break` outside a loop is a 🟠 Logic Error caught at validation.
+Exits the nearest enclosing `$while` or `$for` loop immediately.
 
 ```
 $break
 ```
-
-**Example:**
 ```
 $var[n; 0]
 $while[$var[n] < 10]
-$var[n; $sum[$var[n]; 1]]
-$if[$var[n] == 4]
-$break
-$endif
+  $var[n; $sum[$var[n]; 1]]
+  $if[$var[n] == 4]
+    $break
+  $endif
 $endwhile
 $sendMessage[Stopped at $var[n]]
 ```
-```
-Stopped at 4
-```
+→ `Stopped at 4`
 
 ---
 
-## `$wait`
+### `$return`
 
-Pauses script execution for a specified duration, then resumes from where it stopped.
+Reads a value stored by a return command. **Inline only**.
+
+```
+$return[varName]
+```
+Used after `$returnGuildUsersID`, `$returnGuildChannelsID`, `$returnGuildRolesID`, or `$returnGetReactions`.
+
+---
+
+## ⏱️ Timing & Delays
+
+### `$wait`
+
+Pauses the **entire script** for the specified duration.
 
 ```
 $wait[duration]
 ```
+Units: `s`, `m`, `h`, `d`.
 
-Duration format: integer + unit (`s` `m` `h` `d`)
-
-| Unit | Meaning |
-|------|---------|
-| `s` | Seconds |
-| `m` | Minutes |
-| `h` | Hours |
-| `d` | Days |
-
-**Example:**
 ```
-$sendMessage[Starting process...]
+$sendMessage[Starting...]
 $wait[5s]
-$sendMessage[Done! 5 seconds later.]
+$sendMessage[Done after 5 seconds.]
 ```
-
-> Unlike `$replyIn`, this **halts the entire script** for the specified time. Use it when the order of operations matters.
 
 ---
 
-## `$replyIn`
+### `$replyIn`
 
-Delays only the bot's reply message — the rest of the script continues executing normally in the background.
+Delays **only the bot's reply** – the script continues running in the background.
 
 ```
 $replyIn[duration]
 ```
-
-Duration format: integer + unit (`s` `m` `h` `d`) — same units as `$wait`.
-
-**Example:**
 ```
 $replyIn[10s]
-$sendMessage[This message will appear 10 seconds later.]
-```
-
-> **Note:** Maximum delay is 40 light-years. We recommend staying under that.
-
----
-
-## `$ping`
-
-Sends the bot's current WebSocket latency in milliseconds.
-
-```
-$ping
-$sendMessage[Current latency: $ping]
-```
-```
-Current latency: 42ms
+$sendMessage[This appears 10 seconds later.]
 ```
 
 ---
 
-## `$uptime`
+### `$editIn`
 
-Sends the time elapsed since the bot started, formatted as `Xd Xh Xm Xs`.
+Edits the last bot message after a delay.
 
 ```
-$uptime
-$sendMessage[Bot has been running for $uptime]
+$editIn[duration; newMessage]
 ```
 ```
-Bot has been running for 2d 4h 12m 7s
+$sendMessage[Initial message]
+$editIn[5s; Updated message]
 ```
+→ After 5 seconds, the message changes.
 
 ---
 
-## `$addTimestamp`
+### `$addTimestamp`
 
-Sends a Discord timestamp for the current time.
+Sends a Discord timestamp for the current time. Default format `T`. Optionally pass a format code.
 
 ```
-$addTimestamp              ← standalone, default T format
-$addTimestamp[format]      ← with format code
+$addTimestamp[(format)]
 ```
-
-| Code | Display |
-|------|---------|
-| `t` | Short time: `4:20 PM` |
-| `T` | Long time: `4:20:00 PM` |
-| `d` | Short date: `04/20/2025` |
-| `D` | Long date: `April 20, 2025` |
-| `f` | Short date/time: `April 20, 2025 4:20 PM` |
-| `F` | Long date/time: `Sunday, April 20, 2025 4:20 PM` |
-| `R` | Relative: `2 hours ago` |
+Formats: `t`, `T`, `d`, `D`, `f`, `F`, `R`.
 
 ```
 $sendMessage[Event starts: $addTimestamp[R]]
@@ -872,9 +967,35 @@ $sendMessage[Event starts: $addTimestamp[R]]
 
 ---
 
-## `$getBotInvent`
+## 🤖 Bot Info & Utilities
 
-Sends the bot's OAuth2 invite link (with Administrator permissions). Can be used inline.
+### `$ping`
+
+Sends current WebSocket latency in milliseconds.
+
+```
+$ping
+$sendMessage[Latency: $ping]
+```
+→ `Latency: 42ms`
+
+---
+
+### `$uptime`
+
+Sends time since bot started.
+
+```
+$uptime
+$sendMessage[Bot has been running for $uptime]
+```
+→ `Bot has been running for 2d 4h 12m 7s`
+
+---
+
+### `$getBotInvent`
+
+Sends the bot's OAuth2 invite link (with Admin permissions). Inline‑capable.
 
 ```
 $getBotInvent
@@ -883,9 +1004,9 @@ $sendMessage[Invite the bot: $getBotInvent]
 
 ---
 
-## `$clientTyping`
+### `$clientTyping`
 
-Shows a "Bot is typing…" indicator while the script runs. Automatically stopped when any message is sent.
+Shows a "Bot is typing…" indicator until a message is sent.
 
 ```
 $clientTyping
@@ -893,18 +1014,16 @@ $clientTyping
 
 ---
 
-## `$log`
+### `$log`
 
-Takes a snapshot of the execution log and sends it to a specified channel after the script finishes. Useful for auditing.
+Takes a snapshot of the execution log and sends it to a specified channel after the script finishes.
 
 ```
 $log[channelID]
 $log[channelID; name_code]
 ```
-
-- `name_code` — optional label shown in the log header
-- Multiple `$log` calls each capture events since the previous call
-- Short logs → code block; long logs (>2000 chars) → `.txt` file attachment (up to 10 MB)
+- Short logs → code block
+- Long logs (>2000 chars) → `.txt` attachment
 
 ```
 $log[987654321098765432; admin-audit]
@@ -912,66 +1031,18 @@ $log[987654321098765432; admin-audit]
 
 ---
 
-## `$addUserReactions`
+## 📊 Return Commands (Data Fetching)
 
-Adds emoji reactions to the **user's** triggering message. Max **20** emojis.
+These commands populate return variables that can be read with `$return[name]`.
 
-```
-$addUserReactions[emoji1; emoji2; ...]
-```
+### `$returnGuildUsersID`
 
-```
-$addUserReactions[👍; ❤️; <:custom:123456789>]
-```
-
----
-
-## `$addBotReactions`
-
-Adds emoji reactions to the **last bot message** in this execution. Must be called after at least one bot message has been sent. Max **20** emojis.
-
-```
-$addBotReactions[emoji1; emoji2; ...]
-```
-
-```
-$sendMessage[Cast your vote!]
-$addBotReactions[👍; 👎]
-```
-
----
-
-## `$return`
-
-Reads a value stored by a `$returnXxx` command. **Inline-only** — not a standalone command.
-
-```
-$return[varName]
-```
-
-The variable must have been populated by one of the return commands below.
-
----
-
-## `$returnGuildUsersID`
-
-Fetches the IDs of all non-bot members in a server and stores them in a return variable.
+Fetches IDs of all non‑bot members.
 
 ```
 $returnGuildUsersID[guildID; fetchMode; var; separator]
 ```
-
-| Argument | Description |
-|----------|-------------|
-| `guildID` | Numeric ID of the server |
-| `fetchMode` | `cache` or `chunk` (see note below) |
-| `var` | Name of the return variable |
-| `separator` | Character or [named separator](#separators) |
-
-> **`fetchMode` guidance:**
-> - `cache` — uses cached members. Safe for servers up to ~50k–100k users.
-> - `chunk` — fetches all members from Discord directly. Avoid on servers with 5k–10k+ users; can cause significant delays or bot bans.
-
+- `fetchMode`: `cache` (fast, cached) or `chunk` (fetches all from Discord – use with caution on large servers).
 ```
 $returnGuildUsersID[$guildID; cache; members; com]
 $sendMessage[Member IDs: $return[members]]
@@ -979,69 +1050,45 @@ $sendMessage[Member IDs: $return[members]]
 
 ---
 
-## `$returnGuildChannelsID`
+### `$returnGuildChannelsID`
 
-Fetches channel IDs filtered by type and stores them in a return variable.
+Fetches channel IDs filtered by type.
 
 ```
 $returnGuildChannelsID[guildID; channelType; var; separator]
 ```
-
-| `channelType` | Matches |
-|---------------|---------|
-| `text` | Text channels |
-| `voice` | Voice channels |
-| `category` | Category channels |
-| `forum` | Forum channels |
-| `stage` | Stage channels |
-| `all` | All types |
-
+Types: `text`, `voice`, `category`, `forum`, `stage`, `all`.
 ```
 $returnGuildChannelsID[$guildID; text; channels; com]
-$sendMessage[Text channel IDs: $return[channels]]
+$sendMessage[Text channels: $return[channels]]
 ```
 
 ---
 
-## `$returnGuildRolesID`
+### `$returnGuildRolesID`
 
-Fetches role IDs, optionally filtered by permission. `@everyone` is always excluded.
+Fetches role IDs, optionally filtered by permission. Excludes `@everyone`.
 
 ```
 $returnGuildRolesID[guildID; permission; var; separator]
 ```
-
-Leave `permission` empty or use `all` for all roles. Accepts named permissions or raw permission integers.
-
-**Supported named permissions:** `admin`, `manage_guild`, `manage_roles`, `manage_channels`, `manage_messages`, `kick_members`, `ban_members`, `moderate_members`, `send_messages`, `view_channel`, `connect`, `speak`, and more.
-
+Leave empty or use `all` for all roles. Named permissions: `admin`, `manage_guild`, `manage_roles`, `kick_members`, `ban_members`, `moderate_members`, etc.
 ```
 $returnGuildRolesID[$guildID; admin; adminRoles; com]
-$sendMessage[Admin role IDs: $return[adminRoles]]
+$sendMessage[Admin roles: $return[adminRoles]]
 ```
 
 ---
 
-## `$returnGetReactions`
+### `$returnGetReactions`
 
-Fetches reaction data from a specific message and stores it in a return variable.
+Fetches reaction data from a specific message.
 
 ```
 $returnGetReactions[channelID; messageID; type; var; separator; emoji]
 ```
-
-| Argument | Description |
-|----------|-------------|
-| `channelID` | Channel containing the message |
-| `messageID` | Target message ID |
-| `type` | `usersID` → IDs of reactors; `tr` → total reaction count |
-| `var` | Name of the return variable |
-| `separator` | Separator (used with `usersID`) |
-| `emoji` | Unicode or custom emoji (`<:name:id>`) |
-
-With `type = tr`: if the emoji wasn't on the message, result is `0`.
-
-> **Note:** For messages with 5k+ reactions, this command may behave unexpectedly. It's still being refined for very large reaction counts.
+- `type`: `usersID` (list of reactor IDs) or `tr` (total reaction count)
+- If `type = tr` and emoji not found, result is `0`.
 
 ```
 $returnGetReactions[$channelID; $messageID; tr; voteCount; com; 👍]
@@ -1050,64 +1097,134 @@ $sendMessage[Total 👍 votes: $return[voteCount]]
 
 ---
 
-## Events
+## 🚀 Events
 
-Event scripts are triggered automatically by Discord events rather than user commands. They use a special first-line syntax to declare their type and target channel.
+Event scripts are triggered automatically by Discord events. They start with a special first‑line declaration:
 
-**First-line format:**
 ```
-#PREFIX:$eventName[channelID]
+#PREFIX:$eventName[channelID]   (most events)
+#PREFIX:$alwaysReply            (no channel ID)
+#PREFIX:$onInteraction          (optional custom_id)
+#PREFIX:$messageContains[word1; word2; ...]   (case‑insensitive)
+#PREFIX:$messageContainsAll[word1; word2; ...]
 ```
 
-The `channelID` in the first line tells the bot where to send any messages produced by the script. The rest of the file is a normal FDScript.
+The `channelID` tells the bot where to send messages produced by the script. For `$alwaysReply`, output is automatically replied to the triggering message.
+
+> All event scripts are placed in the `events/` folder and are monitored by the bot.
 
 ---
 
-## `$onJoined`
+### `$alwaysReply`
 
-Triggered when a new member joins the server.
+Triggered on **every** non‑bot message. All output is automatically replied.
+
+**First line:**
+```
+#PREFIX:$alwaysReply
+```
+
+**Available variables:** All standard built‑in variables are available. `$message` returns the **full message content** (no trigger prefix).
+
+**Example:**
+```
+#PREFIX:$alwaysReply
+$if[$or[$message == hello; $message == hi]]
+  $sendMessage[Hey $mention! 👋]
+$endif
+```
+> Use carefully – it fires on all messages.
+
+---
+
+### `$messageContains`
+
+Triggered when the message contains **any** of the listed words (case‑insensitive).
+
+**First line:**
+```
+#PREFIX:$messageContains[word1; word2; ...]
+```
+
+**Example:**
+```
+#PREFIX:$messageContains[hello; hi; hey]
+$sendMessage[Hello to you too, $mention!]
+```
+
+---
+
+### `$messageContainsAll`
+
+Triggered when the message contains **all** of the listed words (case‑insensitive).
+
+**First line:**
+```
+#PREFIX:$messageContainsAll[word1; word2; ...]
+```
+
+**Example:**
+```
+#PREFIX:$messageContainsAll[ping; bot]
+$sendMessage[Yes, I am online!]
+```
+
+---
+
+### `$onInteraction`
+
+Triggered when a button or select menu is interacted with. You can either listen to **all** interactions, or filter by a specific `custom_id`.
+
+**First line (all interactions):**
+```
+#PREFIX:$onInteraction
+```
+
+**First line (specific custom_id):**
+```
+#PREFIX:$onInteraction[custom_id]
+```
+
+**Available variables:** Standard built‑ins (`$authorID`, `$authorName`, `$guildID`, etc.) are available via the original message. `$message` is not available.
+
+**Example (specific button):**
+```
+#PREFIX:$onInteraction[confirm_btn]
+$sendMessage[You confirmed the action!]
+```
+
+---
+
+### `$onJoined`
+
+Triggered when a member joins the server.
 
 **First line:**
 ```
 #PREFIX:$onJoined[channelID]
 ```
 
-**Available variables:**
-
-| Variable | Value |
-|----------|-------|
-| `$authorID` | ID of the member who joined |
-| `$authorName` | Username of the member who joined |
-| `$mention` | Mention string of the member (`<@id>`) |
-| `$channelID` | ID of the target channel (from the first line) |
-| `$channelName` | Name of the target channel |
-| `$guildID` | Numeric ID of the server |
-| `$guildName` | Name of the server |
-| `$botID` | Numeric ID of the bot |
-| `$botName` | Username of the bot |
-
-> `$message` and `$messageID` are **not available** — there is no triggering message in this event.
+**Available variables:** `$authorID`, `$authorName`, `$mention`, `$guildID`, `$guildName`, `$membersCount`, `$botID`, `$botName`.  
+`$message` and `$messageID` are **not** available.
 
 **Example:**
 ```
 #PREFIX:$onJoined[123456789012345678]
-$sendMessage[Welcome to the server, $mention! 🎉]
+$sendMessage[Welcome $mention! You are member number $membersCount. 🎉]
 ```
 
 ---
 
-## `$onLeave`
+### `$onLeave`
 
-Triggered when a member leaves or is removed from the server.
+Triggered when a member leaves or is removed.
 
 **First line:**
 ```
 #PREFIX:$onLeave[channelID]
 ```
 
-**Available variables:** Same as [`$onJoined`](#onjoined) — the member data refers to the user who left.
-
-> `$message` and `$messageID` are **not available**.
+**Available variables:** Same as `$onJoined` – refers to the user who left.
 
 **Example:**
 ```
@@ -1117,36 +1234,49 @@ $sendMessage[**$authorName** has left the server. 👋]
 
 ---
 
-## `$alwaysReply`
+### `$onVoiceJoined`
 
-Triggered on **every message** sent in the server (by non-bot users). Unlike command scripts, there is no trigger prefix — the script runs for all messages.
-
-All output is automatically sent as a **reply** to the triggering message. No need for `$reply`.
+Triggered when a member joins a voice channel.
 
 **First line:**
 ```
-#PREFIX:$alwaysReply
+#PREFIX:$onVoiceJoined[channelID]
 ```
 
-**Available variables:** All standard built-in variables are available.
-
-> **`$message` behavior:** Returns the **full message content** — not just text after a trigger, since there is no trigger prefix in this event.
+**Available variables:** Same as `$onJoined` (the member refers to the user who joined voice). The voice channel itself is not directly exposed as a variable, but you can use `$channelName` or `$channelID` (if defined via the script context) – note that the target channel is the one in the first line.
 
 **Example:**
 ```
-#PREFIX:$alwaysReply
-$if[$message == hello]
-$sendMessage[Hello there, $mention! 👋]
-$endif
+#PREFIX:$onVoiceJoined[123456789012345678]
+$sendMessage[**$authorName** just joined a voice channel! 🎧]
 ```
-
-> **Warning:** This event fires on every single message in the server. Use conditions carefully to avoid the bot responding to everything.
 
 ---
 
-## Separators
+### `$onVoiceLeave`
 
-Commands that return lists accept a `separator` argument. Pass a literal character or a named alias.
+Triggered when a member leaves a voice channel.
+
+**First line:**
+```
+#PREFIX:$onVoiceLeave[channelID]
+```
+
+**Available variables:** Same as `$onVoiceJoined`.
+
+**Example:**
+```
+#PREFIX:$onVoiceLeave[123456789012345678]
+$sendMessage[**$authorName** left the voice channel. 👋]
+```
+
+---
+
+## 📚 Reference
+
+### Separators
+
+Used in list‑returning commands. Pass a literal character or a named alias.
 
 | Name | Character |
 |------|-----------|
@@ -1156,13 +1286,17 @@ Commands that return lists accept a `separator` argument. Pass a literal charact
 | `sem` | `;` |
 | `colon` | `:` |
 
-> **Important:** You can **never** pass `;` directly as a separator — it's the argument delimiter. Use `sem` instead.
+> You **cannot** pass `;` directly – use `sem`.
+
+### Color Names
+
+See [Color Names](#color-names) section above.
 
 ---
 
 ## Full Examples
 
-### Server info embed
+### Server Info Embed
 ```
 $color[blurple]
 $title[📊 Server Info]
@@ -1173,104 +1307,62 @@ $description[**Name:** $guildName
 $footer[Requested by $authorName]
 ```
 
----
-
-### Persistent hit counter
+### Persistent Hit Counter
 ```
 $var[count; $getVar[hits]]
 $var[count; $sum[$var[count]; 1]]
 $setVar[hits; $var[count]]
 $sendMessage[$authorName, you have used this command $var[count] times.]
 ```
-*Output on the 3rd call:*
-```
-user, you have used this command 3 times.
-```
 
----
-
-### Cooldown command
+### Cooldown Command
 ```
 $cooldown[30s; ⏳ Wait {time} before using this again!]
 $sendMessage[Command executed!]
 ```
 
----
-
-### Simple guessing game
+### Guessing Game
 ```
 $strictArgs[>0; Please provide a number.]
 $var[guess; $message]
 $var[answer; 7]
 $if[$var[guess] == $var[answer]]
-$sendMessage[Correct!]
+  $sendMessage[Correct!]
 $else
-$sendMessage[Wrong, try again.]
+  $sendMessage[Wrong, try again.]
 $endif
 ```
 
----
-
-### Reply to user
-```
-$reply
-$sendMessage[Here is your answer, $mention!]
-```
-
----
-
-### DM a specific user
-```
-$dm[123456789012345678]
-$sendMessage[Hello! You've been selected for a giveaway.]
-```
-
----
-
-### Reaction vote
+### Reaction Vote
 ```
 $sendMessage[Vote now! 👍 for yes, 👎 for no.]
 $addBotReactions[👍; 👎]
 ```
 
----
-
-### Bot invite link
-```
-$sendMessage[Add the bot: $getBotInvent]
-```
-
----
-
-### Audit log snapshot
+### Audit Log Snapshot
 ```
 $sendMessage[Command executed.]
 $log[987654321098765432; command-audit]
 ```
 
----
-
-### Random role picker
-```
-$randomstr[Warrior; Mage; Rogue; Healer]
-```
-
----
-
-### Welcome message on join
-```
-#PREFIX:$onJoined[123456789012345678]
-$sendMessage[Welcome $mention! You are member number $membersCount. 🎉]
-```
-
----
-
-### Auto-reply to greetings
+### Auto‑Reply to Greetings (Event)
 ```
 #PREFIX:$alwaysReply
 $if[$or[$message == hello; $message == hi; $message == hey]]
-$sendMessage[Hey $mention! 👋]
+  $sendMessage[Hey $mention! 👋]
 $endif
+```
+
+### Button Interaction (Event)
+```
+#PREFIX:$onInteraction[confirm_btn]
+$sendMessage[You confirmed the action!]
+```
+
+### Welcome on Join (Event)
+```
+#PREFIX:$onJoined[123456789012345678]
+$sendMessage[Welcome $mention! You are member number $membersCount. 🎉]
 ```
 
 ---

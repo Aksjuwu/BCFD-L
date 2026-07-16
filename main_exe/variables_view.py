@@ -325,20 +325,12 @@ class BotVariablesTab:
             on_proceed and on_proceed()
 
     def guard_tab_change(self, on_proceed: callable, on_cancel: callable = None):
-        """
-        يُستدعى من BotDashboardScreen عند محاولة تغيير التاب.
-        نلف on_proceed بدالة تُعيد تحميل المتغيرات من القرص
-        وتُعيد الواجهة إلى وضع القائمة قبل الانتقال،
-        سواء كان الحفظ يدوياً أو عبر ديالوج التحذير.
-        """
         def _reset_then_proceed():
-            # ── إعادة تحميل من القرص لضمان ظهور آخر تغيير ───────────────
             _sync_fdcore(self._bot_dir)
             self._variables    = _load_all_vars(self._bot_dir)
             self._current_view = 'list'
             self._refresh_list()
             self._container.content = self._list_root
-            # ── الانتقال للتاب المطلوب ─────────────────────────────────────
             on_proceed and on_proceed()
 
         if self.is_dirty:
@@ -612,11 +604,10 @@ class BotVariablesTab:
     # ── View switching ────────────────────────────────────────────────────────
 
     def _show_list(self):
-        # لا حاجة لـ _load_all_vars هنا — _refresh_list ستتكفل بذلك
         _sync_fdcore(self._bot_dir)
         self._current_view      = 'list'
         self._container.content = self._list_root
-        self._refresh_list()   # ← هي من تُحمّل وتُنظّف وتُحدّث
+        self._refresh_list()
         self._page.update()
 
     def _open_editor(self, var_path: str):
@@ -642,17 +633,14 @@ class BotVariablesTab:
 
     # ── List rendering ────────────────────────────────────────────────────────
 
-    # ══════════════════════════════════════════════════════════════════════════════
-#  List rendering  — النسخة المُصلَحة
+# ══════════════════════════════════════════════════════════════════════════════
+#  List rendering 
 # ══════════════════════════════════════════════════════════════════════════════
 
     def _refresh_list(self):
-        # ── إعادة تحميل طازجة من القرص في كل مرة ─────────────────────────────
-        # هذا يمنع التكرار الوهمي الناتج عن تداخل استدعاءات متعددة
         if self._bot_dir:
             self._variables = _load_all_vars(self._bot_dir)
 
-        # ── dedup بالـ path كخط دفاع أخير ────────────────────────────────────
         seen   = set()
         unique = []
         for v in self._variables:
@@ -662,7 +650,6 @@ class BotVariablesTab:
                 unique.append(v)
         self._variables = unique
     
-        # ── مسح القائمة وإعادة بنائها ────────────────────────────────────────
         self._grid.controls.clear()
     
         q = (self._search_inp.value or '').strip().lower()
@@ -770,16 +757,13 @@ class BotVariablesTab:
             print('[Variables] bot_dir not set')
             return False
 
-        # ── الكتابة الفعلية على القرص ──────────────────────────────────────
         self._edit_path = _write_var(
             self._bot_dir, name, value, self._edit_path
         )
         _sync_fdcore(self._bot_dir)
 
-        # ── تحديث عنوان المحرر ────────────────────────────────────────────
         self._editor_title.value = _ar(f'{name}.json')
 
-        # ── تحديث self._variables فوراً من القرص ──────────────────────────
         self._variables = _load_all_vars(self._bot_dir)
 
         self._clear_dirty()
@@ -790,8 +774,6 @@ class BotVariablesTab:
         return True
 
     def _save_variable(self, _):
-        """زر الحفظ اليدوي: يحفظ ثم يعود للقائمة."""
         if self._perform_save():
             self._show_list()
             
-#_show_list

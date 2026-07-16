@@ -15,14 +15,16 @@ def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) == 3:
-        name    = args[0].strip()
-        value   = args[1]
-        user_id = args[2].strip()
+        name    = ctx.resolve(args[0]).strip()
+        value   = ctx.resolve(args[1])
+        user_id = ctx.resolve(args[2]).strip()
 
         if not name:
             await _send_error(ch, FDLogicError("`$setVar` — variable name cannot be empty."))
+            return
         if not user_id:
             await _send_error(ch, FDLogicError("`$setVar` — user ID cannot be empty."))
+            return
 
         data = _load_ids_data()
         if name not in data:
@@ -32,22 +34,14 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ctx.log_event(f"setVar [{name}] for user {user_id} ← {_truncate(value)!r} (persistent)")
 
     elif len(args) == 2:
-        name  = args[0].strip()
-        value = args[1]
+        name  = ctx.resolve(args[0]).strip()
+        value = ctx.resolve(args[1])
 
         if not name:
-            await _send_error(ch, FDLogicError(
-                "`$setVar` — variable name cannot be empty."
-            ))
+            await _send_error(ch, FDLogicError("`$setVar` — variable name cannot be empty."))
+            return
 
         data = _load_data()
-
-        if name not in data:
-            await _send_error(ch, FDRuntimeError(
-                f"`$setVar[{name}]` — variable `{name}` does not exist.\n"
-                f"Tip: Create it first from the Variables tab in BCFD."
-            ))
-
         data[name] = value
         _save_data(data)
         ctx.log_event(f"setVar [{name}] ← {_truncate(value)!r} (persistent)")

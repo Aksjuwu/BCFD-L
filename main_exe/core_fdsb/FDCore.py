@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # main_exe/core_fdsb/FDCore.py 
-# Imported by both FDScript.py and every cmds_FDScripts/cmd_*.py
+# FDScript.py — Interpreter & Public API
 # ─────────────────────────────────────────────────────────────
 
 import asyncio
@@ -14,30 +14,30 @@ import re
 import random
 import time
 
-# ─────────────────────────────────────────────
-# Persistent storage globals
-# ─────────────────────────────────────────────
-
 _VARS_DIR: str = ''
 _BOT_START_TIME: float = 0.0
 _inline_resolver = None 
 _cooldowns: dict = {}
 
+BUTTON_STYLES = {
+    "primary": discord.ButtonStyle.primary,
+    "secondary": discord.ButtonStyle.secondary,
+    "success": discord.ButtonStyle.success,
+    "danger": discord.ButtonStyle.danger,
+    "link": discord.ButtonStyle.link
+}
 
 def set_bot_start_time(t: float):
     global _BOT_START_TIME
     _BOT_START_TIME = t
 
-
 def set_vars_dir(path: str):
     global _VARS_DIR
     _VARS_DIR = path
 
-
 def register_inline_resolver(fn):
     global _inline_resolver
     _inline_resolver = fn
-
 
 def _load_data() -> dict:
     if not _VARS_DIR or not os.path.isdir(_VARS_DIR):
@@ -55,7 +55,6 @@ def _load_data() -> dict:
             pass
     return result
 
-
 def _save_data(data: dict):
     if not _VARS_DIR:
         return
@@ -65,11 +64,6 @@ def _save_data(data: dict):
         path = os.path.join(_VARS_DIR, f'{safe}.json')
         with open(path, 'w', encoding='utf-8') as f:
             json.dump({'name': name, 'value': str(value)}, f, ensure_ascii=False, indent=2)
-
-
-# ─────────────────────────────────────────────
-# User-specific (per-user) variable storage
-# ─────────────────────────────────────────────
 
 def _get_ids_data_dir() -> str:
     if not _VARS_DIR:
@@ -97,43 +91,47 @@ def _save_ids_data(data: dict):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-
-# ─────────────────────────────────────────────
-# Reserved command names
-# ─────────────────────────────────────────────
-
 KNOWN_COMMANDS: set[str] = {
     # a
-    "addBotReactions", "addTimestamp", "addUserReactions", "and", "authorID", "authorName",
+    "addBotReactions", "addButton", "addTimestamp", "addUserReactions", "and",
+    "authorID", "authorName",
     # b
     "ban", "botID", "botName", "break",
     # c
-    "channelID", "channelName", "clear", "clientTyping", "color", "cooldown",
+    "changeUsername", "channelID", "channelName", "charCount", "clear",
+    "clientTyping", "cloneRole", "color", "cooldown", "createRole",
+    "customID",
     # d
-    "deletecommand", "description", "div", "dm",
+    "deletecommand", "deleteRole", "description", "div", "dm",
     # e
-    "elif", "else", "endfor", "endif", "endwhile",
+    "editButton", "editIn", "editMessage", "elif", "else",
+    "endfor", "endif", "endwhile",
     # f
     "footer", "for",
     # g
-    "getBotInvent", "getVar", "guildID", "guildName",
+    "getBotInvent", "getServerInvite", "getUserStatus", "getVar", "guildID",
+    "guildName",
     # i
-    "if", "image",
+    "if", "image", "isAdmin", "isBooster", "isBot", "isNumber",
+    "isOwner",
     # k
     "kick",
     # l
     "log",
     # m
-    "membersCount", "mention", "message", "messageID", "mod", "mul",
+    "math", "membersCount", "mention", "message", "messageID", "mod", "mul",
     # o
     "onlyAdmin", "onlyIf", "or",
     # p
     "ping",
     # r
-    "randomint", "randomstr", "randomUserID", "replaceText", "reply", "replyIn", "return",
-    "returnGetReactions", "returnGuildChannelsID", "returnGuildRolesID", "returnGuildUsersID",
+    "randomint", "randomRoleID", "randomRoleMention", "randomstr", "randomUserID",
+    "removeButtons", "removeComponent", "replaceText", "reply", "replyIn",
+    "return", "returnGetReactions", "returnGuildChannelsID", "returnGuildRolesID", "returnGuildUsersID",
+    "roleAssign", "round",
     # s
-    "sendEmbedMessage", "sendMessage", "setVar", "slowmode", "strictArgs", "sub", "sum",
+    "sendEmbedMessage", "sendMessage", "serverOwnerID", "setVar", "slowmode",
+    "splitIn", "splitOut", "strictArgs", "sub", "suppressErrors", "sum", "switch",
     # t
     "timeout", "title",
     # u
@@ -144,42 +142,30 @@ KNOWN_COMMANDS: set[str] = {
     "wait", "while"
 }
 
-
 def get_reserved_names() -> set[str]:
     return KNOWN_COMMANDS
-
-
-# ─────────────────────────────────────────────
-# Error classes
-# ─────────────────────────────────────────────
 
 class StopExecution(Exception):
     pass
 
-
 class _FDError(Exception):
     _category: str = "Error"
     _icon: str = "❌"
-
     def __init__(self, message: str):
         super().__init__(message)
         self.msg = message
-
 
 class FDSyntaxError(_FDError):
     _category = "Syntax Error"
     _icon = "🔴"
 
-
 class FDLogicError(_FDError):
     _category = "Logic Error"
     _icon = "🟠"
 
-
 class FDRuntimeError(_FDError):
     _category = "Runtime Error"
     _icon = "🟡"
-
 
 class FDEnvironmentError(_FDError):
     _category = "Environment Error"
@@ -189,6 +175,17 @@ class FDAbortScript(Exception):
     pass
 
 async def _send_error(ch, error) -> None:
+    ctx = getattr(ch, 'ctx', None)
+    if ctx is not None and getattr(ctx, 'suppress_errors', False):
+        ctx.log_event(f"[suppressed] {error._category}: {error.msg}")
+        custom_msg = getattr(ctx, 'suppress_errors_message', None)
+        if custom_msg and ch is not None:
+            try:
+                await ch.send(custom_msg)
+            except Exception as e:
+                print(f"[FDScript Error Logger] Failed to send suppressed-error message: {e}")
+        raise FDAbortScript()
+
     if ch is not None:
         try:
             await ch.send(f"{error._icon} **{error._category}** — {error.msg}")
@@ -196,13 +193,7 @@ async def _send_error(ch, error) -> None:
             print(f"[FDScript Error Logger] Failed to send error to channel: {e}")
     else:
         print(f"[FDScript Console Error] {error._category}: {error.msg}")
-    
     raise FDAbortScript()
-
-
-# ─────────────────────────────────────────────
-# Bracket helpers
-# ─────────────────────────────────────────────
 
 def _find_matching_bracket(text: str, open_pos: int) -> int:
     depth = 0
@@ -217,7 +208,6 @@ def _find_matching_bracket(text: str, open_pos: int) -> int:
         i += 1
     return -1
 
-
 def _check_brackets(text: str) -> tuple[bool, str]:
     depth = 0
     for pos, ch in enumerate(text):
@@ -230,11 +220,6 @@ def _check_brackets(text: str) -> tuple[bool, str]:
     if depth > 0:
         return False, f"{'One unclosed' if depth == 1 else f'{depth} unclosed'} opening `[`"
     return True, ""
-
-
-# ─────────────────────────────────────────────
-# Escape sequence processor
-# ─────────────────────────────────────────────
 
 _ESCAPE_MAP: dict[str, str] = {
     'n':  '\n',
@@ -250,20 +235,13 @@ _ESCAPE_MAP: dict[str, str] = {
     '"':  '"',
 }
 
-
 def _process_escapes(text: str) -> str:
     def _replace(m: 're.Match') -> str:
         ch = m.group(1)
         return _ESCAPE_MAP.get(ch, m.group(0))
     return re.sub(r'\\(.)', _replace, text)
 
-
-# ─────────────────────────────────────────────
-# Timestamp helper
-# ─────────────────────────────────────────────
-
 _VALID_TIMESTAMP_FORMATS = {'t', 'T', 'd', 'D', 'f', 'F', 'R'}
-
 
 def _build_timestamp(fmt: str) -> str | _FDError:
     fmt = fmt.strip() if fmt.strip() else 'T'
@@ -274,15 +252,9 @@ def _build_timestamp(fmt: str) -> str | _FDError:
         )
     return f'<t:{int(time.time())}:{fmt}>'
 
-
-# ─────────────────────────────────────────────
-# Reaction helpers
-# ─────────────────────────────────────────────
-
 _REACTIONS_MAX: int = 20
 _CLEAR_DEFAULT: int = 10
 _CLEAR_MAX:     int = 100
-
 
 def _parse_reaction_emoji(raw: str) -> str | None:
     raw = raw.strip()
@@ -291,7 +263,6 @@ def _parse_reaction_emoji(raw: str) -> str | None:
     if re.match(r'^<a?:[a-zA-Z0-9_]+:\d+>$', raw):
         return raw
     return raw
-
 
 def _extract_all_emojis(text: str) -> list[str]:
     custom_emoji_pattern = r'<a?:[a-zA-Z0-9_]+:\d+>'
@@ -305,30 +276,19 @@ def _extract_all_emojis(text: str) -> list[str]:
         r'\u2700-\u27BF]'
     )
     single_emoji = f'(?:{emoji_range}|[\U0001F1E6-\U0001F1FF]{{2}}|[0-9#*]\ufe0f?\u20e3)'
-    modifier  = r'[\U0001F3FB-\U0001F3FF]'
+    modifier  = r'[\U0001F3FB-\U0001F3FF]?'
     selector  = r'\ufe0f?'
     component = f'{single_emoji}{modifier}{selector}'
     unicode_emoji_pattern = f'{component}(?:\u200d{component})*'
     combined_pattern = f'({custom_emoji_pattern}|{unicode_emoji_pattern})'
     return re.findall(combined_pattern, text)
 
-
-# ─────────────────────────────────────────────
-# Log helpers
-# ─────────────────────────────────────────────
-
 _LOG_CHAR_LIMIT = 2000
-_LOG_FILE_LIMIT = 10 * 1024 * 1024  # 10 MB
-
+_LOG_FILE_LIMIT = 10 * 1024 * 1024
 
 def _truncate(text: str, limit: int = 40) -> str:
     text = text.replace('\n', ' ')
     return text[:limit] + '…' if len(text) > limit else text
-
-
-# ─────────────────────────────────────────────
-# Uptime helper
-# ─────────────────────────────────────────────
 
 def _format_uptime(seconds: float) -> str:
     total = int(seconds)
@@ -342,11 +302,6 @@ def _format_uptime(seconds: float) -> str:
     parts.append(f"{secs}s")
     return ' '.join(parts)
 
-
-# ─────────────────────────────────────────────
-# Embed helpers
-# ─────────────────────────────────────────────
-
 _NAMED_COLORS: dict[str, int] = {
     "red":0xE74C3C, "green":0x2ECC71, "blue":0x3498DB, "yellow":0xF1C40F,
     "orange":0xE67E22, "purple":0x9B59B6, "pink":0xFF69B4, "white":0xFFFFFF,
@@ -354,7 +309,6 @@ _NAMED_COLORS: dict[str, int] = {
     "gold":0xF9A825, "navy":0x2C3E50, "lime":0x27AE60, "brown":0xA0522D,
     "teal":0x008080, "magenta":0xFF00FF, "blurple":0x5865F2, "dark":0x2B2D31,
 }
-
 
 def _parse_color(raw: str) -> int:
     raw = raw.strip().lower()
@@ -365,15 +319,26 @@ def _parse_color(raw: str) -> int:
     except ValueError:
         return 0x2B2D31
 
+def _scan_suppress_errors(script_text: str) -> tuple[bool, str | None]:
+    match = re.search(r'\$suppressErrors\b', script_text)
+    if not match:
+        return False, None
+
+    end = match.end()
+    if end < len(script_text) and script_text[end] == '[':
+        close = _find_matching_bracket(script_text, end)
+        if close != -1:
+            custom = script_text[end + 1:close].strip()
+            return True, (custom or None)
+
+    return True, None
 
 _NAMED_SEPARATORS: dict[str, str] = {
     "dot": ".", "com": ",", "apo": "'", "sem": ";", "colon": ":",
 }
 
-
 def _parse_separator(raw: str) -> str:
     return _NAMED_SEPARATORS.get(raw.strip(), raw.strip())
-
 
 class _EmbedBuilder:
     def __init__(self):
@@ -394,11 +359,6 @@ class _EmbedBuilder:
         if self.footer:
             e.set_footer(text=self.footer)
         return e
-
-
-# ─────────────────────────────────────────────
-# DM helper
-# ─────────────────────────────────────────────
 
 async def _resolve_dm_target(
     target_str: str,
@@ -434,11 +394,6 @@ async def _resolve_dm_target(
             return None
     return user
 
-
-# ─────────────────────────────────────────────
-# Guild helpers
-# ─────────────────────────────────────────────
-
 _CHANNEL_TYPES: dict[str, type] = {
     "text":     discord.TextChannel,
     "voice":    discord.VoiceChannel,
@@ -461,7 +416,6 @@ _PERMISSION_NAMES: set[str] = {
     "use_application_commands","use_embedded_activities",
 }
 
-
 def _resolve_permission(raw: str) -> discord.Permissions | None | bool:
     raw = raw.strip().lower()
     if not raw or raw == "all":
@@ -472,41 +426,80 @@ def _resolve_permission(raw: str) -> discord.Permissions | None | bool:
         return discord.Permissions(**{raw: True})
     return False
 
-
-# ─────────────────────────────────────────────
-# Pending log entry
-# ─────────────────────────────────────────────
-
 class _PendingLog:
     def __init__(self, channel_id: int, name_code: str, entries: list[str]):
         self.channel_id = channel_id
         self.name_code  = name_code
         self.entries    = entries
 
-
-# ─────────────────────────────────────────────
-# Reply Wrapper
-# ─────────────────────────────────────────────
-
-class _ReplyWrapper:
-    def __init__(self, message: discord.Message):
-        self._message = message
+class InteractionChannelWrapper:
+    def __init__(self, interaction: discord.Interaction, ctx):
+        self._interaction = interaction
+        self.ctx = ctx
 
     async def send(self, *args, **kwargs):
-        return await self._message.reply(*args, **kwargs)
+        view = kwargs.pop('view', self.ctx.view)
+        msg = await self._interaction.followup.send(*args, view=view, **kwargs)
+        # This send just carried whatever is currently in ctx.view (if any),
+        # so there is nothing left pending against an older message.
+        self.ctx.last_bot_message = msg
+        self.ctx._view_dirty = False
+        self.ctx._view_dirty_target = None
+        return msg
+
+    def __getattr__(self, name):
+        return getattr(self._interaction.channel, name)
+
+class NormalChannelWrapper:
+    def __init__(self, channel: discord.abc.Messageable, ctx):
+        self._channel = channel
+        self.ctx = ctx
+
+    async def send(self, *args, **kwargs):
+        view = kwargs.pop('view', self.ctx.view)
+        msg = await self._channel.send(*args, view=view, **kwargs)
+        self.ctx.last_bot_message = msg
+        self.ctx._view_dirty = False
+        self.ctx._view_dirty_target = None
+        return msg
+
+    def __getattr__(self, name):
+        return getattr(self._channel, name)
+
+class _ReplyWrapper:
+    def __init__(self, message: discord.Message, ctx):
+        self._message = message
+        self.ctx = ctx
+
+    async def send(self, *args, **kwargs):
+        view = kwargs.pop('view', self.ctx.view)
+        msg = await self._message.reply(*args, view=view, **kwargs)
+        self.ctx.last_bot_message = msg
+        self.ctx._view_dirty = False
+        self.ctx._view_dirty_target = None
+        return msg
 
     def __getattr__(self, name):
         return getattr(self._message.channel, name)
 
-
-# ─────────────────────────────────────────────
-# Execution Context
-# ─────────────────────────────────────────────
-
 class ExecutionContext:
-    def __init__(self, message: discord.Message = None, bot: discord.Client = None, member: discord.Member = None, is_event: bool = False):
+    def __init__(self, message: discord.Message = None, bot: discord.Client = None, member: discord.Member = None, is_event: bool = False, interaction: discord.Interaction = None):
         self.bot = bot
         self.is_event = is_event
+        self.interaction = interaction
+        self.suppress_errors: bool = False
+        self.suppress_errors_message: str | None = None
+        self.view = None
+        # Unified pending-view token system: when a button is added onto an
+        # ALREADY-sent message (no new send happened yet since), _view_dirty
+        # is True and _view_dirty_target holds that exact message. Exactly
+        # one place (Interpreter._flush_message) resolves this — either by
+        # editing that target, or by being cleared automatically the moment
+        # any wrapper .send() goes out carrying the same ctx.view. There is
+        # no timer and no second code path, so the same button can never be
+        # applied twice.
+        self._view_dirty: bool = False
+        self._view_dirty_target: discord.Message | None = None
         self.temp_vars: dict = {}
         self._typing_task: asyncio.Task | None = None
         self.last_bot_message: discord.Message | None = None
@@ -517,20 +510,38 @@ class ExecutionContext:
         self.embed_builder: _EmbedBuilder = _EmbedBuilder()
         self.return_vars: dict = {}
         self.dm_target: discord.User | discord.Member | None = None
-        self._channel_override: discord.abc.Messageable | None = None 
+        self._channel_override: discord.abc.Messageable | None = None
+        self.current_line_no: int | None = None
+        self._resolve_root_text: str = ''
+        self.text_buffer = ""
 
-        if message is not None:
+        if interaction is not None:
+            self.message = interaction.message or message
+            self.builtins: dict = {
+                "authorID": str(interaction.user.id),
+                "authorName": interaction.user.name,
+                "botID": str(bot.user.id) if bot.user else "",
+                "botName": bot.user.name if bot.user else "",
+                "channelID": str(interaction.channel.id) if interaction.channel else "",
+                "channelName": interaction.channel.name if interaction.channel else "",
+                "guildID": str(interaction.guild.id) if interaction.guild else "DM",
+                "guildName": interaction.guild.name if interaction.guild else "DM",
+                "mention": interaction.user.mention,
+                "customID": str(interaction.data.get("custom_id", "")) if interaction.data else ""
+            }
+        elif message is not None:
             self.message = message
             self.builtins: dict = {
-                "authorID":    str(message.author.id),
-                "authorName":  message.author.name,
-                "botID":       str(bot.user.id) if bot.user else "",
-                "botName":     bot.user.name if bot.user else "",
-                "channelID":   str(message.channel.id),
+                "authorID": str(message.author.id),
+                "authorName": message.author.name,
+                "botID": str(bot.user.id) if bot.user else "",
+                "botName": bot.user.name if bot.user else "",
+                "channelID": str(message.channel.id),
                 "channelName": message.channel.name,
-                "guildID":     str(message.guild.id) if message.guild else "DM",
-                "guildName":   message.guild.name if message.guild else "DM",
-                "mention":     message.author.mention,
+                "guildID": str(message.guild.id) if message.guild else "DM",
+                "guildName": message.guild.name if message.guild else "DM",
+                "mention": message.author.mention,
+                "customID": ""
             }
         elif member is not None:
             guild = member.guild
@@ -547,15 +558,16 @@ class ExecutionContext:
             self.message = DummyMessage()
             
             self.builtins: dict = {
-                "authorID":    str(member.id),
-                "authorName":  member.name,
-                "botID":       str(bot.user.id) if bot.user else "",
-                "botName":     bot.user.name if bot.user else "",
-                "channelID":   str(channel.id) if channel else "",
+                "authorID": str(member.id),
+                "authorName": member.name,
+                "botID": str(bot.user.id) if bot.user else "",
+                "botName": bot.user.name if bot.user else "",
+                "channelID": str(channel.id) if channel else "",
                 "channelName": channel.name if channel else "",
-                "guildID":     str(guild.id) if guild else "Unknown Guild",
-                "guildName":   guild.name if guild else "Unknown Guild",
-                "mention":     member.mention,
+                "guildID": str(guild.id) if guild else "Unknown Guild",
+                "guildName": guild.name if guild else "Unknown Guild",
+                "mention": member.mention,
+                "customID": ""
             }
         else:
             self.message = None
@@ -596,40 +608,65 @@ class ExecutionContext:
             self._typing_task = None
 
     async def get_dest(self) -> discord.abc.Messageable:
+        if self.interaction is not None:
+            return InteractionChannelWrapper(self.interaction, self)
         if self._channel_override is not None:
-            return self._channel_override
+            return NormalChannelWrapper(self._channel_override, self)
         if self.dm_target is not None:
-            return await self.dm_target.create_dm()
+            dm = await self.dm_target.create_dm()
+            return NormalChannelWrapper(dm, self)
         if getattr(self, 'is_global_reply', False):
-            return _ReplyWrapper(self.message)
-        return self.message.channel
-    
-    def _abort_with_error(self, err: _FDError):
+            return _ReplyWrapper(self.message, self)
+        return NormalChannelWrapper(self.message.channel, self)
+
+    def set_line(self, line_no: int | None):
+        self.current_line_no = line_no
+
+    def _abort_with_error(self, err: _FDError, pos: int | None = None):
+        line_no = self.current_line_no
+        col = None
+
+        if pos is not None:
+            root = self._resolve_root_text or ''
+            extra_lines = root.count('\n', 0, pos)
+            last_nl = root.rfind('\n', 0, pos)
+            col = pos - last_nl - 1 if last_nl != -1 else pos
+            if line_no is not None:
+                line_no = line_no + extra_lines
+
+        loc_parts = []
+        if line_no is not None:
+            loc_parts.append(f"Line {line_no}")
+        if col is not None:
+            loc_parts.append(f"Col {col + 1}")
+        if loc_parts:
+            err.msg = f"[{', '.join(loc_parts)}] {err.msg}"
+
         self.log_event(f"Aborted: {err.msg}")
         ch = self.message.channel if getattr(self, "message", None) else None
-        
+
         async def _bg_send():
             try:
                 await _send_error(ch, err)
             except FDAbortScript:
                 pass
-                
+
         try:
             loop = asyncio.get_running_loop()
             loop.create_task(_bg_send())
         except RuntimeError:
             print(f"[FDScript Console Error] {err._category}: {err.msg}")
-            
-        raise FDAbortScript()
 
-    # ── Expression resolver ─────────────────────────────────────────
+        raise FDAbortScript()
 
     def resolve(self, text: str) -> str:
         if not text:
             return text
-        return self._resolve_pass(_process_escapes(text))
+        processed = _process_escapes(text)
+        self._resolve_root_text = processed
+        return self._resolve_pass(processed, base_offset=0)
 
-    def _resolve_pass(self, text: str) -> str:
+    def _resolve_pass(self, text: str, base_offset: int = 0) -> str:
         result: list[str] = []
         i = 0
         n = len(text)
@@ -653,12 +690,13 @@ class ExecutionContext:
             if j < n and text[j] == '[':
                 bracket_end = _find_matching_bracket(text, j)
                 if bracket_end == -1:
-                    result.append(FDRuntimeError(f"Unclosed bracket in: ${cmd_name}[").msg)
-                    i = j + 1
-                    continue
+                    self._abort_with_error(
+                        FDSyntaxError(f"Unclosed bracket in `${cmd_name}[`"),
+                        base_offset + i
+                    )
                 inner_raw = text[j + 1:bracket_end]
-                inner = self._resolve_pass(inner_raw)
-                resolved = self._apply_cmd(cmd_name, inner)
+                inner = self._resolve_pass(inner_raw, base_offset + j + 1)
+                resolved = self._apply_cmd(cmd_name, inner, base_offset + i)
                 result.append(resolved)
                 i = bracket_end + 1
             else:
@@ -708,7 +746,7 @@ class ExecutionContext:
                 return val
         return None
 
-    def _apply_cmd(self, cmd_name: str, inner: str) -> str:
+    def _apply_cmd(self, cmd_name: str, inner: str, pos: int = 0) -> str:
         if cmd_name == 'var':
             parts = _split_args(inner)
             if len(parts) == 1:
@@ -717,36 +755,66 @@ class ExecutionContext:
                 self.set_var(parts[0], parts[1])
                 self.log_event(f"var [{parts[0]}] ← {_truncate(parts[1])!r}")
                 return ""
-            return FDLogicError(
-                "`$var[...]` accepts 1 argument (read) or 2 arguments (write)"
-            ).msg
+            self._abort_with_error(
+                FDLogicError("`$var[...]` accepts 1 argument (read) or 2 arguments (write)"),
+                pos
+            )
+
         if cmd_name == 'return':
             key = inner.strip()
             if not key:
-                return FDLogicError("`$return[]` — variable name cannot be empty").msg
+                self._abort_with_error(FDLogicError("`$return[]` — variable name cannot be empty"), pos)
             if key not in self.return_vars:
-                return FDRuntimeError(
-                    f"`$return[{key}]` — `{key}` has no value stored by any `$returnXxx` command"
-                ).msg
+                self._abort_with_error(
+                    FDRuntimeError(f"`$return[{key}]` — `{key}` has no value stored by any `$returnXxx` command"),
+                    pos
+                )
             return str(self.return_vars[key])
+
         if cmd_name in ('sum', 'sub', 'mul', 'div', 'mod'):
-            parts = [x.strip() for x in inner.split(';')]
-            if len(parts) != 2:
-                self._abort_with_error(FDLogicError(f"`${cmd_name}` requires exactly 2 arguments (e.g. `${cmd_name}[1; 2]`)"))
-            a = float(parts[0]) if parts[0] else 0.0
-            b = float(parts[1]) if parts[1] else 0.0
+            parts = _split_args(inner)
+
+            if len(parts) < 2:
+                self._abort_with_error(
+                    FDLogicError(f"`${cmd_name}` requires at least 2 arguments (e.g. `${cmd_name}[1; 2; 3]`)"),
+                    pos
+                )
+
             try:
-                if cmd_name == 'sum':  res = a + b
-                elif cmd_name == 'sub': res = a - b
-                elif cmd_name == 'mul': res = a * b
-                elif cmd_name == 'div':
-                    if b == 0:
-                        self._abort_with_error(FDRuntimeError("Division by zero in math operation"))
-                    res = a / b
-                elif cmd_name == 'mod': res = a % b
-                return str(int(res)) if float(res).is_integer() else str(res)
+                values = [float(p) if p else 0.0 for p in parts]
             except ValueError:
-                self._abort_with_error(FDLogicError(f"`${cmd_name}` — Non-numeric value. Cannot perform math operations on text, ensure you are using numbers."))
+                self._abort_with_error(
+                    FDLogicError(
+                        f"`${cmd_name}` — Non-numeric value. Cannot perform math operations on text, "
+                        f"ensure you are using numbers."
+                    ),
+                    pos
+                )
+
+            if cmd_name == 'sum':
+                res = sum(values)
+            elif cmd_name == 'mul':
+                res = 1.0
+                for v in values:
+                    res *= v
+            elif cmd_name == 'sub':
+                res = values[0]
+                for v in values[1:]:
+                    res -= v
+            elif cmd_name == 'div':
+                res = values[0]
+                for v in values[1:]:
+                    if v == 0:
+                        self._abort_with_error(FDRuntimeError("Division by zero in math operation"), pos)
+                    res /= v
+            else:
+                res = values[0]
+                for v in values[1:]:
+                    if v == 0:
+                        self._abort_with_error(FDRuntimeError("Division by zero in math operation (mod)"), pos)
+                    res %= v
+
+            return str(int(res)) if float(res).is_integer() else str(res)
 
         if cmd_name == 'randomint':
             parts = [x.strip() for x in inner.split(';')]
@@ -754,7 +822,7 @@ class ExecutionContext:
                 a = int(float(parts[0])) if parts[0] else 0
                 b = int(float(parts[1])) if parts[1] else 0
                 return str(random.randint(min(a, b), max(a, b)))
-            self._abort_with_error(FDLogicError("`$randomint` requires two arguments: `$randomint[min; max]`"))
+            self._abort_with_error(FDLogicError("`$randomint` requires two arguments: `$randomint[min; max]`"), pos)
         if cmd_name == 'randomstr':
             parts = [p.strip() for p in inner.split(';') if p.strip()]
             return random.choice(parts) if parts else ""
@@ -763,43 +831,50 @@ class ExecutionContext:
             if len(parts) == 2:
                 name, user_id = parts
                 if not name:
-                    return FDLogicError("`$getVar[]` — variable name cannot be empty").msg
+                    self._abort_with_error(FDLogicError("`$getVar[]` — variable name cannot be empty"), pos)
                 if not user_id:
-                    return FDLogicError("`$getVar[]` — user ID cannot be empty").msg
+                    self._abort_with_error(FDLogicError("`$getVar[]` — user ID cannot be empty"), pos)
                 data = _load_ids_data()
                 return str(data.get(name, {}).get(user_id, ''))
             elif len(parts) == 1:
                 key = parts[0]
                 if not key:
-                    return FDLogicError("`$getVar[]` — variable name cannot be empty").msg
+                    self._abort_with_error(FDLogicError("`$getVar[]` — variable name cannot be empty"), pos)
                 data = _load_data()
                 return str(data.get(key, ''))
             else:
-                return FDLogicError(
-                    "`$getVar[]` requires 1 or 2 arguments: `$getVar[name]` or `$getVar[name; user_id]`"
-                ).msg
+                self._abort_with_error(
+                    FDLogicError(
+                        "`$getVar[]` requires 1 or 2 arguments: `$getVar[name]` or `$getVar[name; user_id]`"
+                    ),
+                    pos
+                )
         if _inline_resolver is not None:
             args = _split_args(inner) if inner.strip() else []
             val = _inline_resolver(cmd_name, args, self)
             if val is not None:
                 return val
         if cmd_name in KNOWN_COMMANDS:
-            return FDLogicError(
-                f"`${cmd_name}` cannot be used as an inline expression inside another command's arguments"
-            ).msg
+            self._abort_with_error(
+                FDLogicError(
+                    f"`${cmd_name}` cannot be used as an inline expression inside another command's arguments"
+                ),
+                pos
+            )
         return f"${cmd_name}[{inner}]"
-
-
-# ─────────────────────────────────────────────
-# Lexer
-# ─────────────────────────────────────────────
-
+    
 class Command:
-    def __init__(self, name: str, args: list[str], raw: str):
+    def __init__(self, name: str, args: list[str], raw: str, line_no: int | None = None):
         self.name = name
         self.args = args
         self.raw  = raw
+        self.line_no = line_no
 
+class TextToken(str):
+    def __new__(cls, value: str, line_no: int | None = None):
+        obj = str.__new__(cls, value)
+        obj.line_no = line_no
+        return obj
 
 def _strip_inline_comment(line: str) -> str:
     depth = 0
@@ -811,7 +886,6 @@ def _strip_inline_comment(line: str) -> str:
         elif ch == '#' and depth == 0:
             return line[:i].rstrip()
     return line
-
 
 def tokenise(line: str) -> 'Command | str | None':
     line = line.strip()
@@ -847,7 +921,6 @@ def tokenise(line: str) -> 'Command | str | None':
     args  = _split_args(inner)
     return Command(name, args, line)
 
-
 def _split_args(inner: str) -> list[str]:
     args = []
     depth = 0
@@ -868,18 +941,12 @@ def _split_args(inner: str) -> list[str]:
         args.append("".join(current).strip())
     return args
 
-
-# ─────────────────────────────────────────────
-# Multi-token line tokenizer
-# ─────────────────────────────────────────────
-
 _INLINE_VARS: set[str] = {
     'message', 'messageID', 'ping', 'uptime', 'mention',
     'authorID', 'authorName', 'botID', 'botName',
     'channelID', 'channelName', 'guildID', 'guildName',
-    'addTimestamp', 'randomUserID',
+    'addTimestamp', 'randomUserID', 'customID'
 }
-
 
 _INLINE_WITH_ARGS: set[str] = {
     'message', 'var', 'return',
@@ -889,8 +956,7 @@ _INLINE_WITH_ARGS: set[str] = {
     'replaceText',
 }
 
-
-def tokenise_line(line: str) -> list:
+def tokenise_line(line: str, base_line_no: int = 1) -> list:
     line = line.strip()
     if not line or line.startswith('#'):
         return []
@@ -898,23 +964,29 @@ def tokenise_line(line: str) -> list:
     if not line:
         return []
 
-    tokens:   list       = []
-    text_buf: list[str]  = []
+    def _line_at(pos: int) -> int:
+        return base_line_no + line.count('\n', 0, pos)
+
+    tokens:     list      = []
+    text_buf:   list[str] = []
+    text_start: int       = 0
     i            = 0
     n            = len(line)
     at_boundary  = True
 
     def flush_text() -> None:
-        nonlocal text_buf
+        nonlocal text_buf, text_start
         chunk = ''.join(text_buf).strip()
         if chunk:
-            tokens.append(chunk)
+            tokens.append(TextToken(chunk, _line_at(text_start)))
         text_buf = []
 
     while i < n:
         ch = line[i]
 
         if ch in (' ', '\t'):
+            if not text_buf:
+                text_start = i
             text_buf.append(ch)
             at_boundary = True
             i += 1
@@ -930,26 +1002,28 @@ def tokenise_line(line: str) -> list:
             is_known   = cmd_name in KNOWN_COMMANDS or is_control
 
             if cmd_name and is_known:
-                flush_text()
-
                 if j >= n or line[j] != '[':
                     if cmd_name in _INLINE_VARS:
+                        if not text_buf:
+                            text_start = i
                         text_buf.append(f'${cmd_name}')
                         i = j
                         at_boundary = False
                         continue
                     flush_text()
-                    tokens.append(Command(cmd_name, [], f'${cmd_name}'))
+                    tokens.append(Command(cmd_name, [], f'${cmd_name}', _line_at(i)))
                     i = j
                     at_boundary = True
                     continue
 
                 bracket_end = _find_matching_bracket(line, j)
                 if bracket_end == -1:
+                    flush_text()
                     tokens.append(Command(
                         '__syntax_error__',
                         [f'Unclosed bracket in `${cmd_name}`'],
-                        f'${cmd_name}['
+                        f'${cmd_name}[',
+                        _line_at(i)
                     ))
                     i = j + 1
                     at_boundary = False
@@ -958,33 +1032,40 @@ def tokenise_line(line: str) -> list:
                 inner = line[j + 1:bracket_end]
                 ok, err_msg = _check_brackets(f'[{inner}]')
                 if not ok:
+                    flush_text()
                     tokens.append(Command(
                         '__syntax_error__',
                         [f'Bracket error in `{cmd_name}`: {err_msg}'],
-                        line
+                        line,
+                        _line_at(i)
                     ))
                     i = bracket_end + 1
                     at_boundary = True
                     continue
-                
+
                 if cmd_name in _INLINE_WITH_ARGS:
+                    if not text_buf:
+                        text_start = i
                     text_buf.append(f'${cmd_name}[{inner}]')
                     i = bracket_end + 1
                     at_boundary = False
                     continue
 
-                tokens.append(Command(cmd_name, _split_args(inner), f'${cmd_name}[{inner}]'))
+                flush_text()
+                tokens.append(Command(cmd_name, _split_args(inner), f'${cmd_name}[{inner}]', _line_at(i)))
                 i = bracket_end + 1
                 at_boundary = True
                 continue
 
             if cmd_name and not is_known:
                 flush_text()
-                tokens.append(Command('__unknown__', [cmd_name], f'${cmd_name}'))
+                tokens.append(Command('__unknown__', [cmd_name], f'${cmd_name}', _line_at(i)))
                 i = j
                 at_boundary = True
                 continue
 
+        if not text_buf:
+            text_start = i
         text_buf.append(ch)
         at_boundary = False
         i += 1

@@ -11,62 +11,58 @@ from FDScript import (
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if not args:
-        await _send_error(ch, FDLogicError(
-            "`$addBotReactions` requires at least one emoji argument"
-        ))
+        await _send_error(ch, FDLogicError("`$addBotReactions` requires at least one emoji argument"))
         return
 
     if ctx.last_bot_message is None:
-        await _send_error(ch, FDEnvironmentError(
-            "`$addBotReactions` — no bot message was sent yet in this script execution"
-        ))
+        await _send_error(ch, FDEnvironmentError("`$addBotReactions` — no bot message was sent yet in this script execution"))
         return
 
     resolved_text = "".join(ctx.resolve(arg) for arg in args)
     emojis_to_add = _extract_all_emojis(resolved_text)
 
     if not emojis_to_add:
-        ctx.log_event("warning: no valid emojis found in $addBotReactions")
+        await _send_error(ch, FDLogicError("`$addBotReactions` — no valid emojis found in input"))
         return
 
     if len(emojis_to_add) > _REACTIONS_MAX:
-        await _send_error(ch, FDLogicError(
-            f"`$addBotReactions` — too many emojis found: `{len(emojis_to_add)}`. "
-            f"Maximum allowed is `{_REACTIONS_MAX}`."
-        ))
+        await _send_error(ch, FDLogicError(f"Too many emojis (max {_REACTIONS_MAX})"))
         return
 
     target_msg: discord.Message = ctx.last_bot_message
     added: int = 0
+    errors: list[str] = []
 
     for emoji in emojis_to_add:
         try:
             await target_msg.add_reaction(emoji)
             added += 1
             await asyncio.sleep(0.35)
+        except discord.Forbidden:
+            await _send_error(ch, FDEnvironmentError("Bot lacks `Add Reactions` permission in this channel"))
+            return
         except discord.HTTPException as e:
             if e.status == 429:
-                retry = getattr(e, "retry_after", 1.0)
+                retry = getattr(e, "retry_after", 1.5)
                 await asyncio.sleep(retry)
                 try:
                     await target_msg.add_reaction(emoji)
                     added += 1
                 except Exception as e2:
-                    ctx.log_event(f"warning: failed to add emoji `{emoji}` after retry: `{e2}`")
+                    errors.append(f"`{emoji}` retry failed: {e2}")
                     continue
             elif e.status == 400:
-                ctx.log_event(f"warning: skipped unsupported emoji: `{emoji}`")
+                errors.append(f"`{emoji}` emoji not available to bot (maybe custom emoji from another server?)")
                 continue
             else:
-                ctx.log_event(f"warning: failed to add emoji `{emoji}`: `{e.text}`")
+                errors.append(f"`{emoji}` HTTP {e.status}: {e.text}")
                 continue
-        except discord.Forbidden:
-            await _send_error(ch, FDEnvironmentError(
-                "`$addBotReactions` — bot lacks `Add Reactions` permission in this channel"
-            ))
-            return
         except Exception as ex:
-            ctx.log_event(f"warning: unexpected error with emoji `{emoji}`: `{ex}`")
+            errors.append(f"`{emoji}` unexpected: {ex}")
             continue
 
-    ctx.log_event(f"addBotReactions → added {added} reaction(s) to bot message `{target_msg.id}`")
+    if errors:
+        error_msg = "Some reactions failed:\n" + "\n".join(errors)
+        await _send_error(ch, FDEnvironmentError(error_msg))
+    else:
+        ctx.log_event(f"addBotReactions → added {added} reaction(s)")

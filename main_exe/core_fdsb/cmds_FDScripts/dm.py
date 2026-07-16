@@ -13,7 +13,7 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ctx.log_event(f"dm → target set to author ({ctx.message.author.id})")
         return
 
-    target_str = args[0].strip()
+    target_str = ctx.resolve(args[0]).strip()
     if not target_str:
         await _send_error(ch, FDLogicError(
             "`$dm[]` — target cannot be empty. "

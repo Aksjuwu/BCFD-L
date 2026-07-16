@@ -82,6 +82,12 @@
   - Increased stability
   - Smooth control
 
+- **2.2.4** - Update Extensions
+  - Added 30+ new commands to FDScript
+  - Some Fixed 
+  - Various repairs
+  - Better stability in the editor
+
 ---
 
 **Developers:** @y.lw (contributor) · [@obgwew](https://github.com/obgwew) (programming)

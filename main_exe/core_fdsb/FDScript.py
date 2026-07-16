@@ -11,7 +11,10 @@ import io
 import sys
 import discord
 
+from . import FDCore as _FDCore_module
+
 sys.modules.setdefault('FDScript', sys.modules[__name__])
+sys.modules.setdefault('FDCore', _FDCore_module)
 
 from .FDCore import (
     set_vars_dir,
@@ -19,6 +22,7 @@ from .FDCore import (
     get_reserved_names,
     ExecutionContext,
     Command,
+    TextToken,
     tokenise_line,
     _split_args,
     _send_error,
@@ -38,6 +42,7 @@ from .FDCore import (
     _CLEAR_MAX,
     _load_data,
     _save_data,
+    _scan_suppress_errors,
     _BOT_START_TIME,
     _format_uptime,
     _cooldowns,
@@ -49,9 +54,8 @@ from .FDCore import (
     register_inline_resolver,
 )
 
-
 # ─────────────────────────────────────────────
-# Command Registry isinstance
+# Command Registry
 # ─────────────────────────────────────────────
 
 def _load_cmd(name: str):
@@ -63,7 +67,6 @@ def _load_cmd(name: str):
     except ModuleNotFoundError:
         return None
 
-
 def _resolve_inline_cmd(cmd_name: str, args: list, ctx) -> 'str | None':
     module = _load_cmd(cmd_name)
     if module and hasattr(module, 'resolve_inline'):
@@ -72,12 +75,9 @@ def _resolve_inline_cmd(cmd_name: str, args: list, ctx) -> 'str | None':
 
 register_inline_resolver(_resolve_inline_cmd)
 
-
 # ─────────────────────────────────────────────
 # Global Condition Evaluator
 # ─────────────────────────────────────────────
-
-# تلميح الإصلاح داخل دالة evaluate_condition في ملف main_exe/core_fdsb/FDScript.py
 
 def evaluate_condition(expr: str, ctx: ExecutionContext) -> bool:
     import re
@@ -117,49 +117,88 @@ def evaluate_condition(expr: str, ctx: ExecutionContext) -> bool:
 
 class Interpreter:
     def __init__(self, script: str):
+        self.script_text = script
         self.source_lines = script.splitlines()
 
     # ── Main entry point ──────────────────────────────────────
     async def run(self, ctx: ExecutionContext):
+        ctx.suppress_errors, ctx.suppress_errors_message = _scan_suppress_errors(self.script_text)
+
         tokens = self._tokenise_all()
         errors = self._validate(tokens)
 
         ctx.is_global_reply = False
+        
+        if not hasattr(ctx, 'text_buffer'):
+            ctx.text_buffer = ""
 
         if errors:
+            err = errors[0]
             ch = getattr(ctx.message, 'channel', None)
+
+            if ctx.suppress_errors:
+                ctx.log_event(f"[suppressed] {err._category}: {err.msg}")
+                if ctx.suppress_errors_message and ch is not None:
+                    try:
+                        await ch.send(ctx.suppress_errors_message)
+                    except Exception as e:
+                        print(f"[FDScript] Failed to send suppressed-error message: {e}")
+                return
+
+            msg = f"{err._icon} **{err._category}** — {err.msg}"
             if ch is not None:
-                lines = "\n".join(f"{e._icon} **{e._category}** — {e.msg}" for e in errors)
-                await ch.send(f"**{'One error' if len(errors) == 1 else f'{len(errors)} errors'} found, aborted:**\n{lines}")
+                await ch.send(msg)
             else:
-                for e in errors: print(f"[Error] {e._category}: {e.msg}")
+                print(f"[Error] {err._category}: {err.msg}")
             return
 
         try:
             await self._execute(tokens, ctx)
+            
+            await self._flush_message(ctx)
+            
         except FDAbortScript:
-            ctx.log_event("script execution aborted.")
+            ctx.log_event("script execution aborted due to error.")
+            
         except Exception as e:
             ctx.log_event(f"Unhandled crash: {e}")
             print(f"[FDScript] Unhandled exception: {e}")
 
-        await self._flush_embed(ctx)
         await self._flush_logs(ctx)
 
-    # ── Flush embed builder ───────────────────────────────────
-    async def _flush_embed(self, ctx: ExecutionContext):
-        if not ctx.embed_builder.is_set():
+    # ── Flush final message (Text + Embed + Buttons) ──────────
+    async def _flush_message(self, ctx: ExecutionContext):
+        text_content = getattr(ctx, 'text_buffer', "").strip()
+        has_embed = ctx.embed_builder.is_set()
+        has_view = bool(ctx.view and ctx.view.children)
+
+        if not text_content and not has_embed and not has_view:
             return
-        ch = ctx.message.channel
+
+        if not text_content and not has_embed and has_view:
+            text_content = "\u200b"
+
         ctx.stop_typing()
+        ch = await ctx.get_dest()
 
-        if getattr(ctx, "is_global_reply", False):
-            sent = await ctx.message.reply(embed=ctx.embed_builder.build())
-        else:
-            sent = await ch.send(embed=ctx.embed_builder.build())
+        kwargs = {}
+        if text_content:
+            kwargs['content'] = text_content
+        if has_embed:
+            kwargs['embed'] = ctx.embed_builder.build()
+        if has_view:
+            kwargs['view'] = ctx.view
 
-        ctx.last_bot_message = sent
-        ctx.log_event("embed builder → sent")
+        try:
+            if getattr(ctx, "is_global_reply", False):
+                sent = await ctx.message.reply(**kwargs)
+            else:
+                sent = await ch.send(**kwargs)
+            ctx.last_bot_message = sent
+            ctx.log_event("buffered message → sent")
+        except discord.HTTPException as e:
+            ctx.log_event(f"Failed to send buffered message: {e}")
+            print(f"[FDScript] Buffered message send error: {e}")
 
     # ── Flush pending log snapshots ───────────────────────────
     async def _flush_logs(self, ctx: ExecutionContext):
@@ -205,13 +244,17 @@ class Interpreter:
                 print(f"[FDScript] _flush_logs failed for '{pending.name_code}': {e}")
             
     # ── Join multi-line commands before tokenising ────────────
-    def _join_multiline(self) -> list[str]:
-        joined: list[str] = []
+    def _join_multiline(self) -> list[tuple[int, str]]:
+        joined: list[tuple[int, str]] = []
         buffer: list[str] = []
         depth = 0
+        start_line = 1
 
-        for line in self.source_lines:
-            for i, ch in enumerate(line):
+        for line_no, line in enumerate(self.source_lines, start=1):
+            if not buffer:
+                start_line = line_no
+
+            for ch in line:
                 if ch == '[': depth += 1
                 elif ch == ']': depth -= 1
                 elif ch == '#' and depth == 0: break
@@ -219,40 +262,44 @@ class Interpreter:
             buffer.append(line)
 
             if depth <= 0:
-                joined.append('\n'.join(buffer))
+                joined.append((start_line, '\n'.join(buffer)))
                 buffer = []
                 depth = 0
 
-        if buffer: joined.append('\n'.join(buffer))
+        if buffer:
+            joined.append((start_line, '\n'.join(buffer)))
         return joined
 
     # ── Tokenise all lines upfront ────────────────────────────
     def _tokenise_all(self) -> list:
         result = []
-        for line in self._join_multiline():
+        for line_no, block in self._join_multiline():
             try:
-                toks = tokenise_line(line)
+                toks = tokenise_line(block, line_no)
                 result.extend(toks)
             except SyntaxError as e:
-                result.append(Command("__syntax_error__", [str(e)], line))
+                result.append(Command("__syntax_error__", [str(e)], block, line_no))
         return result
 
-    # ── Validate — returns list[_FDError] ─────────────────────
+    # ── Validate ──────────────────────────────────────────────
     def _validate(self, tokens: list) -> list:
-        errors, stack = [], []
+        stack = []
         OPENERS = {"if": "endif", "while": "endwhile", "for": "endfor"}
         CLOSERS = {"endif": "if", "endwhile": "while", "endfor": "for"}
 
-        for i, tok in enumerate(tokens):
-            line_num = i + 1
-
+        for tok in tokens:
             if isinstance(tok, Command) and tok.name == "__syntax_error__":
-                errors.append(FDSyntaxError(f"Line {line_num}: {tok.args[0]}"))
-                continue
+                line_num = tok.line_no if tok.line_no is not None else '?'
+                return [FDSyntaxError(f"Line {line_num}: {tok.args[0]}")]
+
             if isinstance(tok, Command) and tok.name == "__unknown__":
-                errors.append(FDSyntaxError(f"Line {line_num}: Unknown command `{tok.args[0]}`"))
+                line_num = tok.line_no if tok.line_no is not None else '?'
+                return [FDSyntaxError(f"Line {line_num}: Unknown command `{tok.args[0]}`")]
+
+            if isinstance(tok, str):
                 continue
-            if isinstance(tok, str): continue
+
+            line_num = tok.line_no if tok.line_no is not None else '?'
 
             if tok.name in OPENERS:
                 stack.append((tok.name, line_num))
@@ -260,26 +307,48 @@ class Interpreter:
 
             if tok.name in CLOSERS:
                 expected = CLOSERS[tok.name]
-                if not stack: errors.append(FDSyntaxError(f"Line {line_num}: `${tok.name}` without `${expected}`"))
-                elif stack[-1][0] != expected: errors.append(FDLogicError(f"Line {line_num}: `${tok.name}` does not match `${stack[-1][0]}`"))
-                else: stack.pop()
+                if not stack:
+                    return [FDSyntaxError(f"Line {line_num}: `${tok.name}` without `${expected}`")]
+                if stack[-1][0] != expected:
+                    return [FDLogicError(f"Line {line_num}: `${tok.name}` does not match `${stack[-1][0]}`")]
+                stack.pop()
                 continue
 
             if tok.name == "break":
-                if not any(t[0] in ("while", "for") for t in stack): errors.append(FDLogicError(f"Line {line_num}: `$break` outside loops"))
+                if not any(t[0] in ("while", "for") for t in stack):
+                    return [FDLogicError(f"Line {line_num}: `$break` outside loops")]
                 continue
 
             if tok.name == "log" and (not tok.args or not tok.args[0].strip()):
-                errors.append(FDLogicError(f"Line {line_num}: `$log` requires at least a channel ID"))
-                continue
+                return [FDLogicError(f"Line {line_num}: `$log` requires at least a channel ID")]
 
             if tok.name == "dm" and tok.args and not any(a.strip() for a in tok.args):
-                errors.append(FDLogicError(f"Line {line_num}: `$dm[]` — target cannot be empty."))
-                continue
+                return [FDLogicError(f"Line {line_num}: `$dm[]` — target cannot be empty.")]
 
-        for opener, line_num in stack:
-            errors.append(FDSyntaxError(f"Line {line_num}: `${opener}` not closed with `${OPENERS[opener]}`"))
-        return errors
+        if stack:
+            opener, line_num = stack[0]
+            return [FDSyntaxError(f"Line {line_num}: `${opener}` not closed with `${OPENERS[opener]}`")]
+
+        return []
+
+    # ── Append resolved text ──────────────────────────────────
+    def _append_text(self, ctx: ExecutionContext, tok) -> None:
+        line_no = getattr(tok, 'line_no', None)
+        ctx.set_line(line_no)
+        resolved_text = ctx.resolve(tok)
+        if not resolved_text.strip():
+            return
+
+        if ctx.text_buffer and not ctx.text_buffer.endswith("\n"):
+            same_line = line_no is not None and getattr(ctx, '_last_text_line', None) == line_no
+            if same_line:
+                if not ctx.text_buffer.endswith((' ', '\t')):
+                    ctx.text_buffer += ' '
+            else:
+                ctx.text_buffer += '\n'
+
+        ctx.text_buffer += resolved_text
+        ctx._last_text_line = line_no
 
     # ── Execute ───────────────────────────────────────────────
     async def _execute(self, tokens: list, ctx: ExecutionContext, start: int = 0) -> int:
@@ -289,17 +358,9 @@ class Interpreter:
             i += 1
 
             if isinstance(tok, str):
-                ctx.stop_typing()
-                dest = await ctx.get_dest()
-                resolved_text = ctx.resolve(tok)
-                if not resolved_text.strip():
-                    continue
-                if getattr(ctx, "is_global_reply", False):
-                    sent = await ctx.message.reply(resolved_text)
-                else:
-                    sent = await dest.send(resolved_text)
-                ctx.last_bot_message = sent
+                self._append_text(ctx, tok)
                 continue
+                
             if tok.name == "if":
                 i = await self._exec_if(tokens, i - 1, ctx)
                 continue
@@ -314,9 +375,61 @@ class Interpreter:
             if tok.name == "break":
                 return -1
 
-            await self._exec_command(tok, ctx)
+            i = await self._exec_command_with_lookahead(tok, tokens, i, ctx)
 
         return i
+
+    # ── command dispatch ──────────────────────────────────────
+    async def _exec_command(self, cmd: Command, ctx: ExecutionContext) -> None:
+        if cmd.name == "suppressErrors":
+            return
+
+        module = _load_cmd(cmd.name)
+        ch = await ctx.get_dest()
+
+        if module is None:
+            await _send_error(ch, FDLogicError(f"Unknown command: `${cmd.name}`"))
+            return
+
+        if not hasattr(module, "execute"):
+            await _send_error(ch, FDLogicError(
+                f"`${cmd.name}` has no `execute()` — it may be an inline-only command "
+                f"and can't be used as a standalone statement."
+            ))
+            return
+
+        try:
+            await module.execute(cmd, cmd.args, ctx, ch)
+        except FDAbortScript:
+            raise
+        except Exception as e:
+            await _send_error(ch, FDLogicError(f"`${cmd.name}` raised an error: `{e}`"))
+
+    # ── command Lookahead Wrapper ────────────
+    async def _exec_command_with_lookahead(self, cmd: Command, tokens: list, next_idx: int, ctx: ExecutionContext) -> int:
+        if cmd.name in ("sendMessage", "sendEmbedMessage", "reply", "replyIn", "editMessage"):
+            while next_idx < len(tokens):
+                next_tok = tokens[next_idx]
+                
+                if isinstance(next_tok, str):
+                    if not next_tok.strip():
+                        next_idx += 1
+                        continue
+                    else:
+                        break 
+                        
+                elif isinstance(next_tok, Command):
+                    if next_tok.name == "addButton":
+                        await self._exec_command(next_tok, ctx)
+                        next_idx += 1
+                        continue
+                    else:
+                        break 
+                else:
+                    break
+                    
+        await self._exec_command(cmd, ctx)
+        return next_idx
 
     # ── if / elif / else / endif ──────────────────────────────
     async def _exec_if(self, tokens: list, start: int, ctx: ExecutionContext) -> int:
@@ -325,6 +438,7 @@ class Interpreter:
         while i < len(tokens):
             tok = tokens[i]
             if tok.name in ("if", "elif"):
+                ctx.set_line(tok.line_no)
                 cond_str = tok.args[0] if tok.args else ""
                 cond_val = self._evaluate(cond_str, ctx)
                 ctx.log_event(f"{tok.name} [{cond_str}] → {'✓' if cond_val else '✗'}")
@@ -352,7 +466,10 @@ class Interpreter:
         cond_str = tok.args[0] if tok.args else ""
         body_start, body_end = start + 1, self._find_closer(tokens, start + 1, "while", "endwhile")
         iterations = 0
-        while self._evaluate(cond_str, ctx):
+        while True:
+            ctx.set_line(tok.line_no)
+            if not self._evaluate(cond_str, ctx):
+                break
             iterations += 1
             if await self._run_block_slice(tokens, body_start, body_end, ctx) == "break": break
         ctx.log_event(f"while [{cond_str}] → {iterations} iters")
@@ -360,10 +477,13 @@ class Interpreter:
 
     # ── for / endfor ──────────────────────────────────────────
     async def _exec_for(self, tokens: list, start: int, ctx: ExecutionContext) -> int:
-        count_str = ctx.resolve(tokens[start].args[0]) if tokens[start].args else "0"
+        tok = tokens[start]
+        ctx.set_line(tok.line_no)
+        count_str = ctx.resolve(tok.args[0]) if tok.args else "0"
         try: count = int(count_str)
         except ValueError:
-            await _send_error(ctx.message.channel, FDRuntimeError(f"`$for` expects integer, got: `{count_str}`"))
+            loc = f"Line {tok.line_no}: " if tok.line_no is not None else ""
+            await _send_error(ctx.message.channel, FDRuntimeError(f"{loc}`$for` expects integer, got: `{count_str}`"))
             count = 0
         body_start, body_end = start + 1, self._find_closer(tokens, start + 1, "for", "endfor")
         for _ in range(count):
@@ -403,22 +523,11 @@ class Interpreter:
                     i = await self._exec_for(tokens, i, ctx)
                     continue
 
-                await self._exec_command(tok, ctx)
-                i += 1
+                i = await self._exec_command_with_lookahead(tok, tokens, i + 1, ctx)
                 continue
 
             if execute and depth == 0:
-                resolved_text = ctx.resolve(tok)
-                if not resolved_text.strip():
-                    i += 1
-                    continue
-                ctx.stop_typing()
-                dest = await ctx.get_dest()
-                if getattr(ctx, "is_global_reply", False):
-                    sent = await ctx.message.reply(resolved_text)
-                else:
-                    sent = await dest.send(resolved_text)
-                ctx.last_bot_message = sent
+                self._append_text(ctx, tok)
             i += 1
         return i
 
@@ -429,16 +538,7 @@ class Interpreter:
             tok = tokens[i]
             i += 1
             if isinstance(tok, str):
-                ctx.stop_typing()
-                dest = await ctx.get_dest()
-                resolved_text = ctx.resolve(tok)
-                if not resolved_text.strip():
-                    continue
-                if getattr(ctx, "is_global_reply", False):
-                    sent = await ctx.message.reply(resolved_text)
-                else:
-                    sent = await dest.send(resolved_text)
-                ctx.last_bot_message = sent
+                self._append_text(ctx, tok)
                 continue
             
             if tok.name == "break": return "break"
@@ -448,7 +548,8 @@ class Interpreter:
                 i = res
             elif tok.name == "while": i = await self._exec_while(tokens, i - 1, ctx)
             elif tok.name == "for": i = await self._exec_for(tokens, i - 1, ctx)
-            else: await self._exec_command(tok, ctx)
+            else: 
+                i = await self._exec_command_with_lookahead(tok, tokens, i, ctx)
         return None
 
     # ── _find_closer ──────────────────────────────────────────
@@ -464,33 +565,17 @@ class Interpreter:
             i += 1
         return i
 
-    # ── Execute a single command ──────────────────────────────
-    async def _exec_command(self, cmd: Command, ctx: ExecutionContext):
-        name = cmd.name
-        args = [ctx.resolve(a) for a in cmd.args]
-        ch   = await ctx.get_dest() 
-
-        if name in ("message", "messageID", "authorID", "username"): return
-
-        module = _load_cmd(name)
-        if module and hasattr(module, "execute"):
-            await module.execute(cmd, args, ctx, ch)
-            return
-
-        await _send_error(ch, FDSyntaxError(f"Unknown command `{name}`"))
-
     # ── Condition evaluator ───────────────────────────────────
     def _evaluate(self, expr: str, ctx: ExecutionContext) -> bool:
         return evaluate_condition(expr, ctx)
-
 
 # ─────────────────────────────────────────────
 # Public API
 # ─────────────────────────────────────────────
 
-async def run_script(message: discord.Message, bot: discord.Client, script_text: str, is_event: bool = False, is_reply: bool = False):
+async def run_script(message: discord.Message, bot: discord.Client, script_text: str, is_event: bool = False, is_reply: bool = False, interaction: discord.Interaction = None):
     interpreter = Interpreter(script_text)
-    ctx = ExecutionContext(message, bot, is_event=is_event)
+    ctx = ExecutionContext(message, bot, is_event=is_event, interaction=interaction)
     if is_reply:
         ctx.is_global_reply = True
     await interpreter.run(ctx)

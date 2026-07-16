@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# main_exe/langs/ar.py
+# main_exe/langs/ar.py 
 
 ARABIC_DICT = {
     # ── واجهة رئيسية ─────────────────────────────────────────

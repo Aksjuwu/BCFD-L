@@ -1,9 +1,11 @@
-welcome to update 2.2.3
+welcome to update 2.2.4
 
-- APK compatibility
+- more 30 command's!
 
-- Some Fixed commands
+- Various repairs
 
-- Increased stability
+- Better stability in the editor
 
-- Smooth control
+- Adding the notification feature to the phone
+
+- Stabilized the mobile version and fixed its issues

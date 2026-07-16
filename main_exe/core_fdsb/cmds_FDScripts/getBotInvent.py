@@ -2,6 +2,7 @@
 import discord
 from FDScript import ExecutionContext, Command
 
+
 def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
     client_id = ctx.bot.application_id or (ctx.bot.user and ctx.bot.user.id)
     if not client_id:

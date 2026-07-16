@@ -112,6 +112,7 @@ _FALLBACKS = {
     'export_section':    'Export Bot Data',
     'export_desc':       'Export commands and variables as a ZIP file',
     'export_zip':        'Export ZIP',
+    'export_success':    'Exported successfully!',
     'no_bot_selected':   'No bot selected!',
     'folders_not_found': 'Folders not found!',
     'export_failed':     'Export failed!',
@@ -419,6 +420,10 @@ class BotSettingsTab:
         self._ext_ui_active = _ui_profile_fixed()
 
         self._export_status_text = ft.Text('', size=11, color=_c('success'))
+        # File picker used to let the user save / share the exported ZIP.
+        # Required on mobile since there is no OS file-explorer to reveal
+        # the file in (app storage there is sandboxed).
+        self._export_file_picker = ft.FilePicker()
 
         self._captcha_code    = ''
         self._captcha_display = ft.Text(
@@ -480,6 +485,15 @@ class BotSettingsTab:
     # ── Build ─────────────────────────────────────────────────────────────────
 
     def build(self) -> ft.Control:
+        # Make sure the export file picker is registered on the page so its
+        # native save/share dialog can actually pop up (needed on mobile).
+        # NOTE: in Flet v1, FilePicker is a *Service*, not a visual control —
+        # it must go into page.services, NOT page.overlay. Putting it in
+        # page.overlay is what causes the "Unknown control: FilePicker" error.
+        if self._export_file_picker not in self._page.services:
+            self._page.services.append(self._export_file_picker)
+            self._page.update()
+
         self._root_col = ft.Column(
             [
                 ft.Column(
@@ -676,7 +690,7 @@ class BotSettingsTab:
                                                      color='#FFFFFF', weight=ft.FontWeight.BOLD)],
                                             spacing=6, tight=True,
                                         ),
-                                        on_click=self._export_bot_data,
+                                        on_click=lambda e: self._page.run_task(self._export_bot_data, e),
                                         style=ft.ButtonStyle(bgcolor=_c('accent'), color='#FFFFFF', shape=ft.RoundedRectangleBorder(radius=10)),
                                     ),
                                     self._export_status_text,
@@ -932,7 +946,7 @@ class BotSettingsTab:
 
     # ── Export ────────────────────────────────────────────────────────────────
 
-    def _export_bot_data(self, _):
+    async def _export_bot_data(self, _):
         bot_name = self._bot_data.get('name', '').strip()
         bot_dir  = self._bot_data.get('bot_dir', '').strip()
 
@@ -975,24 +989,39 @@ class BotSettingsTab:
                                 folder_name, os.path.relpath(abs_p, folder_path)
                             )
                             zf.write(abs_p, arc)
-
-            try:
-                if sys.platform == 'win32':
-                    subprocess.Popen(['explorer', '/select,', zip_path])
-                elif sys.platform == 'darwin':
-                    subprocess.Popen(['open', '-R', zip_path])
-                elif not is_mobile():
-                    subprocess.Popen(['xdg-open', export_dir])
-            except Exception:
-                pass
-
-            self._export_status_text.color = _c('success')
-
         except Exception as e:
             print(f'[Settings] Export failed: {e}')
             self._export_status_text.color = _c('danger')
             self._export_status_text.value = _t('export_failed')
+            self._page.update()
+            return
 
+        # The ZIP now exists in the app's private storage. On desktop we can
+        # just reveal it in the OS file explorer. On mobile there is no
+        # equivalent — the app's storage is sandboxed and not browsable —
+        # so we must hand the file to the user via the native save/share
+        # sheet instead, or the button silently "does nothing" from their
+        # point of view even though the export itself succeeded.
+        try:
+            if is_mobile():
+                saved_path = await self._export_file_picker.save_file(
+                    file_name=zip_name,
+                    allowed_extensions=['zip'],
+                )
+                if saved_path and os.path.normpath(saved_path) != os.path.normpath(zip_path):
+                    shutil.copy2(zip_path, saved_path)
+            else:
+                if sys.platform == 'win32':
+                    subprocess.Popen(['explorer', '/select,', zip_path])
+                elif sys.platform == 'darwin':
+                    subprocess.Popen(['open', '-R', zip_path])
+                else:
+                    subprocess.Popen(['xdg-open', export_dir])
+        except Exception as e:
+            print(f'[Settings] reveal/save failed: {e}')
+
+        self._export_status_text.color = _c('success')
+        self._export_status_text.value = _t('export_success')
         self._page.update()
 
     # ── Delete / Captcha ──────────────────────────────────────────────────────

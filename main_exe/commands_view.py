@@ -17,6 +17,11 @@ try:
     from main_exe.core_fdsb.FDCore import KNOWN_COMMANDS
 except ImportError:
     KNOWN_COMMANDS = set()
+
+try:
+    from main_exe.core_fdsb.local_server import EVENT_PREFIXES
+except ImportError:
+    EVENT_PREFIXES = {'$onJoined', '$onLeave', '$alwaysReply', '$onInteraction'}
     
 # ══════════════════════════════════════════════════════════════════════════════
 #  Translation & Language helper
@@ -24,6 +29,15 @@ except ImportError:
 
 def _t(key: str) -> str:
     return Translations.get(key, get_current_lang())
+
+def _t_or(key: str, fallback: str = '') -> str:
+    try:
+        val = _t(key)
+    except Exception:
+        val = None
+    if not val or val == key:
+        return fallback
+    return val
 
 def _ar(text: str) -> str:
     return text
@@ -61,23 +75,11 @@ def _cmds_dir(bot_dir: str) -> str:
     return os.path.join(_bot_root_from_dir(bot_dir), 'bot_commands')
 
 def _get_event_prefixes() -> set[str]:
-    try:
-        pkg_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            'core_bcfd', 'event_FDScripts'
-        )
-        if not os.path.isdir(pkg_path):
-            return {'$onJoined', '$onLeave', '$alwaysReply'}
-        prefixes = set()
-        for fname in os.listdir(pkg_path):
-            if fname.endswith('.py') and not fname.startswith('_'):
-                prefixes.add(f'${os.path.splitext(fname)[0]}')
-        return prefixes or {'$onJoined', '$onLeave', '$alwaysReply'}
-    except Exception:
-        return {'$onJoined', '$onLeave', '$alwaysReply'}
+    return EVENT_PREFIXES
 
 def _is_event_prefix(prefix: str) -> bool:
-    return prefix.strip() in _get_event_prefixes()
+    clean_prefix = prefix.strip().split('[')[0]
+    return clean_prefix in _get_event_prefixes()
 
 def _events_dir(bot_dir: str) -> str:
     return os.path.join(_bot_root_from_dir(bot_dir), 'bot_events')
@@ -126,6 +128,14 @@ def _list_cmd_files(bot_dir: str) -> list:
             pass
 
     return sorted(results, key=lambda c: c['name'].lower())
+
+def _cmd_file_exists(bot_dir: str, safe_name: str, exclude_path: str = '') -> bool:
+    exclude_abs = os.path.abspath(exclude_path) if exclude_path else ''
+    for folder in (_cmds_dir(bot_dir), _events_dir(bot_dir)):
+        candidate = os.path.join(folder, f'{safe_name}.py')
+        if os.path.isfile(candidate) and os.path.abspath(candidate) != exclude_abs:
+            return True
+    return False
 
 def _write_cmd_file(bot_dir: str, name: str, prefix: str,
                     content: str, old_path: str = '') -> str:
@@ -307,7 +317,6 @@ class CommandEditorView:
     def __init__(self, page: ft.Page, on_back=None, on_saved=None):
         self._page     = page
         self._on_back  = on_back
-        # ── كول‌باك يُستدعى بعد كل حفظ ناجح (سواء يدوي أو تلقائي) ──────────
         self._on_saved = on_saved
         self._bot_dir  = ''
         self._cmd_path = ''
@@ -399,6 +408,7 @@ class CommandEditorView:
             min_lines=15,
             max_lines=99999,
             on_change=self._on_code_change,
+            on_focus=self._on_code_focus,
         )
 
         self._title_text = ft.Text(
@@ -435,6 +445,11 @@ class CommandEditorView:
 
     def _set_name_error(self):
         self._name_field.error                = _t('name_required')
+        self._name_field.border_color         = _c('danger')
+        self._name_field.focused_border_color = _c('danger')
+
+    def _set_name_taken_error(self):
+        self._name_field.error                = _t_or('name_taken')
         self._name_field.border_color         = _c('danger')
         self._name_field.focused_border_color = _c('danger')
 
@@ -594,37 +609,46 @@ class CommandEditorView:
         )
 
         editor_area = ft.Container(
-            content=ft.Column(
+            key="cmd_editor_area",
+            content=ft.Row(
                 controls=[
-                    ft.Row(
-                        controls=[
-                            ft.Container(
-                                content=self._line_nums,
-                                padding=ft.Padding(left=8, right=8, top=8, bottom=8),
-                                bgcolor=_c('card_bg'),
-                                border=ft.Border(right=ft.BorderSide(1, _c('card_border'))),
-                            ),
-                            ft.Container(
-                                content=ft.Stack(
-                                    controls=[
-                                        self._highlighter,
-                                        self._code_edit,
-                                    ],
-                                ),
-                                padding=8,
-                                expand=True,
-                            ),
-                        ],
-                        spacing=0,
-                        vertical_alignment=ft.CrossAxisAlignment.START,
-                    )
+                    ft.Container(
+                        content=self._line_nums,
+                        padding=ft.Padding(left=8, right=8, top=8, bottom=8),
+                        bgcolor=_c('card_bg'),
+                        border=ft.Border(right=ft.BorderSide(1, _c('card_border'))),
+                    ),
+                    ft.Container(
+                        content=ft.Stack(
+                            controls=[
+                                self._highlighter,
+                                self._code_edit,
+                            ],
+                        ),
+                        padding=8,
+                        expand=True,
+                    ),
                 ],
-                scroll=ft.ScrollMode.AUTO,
+                spacing=0,
+                vertical_alignment=ft.CrossAxisAlignment.START,
             ),
             bgcolor=_c('card_bg'),
             border=_border_all(1, _c('card_border')),
             border_radius=10,
+        )
+
+        body_col = ft.Column(
+            [
+                ft.Text(_t('info_command'), size=11,
+                        weight=ft.FontWeight.BOLD, color=_c('text_dim')),
+                info_card,
+                ft.Text(_t('command_editor'), size=12,
+                        weight=ft.FontWeight.BOLD, color=_c('text')),
+                editor_area,
+            ],
+            spacing=10,
             expand=True,
+            scroll=ft.ScrollMode.ADAPTIVE,
         )
 
         return ft.Column(
@@ -633,24 +657,7 @@ class CommandEditorView:
                 ft.Stack(
                     [
                         ft.Container(
-                            content=ft.Column(
-                                [
-                                    ft.Column(
-                                        [
-                                            ft.Text(_t('info_command'), size=11,
-                                                    weight=ft.FontWeight.BOLD, color=_c('text_dim')),
-                                            info_card,
-                                            ft.Text(_t('command_editor'), size=12,
-                                                    weight=ft.FontWeight.BOLD, color=_c('text')),
-                                        ],
-                                        spacing=10,
-                                        scroll=ft.ScrollMode.AUTO,
-                                    ),
-                                    editor_area,
-                                ],
-                                spacing=10,
-                                expand=True,
-                            ),
+                            content=body_col,
                             padding=ft.Padding(left=12, right=12, top=8, bottom=74),
                             expand=True,
                         ),
@@ -683,6 +690,12 @@ class CommandEditorView:
             self._dest_indicator.color = _c('text_dim')
         if self._page:
             self._page.update()
+
+    # ── Keyboard avoidance (mobile) ──────────────────────────────────────────
+
+    def _on_code_focus(self, e):
+        if self._page:
+            self._page.scroll_to(scroll_key="cmd_editor_area", duration=250)
 
     # ── Highlighting ──────────────────────────────────────────────────────────
 
@@ -815,28 +828,32 @@ class CommandEditorView:
         prefix  = (self._prefix_field.value or '').strip()
         content = self._code_edit.value or ''
 
-        # ── التحقق من الاسم ────────────────────────────────────────────────
         if not name:
             self._set_name_error()
             if self._page:
                 self._page.update()
             return False
 
+        safe_name = ''.join(c for c in name if c.isalnum() or c in ('-', '_')).strip() or 'command'
+
+        if _cmd_file_exists(self._bot_dir, safe_name, self._cmd_path):
+            self._set_name_taken_error()
+            if self._page:
+                self._page.update()
+            return False
+
         self._clear_name_error()
 
-        # ── الكتابة الفعلية على القرص ──────────────────────────────────────
         self._cmd_path = _write_cmd_file(
             self._bot_dir, name, prefix, content, self._cmd_path
         )
 
-        # ── تحديث الـ UI الداخلي ───────────────────────────────────────────
         self._title_text.value = _ar(name + '.py')
         self._clear_dirty()
 
         if self._page:
             self._page.update()
 
-        # ── إشعار BotCommandsTab بأن الحفظ تمّ فعلاً ──────────────────────
         if callable(self._on_saved):
             self._on_saved()
 
@@ -1064,7 +1081,6 @@ class BotCommandsTab:
         self._bot_dir     = ''
         self._in_editor   = False
         self._list_view   = CommandsListView(page, on_open=self._open_editor)
-        # ── نمرّر on_saved حتى يُعلم المحرّر BotCommandsTab بكل حفظ ────────
         self._editor_view = CommandEditorView(
             page,
             on_back=self._close_editor,
@@ -1072,13 +1088,8 @@ class BotCommandsTab:
         )
         self._container   = ft.Container(expand=True)
 
-    # ── كول‌باك: المحرّر حفظ الملف → نحدّث القائمة في الخلفية ─────────────
     def _on_editor_saved(self):
-        """
-        يُستدعى من CommandEditorView._save() بعد كل حفظ ناجح.
-        يعيد تحميل قائمة الأوامر من القرص حتى تعكس آخر تغيير،
-        دون الخروج من شاشة المحرر.
-        """
+
         self._list_view.load(self._bot_dir)
 
     def build(self) -> ft.Control:
@@ -1109,13 +1120,7 @@ class BotCommandsTab:
 
     def guard_tab_change(self, on_proceed: callable, on_cancel: callable = None):
         if self._in_editor and self._editor_view.is_dirty:
-            # ── نلف on_proceed بدالة تُحدّث القائمة أولاً ────────────────
             def _proceed_with_refresh():
-                """
-                بعد الحفظ (أو التجاهل) من داخل guard_navigation،
-                نعيد تحميل القائمة ونضع العلامة أننا خرجنا من المحرر،
-                ثم نُكمل الانتقال إلى التاب المطلوب.
-                """
                 self._list_view.load(self._bot_dir)
                 self._in_editor = False
                 on_proceed and on_proceed()
@@ -1126,7 +1131,7 @@ class BotCommandsTab:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  Shared widget helpers
+#  Shared widget helpers [Commands]
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _stat_col(heading: str, value_ctrl: ft.Text) -> ft.Column:

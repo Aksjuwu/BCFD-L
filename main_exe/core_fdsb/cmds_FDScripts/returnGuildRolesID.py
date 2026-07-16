@@ -9,7 +9,9 @@ from FDScript import (
 
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
-    if len(args) != 4:
+    resolved = [ctx.resolve(arg).strip() for arg in args]
+
+    if len(resolved) != 4:
         await _send_error(ch, FDLogicError(
             "`$returnGuildRolesID` requires 4 arguments:\n"
             "`$returnGuildRolesID[GuildID; permission; var; separator]`\n"
@@ -18,10 +20,10 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
-    guild_id_str = args[0].strip()
-    perm_raw     = args[1].strip()
-    var_name     = args[2].strip()
-    separator    = _parse_separator(args[3])
+    guild_id_str = resolved[0]
+    perm_raw     = resolved[1]
+    var_name     = resolved[2]
+    separator    = _parse_separator(resolved[3])
 
     if not guild_id_str or not guild_id_str.isdigit():
         await _send_error(ch, FDLogicError(

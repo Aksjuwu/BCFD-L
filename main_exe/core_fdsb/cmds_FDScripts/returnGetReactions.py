@@ -6,7 +6,6 @@ from FDScript import (
     _send_error, _parse_separator,
 )
 
-
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) != 6:
         await _send_error(ch, FDLogicError(
@@ -15,12 +14,14 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
-    ch_id_str  = args[0].strip()
-    msg_id_str = args[1].strip()
-    type_str   = args[2].strip().lower()
-    var_name   = args[3].strip()
-    separator  = _parse_separator(args[4])
-    emoji_raw  = args[5].strip()
+    resolved = [ctx.resolve(arg).strip() for arg in args]
+    
+    ch_id_str  = resolved[0]
+    msg_id_str = resolved[1]
+    type_str   = resolved[2].lower()
+    var_name   = resolved[3]
+    separator  = _parse_separator(resolved[4])
+    emoji_raw  = resolved[5]
 
     if not ch_id_str.isdigit() or not msg_id_str.isdigit():
         await _send_error(ch, FDLogicError(

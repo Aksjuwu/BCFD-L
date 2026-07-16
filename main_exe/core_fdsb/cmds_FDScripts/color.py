@@ -8,8 +8,12 @@ from FDScript import (
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) == 1:
-        ctx.embed_builder.color = _parse_color(args[0])
-        ctx.log_event(f"color → {args[0]!r}")
+        resolved_color = ctx.resolve(args[0]).strip()
+        if not resolved_color:
+            await _send_error(ch, FDLogicError("`$color` requires a non-empty color value."))
+            return
+        ctx.embed_builder.color = _parse_color(resolved_color)
+        ctx.log_event(f"color → {resolved_color!r}")
     else:
         await _send_error(ch, FDLogicError(
             "`$color` requires one argument: $color[hex or name]\n"

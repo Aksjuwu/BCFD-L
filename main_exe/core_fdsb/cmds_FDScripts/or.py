@@ -1,6 +1,6 @@
 # cmds_FDScripts/or.py
 import discord
-from FDScript import ExecutionContext, Command, evaluate_condition
+from FDScript import ExecutionContext, Command, FDLogicError, _send_error, evaluate_condition
 
 def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
     if not args:
@@ -13,7 +13,9 @@ def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
     return "false"
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
-    res = resolve_inline(cmd.args, ctx)
+    resolved_args = [ctx.resolve(arg) for arg in args]
+    
+    res = resolve_inline(resolved_args, ctx)
     
     ctx.stop_typing()
     dest = await ctx.get_dest()

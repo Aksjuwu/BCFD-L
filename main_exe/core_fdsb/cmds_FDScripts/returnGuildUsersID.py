@@ -8,17 +8,19 @@ from FDScript import (
 
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
-    if len(args) != 4:
+    resolved = [ctx.resolve(arg).strip() for arg in args if arg.strip()]
+
+    if len(resolved) != 4:
         await _send_error(ch, FDLogicError(
             "`$returnGuildUsersID` requires 4 arguments:\n"
             "`$returnGuildUsersID[guildID; cache/chunk; var; separator]`"
         ))
         return
 
-    guild_id_str = args[0].strip()
-    fetch_mode   = args[1].strip().lower()
-    var_name     = args[2].strip()
-    separator    = _parse_separator(args[3])
+    guild_id_str = resolved[0]
+    fetch_mode   = resolved[1].lower()
+    var_name     = resolved[2]
+    separator    = _parse_separator(resolved[3])
 
     if not guild_id_str or not guild_id_str.isdigit():
         await _send_error(ch, FDLogicError(

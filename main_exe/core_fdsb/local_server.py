@@ -11,8 +11,24 @@ import os
 import asyncio
 import threading
 import time
+import flet as ft 
 from main_exe.core_fdsb.FDScript import run_script
 from main_exe.core_fdsb.FDCore   import set_vars_dir, set_bot_start_time
+
+# ══════════════════════════════════════════════════════════════
+#  Canonical event prefixes (single source of truth)
+# ══════════════════════════════════════════════════════════════
+
+EVENT_PREFIXES: set[str] = {
+    '$onJoined',
+    '$onLeave',
+    '$onInteraction',
+    '$onVoiceJoined',
+    '$onVoiceLeave',
+    '$alwaysReply',
+    '$messageContains',
+    '$messageContainsAll',
+}
 
 # ══════════════════════════════════════════════════════════════
 #  PrefixManager 
@@ -82,7 +98,6 @@ class PrefixManager:
                 pass
         return None
 
-
 # ─────────────────────────────────────────────────────────────
 #  setting up the bot 
 # ─────────────────────────────────────────────────────────────
@@ -93,11 +108,10 @@ _loop            = None
 _stopping        = False
 _vars_dir_path   = ''
 prefix_manager   = PrefixManager()
-
+_flet_page       = None  
 
 def get_vars_dir() -> str:
     return _vars_dir_path
-
 
 def _get_token(bot_dir: str) -> str:
     possible_paths = [
@@ -107,10 +121,7 @@ def _get_token(bot_dir: str) -> str:
         os.path.join(os.path.dirname(bot_dir), 'bot_files', 'config.json'),
     ]
 
-    print(f"[DEBUG] bot_dir : {bot_dir}")
-
     for path in possible_paths:
-        print(f"[DEBUG] Searching in: {path}")
         if os.path.exists(path):
             try:
                 with open(path, 'r', encoding='utf-8-sig') as f:
@@ -118,16 +129,28 @@ def _get_token(bot_dir: str) -> str:
                 
                 token = data.get('token') or data.get('TOKEN') or data.get('bot_token')
                 if token:
-                    print(f"[DEBUG] ✅ Token found in: {path}")
                     return str(token)
-                else:
-                    print(f"[DEBUG] File exists but does not contain 'token'")
             except Exception as e:
-                print(f"[ERROR] Failed to read {path}: {e}")
-
-    print("[Bot] ❌ config.json not found in any expected path")
+                pass
     return ''
 
+# ══════════════════════════════════════════════════════════════
+#  Flet Notifications (Safe & Native SnackBar)
+# ══════════════════════════════════════════════════════════════
+
+def send_flet_notification(message: str):
+    global _flet_page
+    if _flet_page:
+        try:
+            _flet_page.snack_bar = ft.SnackBar(
+                content=ft.Text(message, color=ft.colors.WHITE),
+                bgcolor=ft.colors.BLUE_GREY_900,
+                open=True,
+                duration=4000
+            )
+            _flet_page.update()
+        except Exception:
+            pass
 
 # ══════════════════════════════════════════════════════════════
 # event_FDScripts
@@ -137,6 +160,8 @@ def _make_bot():
     intents = discord.Intents.default()
     intents.message_content = True
     intents.members = True
+    intents.voice_states = True
+    intents.presences = True
     
     bot = commands.Bot(command_prefix="!", intents=intents)
 
@@ -144,60 +169,96 @@ def _make_bot():
     async def on_ready():
         print(f"[Bot] Logged in successfully as: {bot.user}")
         set_bot_start_time(time.time())
+        send_flet_notification(f"البوت نشط الآن: {bot.user}")
+    
+    @bot.event
+    async def on_interaction(interaction: discord.Interaction):
+        if interaction.type != discord.InteractionType.component:
+            return
+        custom_id = interaction.data.get("custom_id")
+        if not custom_id:
+            return
+        try:
+            await interaction.response.defer()
+        except Exception:
+            pass
+        from main_exe.core_fdsb.event_FDScripts.onInteraction import handle_event
+        try:
+            await handle_event(interaction, bot, custom_id, prefix_manager._bot_events_dir)
+        except Exception as e:
+            print(f"[Bot] Error executing $onInteraction event: {e}")
 
-    # ── $onJoined ──
     @bot.event
     async def on_member_join(member):
         scripts = prefix_manager.get_event_scripts("$onJoined")
-        if not scripts:
-            return
+        if not scripts: return
         from main_exe.core_fdsb.event_FDScripts.onJoined import handle_event
         for script_text in scripts:
-            try:
-                await handle_event(member, bot, script_text)
-            except Exception as e:
-                print(f"[Bot] Error executing $onJoined event: {e}")
+            try: await handle_event(member, bot, script_text)
+            except Exception: pass
 
-    # ── $onLeave ──
     @bot.event
     async def on_member_remove(member):
         scripts = prefix_manager.get_event_scripts("$onLeave")
-        if not scripts:
-            return
+        if not scripts: return
         from main_exe.core_fdsb.event_FDScripts.onLeave import handle_event
         for script_text in scripts:
-            try:
-                await handle_event(member, bot, script_text)
-            except Exception as e:
-                print(f"[Bot] Error executing $onLeave event: {e}")
+            try: await handle_event(member, bot, script_text)
+            except Exception: pass
+
+    @bot.event
+    async def on_voice_state_update(member: discord.Member, before: discord.VoiceState, after: discord.VoiceState):
+        left_channel = before.channel if before.channel != after.channel else None
+        joined_channel = after.channel if before.channel != after.channel else None
+
+        if left_channel is not None:
+            scripts = prefix_manager.get_event_scripts("$onVoiceLeave")
+            if scripts:
+                from main_exe.core_fdsb.event_FDScripts.onVoiceLeave import handle_event
+                for script_text in scripts:
+                    try: await handle_event(member, left_channel, bot, script_text)
+                    except Exception: pass
+
+        if joined_channel is not None:
+            scripts = prefix_manager.get_event_scripts("$onVoiceJoined")
+            if scripts:
+                from main_exe.core_fdsb.event_FDScripts.onVoiceJoined import handle_event
+                for script_text in scripts:
+                    try: await handle_event(member, joined_channel, bot, script_text)
+                    except Exception: pass
 
     @bot.event
     async def on_message(message):
         if message.author.bot:
             return
 
-        # ── $alwaysReply ──
         always_scripts = prefix_manager.get_event_scripts("$alwaysReply")
         if always_scripts:
             try:
                 from main_exe.core_fdsb.event_FDScripts.alwaysReply import handle_event as handle_always_reply
                 for script_text in always_scripts:
                     await handle_always_reply(message, bot, script_text)
-            except Exception as e:
-                print(f"[Bot] Error executing $alwaysReply event: {e}")
+            except Exception: pass
+
+        try:
+            from main_exe.core_fdsb.event_FDScripts.messageContains import handle_event as handle_message_contains
+            await handle_message_contains(message, bot, prefix_manager._bot_events_dir)
+        except Exception: pass
+
+        try:
+            from main_exe.core_fdsb.event_FDScripts.messageContainsAll import handle_event as handle_message_contains_all
+            await handle_message_contains_all(message, bot, prefix_manager._bot_events_dir)
+        except Exception: pass
 
         script_text = prefix_manager.get_script_by_message(message.content)
         if script_text is not None:
-            try:
-                await run_script(message, bot, script_text)
-            except Exception as e:
-                print(f"[Bot] Error executing script: {e}")
+            try: await run_script(message, bot, script_text)
+            except Exception: pass
             return
 
         await bot.process_commands(message)
 
     return bot
-
 
 # ══════════════════════════════════════════════════════════════
 #  Threading
@@ -211,27 +272,19 @@ def _runner(token: str):
     try:
         _loop.run_until_complete(_client.start(token))
     except Exception as e:
-        print(f"[Bot] Stopped after error: {e}")
+        pass
     finally:
         _stopping = False
         _client = None
 
-
 def start_bot(bot_dir: str) -> bool:
     global _client, _thread, _stopping, _vars_dir_path
 
-    if _stopping:
-        print("[Bot] Still stopping, please wait")
-        return False
-
-    if _client and not _client.is_closed():
-        print("[Bot] Bot is already online")
-        return False
+    if _stopping: return False
+    if _client and not _client.is_closed(): return False
 
     token = _get_token(bot_dir)
-    if not token:
-        print("[Bot] config.json not found")
-        return False
+    if not token: return False
 
     prefix_manager.set_bot_dir(bot_dir)
 
@@ -244,21 +297,72 @@ def start_bot(bot_dir: str) -> bool:
     _vars_dir_path = os.path.join(bot_root, 'bot_vars')
     os.makedirs(_vars_dir_path, exist_ok=True)
     set_vars_dir(_vars_dir_path)
-    print(f"[Bot] _vars_dir_path → {_vars_dir_path}")
 
     _client = _make_bot()
     _thread = threading.Thread(target=_runner, args=(token,), daemon=True)
     _thread.start()
-    print("[Bot] Bot is now online")
+    
+    send_flet_notification("جاري تهيئة وتشغيل البوت...")
     return True
-
 
 def stop_bot() -> None:
     global _stopping
-    if _stopping:
-        return
-    if _client is None or _client.is_closed():
-        return
+    if _stopping: return
+    if _client is None or _client.is_closed(): return
     _stopping = True
     if _loop and _loop.is_running():
         asyncio.run_coroutine_threadsafe(_client.close(), _loop)
+        
+    send_flet_notification("تم إيقاف خدمة البوت.")
+
+# ══════════════════════════════════════════════════════════════
+#  Flet GUI & Android Background Permissions
+# ══════════════════════════════════════════════════════════════
+
+def request_flet_permissions(page: ft.Page):
+    notif_status = page.get_permission_status(ft.PermissionType.NOTIFICATION)
+    if notif_status != ft.PermissionStatus.GRANTED:
+        page.request_permission(ft.PermissionType.NOTIFICATION)
+    
+    battery_status = page.get_permission_status(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
+    if battery_status != ft.PermissionStatus.GRANTED:
+        page.request_permission(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
+
+def main_gui(page: ft.Page):
+    global _flet_page
+    _flet_page = page 
+    
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+
+    status_icon = ft.Icon(name=ft.icons.DNS, size=60, color=ft.colors.GREY)
+    status_text = ft.Text(value="جاري التحميل...", size=16, weight=ft.FontWeight.BOLD)
+
+    page.add(
+        ft.Column(
+            [status_icon, status_text],
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER
+        )
+    )
+
+    def launch_sequence():
+        request_flet_permissions(page)
+
+        bot_directory = os.path.dirname(os.path.abspath(__file__))
+        
+        is_running = start_bot(bot_directory)
+
+        if is_running:
+            status_icon.color = ft.colors.GREEN
+            status_text.value = "البوت متصل ويعمل حالياً"
+        else:
+            status_icon.color = ft.colors.RED
+            status_text.value = "فشل بدء البوت"
+            
+        page.update()
+
+    page.run_task(launch_sequence)
+
+if __name__ == "__main__":
+    ft.app(target=main_gui)
