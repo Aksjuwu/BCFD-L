@@ -15,44 +15,43 @@
 
 # How to use it? 
 
-**apk: 
+**apk:**
 
-1. You download the APK version compatible with your device. 
+**1. You download the APK version compatible with your device.**
 
 
-2. The main interface (in English by default) will appear, displaying three buttons: 
+**2. The main interface (in English by default) will appear, displaying three buttons: 
   Discord. server link 
   Github. Project link 
   -
-  New Bot. Create a bot
+  New Bot. Create a bot**
 
 
-3. Click on the "New Bot" button so you can find the Decorid website for creating the bot [link](https://discord.com/developers/home), Create the bot and make sure the last three buttons at the bottom are activated, then copy your bot's token. 
+**3. Click on the "New Bot" button so you can find the Decorid website for creating the bot [link](https://discord.com/developers/home), Create the bot and make sure the last three buttons at the bottom are activated, then copy your bot's token.**
 
 
-4. Create the bot and give it a name and a program-specific image, then place the token. 
+**4. Create the bot and give it a name and a program-specific image, then place the token.** 
 > [!NOTE] 
 > naming and image selection do not affect your original bot
-
 > [!WARNING] 
 > the token is stored locally on your device but is not encrypted
 
 
-5. Then you log into the main bot and go to settings to select your language and interface theme. 
+**5. Then you log into the main bot and go to settings to select your language and interface theme.**
 
 
-6. Also, on the same settings page, go to the wiki-fdscript link to read how to write the commands. 
+**6. Also, on the same settings page, go to the wiki-fdscript link to read how to write the commands.**
 
 
-7. Go to the "commands" interface, then create a command using the "+" button. A command editing interface will appear; you will need to enter a name for the command (this is necessary) and choose the desired prefix to call the command. Then, based on the wiki-fdscript, write your commands, and when finished, press the "save" button to save the file. 
+**7. Go to the "commands" interface, then create a command using the "+" button. A command editing interface will appear; you will need to enter a name for the command (this is necessary) and choose the desired prefix to call the command. Then, based on the wiki-fdscript, write your commands, and when finished, press the "save" button to save the file.**
 
 
-8. Then you go to the "main" interface and the bot allows you to start directly via the "start" button. 
+**8. Then you go to the "main" interface and the bot allows you to start directly via the "start" button.**
 > [!CAUTION]
-> The server does not run in the background, even in current versions. The user interface must remain visible while running the bot or using another device to keep it running at all times.**
+> The server does not run in the background, even in current versions. The user interface must remain visible while running the bot or using another device to keep it running at all times.
 
-exe: 
-**soon...**
+**exe: 
+soon...**
 
 ---
 
