@@ -33,6 +33,7 @@
 **4. Create the bot and give it a name and a program-specific image, then place the token.** 
 > [!NOTE] 
 > naming and image selection do not affect your original bot
+
 > [!WARNING] 
 > the token is stored locally on your device but is not encrypted
 
