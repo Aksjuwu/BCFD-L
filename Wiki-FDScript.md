@@ -199,15 +199,15 @@ $sendMessage[Your score is $var[score]]
 Saved to disk (`.json`). Survive across executions.
 
 ```
-$setVar[name; value]
-$getVar[name]          ← inline only
+$setVar[name; value; userID]
+$getVar[name; userID]          ← inline only
 ```
 Variable names are sanitised to alphanumeric, `-`, and `_`.
 
 **Example:**
 ```
-$setVar[visits; 42]
-$sendMessage[Total visits: $getVar[visits]]
+$setVar[coins; 42; $authorID] 
+$sendMessage[Total visits: $getVar[coins;$authorID]]
 ```
 → `Total visits: 42`
 
