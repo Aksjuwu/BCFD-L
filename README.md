@@ -40,7 +40,7 @@
 
 **6. On the same settings page, click the "wiki-fdscript" link to learn how to write commands.**
 
-**7. Go to the commands tab and click the `+` button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on "wiki-fdscript", then click the `Save` button when finished.**
+**7. Go to the commands tab and click the `+` button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on [wiki-fdscript](https://github.com/obgwew/FDSB/blob/main/Wiki-FDScript.md), then click the `Save` button when finished.**
 
 **8. Return to the main interface and press the `Start` button to run your bot.**
 
