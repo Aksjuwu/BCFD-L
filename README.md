@@ -28,7 +28,7 @@
 ```
 
 
-**3. Click on the "New Bot" button so you can find the Decorid website for creating the bot [link](https://discord.com/developers/home), Create the bot and make sure the last three buttons at the bottom are activated, then copy your bot's token.**
+**3. Click on the `New Bot` button so you can find the Decorid website for creating the bot [link](https://discord.com/developers/home), Create the bot and make sure the last three buttons at the bottom are activated, then copy your bot's token.**
 
 
 **4. Create the bot and give it a name and a program-specific image, then place the token.** 
@@ -45,10 +45,10 @@
 **6. Also, on the same settings page, go to the wiki-fdscript link to read how to write the commands.**
 
 
-**7. Go to the "commands" interface, then create a command using the "+" button. A command editing interface will appear; you will need to enter a name for the command (this is necessary) and choose the desired prefix to call the command. Then, based on the wiki-fdscript, write your commands, and when finished, press the "save" button to save the file.**
+**7. Go to the `commands` interface, then create a command using the `+` button. A command editing interface will appear; you will need to enter a name for the command (this is necessary) and choose the desired prefix to call the command. Then, based on the wiki-fdscript, write your commands, and when finished, press the `save` button to save the file.**
 
 
-**8. Then you go to the "main" interface and the bot allows you to start directly via the "start" button.**
+**8. Then you go to the `main` interface and the bot allows you to start directly via the `start` button.**
 > [!CAUTION]
 > The server does not run in the background, even in current versions. The user interface must remain visible while running the bot or using another device to keep it running at all times.
 
