@@ -20,10 +20,10 @@
 **1. You download the APK version compatible with your device.**
 
 
-**2. The main interface (in English by default) will appear, displaying three buttons:
-  Discord. server link 
-  Github. Project link 
-  New Bot. Create a bot**
+**2. The main interface (in English by default) will appear, displaying three buttons:\n
+  Discord -> server link\n
+  Github -> Project link\n
+  New Bot -> Create a bot**
 
 
 **3. Click on the "New Bot" button so you can find the Decorid website for creating the bot [link](https://discord.com/developers/home), Create the bot and make sure the last three buttons at the bottom are activated, then copy your bot's token.**
