@@ -1,11 +1,11 @@
 name: Auto Update Wiki Index and Version
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'wiki/**/functions/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'wiki/**/functions/**'
 
 jobs:
   update-wiki:
