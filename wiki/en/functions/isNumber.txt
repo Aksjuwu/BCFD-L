@@ -1,0 +1,40 @@
+<dash>
+name: $isNumber
+desc: Checks whether a value matches a specific numeric formula/type.
+category: Math & Numbers
+
+<block type="text" title="How does the command work?">
+text: $isNumber takes a formula (type check) and a value, then checks if the value matches that type. Returns "true" or "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isNumber[formula; value]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isNumber[int; 42]
+</block>
+
+<block type="options" title="Available formulas">
+option: int|Is an integer (no decimal point)
+option: nat|Is a natural number (positive integer, >= 1)
+option: pos|Is a positive number (> 0)
+option: neg|Is a negative number (< 0)
+option: zero|Is zero
+option: even|Is an even integer
+option: odd|Is an odd integer
+option: dec|Is a decimal number (has a decimal point)
+option: frac|Is a fraction (format: a/b)
+option: num|Is any valid number (integer or decimal)
+</block>
+
+<block type="callout" kind="note">
+text: Returns "true" if the value matches the given formula, "false" otherwise. Invalid inputs that can't be parsed always return "false".
+</block>
+</dash>
+
+<details>
+syntax: $isNumber[formula; value]
+param: formula|text|Required|The type check to perform: int, nat, pos, neg, zero, even, odd, dec, frac, num
+param: value|text|Required|The value to check against the formula
+</details>

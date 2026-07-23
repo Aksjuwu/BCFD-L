@@ -1,0 +1,27 @@
+<dash>
+name: $cloneRole
+desc: Creates a duplicate of an existing role with the same permissions and settings.
+category: Moderation
+
+<block type="text" title="How does the command work?">
+text: $cloneRole takes a role ID/mention and optionally a new name. The bot fetches the original role's properties (permissions, color, hoist, mentionable) and creates a new role with those same settings.
+</block>
+
+<block type="code" title="Syntax">
+text: $cloneRole[role ID or @mention; (optional new name)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $cloneRole[&123456789; Cloned Role]
+</block>
+
+<block type="callout" kind="note">
+text: If no new name is provided, the cloned role keeps the original role's name. The bot must have "Manage Roles" permission.
+</block>
+</dash>
+
+<details>
+syntax: $cloneRole[role ID or @mention; (optional new name)]
+param: role ID or @mention|text|Required|The ID or @mention of the role to clone
+param: optional new name|text|Optional|A custom name for the cloned role. If omitted, the original name is used.
+</details>

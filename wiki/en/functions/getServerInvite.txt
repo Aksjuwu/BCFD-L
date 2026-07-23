@@ -1,0 +1,21 @@
+<dash>
+name: $getServerInvite
+desc: Generates and sends an invite link for the current server.
+category: Utilities
+
+<block type="text" title="How does the command work?">
+text: When $getServerInvite is called, the bot first checks if the server has a vanity URL. If not, it finds a channel where the bot has "Create Invite" permissions and generates a permanent invite link. Optionally, a server ID can be provided to get an invite for a different server.
+</block>
+
+<block type="code" title="Syntax">
+text: $getServerInvite
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: The bot must be a member of the target server and have "Create Invite" permissions. If a vanity URL is set for the server, it will be returned instead of creating a new invite.
+</block>
+</dash>

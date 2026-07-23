@@ -1,0 +1,21 @@
+<dash>
+name: $membersCount
+desc: Returns the total number of members in the server.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: When $membersCount is called without arguments, the bot counts all non-bot human members in the current server and sends the count as a number. Optionally, you can pass a guild ID and a yes/no flag to include bots.
+</block>
+
+<block type="code" title="Syntax">
+text: $membersCount
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: We have $membersCount members!
+</block>
+
+<block type="callout" kind="note">
+text: By default, bots are excluded from the count. To include bots, use $membersCount[guildID; yes]. This command only works inside a server unless a guild ID is provided.
+</block>
+</dash>

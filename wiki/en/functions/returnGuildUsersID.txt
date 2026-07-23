@@ -1,0 +1,22 @@
+<dash>
+name: $returnGuildUsersID
+desc: Returns a list of all user IDs in the server.
+category: Return Commands
+
+<block type="text" title="How does the command work?">
+text: When $returnGuildUsersID is called, the bot collects the unique Discord user IDs of all members in the current server and stores them. The result can be retrieved later using the $return command.
+</block>
+
+<block type="code" title="Syntax">
+text: $returnGuildUsersID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $returnGuildUsersID
+$sendMessage[Total users: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: This command only works inside a server. The collected IDs are stored internally and can be accessed via the $return command after execution.
+</block>
+</dash>

@@ -1,0 +1,28 @@
+<dash>
+name: $splitIn
+desc: Splits a text string into parts using a delimiter and stores the result.
+category: String Utilities
+
+<block type="text" title="How does the command work?">
+text: $splitIn takes a text string and a delimiter, splits the text by that delimiter, and stores the resulting parts. Use $splitOut afterwards to access individual parts.
+</block>
+
+<block type="code" title="Syntax">
+text: $splitIn[text; delimiter]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[1]
+</block>
+
+<block type="callout" kind="note">
+text: The split parts are stored in context and can be accessed using $splitOut with an index (1-based), < for first, or > for last.
+</block>
+</dash>
+
+<details>
+syntax: $splitIn[text; delimiter]
+param: text|text|Required|The text string to split
+param: delimiter|text|Required|The delimiter/separator to split by (cannot be empty)
+</details>

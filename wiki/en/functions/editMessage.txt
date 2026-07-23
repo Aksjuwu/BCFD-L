@@ -1,0 +1,36 @@
+<dash>
+name: $editMessage
+desc: Edits a previously sent bot message in any channel, optionally converting it to an embed.
+category: Messaging
+
+<block type="text" title="How does the command work?">
+text: $editMessage fetches a specific bot message by channel ID and message ID, then edits its content. Optionally, you can provide title, description, color, and footer to convert the message into an embed.
+</block>
+
+<block type="code" title="Syntax">
+text: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $editMessage[$channelID; 123456789; Updated content!]
+</block>
+
+<block type="callout" kind="note">
+text: The target message must have been sent by this bot. If optional embed parameters are provided, the message is edited to include an embed alongside the content.
+</block>
+
+<block type="callout" kind="warning">
+text: The bot must have permission to view and edit messages in the target channel.
+</block>
+</dash>
+
+<details>
+syntax: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+param: channelID|snowflake|Required|The ID of the channel containing the message
+param: messageID|snowflake|Required|The ID of the bot message to edit
+param: content|text|Required|The new text content for the message
+param: title|text|Optional|Title for an embed to attach to the message
+param: description|text|Optional|Description for the embed
+param: color|text|Optional|Hex color for the embed
+param: footer|text|Optional|Footer text for the embed
+</details>

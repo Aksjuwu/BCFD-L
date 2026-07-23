@@ -1,0 +1,25 @@
+<dash>
+name: $else
+desc: Provides an alternative code block when the preceding $if condition is false.
+category: Flow Control
+
+<block type="text" title="How does the command work?">
+text: When used inside an $if block, $else defines a fallback code path. If the $if condition evaluates to false, the code after $else (and before $endif) is executed instead.
+</block>
+
+<block type="code" title="Syntax">
+text: $else
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $else must be placed between an $if and an $endif. Using $else outside of an $if block will result in an error.
+</block>
+</dash>

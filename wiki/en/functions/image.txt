@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: Sends an image embed to the channel using a URL.
+category: Messaging
+
+<block type="text" title="How does the command work?">
+text: $image takes an image URL, creates an embed with that image, and sends it to the channel. The URL must start with http:// or https://.
+</block>
+
+<block type="code" title="Syntax">
+text: $image[URL]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: The image is sent as an embed with the image set as the embed image. The bot must have "Embed Links" permission in the channel.
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|Required|A direct URL to an image file. Must start with http:// or https://
+</details>

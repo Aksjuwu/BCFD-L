@@ -1,0 +1,22 @@
+<dash>
+name: $returnGuildRolesID
+desc: Returns a list of all role IDs in the server.
+category: Return Commands
+
+<block type="text" title="How does the command work?">
+text: When $returnGuildRolesID is called, the bot collects the unique Discord role IDs of all roles in the current server and stores them. The result can be retrieved later using the $return command.
+</block>
+
+<block type="code" title="Syntax">
+text: $returnGuildRolesID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $returnGuildRolesID
+$sendMessage[Total roles: $return[roleIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: This command only works inside a server. The collected IDs are stored internally and can be accessed via the $return command after execution.
+</block>
+</dash>

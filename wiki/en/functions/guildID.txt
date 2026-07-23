@@ -1,0 +1,21 @@
+<dash>
+name: $guildID
+desc: Returns the Discord server (guild) ID where the command was used.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: When $guildID is called, the bot retrieves the unique Discord guild ID of the server where the command was executed and sends it directly as a raw numeric string. If used in a DM, it returns "DM".
+</block>
+
+<block type="code" title="Syntax">
+text: $guildID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Server ID: $guildID
+</block>
+
+<block type="callout" kind="note">
+text: The returned value is a snowflake ID (e.g., 123456789012345678). When used outside a server (in DMs), the command returns the string "DM" instead.
+</block>
+</dash>

@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceLeave
+desc: Event triggered when a member leaves a voice channel.
+category: Event
+
+<block type="text" title="How does the event work?">
+text: $onVoiceLeave is an event prefix that triggers an FDScript whenever a member leaves a voice channel. The script receives the member and voice channel information. You can optionally specify a channel ID in the first line to direct the output to a specific text channel.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onVoiceLeave
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onVoiceLeave
+ sendMessage[$authorName left a voice channel.]
+</block>
+
+<block type="callout" kind="note">
+text: Place this in the first line of your FDScript file. The script will run automatically when any member leaves a voice channel.
+</block>
+
+<block type="callout" kind="important">
+text: This event runs in the bot_events folder, not bot_commands. Create your .fds file there.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceLeave
+</details>

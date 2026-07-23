@@ -1,0 +1,21 @@
+<dash>
+name: $getUserStatus
+desc: Returns the online status of a user in the server.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: When $getUserStatus is called without arguments, it returns the online status of the command author. When called with a user ID or mention, it returns that user's status. Returns "offline" if the user is not found.
+</block>
+
+<block type="code" title="Syntax">
+text: $getUserStatus
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Your status is: $getUserStatus
+</block>
+
+<block type="callout" kind="note">
+text: Possible return values are: online, idle, dnd, offline. This command only works inside a server (not in DMs) since Discord only provides status information for guild members.
+</block>
+</dash>

@@ -1,0 +1,21 @@
+<dash>
+name: $mention
+desc: Returns a mention of the user who triggered the command.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: When $mention is called, the bot retrieves the Discord mention format of the user who executed the command and sends it directly to the channel. This creates a clickable mention that pings the user.
+</block>
+
+<block type="code" title="Syntax">
+text: $mention
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Hello $mention!
+</block>
+
+<block type="callout" kind="note">
+text: The returned value is a Discord mention format (e.g., <@123456789>), which renders as a clickable blue mention in the chat that notifies the user.
+</block>
+</dash>

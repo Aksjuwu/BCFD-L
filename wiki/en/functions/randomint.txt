@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: Returns a random integer between a minimum and maximum value.
+category: Randomness
+
+<block type="text" title="How does the command work?">
+text: $randomint takes two numbers (min and max) and generates a random integer within that inclusive range, then sends it to the channel.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: Both min and max are inclusive. If min is greater than max, the values are automatically swapped. The result is a whole number between the two bounds.
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Required|The minimum value (inclusive)
+param: max|number|Required|The maximum value (inclusive)
+</details>

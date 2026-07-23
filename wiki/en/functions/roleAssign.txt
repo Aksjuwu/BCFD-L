@@ -1,0 +1,27 @@
+<dash>
+name: $roleAssign
+desc: Assigns or removes a role from a server member.
+category: Moderation
+
+<block type="text" title="How does the command work?">
+text: $roleAssign takes a role ID/mention and a user ID/mention. The bot adds or removes the specified role from the target member. The action depends on whether the role toggle mode is used.
+</block>
+
+<block type="code" title="Syntax">
+text: $roleAssign[role ID or @mention; user ID or @mention]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $roleAssign[&123456789; 987654321]
+</block>
+
+<block type="callout" kind="note">
+text: The bot must have "Manage Roles" permission and its highest role must be above the target role. The target user must be a member of the server.
+</block>
+</dash>
+
+<details>
+syntax: $roleAssign[role ID or @mention; user ID or @mention]
+param: role ID or @mention|text|Required|The ID or @mention of the role to assign
+param: user ID or @mention|text|Required|The ID or @mention of the user to assign the role to
+</details>

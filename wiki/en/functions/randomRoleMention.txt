@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleMention
+desc: Returns a mention of a random role from the server.
+category: Randomness
+
+<block type="text" title="How does the command work?">
+text: When $randomRoleMention is called, the bot collects all roles in the current server (excluding the default @everyone role), picks one at random, and sends its mention format to the channel.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomRoleMention
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Congrats $randomRoleMention!
+</block>
+
+<block type="callout" kind="note">
+text: The returned value is a Discord role mention (e.g., <@&123456789>), which renders as a clickable colored mention in the chat. The @everyone role is always excluded.
+</block>
+</dash>

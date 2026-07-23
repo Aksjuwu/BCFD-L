@@ -1,0 +1,35 @@
+<dash>
+name: $editButton
+desc: Edits the properties of an existing button on a message.
+category: Components
+
+<block type="text" title="How does the command work?">
+text: $editButton finds a button by its ID or URL on a message and updates its label, style, disabled state, and/or emoji. It can target buttons on a pending view, an interaction source message, or a specific message by ID.
+</block>
+
+<block type="code" title="Syntax">
+text: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $editButton[btn_confirm; Confirmed; success]
+</block>
+
+<block type="callout" kind="note">
+text: If messageID is provided, the bot fetches that specific message and edits the button on it. Otherwise, it searches the pending view first, then the interaction source message.
+</block>
+
+<block type="callout" kind="warning">
+text: The target message must have been sent by this bot. The button must already exist on the message with the given ID or URL.
+</block>
+</dash>
+
+<details>
+syntax: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+param: ID/URL|text|Required|The custom ID or URL of the button to edit
+param: label|text|Required|The new text to display on the button
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|yes to disable the button, no to enable it
+param: emoji|text|Optional|New emoji to display inside the button
+param: messageID|snowflake|Optional|ID of a specific bot message to edit the button on
+</details>

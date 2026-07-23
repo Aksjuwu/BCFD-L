@@ -1,0 +1,21 @@
+<dash>
+name: $channelID
+desc: Returns the Discord channel ID where the command was used.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: When $channelID is called, the bot retrieves the unique Discord channel ID of the channel where the command was executed and sends it directly as a raw numeric string.
+</block>
+
+<block type="code" title="Syntax">
+text: $channelID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: This command was used in channel $channelID
+</block>
+
+<block type="callout" kind="note">
+text: The returned value is a snowflake ID (e.g., 123456789012345678), which uniquely identifies the channel where the message was sent.
+</block>
+</dash>

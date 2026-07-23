@@ -1,0 +1,27 @@
+<dash>
+name: $replyIn
+desc: Delays the next reply by the bot for a specified duration.
+category: Timing & Delays
+
+<block type="text" title="How does the command work?">
+text: $replyIn pauses the script execution for the specified duration. After the delay, the script continues with the next command. This is useful for creating timed responses.
+</block>
+
+<block type="code" title="Syntax">
+text: $replyIn[time]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $replyIn[5s]
+$sendMessage[This appears after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: The time format uses: s (seconds), m (minutes), h (hours), d (days). The script is frozen during the delay — no other commands in this script will execute until the delay completes.
+</block>
+</dash>
+
+<details>
+syntax: $replyIn[time]
+param: time|text|Required|Duration to wait. Format: number + unit (s/m/h/d), e.g., 5s, 10m, 1h
+</details>

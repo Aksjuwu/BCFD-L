@@ -1,0 +1,21 @@
+<dash>
+name: $removeButtons
+desc: Removes all buttons from a message or from the pending view.
+category: Components
+
+<block type="text" title="How does the command work?">
+text: When $removeButtons is called without arguments, it clears all buttons from the pending view or the interaction source message. When called with a message ID, it removes all buttons from that specific bot message.
+</block>
+
+<block type="code" title="Syntax">
+text: $removeButtons
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $removeButtons[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: The message ID must point to a message sent by this bot. If called without arguments, it first checks the pending view, then falls back to the interaction source message.
+</block>
+</dash>

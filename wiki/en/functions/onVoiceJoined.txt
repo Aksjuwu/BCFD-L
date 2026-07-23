@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceJoined
+desc: Event triggered when a member joins a voice channel.
+category: Event
+
+<block type="text" title="How does the event work?">
+text: $onVoiceJoined is an event prefix that triggers an FDScript whenever a member joins a voice channel. The script receives the member and voice channel information. You can optionally specify a channel ID in the first line to direct the output to a specific text channel.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onVoiceJoined
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onVoiceJoined
+ sendMessage[$mention joined a voice channel!]
+</block>
+
+<block type="callout" kind="note">
+text: Place this in the first line of your FDScript file. The script will run automatically when any member joins a voice channel.
+</block>
+
+<block type="callout" kind="important">
+text: This event runs in the bot_events folder, not bot_commands. Create your .fds file there.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceJoined
+</details>
