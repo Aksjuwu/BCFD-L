@@ -1,0 +1,27 @@
+<dash>
+name: $sub
+desc: يطرح الأرقام تسلسلياً من القيمة الأولى ويُرجع النتيجة.
+category: Math & Numbers
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $sub يأخذ حجتين رقميتين أو أكثر. يبدأ بالقيمة الأولى ويطرح كل قيمة لاحقة منها. يعمل كأمر مستقل ومضمن.
+</block>
+
+<block type="code" title="Syntax">
+text: $sub[a; b; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Result is $sub[10; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: $sub[10; 3; 2] يُقيَّم إلى 10 - 3 - 2 = 5. إذا مُدّت قيمة غير رقمية، يتم إرجاع خطأ.
+</block>
+</dash>
+
+<details>
+syntax: $sub[a; b; ...]
+param: a|number|Required|القيمة الأولية (المُطروح منها)
+param: b|number|Required|القيمة المراد طرحها (يتم طرح القيم الإضافية تسلسلياً أيضاً)
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $splitOut
+desc: يسترجع جزءاً محدداً من نص مُقسّم مسبقاً (باستخدام $splitIn).
+category: String Utilities
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $splitOut يصل إلى جزء محدد من نتيجة التقسيم من $splitIn. استخدم فهرساً مبتدئاً من 1، أو < للجزء الأول، أو > للجزء الأخير. يتم إرسال القيمة المسترجعة إلى القناة.
+</block>
+
+<block type="code" title="Syntax">
+text: $splitOut[index]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[2]
+</block>
+
+<block type="callout" kind="note">
+text: قيم الفهرس الصحيحة: رقم (مبتدئ من 1)، < (العنصر الأول)، > (العنصر الأخير). يجب استدعاء $splitIn قبل $splitOut.
+</block>
+</dash>
+
+<details>
+syntax: $splitOut[index]
+param: index|text|Required|فهرس الجزء المراد استرجاعه: رقم (مبتدئ من 1)، < للأول، أو > للأخير
+</details>

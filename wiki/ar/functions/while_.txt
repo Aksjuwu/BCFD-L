@@ -1,0 +1,30 @@
+<dash>
+name: $while
+desc: يُكرّر كتلة الكود المحصورة طالما أن الشرط يظل صحيحاً.
+category: التحكم في التدفق
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $while يُقيّم شرطاً قبل كل تكرار. إذا كان الشرط صحيحاً، يتم تنفيذ جسم الحلقة. يُكرّر هذا حتى يصبح الشرط خاطئاً أو يتم استخدام $break.
+</block>
+
+<block type="code" title="الصيغة">
+text: $while[condition]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $setVar[i; 0]
+$while[$getVar[i] < 5]
+  $sendMessage[Count: $getVar[i]]
+  $setVar[i; $math[$getVar[i] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: تأكد من أن لحلقتك شرط إيقاف واضح لتجنب الحلقات اللانهائية. الحلقة اللانهائية ستُعلّق السكربت إلى أجل غير مسمى. استخدم $break للخروج مبكراً.
+</block>
+</dash>
+
+<details>
+syntax: $while[condition]
+param: condition|expression|المطلوب|الشرط المُراد تقييمه قبل كل تكرار. تستمر الحلقة طالما هذا الشرط صحيحاً. يستخدم نفس العوامل مثل $if (==, !=, >, <, >=, <=).
+</details>

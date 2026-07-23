@@ -1,0 +1,27 @@
+<dash>
+name: $sum
+desc: يُجمع رقمين أو أكثر معاً ويُرجع النتيجة.
+category: Math & Numbers
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $sum يأخذ حجتين رقميتين أو أكثر ويُرجع مجموعها. يعمل كأمر مستقل ومضمن داخل أوامر أخرى.
+</block>
+
+<block type="code" title="Syntax">
+text: $sum[a; b; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[$sum[8; 2]]
+</block>
+
+<block type="callout" kind="note">
+text: يدعم أي عدد من الحجج. تُعالج جميع القيم كأرقام. إذا مُدّت قيمة غير رقمية، يتم إرجاع خطأ. النتيجة عدد صحيح إذا لم يكن المجموع يحتوي على جزء عشري.
+</block>
+</dash>
+
+<details>
+syntax: $sum[a; b; ...]
+param: a|number|Required|الرقم الأول المراد جمعه
+param: b|number|Required|الرقم الثاني المراد جمعه (يُقبل أرقام إضافية أيضاً)
+</details>

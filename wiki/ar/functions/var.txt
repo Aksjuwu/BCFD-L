@@ -1,0 +1,32 @@
+<dash>
+name: $var
+desc: يقرأ أو يكتب متغيراً مؤقتاً لا يعيش إلا أثناء تنفيذ السكربت الحالي.
+category: المتغيرات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $var بمعامل واحد يقرأ قيمة المتغير. $var بمعاملين يكتب قيمة في المتغير. تُمسح المتغيرات المؤقتة عند انتهاء السكربت.
+</block>
+
+<block type="code" title="الصيغة">
+text: $var[name; value]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $var[score; 10]
+$sendMessage[Your score is $var[score]]
+</block>
+
+<block type="callout" kind="note">
+text: على عكس $setVar/$getVar (الدائم)، $var متاح فقط أثناء تشغيل السكربت الحالي. يمكن استخدامه بشكل مباشر داخل مُعاملات أوامر أخرى.
+</block>
+
+<block type="callout" kind="warning">
+text: لا يمكن استخدام $var بشكل مباشر داخل مُعاملات $setVar أو $getVar — يتم حله في مرحلة مختلفة. استخدم $getVar للتخزين الدائم.
+</block>
+</dash>
+
+<details>
+syntax: $var[name; (value)]
+param: name|text|مطلوب|اسم المتغير المُراد قراءته أو كتابته
+param: value|text|اختياري|إذا مُنح، يكتب هذه القيمة في المتغير (وضع معاملين). إذا حُذف، يقرأ ويُعيد القيمة الحالية (وضع معامل واحد).
+</details>

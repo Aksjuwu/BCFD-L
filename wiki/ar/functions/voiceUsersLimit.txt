@@ -1,0 +1,26 @@
+<dash>
+name: $voiceUsersLimit
+desc: يُعيد حد المستخدمين في قناة صوتية أو قناة مسرح.
+category: القنوات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $voiceUsersLimit يأخذ معرّف قناة صوتية أو مسرح ويُعيد حد المستخدمين فيها. القيمة 0 تعني عدم وجود حد. يُرجع خطأ إذا لم تكن القناة صوتية/مسرح.
+</block>
+
+<block type="code" title="الصيغة">
+text: $voiceUsersLimit[voice channel ID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $voiceUsersLimit[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: يُرجع 0 إذا لم يكن هناك حد مستخدمين مُعيّن للقناة. يمكن استخدامه مباشرة للتحقق الشرطي.
+</block>
+</dash>
+
+<details>
+syntax: $voiceUsersLimit[voice channel ID]
+param: channelID|text|المطلوب|معرّف القناة الصوتية أو المسرح.
+</details>

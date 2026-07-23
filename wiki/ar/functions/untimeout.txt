@@ -1,0 +1,30 @@
+<dash>
+name: $untimeout
+desc: يُزيل الإيقاف المؤقت النشط عن عضو في السيرفر.
+category: الإشراف
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $untimeout يأخذ معرّف مستخدم أو إشارة ويُزيل أي إيقاف مؤقت نشط على ذلك العضو، مستعيداً بذلك أذوناته لإرسال الرسائل والتفاعل والانضمام للقنوات الصوتية فوراً.
+</block>
+
+<block type="code" title="الصيغة">
+text: $untimeout[user]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $untimeout[@user]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يكون لدى المستخدم إيقاف مؤقت نشط حالياً حتى يكون لهذا الأمر أي تأثير. إذا لم يكن المستخدم موقوفاً مؤقتاً، يكتمل الأمر دون خطأ.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن تمتلك البوت صلاحية " Moderate Members " وأن يكون أعلى دور له أعلى من أعلى دور الهدف.
+</block>
+</dash>
+
+<details>
+syntax: $untimeout[user]
+param: user|text|مطلوب|معرّف المستخدم أو الإشارة للعضو المُراد إزالة الإيقاف المؤقت عنه
+</details>

@@ -1,0 +1,31 @@
+<dash>
+name: $timeout
+desc: يُطبّق إيقاف مؤقت (كتم) على عضو في السيرفر لمدة محددة.
+category: الإشراف
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $timeout يأخذ مدة ومعرّف مستخدم/إشارة، ثم يُطبّق إيقافاً مؤقتاً على ذلك العضو. العضو الموقوف مؤقتاً لا يمكنه إرسال رسائل أو التفاعل أو الانضمام للقنوات الصوتية لمدة محددة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $timeout[time; user]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $timeout[1h; @user]
+</block>
+
+<block type="callout" kind="note">
+text: صيغة الوقت تستخدم: s (ثواني), m (دقائق), h (ساعات), d (أيام). مدة الإيقاف المؤقت القصوى هي 28 يوماً. استخدم $untimeout لإزالة الإيقاف المؤقت مبكراً.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن تمتلك البوت صلاحية " Moderate Members " وأن يكون أعلى دور له أعلى من أعلى دور الهدف.
+</block>
+</dash>
+
+<details>
+syntax: $timeout[time; user]
+param: time|text|مطلوب|مدة الإيقاف المؤقت. الصيغة: رقم + وحدة (s/m/h/d)، مثل: 1h, 30m, 7d
+param: user|text|icaid|معرّف المستخدم أو الإشارة (@mention) للعضو المُراد إيقافه مؤقتاً
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $wait
+desc: يُوقّف تنفيذ السكربت لمدة محددة.
+category: التوقيت والتأخيرات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $wait يُجمّد تنفيذ السكربت بالكامل لمدة محددة. لن يتم تنفيذ أي أوامر تالية في السكربت حتى تمر مدة الانتظار.
+</block>
+
+<block type="code" title="الصيغة">
+text: $wait[time]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Starting...]
+$wait[5s]
+$sendMessage[Done after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: صيغة الوقت تستخدم: s (ثواني), m (دقائق), h (ساعات), d (أيام). يُجمّد السكربت بالكامل أثناء الانتظار — لا تتأثر سكربتات المستخدمين الآخرين.
+</block>
+</dash>
+
+<details>
+syntax: $wait[time]
+param: time|text|المطلوب|مدة الانتظار. الصيغة: رقم + وحدة (s/m/h/d)، مثل: 5s, 10m, 1h, 1d
+</details>

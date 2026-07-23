@@ -1,0 +1,21 @@
+<dash>
+name: $uptime
+desc: يُعيد المدة التي كان البوت متواجداً فيها منذ آخر تشغيل له.
+category: الأدوات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $uptime، يحسب البوت الوقت المنقضي منذ آخر تشغيل له (حدث on_ready)، ويُنسقه إلى نص مقروء من البشر، ثم يُرسله إلى القناة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $uptime
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Bot has been up for $uptime
+</block>
+
+<block type="callout" kind="note">
+text: يشمل المخرج المنسّق الأيام والساعات والدقائق والثواني حسب الحاجة (مثل: 2d 5h 30m 12s). يجب أن يكون البوت قد استدعى set_bot_start_time() أثناء بدء التشغيل ليعمل هذا.
+</block>
+</dash>

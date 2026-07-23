@@ -1,0 +1,28 @@
+<dash>
+name: $splitIn
+desc: يُقسّم نصاً إلى أجزاء باستخدام فاصل ويخزن النتيجة.
+category: String Utilities
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $splitIn يأخذ نصاً وفاصلاً، يُقسّم النص بذلك الفاصل، ويخزن الأجزاء الناتجة. استخدم $splitOut بعد ذلك للوصول إلى الأجزاء الفردية.
+</block>
+
+<block type="code" title="Syntax">
+text: $splitIn[text; delimiter]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[1]
+</block>
+
+<block type="callout" kind="note">
+text: يتم تخزين الأجزاء المُقسّمة في السياق ويمكن الوصول إليها باستخدام $splitOut مع فهرس (مبتدئ من 1)، أو < للجزء الأول، أو > للجزء الأخير.
+</block>
+</dash>
+
+<details>
+syntax: $splitIn[text; delimiter]
+param: text|text|Required|النص المراد تقسيمه
+param: delimiter|text|Required|الفاصل المراد التقسيم به (لا يمكن أن يكون فارغاً)
+</details>

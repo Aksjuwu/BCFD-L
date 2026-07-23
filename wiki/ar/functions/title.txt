@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: يُعيّن عنوان الـ embed قيد الإنشاء.
+category: بناء الـ Embed
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $title يأخذ مُعلفاً نصياً ويُعيّنه كعنوان للـ embed الحالي قيد الإنشاء. يظهر العنوان في أعلى الـ embed بنص أكبر وأكثر سمكاً.
+</block>
+
+<block type="code" title="الصيغة">
+text: $title[text]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: يدعم العنوان تنسيق Discord markdown. يظهر كعنوان رئيسي في أعلى الـ embed.
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: text|text|مطلوب|نص عنوان الـ embed
+</details>

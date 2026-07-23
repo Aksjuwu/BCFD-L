@@ -1,0 +1,34 @@
+<dash>
+name: $strictArgs
+desc: يفرض قيد عدد كلمات محدد على حجج أمر المستخدم.
+category: Access Control
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $strictArgs يتحقق مما إذا كان عدد الكلمات التي أقدمها المستخدم يتطابق مع القيد المحدد. إذا فشل الفحص، يتم عرض رسالة الخطأ وإيقاف السكريبت.
+</block>
+
+<block type="code" title="Syntax">
+text: $strictArgs[comparison; error_message]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $strictArgs[>2; Please provide more than 2 words!]
+</block>
+
+<block type="options" title="Comparison operators">
+option: >|أكبر من — يجب أن يُقدم المستخدم أكثر من N كلمة
+option: <|أقل من — يجب أن يُقدم المستخدم أقل من N كلمة
+option: =|يساوي — يجب أن يُقدم المستخدم بالضبط N كلمة
+option: !|لا يساوي — يجب ألّا يُقدم المستخدم بالضبط N كلمة
+</block>
+
+<block type="callout" kind="note">
+text: لا يشمل عدّاد الكلمات اسم الأمر نفسه. على سبيل المثال، إذا كتب المستخدم "!cmd hello world"، فإن عدد الكلمات هو 2.
+</block>
+</dash>
+
+<details>
+syntax: $strictArgs[comparison; error_message]
+param: comparison|text|Required|قيد مثل >2 أو <2 أو =2 أو !2 حيث الرقم هو عدد الكلمات المطلوب
+param: error_message|text|Required|الرسالة المعروضة إذا لم يتطابق عدد الكلمات مع القيد
+</details>

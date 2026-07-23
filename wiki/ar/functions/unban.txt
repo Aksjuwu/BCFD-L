@@ -1,0 +1,26 @@
+<dash>
+name: $unban
+desc: يُلغي حظر مستخدم محظور سابقاً من السيرفر.
+category: الإشراف
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $unban يأخذ معرّف مستخدم، ويبحث عن المستخدم في قائمة حظر السيرفر، ثم يُلغي الحظر. يجب أن يكون المستخدم محظوراً سابقاً لاستخدام هذا الأمر.
+</block>
+
+<block type="code" title="الصيغة">
+text: $unban[userID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $unban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن تمتلك البوت صلاحية " Ban Members ". يجب أن يكون معرّف المستخدم رقماً صرفاً (لا تُدعم الإشارات والرموز). يجب أن يكون المستخدم محظوراً حالياً.
+</block>
+</dash>
+
+<details>
+syntax: $unban[userID]
+param: userID|snowflake|مطلوب|المعرّف الرقمي للمستخدم المحظور المُراد إلغاء حظره
+</details>
