@@ -18,22 +18,26 @@
 **APK/EXE**
 
 1. Download the APK/EXE version compatible with your device.
+
 2. You'll see the main interface, which is in English by default.
+
 3. Click the New Bot button to open a page showing two options. Enter your bot token, bot name, and optionally add a bot image.
-[!NOTE]
-On the Discord Developer Portal, create your bot and make sure the three gateway intents (the toggle buttons at the bottom of the Bot tab) are enabled. Then copy your bot's token to paste into the app.
+> [!NOTE]
+> On the Discord Developer Portal, create your bot and make sure the three gateway intents (the toggle buttons at the bottom of the Bot tab) are enabled. Then copy your bot's token to paste into the app.
 
 4. Log into the bot and go to Settings to select your preferred language and interface theme.
-[!NOTE]
-The bot's name and image set inside the app do not affect the original bot on Discord.
-[!WARNING]
-The token is stored locally on your device, but it is not encrypted.
+> [!NOTE]
+> The bot's name and image set inside the app do not affect the original bot on Discord.
+> [!WARNING]
+> The token is stored locally on your device, but it is not encrypted.
 
-5. On the same settings page, click the "wiki-fdscript" link to learn how to write commands.
-6. Go to the Commands tab and click the + button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on wiki-fdscript, then click Save when finished.
+5. go to the wiki page, And look for all the commands that pique your curiosity.
+
+6. Go to the Commands tab and click the + button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on wiki, then click Save when finished.
+
 7. Return to the main interface and press Start to run your bot.
-[!CAUTION]
-The app does not run in the background. The user interface must remain open/visible, or you must use an external device to keep the bot online 24/7.
+> [!CAUTION]
+> The app does not run in the background. The user interface must remain open/visible, or you must use an external device to keep the bot online 24/7.
 
 ---
 
