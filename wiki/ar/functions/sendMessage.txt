@@ -1,0 +1,26 @@
+<dash>
+name: $sendMessage
+desc: يرسلا رسالة نصية إلى القناة الحالية.
+category: Messaging
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $sendMessage يأخذ حجة نصية، يحلّ أي متغيرات/ymbols بدلية بداخلها، ويرسل الرسالة الناتجة إلى القناة الحالية. إذا كان هناك عرض بأزرار معلّق، يرفقها بالرسالة.
+</block>
+
+<block type="code" title="Syntax">
+text: $sendMessage[text]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Hello, $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: هذه هي الطريقة الأساسية لإرسال الرسائل في FDScript. يتم حل المتغيرات والymbols بدلية داخل النص تلقائياً قبل الإرسال.
+</block>
+</dash>
+
+<details>
+syntax: $sendMessage[text]
+param: text|text|Required|نص الرسالة المراد إرسالها. يدعم المتغيرات وymbols البدلية وتنسيق Discord markdown.
+</details>

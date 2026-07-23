@@ -1,0 +1,21 @@
+<dash>
+name: $getUserStatus
+desc: يُعيد حالة اتّصال مستخدم في السيرفر.
+category: معلومات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $getUserStatus بدون معاملات، يُعيد حالة اتّصال مُصدّر الأمر. عند استدعائه بمعرّف مستخدم أو إشارة، يُعيد حالة ذلك المستخدم. يُعيد "offline" إذا لم يُعثر على المستخدم.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getUserStatus
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Your status is: $getUserStatus
+</block>
+
+<block type="callout" kind="note">
+text: القيم المُرتدّدة المحتملة هي: online، idle، dnd، offline. هذا الأمر يعمل فقط داخل سيرفر (وليس في الرسائل الخاصّة) لأنّ Discord يوفّر معلومات الحالة لأعضاء السيرفر فقط.
+</block>
+</dash>

@@ -1,0 +1,27 @@
+<dash>
+name: $div
+desc: يقسم العدد الأول على كل عدد لاحق ويُعيد النتيجة.
+category: الرياضيات والأرقام
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $div وسائتين رقميتين أو أكثر. يبدأ بالقيمة الأولى ويقسمها على كل قيمة لاحقة. يعمل كأمر مستقل ومضمن.
+</block>
+
+<block type="code" title="الصيغة">
+text: $div[a; b; ...]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[$div[10; 2]]
+</block>
+
+<block type="callout" kind="warning">
+text: القسمة على الصفر تُعيد خطأ. $div[10; 2; 5] تُقيَّم كـ 10 / 2 / 5 = 1. النتيجة عدد صحيح إذا كان القسم بلا جزء عشري.
+</block>
+</dash>
+
+<details>
+syntax: $div[a; b; ...]
+param: a|number|موصى به|المقسم (العدد المطلوب قسمته)
+param: b|number|موصى به|القسم (لا يمكن أن يكون 0). يتم تطبيق أقسام إضافية متتالية.
+</details>

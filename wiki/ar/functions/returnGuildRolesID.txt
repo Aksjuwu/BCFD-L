@@ -1,0 +1,22 @@
+<dash>
+name: $returnGuildRolesID
+desc: يُرجع قائمة بجميع معرّفات الأدوار في السيرفر.
+category: Return Commands
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $returnGuildRolesID، يجمع البوت معرّفات أدوار Discord الفريدة لجميع الأدوار في السيرفر الحالي ويخزنها. يمكن استرجاع النتيجة لاحقاً باستخدام أمر $return.
+</block>
+
+<block type="code" title="Syntax">
+text: $returnGuildRolesID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $returnGuildRolesID
+sendMessage[Total roles: $return[roleIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: هذا الأمر يعمل فقط داخل سيرفر. يتم تخزين المعرّفات المجمّعة داخلياً ويمكن الوصول إليها عبر أمر $return بعد التنفيذ.
+</block>
+</dash>

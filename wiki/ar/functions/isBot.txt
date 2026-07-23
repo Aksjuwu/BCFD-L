@@ -1,0 +1,26 @@
+<dash>
+name: $isBot
+desc: يتحقّق مما إذا كان المستخدم حساب بوت.
+category: معلومات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يأخذ $isBot معرّف مستخدم أو إشارة ويتحقّق مما إذا كان ذلك المستخدم حساب بوت Discord. يُعيد "true" أو "false".
+</block>
+
+<block type="code" title="الصيغة">
+text: $isBot[userID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $isBot[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: يُعيد "true" إذا كان المستخدم حساب بوت، و"false" إذا كان مستخدماً بشريّاً. يجب أن يكون المستخدم عضواً في السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $isBot[userID]
+param: userID|text|Required|معرّف المستخدم أو @إشارة المراد فحصه. يدعم المتغيّرات والعنّاقر.
+</details>

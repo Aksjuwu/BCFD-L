@@ -1,0 +1,26 @@
+<dash>
+name: $deleteRole
+desc: يحذف دوراً من السيرفر.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $deleteRole معرّف دور أو @mention، ويبحث عنه في السيرفر، ويحذفه بشكل دائم. لا يمكن التراجع عن هذا الإجراء.
+</block>
+
+<block type="code" title="الصيغة">
+text: $deleteRole[role ID or @mention]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $deleteRole[&123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت صلاحية "إدارة الأدوار" وأن يكون دوره الأعلى أعلى من الدور المستهدف. حذف الدور دائم ولا يمكن التراجع عنه.
+</block>
+</dash>
+
+<details>
+syntax: $deleteRole[role ID or @mention]
+param: role ID or @mention|text|موصى به|المعرّف أو @mention للدور المطلوب حذفه
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $sendEmbedMessage
+desc: يرسل رسالة مُضمنة إلى قناة محددة مع عنوان ووصف ولون وتذييل.
+category: Messaging
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $sendEmbedMessage يبني مُضمنة بالعنوان والوصف واللون والتذييل المقدمة، ثم يرسلها إلى القناة المحددة. جميع الحجج الخمس مطلوبة.
+</block>
+
+<block type="code" title="Syntax">
+text: $sendEmbedMessage[channelID; title; description; color; footer]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendEmbedMessage[$channelID; Welcome!; Thanks for joining; #00FF00; Enjoy your stay]
+</block>
+
+<block type="callout" kind="note">
+text: تقبل حجّة اللون قيم hex (مثل #FF5733). يجب أن يمتلك البوت صلاحيتي "Send Messages" و"Embed Links" في القناة المستهدفة.
+</block>
+</dash>
+
+<details>
+syntax: $sendEmbedMessage[channelID; title; description; color; footer]
+param: channelID|snowflake|Required|معرّف القناة لإرسال المُضمنة إليها
+param: title|text|Required|عنوان المُضمنة
+param: description|text|Required|وصف/نص جسم المُضمنة
+param: color|text|Required|كود لون hex لشريط المُضمنة المميز (مثل #FF5733)
+param: footer|text|Required|نص التذييل المعروض في أسفل المُضمنة
+</details>

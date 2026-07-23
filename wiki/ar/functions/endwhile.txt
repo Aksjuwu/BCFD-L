@@ -1,0 +1,25 @@
+<dash>
+name: $endwhile
+desc: يُعلّم نهاية كتلة حلقة $while.
+category: التحكّم بالتدفّق
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يُشير $endwhile إلى حدّ الإغلاق لحلقة $while. بعد كلّ تكرار، يعود التنفيذ إلى شرط $while لإعادة تقييمه. يجب أن يكون لكلّ $while ما يُقابلها من $endwhile.
+</block>
+
+<block type="code" title="الصيغة">
+text: $endwhile
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $setVar[count; 0]
+$while[$getVar[count] < 5]
+  $sendMessage[Count: $getVar[count]]
+  $setVar[count; $math[$getVar[count] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: يجب إغلاق كلّ كتلة $while بشكل صحيح بـ $endwhile. غياب $endwhile سيسبّب خطأ في السكربت. تأكّد من وجود شرط إنهاء لحلقتك لتجنّب الحلقات اللانهائيّة.
+</block>
+</dash>

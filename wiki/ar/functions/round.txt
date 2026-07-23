@@ -1,0 +1,27 @@
+<dash>
+name: $round
+desc: يُقرّب عدداً إلى عدد محدد من خانات العشرية.
+category: Math & Numbers
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $round يأخذ عدداً واختيارياً دقة (عدد خانات العشرية)، ثم يُقرّبه وفقاً لذلك ويرسل النتيجة. إذا لم يتم تحديد الدقة، يتم التقريب لأقرب عدد صحيح.
+</block>
+
+<block type="code" title="Syntax">
+text: $round[number; (precision)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $round[3.14159; 2]
+</block>
+
+<block type="callout" kind="note">
+text: بدون حجّة الدقة، يتم تقريب العد إلى أقرب عدد صحيح. مع الدقة، يتم التقريب إلى ذلك العدد من خانات العشرية.
+</block>
+</dash>
+
+<details>
+syntax: $round[number; (precision)]
+param: number|number|Required|العدد المراد تقريره
+param: precision|number|Optional|عدد خانات العشرية للتقريب إليها. إذا غُفل، يتم التقريب لأقرب عدد صحيح.
+</details>

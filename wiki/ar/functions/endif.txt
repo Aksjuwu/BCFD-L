@@ -1,0 +1,23 @@
+<dash>
+name: $endif
+desc: يُعلّم نهاية كتلة $if أو $elif.
+category: التحكّم بالتدفّق
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يُشير $endif إلى حدّ الإغلاق لكتلة $if الشرطيّة. الكود الواقف بين $if و$endif لا يُنفّذ إلا عند تحقّق الشرط. يجب أن يكون لكلّ $if ما يُقابلها من $endif.
+</block>
+
+<block type="code" title="الصيغة">
+text: $endif
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$endif
+</block>
+
+<block type="callout" kind="warning">
+text: يجب إغلاق كلّ كتلة $if بشكل صحيح بـ $endif. غياب $endif سيسبّب خطأ في السكربت.
+</block>
+</dash>

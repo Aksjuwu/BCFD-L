@@ -1,0 +1,30 @@
+<dash>
+name: $elif
+desc: يوفّر شرطاً بديلاً داخل كتلة $if عندما تكون الشروط السابقة خاطئة.
+category: التحكّم بالتدفّق
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يُستخدم $elif داخل كتلة $if لإضافة شروط إضافيّة. عند كون الشرط السابق $if (أو $elif) خاطئاً، يُفحص الشرط التالي $elif. إذا كان صحيحاً، يُنفّذ كتلة الكود الخاصّة به.
+</block>
+
+<block type="code" title="الصيغة">
+text: $elif[condition]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $if[$message == hello]
+  Hi there!
+$elif[$message == bye]
+  Goodbye!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: يجب وضع $elif بين $if و$endif. يمكن ربط كتل $elif متعدّدة. لا تُنفّذ إلا كتلة الكود الخاصة بأوّل شرط يتطابق.
+</block>
+</dash>
+
+<details>
+syntax: $elif[condition]
+param: condition|expression|Required|الشرط المراد تقييمه (مثال: $message == hello، $authorID == 123). يستخدم نفس العمليّات المقارنة مثل $if.
+</details>

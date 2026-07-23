@@ -1,0 +1,23 @@
+<dash>
+name: $endfor
+desc: يُعلّم نهاية كتلة حلقة $for.
+category: التحكّم بالتدفّق
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يُشير $endfor إلى حدّ الإغلاق لحلقة $for. بعد كلّ تكرار، يعود التنفيذ إلى أعلى جسم الحلقة. يجب أن يكون لكلّ $for ما يُقابلها من $endfor.
+</block>
+
+<block type="code" title="الصيغة">
+text: $endfor
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="warning">
+text: يجب إغلاق كلّ كتلة $for بشكل صحيح بـ $endfor. غياب $endfor سيسبّب خطأ في السكربت.
+</block>
+</dash>

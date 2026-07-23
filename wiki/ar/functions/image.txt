@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: يُرسل مُضمَن صورة إلى القناة باستخدام رابط.
+category: المراسلة
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يأخذ $image رابط صورة، ينشئ مُضمَناً بتلك الصورة، ويُرسله إلى القناة. يجب أن يبدأ الرابط بـ http:// أو https://.
+</block>
+
+<block type="code" title="الصيغة">
+text: $image[URL]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: تُرسَل الصورة كمُضمَن مع تعيين الصورة كصورة المُضمن. يجب أن يمتلك البوت إذن "ربط المُضمنات" في القناة.
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|Required|رابط مباشر لملفّ صورة. يجب أن يبدأ بـ http:// أو https://
+</details>

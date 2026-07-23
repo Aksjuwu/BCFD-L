@@ -1,0 +1,27 @@
+<dash>
+name: $cooldown
+desc: يمنع المستخدم من إعادة تشغيل السكربت لمدة محددة.
+category: التحكم في الوصول
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يُعيّن $cooldown قيداً زمنياً لكل مستخدم لكل سكربت. إذا حاول المستخدم تشغيل نفس السكربت مرة أخرى قبل انتهاء فترة الانتظار، تُعرض رسالة الخطأ المحدّدة (مع الوقت المتبقي) ويتم إلغاء التنفيذ.
+</block>
+
+<block type="code" title="الصيغة">
+text: $cooldown[time; error message]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $cooldown[10s; Please wait {time} before using this again!]
+</block>
+
+<block type="callout" kind="note">
+text: تنسيق الوقت يستخدم: s (ثواني)، m (دقائق)، h (ساعات)، d (أيام). استخدم {time} أو %time% في رسالة الخطأ لإظهار وقت الانتظار المتبقي.
+</block>
+</dash>
+
+<details>
+syntax: $cooldown[time; error message]
+param: time|text|موصى به|المدة قبل أن يتمكن المستخدم من تشغيل السكربت مرة أخرى. التنسيق: رقم + وحدة (s/m/h/d)، مثل 10s, 5m, 1h, 1d
+param: error message|text|موصى به|الرسالة المُرسلة للمستخدم عند تفعيل فترة الانتظار. استخدم {time} أو %time% لإظهار الوقت المتبقي.
+</details>

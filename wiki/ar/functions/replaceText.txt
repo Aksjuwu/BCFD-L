@@ -1,0 +1,29 @@
+<dash>
+name: $replaceText
+desc: يحلّل نصاً بديلاً محل نص فرعي موجود في نص معين.
+category: String Utilities
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $replaceText يأخذ رسالة، ونصاً قديماً للبحث عنه، ونصاً جديداً لاستبداله به. اختيارياً، يمكنك تحديد عدد التكرارات المراد استبدالها. يُرجع النص المعدّل.
+</block>
+
+<block type="code" title="Syntax">
+text: $replaceText[message; old; new; (amount)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $replaceText[Hello World; World; FDScript]
+</block>
+
+<block type="callout" kind="note">
+text: بشكل افتراضي، يتم استبدال جميع التكرارات. قدم رقماً كحجّة رابعة لتقييد عمليات الاستبدال. استخدم -1 أو اتركه فارغاً لاستبدال الكل.
+</block>
+</dash>
+
+<details>
+syntax: $replaceText[message; old; new; (amount)]
+param: message|text|Required|النص الأصلي للبحث فيه
+param: old|text|Required|النص الفرعي المراد البحث عنه واستبداله
+param: new|text|Required|نص الاستبدال
+param: amount|number|Optional|الحد الأقصى لعمليات الاستبدال. -1 أو مُغفل = استبدال جميع التكرارات
+</details>

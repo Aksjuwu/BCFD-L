@@ -1,0 +1,21 @@
+<dash>
+name: $guildName
+desc: يُعيد اسم السيرفر (النّادى) الذي أُنفِذ فيه الأمر.
+category: معلومات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $guildName، يجلب البوت اسم السيرفر الذي أُنفِذ فيه الأمر ويُرسله مباشرة إلى القناة كنصّ عادي. إذا أُستخدم في رسالة خاصّة، يُعيد "DM".
+</block>
+
+<block type="code" title="الصيغة">
+text: $guildName
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Welcome to $guildName!
+</block>
+
+<block type="callout" kind="note">
+text: عند استخدامه خارج سيرفر (في الرسائل الخاصّة)، يُعيد الأمر النصّ "DM" بدلاً من اسم السيرفر.
+</block>
+</dash>

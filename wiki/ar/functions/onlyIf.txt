@@ -1,0 +1,27 @@
+<dash>
+name: $onlyIf
+desc: يقيّم شرطاً ويوقف السكريبت إذا كان الشرط خاطئاً.
+category: Access Control
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $onlyIf يقيّم شرطاً. إذا كان الشرط صحيحاً، يستمر السكريبت بشكل طبيعي. إذا كان خاطئاً، يتم عرض رسالة الخطأ المقدمة وإيقاف السكريبت فوراً.
+</block>
+
+<block type="code" title="Syntax">
+text: $onlyIf[condition; error message]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $onlyIf[$authorID == 123456789; You are not authorized!]
+</block>
+
+<block type="callout" kind="note">
+text: هذا أشد صرامة من $if — لا يتخطى الكود فحسب، بل يوقف السكريبت بالكامل. استخدم هذا لفحص ضوابط الوصول التي يجب أن تنجح لتشغيل السكريبت.
+</block>
+</dash>
+
+<details>
+syntax: $onlyIf[condition; error message]
+param: condition|expression|Required|الشرط المراد تقييمه. يستخدم نفس المشغّلات مثل $if (==, !=, >, <, >=, <=).
+param: error message|text|Required|الرسالة المعروضة للمستخدم إذا فشل الشرط. يتم إيقاف السكريبت بعد إرسالها.
+</details>

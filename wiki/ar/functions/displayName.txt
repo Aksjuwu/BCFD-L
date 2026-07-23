@@ -1,0 +1,26 @@
+<dash>
+name: $displayName
+desc: يُعيد اسم العرض الخاص بالمستخدم.
+category: المستخدم
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يُعيد $displayName اسم العرض (كنية السيرفر أو اسم المستخدم) لمستخدم. إذا لم تُحدد وسيطة، يُعيد اسم عرض مؤلف الأمر. عند تحديد معرّف مستخدم أو ذكر، يُعيد اسم عرض ذلك المستخدم.
+</block>
+
+<block type="code" title="الصيغة">
+text: $displayName[(user mention/ID)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Hello, $displayName!
+</block>
+
+<block type="callout" kind="note">
+text: اسم العرض هو الكنية الخاصة بالسيرفر إذا كانت مُعيّنة، وإلا فاسم المستخدم العام. يمكن استخدامه بشكل مضمن.
+</block>
+</dash>
+
+<details>
+syntax: $displayName[(user mention/ID)]
+param: user|text|اختياري|ذكر مستخدم أو معرّف رقمي. إذا كان فارغاً، يستخدم مؤلف الأمر.
+</details>

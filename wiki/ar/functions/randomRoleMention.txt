@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleMention
+desc: يُرجع ذكراً لدور عشوائي من السيرفر.
+category: Randomness
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $randomRoleMention، يجمع البوت جميع الأدوار في السيرفر الحالي (باستثناء دور @everyone الافتراضي)، يختار واحداً عشوائياً، ويرسل تنسيق ذكره إلى القناة.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomRoleMention
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Congrats $randomRoleMention!
+</block>
+
+<block type="callout" kind="note">
+text: القيمة المرجعة هي ذكر دور Discord (مثل <@&123456789>)، الذي يظهر كذكر ملوّن قابل للنقر في الدردشة. دور @everyone مستبعد دائماً.
+</block>
+</dash>

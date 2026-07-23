@@ -1,0 +1,22 @@
+<dash>
+name: $reply
+desc: يفعّل وضع الرد، مما يجعل البوت يرد على رسالة المستخدم الأصلية بدلاً من إرسال رسالة جديدة.
+category: Messaging
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $reply، يفعّل البوت وضع الرد لتنفيذ السكريبت الحالي. جميع الرسائل التالية التي يرسلها البوت في هذا السكريبت سيتم إرسالها كردود على رسالة المستخدم الأصلية، مما يُنشئ تأثير محادثة متسلسلة.
+</block>
+
+<block type="code" title="Syntax">
+text: $reply
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $reply
+$sendMessage[This will be a reply!]
+</block>
+
+<block type="callout" kind="note">
+text: بمجرد التفعيل، يظل وضع الرد ساري المفعول طوال تنفيذ السكريبت. ستظهر رسائل البوت كسلسلات ردود على الرسالة المُثيرة في واجهة Discord.
+</block>
+</dash>

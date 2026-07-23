@@ -1,0 +1,21 @@
+<dash>
+name: $message
+desc: يُعيد المعاملات/الكلمات من رسالة أمر المستخدم.
+category: معلومات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $message بدون معاملات، يُعيد كلّ ما كتبه المستخدم بعد اسم الأمر (نصّ المعامل الكامل). عند استدعائه برقم فهرس، يُعيد الكلمة المحدّدة في ذلك الموقع.
+</block>
+
+<block type="code" title="الصيغة">
+text: $message
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: بدون معاملات، يُعيد جميع النصّ بعد الأمر. مع $message[1]، يُعيد أوّل كلمة، $message[2] يُعيد الثانية، وهكذا. يُعيد نصّاً فارغاً إذا تجاوز الفهرس النطاق.
+</block>
+</dash>

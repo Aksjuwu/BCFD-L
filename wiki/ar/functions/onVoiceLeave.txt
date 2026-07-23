@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceLeave
+desc: حدث يتم تشغيله عندما يغادر عضو قناة صوتية.
+category: Event
+
+<block type="text" title="كيف يعمل الحدث؟">
+text: $onVoiceLeave هو بادئة حدثقوم بتشغيل FDScript每当 يغادر عضو قناة صوتية. يتلقى السكريبت معلومات العضو والقناة الصوتية. يمكنك اختيارياً تحديد معرّف قناة في السطر الأول لتوجيه المخرجات إلى قناة نصية محددة.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onVoiceLeave
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onVoiceLeave
+ sendMessage[$authorName left a voice channel.]
+</block>
+
+<block type="callout" kind="note">
+text: ضع هذا في السطر الأول من ملف FDScript الخاص بك. سيتم تشغيل السكريبت تلقائياً عند غادر أي عضو قناة صوتية.
+</block>
+
+<block type="callout" kind="important">
+text: هذا الحدث يعمل في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceLeave
+</details>

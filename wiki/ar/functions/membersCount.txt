@@ -1,0 +1,21 @@
+<dash>
+name: $membersCount
+desc: يُعيد العدد الإجمالي للأعضاء في السيرفر.
+category: معلومات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $membersCount بدون معاملات، يعدّ البوت جميع الأعضاء غير البوتات البشريّين في السيرفر الحالي ويُرسل العدد كرقم. اختياريّاً، يمكنك تمرير معرّف نّادى وعلم yes/no لضمّن البوتات.
+</block>
+
+<block type="code" title="الصيغة">
+text: $membersCount
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: We have $membersCount members!
+</block>
+
+<block type="callout" kind="note">
+text: افتراضيّاً، تُستثنى البوتات من العداد. لضمّن البوتات، استخدم $membersCount[guildID; yes]. هذا الأمر يعمل فقط داخل سيرفر ما لم يُعطَ معرّف نّادى.
+</block>
+</dash>

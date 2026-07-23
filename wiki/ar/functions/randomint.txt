@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: يُرجع عدداً صحيحاً عشوائياً بين قيمة الحد الأدنى والحد الأقصى.
+category: Randomness
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $randomint يأخذ رقمين (الحد الأدنى والحد الأقصى) ويُنشئ عدداً صحيحاً عشوائياً ضمن هذا النطاق شامل الحدود، ثم يرسله إلى القناة.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: كلا الحد الأدنى والحد الأقصى شاملان. إذا كان الحد الأدنى أكبر من الحد الأقصى، يتم تبديل القيم تلقائياً. النتيجة عدد صحيح بين الحدّين.
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Required|القيمة الدنيا (شاملة)
+param: max|number|Required|القيمة القصوى (شاملة)
+</details>

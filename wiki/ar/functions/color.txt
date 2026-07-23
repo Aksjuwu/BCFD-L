@@ -1,0 +1,26 @@
+<dash>
+name: $color
+desc: يُعيّن لون الـ embed الذي يتم بناؤه.
+category: بناء الـ Embed
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $color قيمة لون hex أو اسماً مُسماً ويُطبّقه على الـ embed الحالي قيد الإنشاء. يظهر اللون كشريط التمييز الجانبي للـ embed.
+</block>
+
+<block type="code" title="الصيغة">
+text: $color[hex or name]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $color[#FF5733]
+</block>
+
+<block type="callout" kind="note">
+text: يمكنك استخدام أكواد hex (مثل #FF5733, FF5733) أو ألواناً مُسماة. يؤثر هذا الأمر فقط على الـ embeds المرسلة بعد استدعائه.
+</block>
+</dash>
+
+<details>
+syntax: $color[hex or name]
+param: hex or name|text|موصى به|كود لون hex (مثل #FF5733) أو لون مُسمى لتعيين لون شريط تمييز الـ embed
+</details>

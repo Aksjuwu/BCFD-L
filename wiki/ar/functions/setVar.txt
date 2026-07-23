@@ -1,0 +1,28 @@
+<dash>
+name: $setVar
+desc: يُخزّن قيمة في متغير دائم.
+category: Variables
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $setVar يُخزّن قيمة تحت اسماً محدداً للمتغير. بحجّتين، يُخزّن متغيراً عاماً. بثلاث حجج (الاسم والقيمة ومعرّف المستخدم)، يُخزّن متغيراً خاصاً بالمستخدم. تظل القيم محفوظة عبر عمليات إعادة تشغيل البوت.
+</block>
+
+<block type="code" title="Syntax">
+text: $setVar[name; value]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $setVar[greeting; Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: يتم تخزين المتغيرات على القرص وتتحمل عمليات إعادة تشغيل البوت. استخدم $get retrieve لاسترجاع القيم المخزنة. لا يمكن استخدام $setVar بشكل مضمن (كبدلة).
+</block>
+</dash>
+
+<details>
+syntax: $setVar[name; value; (userID)]
+param: name|text|Required|اسم المتغير لتخزين القيمة تحته
+param: value|text|Required|القيمة المراد تخزينها
+param: userID|snowflake|Optional|إذا مُقدّم، يتم تخزين القيمة كمتغير خاص بالمستخدم بدلاً من عام
+</details>

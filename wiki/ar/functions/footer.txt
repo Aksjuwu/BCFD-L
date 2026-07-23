@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: يُعيّن نصّ التذييل للمُضمَن الجاري بناؤه.
+category: منشئ المُضمنات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يأخذ $footer نصّاً ويُعيّنه كتذييل للمُضمَن الجاري تشييده. يظهر التذييل في أسفل المُضمَن بخطّ أصغر وأخفّ.
+</block>
+
+<block type="code" title="الصيغة">
+text: $footer[text]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: التذييل مفيد للإسناد والتوقيتات أو السياق الإضافي. يظهر بخطّ رمادي أصغر في أسفل المُضمَن.
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: text|text|Required|نصّ التذييل الخاص بالمُضمَن
+</details>

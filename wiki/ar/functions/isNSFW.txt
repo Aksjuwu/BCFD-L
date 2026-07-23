@@ -1,0 +1,26 @@
+<dash>
+name: $isNSFW
+desc: يتحقّق مما إذا كانت القناة مُعلَّمة بأنها NSFW.
+category: القنوات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يأخذ $isNSFW إشارة قناة أو معرّفها ويتحقّق مما إذا كانت القناة مُعلَّمة بـ NSFW (غير آمنة للعمل). يُعيد "true" إذا كانت القناة NSFW، و"false" وإلّا.
+</block>
+
+<block type="code" title="الصيغة">
+text: $isNSFW[channel mention/ID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $isNSFW[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: مفيد للمنطق الشرطي لتقييد المحتوى بناءً على تصنيف عمر القناة.
+</block>
+</dash>
+
+<details>
+syntax: $isNSFW[channel mention/ID]
+param: channel|text|Required|إشارة القناة أو معرّفها الرقمي المراد فحصه.
+</details>

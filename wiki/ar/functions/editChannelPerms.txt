@@ -1,0 +1,32 @@
+<dash>
+name: $editChannelPerms
+desc: يُعدّل كتابات الأذونات لدور أو عضو على قناة.
+category: الإشراف
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يُعدّل $editChannelPerms كتابات الأذونات لدور أو عضو محدّد على قناة. استخدم +perm للسماح، -perm للرفض، أو /perm لإعادة تعيين إذن. يجب أن يمتلك البوت إذن "إدارة القنوات".
+</block>
+
+<block type="code" title="الصيغة">
+text: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $editChannelPerms[123456789; 987654321; +send_messages; -connect]
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت إذن "إدارة القنوات" أو "إدارة الأذونات". يمكن أن يكون الهدف معرّف دور أو عضو/إشارة.
+</block>
+
+<block type="callout" kind="note">
+text: تستخدم أسماء الأذونات صيغة snake_case الخاصة بـ Discord: send_messages، view_channel، connect، manage_roles، إلخ. استخدم + للسماح، - للرفض، / أو ~ لإعادة التعيين.
+</block>
+</dash>
+
+<details>
+syntax: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+param: channelID|text|Required|معرّف القناة أو إشارتها المراد تعديل الأذونات عليها.
+param: targetID|text|Required|معرّف الدور أو العضو المراد تعيين الأذونات له.
+param: permissions|text|Required|إذن واحد أو أكثر ببادئة +/- (مثال: +send_messages، -connect).
+</details>

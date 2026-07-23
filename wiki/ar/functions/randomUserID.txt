@@ -1,0 +1,21 @@
+<dash>
+name: $randomUserID
+desc: يُرجع معرّف مستخدم لعضو بشري عشوائي من السيرفر.
+category: Randomness
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $randomUserID، يجمع البوت جميع الأعضاء غير البوتات في السيرفر الحالي، يختار واحداً عشوائياً، ويرسل معرّف المستخدم كنص رقمي خام.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomUserID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Random user ID: $randomUserID
+</block>
+
+<block type="callout" kind="note">
+text: هذا الأمر يعمل فقط داخل سيرفر (وليس في الرسائل الخاصة). حسابات البوتات مستبعدة من مجموعة الاختيار. إذا لم يكن هناك أعضاء بشريون، سيفشل الأمر بخطأ.
+</block>
+</dash>

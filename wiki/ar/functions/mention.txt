@@ -1,0 +1,21 @@
+<dash>
+name: $mention
+desc: يُعيد إشارة للمستخدم الذي شغّل الأمر.
+category: معلومات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $mention، يجلب البوت صيغة إشارة Discord للمستخدم الذي نفّذ الأمر ويُرسلها مباشرة إلى القناة. هذا يُنشئ إشارة قابلة للنقر تُبلّغ المستخدم.
+</block>
+
+<block type="code" title="الصيغة">
+text: $mention
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Hello $mention!
+</block>
+
+<block type="callout" kind="note">
+text: القيمة المُرتدّدة هي صيغة إشارة Discord (مثال: <@123456789>)، التي تظهر كإشارة زرقاء قابلة للنقر في المحادثة وتُبلّغ المستخدم.
+</block>
+</dash>

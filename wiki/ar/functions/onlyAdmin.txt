@@ -1,0 +1,21 @@
+<dash>
+name: $onlyAdmin
+desc: يقيّد تنفيذ السكريبت لمشرفي السيرفر ومالك السيرفر فقط.
+category: Access Control
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $onlyAdmin، يتحقق البوت مما إذا كان كاتب الأمر مشرفاً على السيرفر أو مالك السيرفر. إذا فشل الفحص، يتم إيقاف تنفيذ السكريبت فوراً. اختيارياً، يمكن عرض رسالة خطأ مخصصة.
+</block>
+
+<block type="code" title="Syntax">
+text: $onlyAdmin
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $onlyAdmin[You need admin permissions!]
+</block>
+
+<block type="callout" kind="note">
+text: هذا الأمر يعمل فقط داخل سيرفر (وليس في الرسائل الخاصة). البوتات تعتبر مشرفين تلقائياً. إذا لم يتم تقديم رسالة خطأ، يتوقف السكريبت بصمت.
+</block>
+</dash>

@@ -1,0 +1,26 @@
+<dash>
+name: $or
+desc: يقيّم شروطاً متعددة ويُرجع true إذا كان أي شرط صحيحاً.
+category: Flow Control
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $or يأخذ حجج شروط متعددة ويقيّم كل منها. يُرجع "true" إذا كان شرط واحد على الأقل صحيحاً، و"false" إذا كانت جميع الشروط خاطئة. هذا مفيد لبناء فحوصات شرطية بديلة.
+</block>
+
+<block type="code" title="Syntax">
+text: $or[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $or[$authorID == 123; $authorID == 456]
+</block>
+
+<block type="callout" kind="note">
+text: كل شرط يستخدم نفس مشغّلات المقارنة مثل $if (==, !=, >, <, >=, <=). يُرجع النص "true" أو "false".
+</block>
+</dash>
+
+<details>
+syntax: $or[condition1; condition2; condition3; ...]
+param: condition|expression|Required|شرط واحد أو أكثر لتقييمها. يمكن لكل منها استخدام مشغّلات مثل ==, !=, >, <, >=, <=. لا يحتاج سوى واحد منها ليكون صحيحاً ليكون النتيجة "true".
+</details>

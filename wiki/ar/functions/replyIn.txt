@@ -1,0 +1,27 @@
+<dash>
+name: $replyIn
+desc: يؤجّل الرد التالي من البوت لمدة محددة.
+category: Timing & Delays
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $replyIn يُجمّد تنفيذ السكريبت للمدة المحددة. بعد التأخير، يستمر السكريبت بالأمر التالي. هذا مفيد لإنشاء ردود مُؤجّلة زمنياً.
+</block>
+
+<block type="code" title="Syntax">
+text: $replyIn[time]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $replyIn[5s]
+$sendMessage[This appears after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: تنسيق الزمن يستخدم: s (ثواني)، m (دقائق)، h (ساعات)، d (أيام). يتم تجميد السكريبت أثناء التأخير — لن يتم تنفيذ أي أوامر أخرى في هذا السكريبت حتى يكتمل التأخير.
+</block>
+</dash>
+
+<details>
+syntax: $replyIn[time]
+param: time|text|Required|مدة الانتظار. التنسيق: رقم + وحدة (s/m/h/d)، مثل 5s أو 10m أو 1h
+</details>

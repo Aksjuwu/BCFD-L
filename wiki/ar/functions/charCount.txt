@@ -1,0 +1,26 @@
+<dash>
+name: $charCount
+desc: يُعيد عدد الأحرف الأبجدية الرقمية في النص المحدد.
+category: الرياضيات والأرقام
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $charCount نصاً ويُعدّ فقط الأحرف الأبجدية الرقمية (الحروف والأرقام)، مع تجاهل المسافات والرموز وعلامات الترقيم. يُعيد العدد كرقم.
+</block>
+
+<block type="code" title="الصيغة">
+text: $charCount[text]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $charCount[Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: يتم عدّ الحروف (من أي لغة) والأرقام (0-9) فقط. يتم استبعاد المسافات وعلامات الترقيم والأحرف الخاصة من العد.
+</block>
+</dash>
+
+<details>
+syntax: $charCount[text]
+param: text|text|موصى به|النص لعدّ الأحرف الأبجدية الرقمية فيه. تتم معالجة المتغيرات والعناصر النائبة قبل العد.
+</details>

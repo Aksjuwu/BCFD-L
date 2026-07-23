@@ -1,0 +1,36 @@
+<dash>
+name: $editMessage
+desc: يُعدّل رسالة بوت سابقة في أيّ قناة، مع تحويلها اختياريّاً إلى مُضمَن.
+category: المراسلة
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يجلب $editMessage رسالة بوت محدّدة بمعرّف القناة ومعرّف الرسالة ثمّ يُعدّل محتواها. اختياريّاً، يمكنك تمرير عنوان ووصف ولون وتذييل لتحويل الرسالة إلى مُضمَن.
+</block>
+
+<block type="code" title="الصيغة">
+text: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $editMessage[$channelID; 123456789; Updated content!]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن تكون الرسالة المستهدفة قد أُرسلت بواسطة هذا البوت. إذا تمّ تمرير معاملات مُضمَن اختياريّة، تُعدّل الرسالة لتضمّن مُضمَن بجانب المحتوى.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت إذن عرض وتعديل الرسائل في القناة المستهدفة.
+</block>
+</dash>
+
+<details>
+syntax: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+param: channelID|snowflake|Required|معرّف القناة تحتوي الرسالة
+param: messageID|snowflake|Required|معرّف رسالة البوت المراد تعديلها
+param: content|text|Required|المحتوى النصّي الجديد للرسالة
+param: title|text|Optional|عنوان المُضمَن المراد إلحاقه بالرسالة
+param: description|text|Optional|وصف المُضمَن
+param: color|text|Optional|لون المُضمَن بالتنسيق العشريني
+param: footer|text|Optional|نصّ التذييل الخاص بالمُضمَن
+</details>

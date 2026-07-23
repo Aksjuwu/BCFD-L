@@ -1,0 +1,21 @@
+<dash>
+name: $removeButtons
+desc: يزيل جميع الأزرار من رسالة أو من العرض المعلّق.
+category: Components
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $removeButtons بدون حجج، يمسح جميع الأزرار من العرض المعلّق أو رسالة مصدر التفاعل. عند الاستدعاء مع معرّف رسالة، يزيل جميع الأزرار من تلك الرسالة المحددة للبوت.
+</block>
+
+<block type="code" title="Syntax">
+text: $removeButtons
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $removeButtons[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يشير معرّف الرسالة إلى رسالة أرسلها هذا البوت. عند الاستدعاء بدون حجج، يتحقق أولاً من العرض المعلّق، ثم يرجع إلى رسالة مصدر التفاعل.
+</block>
+</dash>

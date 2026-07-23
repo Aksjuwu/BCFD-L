@@ -1,0 +1,27 @@
+<dash>
+name: $cloneRole
+desc: يُنشئ نسخة من دور موجود بنفس الصلاحيات والإعدادات.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $cloneRole معرّف دور/ذكر واسماً جديداً اختيارياً. يسترجع البوت خصائص الدور الأصلي (الصلاحيات، اللون، الإظهار، القابل للذكر) ويُنشئ دوراً جديداً بنفس الإعدادات.
+</block>
+
+<block type="code" title="الصيغة">
+text: $cloneRole[role ID or @mention; (optional new name)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $cloneRole[&123456789; Cloned Role]
+</block>
+
+<block type="callout" kind="note">
+text: إذا لم يُحدد اسم جديد، يحتفظ الدور المنسوخ باسم الدور الأصلي. يجب أن يمتلك البوت صلاحية "إدارة الأدوار".
+</block>
+</dash>
+
+<details>
+syntax: $cloneRole[role ID or @mention; (optional new name)]
+param: role ID or @mention|text|موصى به|المعرّف أو @mention للدور المطلوب استنساخه
+param: optional new name|text|اختياري|اسم مخصص للدور المنسوخ. إذا حُذف، يُستخدم الاسم الأصلي.
+</details>

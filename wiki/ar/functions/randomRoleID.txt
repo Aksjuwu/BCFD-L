@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleID
+desc: يُرجع معرّف دور عشوائي من السيرفر.
+category: Randomness
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $randomRoleID، يجمع البوت جميع الأدوار في السيرفر الحالي (باستثناء دور @everyone الافتراضي)، يختار واحداً عشوائياً، ويرسل معرّف الدور كنص رقمي خام.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomRoleID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Random role ID: $randomRoleID
+</block>
+
+<block type="callout" kind="note">
+text: هذا الأمر يعمل فقط داخل سيرفر (وليس في الرسائل الخاصة). دور @everyone مستبعد دائماً. إذا لم يكن لدى السيرفر أدوار مخصصة، سيفشل الأمر بخطأ.
+</block>
+</dash>

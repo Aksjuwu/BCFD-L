@@ -1,0 +1,25 @@
+<dash>
+name: $else
+desc: يوفّر كتلة كود بديلة عندما يكون شرط $if السابق خاطئاً.
+category: التحكّم بالتدفّق
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استخدامه داخل كتلة $if، يُعرّف $else مسار كود احتياطي. إذا أرجع تقييم شرط $if قيمة خاطئة، يُنفّذ الكود بعد $else (وأمام $endif) بدلاً منه.
+</block>
+
+<block type="code" title="الصيغة">
+text: $else
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: يجب وضع $else بين $if و$endif. استخدام $else خارج كتلة $if سيؤدّي إلى خطأ.
+</block>
+</dash>

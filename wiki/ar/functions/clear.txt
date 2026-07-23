@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: يحذفجموعة من الرسائل المحددة من القناة الحالية.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: عند استدعاء $clear بدون وسائط، يحذف العدد الافتراضي من الرسائل (10). عند الاستدعاء برقم، يحذف هذا العدد من الرسائل. يستخدم البوت Discord bulk delete API لإزالة الرسائل بكفاءة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $clear
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: الحد الأقصى لحذف Discord المجمّع هو 100 رسالة لكل طلب. لا يمكن حذف الرسائل الأقدم من 14 يوماً بشكل مجمّع. يجب أن يمتلك البوت صلاحية "إدارة الرسائل" في القناة.
+</block>
+</dash>

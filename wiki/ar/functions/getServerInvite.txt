@@ -1,0 +1,21 @@
+<dash>
+name: $getServerInvite
+desc: يُولّد رابط دعوة للسيرفر الحالي ويُرسله.
+category: الأدوات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $getServerInvite، يتحقّق البوت أولاً مما إذا كان السيرفر يمتلك رابط مخصّص. وإلّا، يبحث عن قناة يمتلك البوت فيها إذن "إنشاء دعوة" ويُولّد رابط دعوة دائم. اختياريّاً، يمكن تمرير معرّف سيرفر للحصول على دعوة لسيرفر آخر.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getServerInvite
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يكون البوت عضواً في السيرفر المستهدف ويملك إذن "إنشاء دعوة". إذا كان للسيرفر رابط مخصّص، سيُعاد بدلاً من إنشاء دعوة جديدة.
+</block>
+</dash>

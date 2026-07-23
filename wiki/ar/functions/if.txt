@@ -1,0 +1,39 @@
+<dash>
+name: $if
+desc: يُقيّم شرطاً ويُنفّذ كتلة الكود المحصورة إذا كان الشرط صحيحاً.
+category: التحكّم بالتدفّق
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يأخذ $if تعبير شرطي ويُقيّمه. إذا كان الشرط صحيحاً، يُنفّذ الكود بين $if والتالي $elif أو $else أو $endif. إذا كان خاطئاً، يقفز التنفيذ إلى الفرع المُتطابِق التالي.
+</block>
+
+<block type="code" title="الصيغة">
+text: $if[condition]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="options" title="عمليّات المقارنة">
+option: ==|يساوي (قارن رقميّاً عندما يكون كلا الطرفين رقماً)
+option: !=|لا يساوي
+option: >|أكبر من
+option: <|أصغر من
+option: >=|أكبر من أو يساوي
+option: <=|أصغر من أو يساوي
+</block>
+
+<block type="callout" kind="note">
+text: يدعم تداخل كتل $if. يمكنك استخدام $elif لشروط إضافيّة و$else لبديل. أغلِ دائماً بـ $endif.
+</block>
+</dash>
+
+<details>
+syntax: $if[condition]
+param: condition|expression|Required|الشرط المراد تقييمه، مثال: $authorID == 123، $var[score] >= 90، $isNumber[int; $message]. يدعم عمليّات == و!= و> و< و>= و<=.
+</details>

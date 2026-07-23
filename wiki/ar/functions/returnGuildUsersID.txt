@@ -1,0 +1,22 @@
+<dash>
+name: $returnGuildUsersID
+desc: يُرجع قائمة بجميع معرّفات المستخدمين في السيرفر.
+category: Return Commands
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $returnGuildUsersID، يجمع البوت معرّفات مستخدمي Discord الفريدة لجميع الأعضاء في السيرفر الحالي ويخزنها. يمكن استرجاع النتيجة لاحقاً باستخدام أمر $return.
+</block>
+
+<block type="code" title="Syntax">
+text: $returnGuildUsersID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $returnGuildUsersID
+sendMessage[Total users: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: هذا الأمر يعمل فقط داخل سيرفر. يتم تخزين المعرّفات المجمّعة داخلياً ويمكن الوصول إليها عبر أمر $return بعد التنفيذ.
+</block>
+</dash>

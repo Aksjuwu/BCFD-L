@@ -1,0 +1,28 @@
+<dash>
+name: $editIn
+desc: يُعدّل آخر رسالة أرسلها البوت بعد تأخير محدّد.
+category: التوقيت والتأخيرات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: ينتظر $editIn المدة المحدّدة ثمّ يُعدّل محتوى آخر رسالة أرسلها البوت بالنصّ الجديد المعطى. يجب أن تكون الرسالة الأصليّة قد أُرسلت مسبقاً في تنفيذ السكربت نفسه.
+</block>
+
+<block type="code" title="الصيغة">
+text: $editIn[time; newMessage]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Loading...]
+$editIn[5s; Done!]
+</block>
+
+<block type="callout" kind="note">
+text: تنسيق الوقت يستخدم: s (ثوانٍ)، m (دقائق)، h (ساعات)، d (أيّام). يتمّ استبدال النصّ فقط — المُضمنات والمكونات لا تتأثّر.
+</block>
+</dash>
+
+<details>
+syntax: $editIn[time; newMessage]
+param: time|text|Required|المدة الانتظار قبل التعديل. التنسيق: رقم + وحدة (s/m/h/d)، مثال: 5s، 10m
+param: newMessage|text|Required|المحتوى النصّي الجديد لاستبدال الرسالة القديمة
+</details>

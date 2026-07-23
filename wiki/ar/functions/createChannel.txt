@@ -1,0 +1,32 @@
+<dash>
+name: $createChannel
+desc: يُنشئ قناة جديدة في السيرفر.
+category: إدارة القنوات
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يُنشئ $createChannel قناة جديدة في السيرفر بالاسم والنوع المحددين. يدعم أنواع القنوات: نص، صوت، فئة، منتforum، مرحلة. يمكن تحديد معرّف فئة اختيارياً لوضع القناة تحت فئة محددة. يجب أن يمتلك البوت صلاحية "إدارة القنوات".
+</block>
+
+<block type="code" title="الصيغة">
+text: $createChannel[name; type; (category ID)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $createChannel[my-channel; text]
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت صلاحية "إدارة القنوات". الأنواع المدعومة: text, voice, category, forum, stage.
+</block>
+
+<block type="callout" kind="note">
+text: معرّف الفئة اختياري. إذا حُدد، ستُنشأ القناة الجديدة تحت تلك الفئة.
+</block>
+</dash>
+
+<details>
+syntax: $createChannel[name; type; (category ID)]
+param: name|text|موصى به|اسم القناة الجديدة.
+param: type|text|موصى به|نوع القناة: text, voice, category, forum, أو stage.
+param: categoryID|text|اختياري|معرّف الفئة لوضع القناة تحتها.
+</details>

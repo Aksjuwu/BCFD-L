@@ -1,0 +1,21 @@
+<dash>
+name: $getBotInvent
+desc: يُولّد رابط دعوة OAuth2 للبوت ويُرسله.
+category: الأدوات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $getBotInvent، ينشئ البوت رابط تفويض OAuth2 باستخدام معرّف تطبيقه بصلاحيّات كاملة (8) ونطاق بوت، ثمّ يُرسل الرابط إلى القناة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getBotInvent
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Invite me: $getBotInvent
+</block>
+
+<block type="callout" kind="note">
+text: يحتوي الرابط المُولّد على جميع الصلاحيّات (permissions=8). صيغة الرابط: https://discord.com/oauth2/authorize?client_id={id}&permissions=8&scope=bot
+</block>
+</dash>

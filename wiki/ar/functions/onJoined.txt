@@ -1,0 +1,30 @@
+<dash>
+name: $onJoined
+desc: حدث يتم تشغيله عندما ينضم عضو إلى السيرفر.
+category: Event
+
+<block type="text" title="كيف يعمل الحدث؟">
+text: $onJoined هو بادئة حدث يقوم بتشغيل FDScript每当 ينضم عضو جديد إلى السيرفر. يتلقى السكريبت معلومات العضو المنضم. يمكنك اختيارياً تحديد معرّف قناة في السطر الأول لتوجيه المخرجات إلى قناة محددة.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onJoined
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onJoined
+ sendMessage[Welcome $mention to the server!]
+</block>
+
+<block type="callout" kind="note">
+text: ضع هذا في السطر الأول من ملف FDScript الخاص بك. سيتم تشغيل السكريبت تلقائياً عند انضمام أي عضو. استخدم $mention لذكر العضو الجديد.
+</block>
+
+<block type="callout" kind="important">
+text: هذا الحدث يعمل في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onJoined
+</details>

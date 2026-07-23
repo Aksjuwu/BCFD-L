@@ -1,0 +1,27 @@
+<dash>
+name: $return
+desc: يسترجع قيمة مخزنة بواسطة أمر $returnXxx ويرسلها إلى القناة.
+category: Variables
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: $return يأخذ اسماً للمتغير ويبحث عن قيمته في تخزين متغيرات الإرجاع. هذا التخزين يتم ملؤه بأوامر مثل $returnGuildUsersID و $returnGuildChannelsID، إلخ. يتم إرسال القيمة المسترجعة إلى القناة.
+</block>
+
+<block type="code" title="Syntax">
+text: $return[var]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $returnGuildUsersID
+$sendMessage[User IDs: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: إذا لم يكن اسم المتغير موجوداً في تخزين الإرجاع، يتم إرجاع خطأ. تأكد من استدعاء أمر $returnXxx المناسب قبل استخدام $return.
+</block>
+</dash>
+
+<details>
+syntax: $return[var]
+param: var|text|Required|اسم متغير الإرجاع المراد استرجاعه (مثل userIDs أو channelIDs أو roleIDs)
+</details>

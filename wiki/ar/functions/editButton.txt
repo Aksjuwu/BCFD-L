@@ -1,0 +1,35 @@
+<dash>
+name: $editButton
+desc: يُعدّل خصائص زر موجود على رسالة.
+category: المكونات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يبحث $editButton عن زر بمعرّفه أو رابطه على رسالة ثم يُحدّث نصّه ونمطه وحالته التعطيل و/أو إيموجيه. يمكنه استهداف أزرار في عرض معلّق أو رسالة تفاعل مصدريّة أو رسالة محدّدة بمعرّفها.
+</block>
+
+<block type="code" title="الصيغة">
+text: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $editButton[btn_confirm; Confirmed; success]
+</block>
+
+<block type="callout" kind="note">
+text: إذا تمّ تمرير messageID، يجلب البوت تلك الرسالة المحدّدة ويُعدّل الزر فيها. وإلّا، يبحث أولاً في العرض المعلّق ثمّ في رسالة التفاعل المصدريّة.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن تكون الرسالة المستهدفة قد أُرسلت بواسطة هذا البوت. ويجب أن يكون الزر موجوداً بالفعل على الرسالة بالمعرّف أو الرابط المعطى.
+</block>
+</dash>
+
+<details>
+syntax: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+param: ID/URL|text|Required|المعرّف المخصص أو رابط الزر المراد تعديله
+param: label|text|Required|النصّ الجديد الذي سيظهر على الزر
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|yes لتعطيل الزر، no لتفعيله
+param: emoji|text|Optional|إيموجي جديد لعرضه داخل الزر
+param: messageID|snowflake|Optional|معرّف رسالة بوت محدّدة لتعديل الزر فيها
+</details>

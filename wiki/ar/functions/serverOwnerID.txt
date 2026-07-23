@@ -1,0 +1,21 @@
+<dash>
+name: $serverOwnerID
+desc: يُرجع معرّف مستخدم Discord لمالك السيرفر.
+category: Info
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $serverOwnerID، يسترجع البوت معرّف مستخدم Discord الفريد لمالك السيرفر ويرسله مباشرة كرقم خام.
+</block>
+
+<block type="code" title="Syntax">
+text: $serverOwnerID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Server owner ID: $serverOwnerID
+</block>
+
+<block type="callout" kind="note">
+text: هذا الأمر يعمل فقط داخل سيرفر (وليس في الرسائل الخاصة). القيمة المرجعة هي معرّف المستخدم snowflake للحساب الذي يملك السيرفر.
+</block>
+</dash>

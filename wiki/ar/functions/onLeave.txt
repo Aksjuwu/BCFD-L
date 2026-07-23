@@ -1,0 +1,30 @@
+<dash>
+name: $onLeave
+desc: حدث يتم تشغيله عندما يغادر عضو السيرفر.
+category: Event
+
+<block type="text" title="كيف يعمل الحدث؟">
+text: $onLeave هو بادئة حدث يقوم بتشغيل FDScript每当 يغادر عضو أو يتم إزالته من السيرفر. يتلقى السكريبت معلومات العضو المغادر. يمكنك اختيارياً تحديد معرّف قناة في السطر الأول لتوجيه المخرجات إلى قناة محددة.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onLeave
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onLeave
+ sendMessage[Goodbye $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: ضع هذا في السطر الأول من ملف FDScript الخاص بك. سيتم تشغيل السكريبت تلقائياً عند غادر أي عضو.
+</block>
+
+<block type="callout" kind="important">
+text: هذا الحدث يعمل في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onLeave
+</details>

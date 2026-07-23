@@ -1,0 +1,27 @@
+<dash>
+name: $log
+desc: يلتقط لقطة لجميع أحداث السكربت ويُرسلها إلى قناة محدّدة.
+category: الأدوات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يلتقط $log جميع سجلّات الأحداث المُولّدة أثناء تنفيذ السكربت الحالي حتّى الآن ويُرسلها إلى القناة المحدّدة. يمكن تمرير رمز اسم اختياري لتسمية السجلّ.
+</block>
+
+<block type="code" title="الصيغة">
+text: $log[channelID; name_code]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $log[123456789; myCommand]
+</block>
+
+<block type="callout" kind="note">
+text: يُرسَل السجلّ كرسالة إلى القناة المحدّدة. معامل name_code اختياري ويُساعد في تسمية سجلّات مختلفة.
+</block>
+</dash>
+
+<details>
+syntax: $log[channelID; name_code]
+param: channelID|snowflake|Required|معرّف القناة المراد إرسال السجلّ إليها
+param: name_code|text|Optional|تسمية/اسم لهذا السجلّ
+</details>

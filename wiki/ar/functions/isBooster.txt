@@ -1,0 +1,26 @@
+<dash>
+name: $isBooster
+desc: يتحقّق مما إذا كان المستخدم مُعزّز السيرفر (يملك ترقية Nitro نشطة).
+category: معلومات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يأخذ $isBooster معرّف مستخدم أو إشارة ويتحقّق مما إذا كان ذلك المستخدم يُعزّز السيرفر حالياً (يملك اشتراك مدفوع نشطاً). يُعيد "true" أو "false".
+</block>
+
+<block type="code" title="الصيغة">
+text: $isBooster[userID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $isBooster[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: يُعيد "true" إذا كان المستخدم يملك ترقية Nitro نشطة للسيرفر، و"false" وإلّا. يجب أن يكون المستخدم عضواً في السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $isBooster[userID]
+param: userID|text|Required|معرّف المستخدم أو @إشارة المراد فحصه. يدعم المتغيّرات والعنّاقر.
+</details>

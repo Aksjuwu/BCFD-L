@@ -1,0 +1,22 @@
+<dash>
+name: $deletecommand
+desc: يحذف الرسالة التي أطلقت الأمر.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: عند استدعاء $deletecommand، يحاول البوت حذف رسالة المستخدم التي أطلقت تنفيذ السكربت. يُستخدم هذا بشكل شائع للحفاظ على نظافة القنوات بإزالة استدعاء الأمر الأصلي.
+</block>
+
+<block type="code" title="الصيغة">
+text: $deletecommand
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $deletecommand
+$sendMessage[Command received!]
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت صلاحية "إدارة الرسائل" في القناة لحذف رسائل المستخدمين. إذا كانت الصلاحية مفقودة، يفشل الأمر بصمت مع سجل خطأ.
+</block>
+</dash>

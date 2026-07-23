@@ -1,0 +1,22 @@
+<dash>
+name: $returnGuildChannelsID
+desc: يُرجع قائمة بجميع معرّفات القنوات في السيرفر.
+category: Return Commands
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: عند استدعاء $returnGuildChannelsID، يجمع البوت معرّفات قنوات Discord الفريدة لجميع القنوات في السيرفر الحالي ويخزنها. يمكن استرجاع النتيجة لاحقاً باستخدام أمر $return.
+</block>
+
+<block type="code" title="Syntax">
+text: $returnGuildChannelsID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $returnGuildChannelsID
+sendMessage[Total channels: $return[channelIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: هذا الأمر يعمل فقط داخل سيرفر. يتم تخزين المعرّفات المجمّعة داخلياً ويمكن الوصول إليها عبر أمر $return بعد التنفيذ.
+</block>
+</dash>

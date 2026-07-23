@@ -1,0 +1,40 @@
+<dash>
+name: $isNumber
+desc: يتحقّق مما إذا كانت قيمة تتطابق مع صيغة أو نوع رقمي محدّد.
+category: الرياضيّات والأرقام
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يأخذ $isNumber صيغة (فحص نوع) وقيمة، ثمّ يتحقّق مما إذا كانت القيمة تتطابق مع ذلك النوع. يُعيد "true" أو "false".
+</block>
+
+<block type="code" title="الصيغة">
+text: $isNumber[formula; value]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $isNumber[int; 42]
+</block>
+
+<block type="options" title="الصيغ المتاحة">
+option: int|عدد صحيح (بدون نقطة عشريّة)
+option: nat|عدد طبيعي (عدد صحيح موجب، >= 1)
+option: pos|عدد موجب (> 0)
+option: neg|عدد سالب (< 0)
+option: zero|صفر
+option: even|عدد صحيح زوجي
+option: odd|عدد صحيح فردي
+option: dec|عدد عشري (يحتوي نقطة عشريّة)
+option: frac|كسر (التنسيق: a/b)
+option: num|أيّ عدد صالح (صحيح أو عشري)
+</block>
+
+<block type="callout" kind="note">
+text: يُعيد "true" إذا تتطابقت القيمة مع الصيغة المعطاة، و"false" وإلّا. المدخلات غير الصالحة التي لا يمكن تحليلها تُعيد دائماً "false".
+</block>
+</dash>
+
+<details>
+syntax: $isNumber[formula; value]
+param: formula|text|Required|نوع الفحص المراد تنفيذه: int، nat، pos، neg، zero، even، odd، dec، frac، num
+param: value|text|Required|القيمة المراد فحصها مقابل الصيغة
+</details>
