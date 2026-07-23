@@ -1,0 +1,44 @@
+<dash>
+name: $addButton
+desc: يضيف زراً (Button) إلى الرسالة التي يتم إنشاؤها، أو إلى رسالة مرسلة سابقاً عبر معرّفها.
+category: المكونات
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يضيف $addButton زراً واحداً لكل استدعاء. يمكنك التحكم بنوع الزر (رابط أو تفاعلي)، والنمط، والحالة (مُمكّن/معطّل)، والموضع (نفس الصف أو صف جديد).
+</block>
+
+<block type="code" title="الصيغة">
+text: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $addButton[no; btn_confirm; Confirm; success]
+</block>
+
+<block type="options" title="أنماط الأزرار (style)">
+option: primary|زر أزرق (اللون الافتراضي)
+option: secondary|زر رمادي
+option: success|زر أخضر
+option: danger|زر أحمر
+option: link|زر رابط خارجي (بلا custom_id، لا يُشغّل تفاعل البوت)
+</block>
+
+<block type="callout" kind="note">
+text: عندما يكون style = link، يجب أن يكون الوسيط الثاني (ID/URL) رابطاً كاملاً يبدأ بـ http:// أو https://.
+</block>
+
+<block type="callout" kind="warning">
+text: الحد الأقصى 25 زراً لكل رسالة (5 صفوف × 5 أزرار لكل صف). عندما يمتلئ الصف الحالي، ينتقل الزر تلقائياً إلى صف جديد.
+</block>
+</dash>
+
+<details>
+syntax: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+param: newLine|yes/no|موصى به|هل يبدأ الزر في صف جديد؟ yes = صف جديد، no = نفس الصف بجانب الزر الأخير
+param: ID/URL|text|موصى به|المعرّف المخصص للزر التفاعلي، أو رابط كامن إذا كان style = link
+param: label|text|قابل للفراغ|النص المعروض على الزر
+param: style|text|موصى به|primary / secondary / success / danger / link
+param: disabled|yes/no|اختياري|yes لتعطيل الزر (الافتراضي: no)
+param: emoji|text|اختياري|إيموجي لعرضه داخل الزر
+param: messageID|snowflake|اختياري|معرّف رسالة بوت مرسلة سابقاً لإضافة الزر إليها بدلاً من الرسالة الحالية
+</details>
