@@ -1,0 +1,21 @@
+<dash>
+name: $authorID
+desc: يُعيد معرّف مستخدم Discord للشخص الذي أطلق الأمر.
+category: المعلومات
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: عند استدعاء $authorID، يسترجع البوت معرّف المستخدم الفريد في Discord لمؤلف الأمر ويرسله مباشرة إلى القناة كنص رقمي خام.
+</block>
+
+<block type="code" title="الصيغة">
+text: $authorID
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Your ID is $authorID
+</block>
+
+<block type="callout" kind="note">
+text: القيمة المُعادة هي معرّف snowflake (مثل 123456789012345678)، وهو معرّف رقمي فريد لكل مستخدم Discord.
+</block>
+</dash>

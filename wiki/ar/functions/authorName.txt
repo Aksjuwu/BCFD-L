@@ -1,0 +1,21 @@
+<dash>
+name: $authorName
+desc: يُعيد اسم المستخدم للشخص الذي أطلق الأمر.
+category: المعلومات
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: عند استدعاء $authorName، يسترجع البوت اسم المستخدم لمؤلف الأمر ويرسله مباشرة إلى القناة كنص عادي.
+</block>
+
+<block type="code" title="الصيغة">
+text: $authorName
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Hello, $authorName!
+</block>
+
+<block type="callout" kind="note">
+text: يُعيد هذا اسم المستخدم الحالي للمستخدم (ليس اسم العرض/الكنية). إذا غيّر المستخدم اسمه، سيعكس الاستدعاء التالي الاسم المحدّث.
+</block>
+</dash>

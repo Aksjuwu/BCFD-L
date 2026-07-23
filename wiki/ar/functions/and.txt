@@ -1,0 +1,26 @@
+<dash>
+name: $and
+desc: يُقيّم شروطاً متعددة ويُعيد true فقط إذا كانت جميع الشروط صحيحة.
+category: التحكم في التدفق
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $and عدة وسائط شروط ويُقيّم كل منها. يُعيد "true" إذا كان كل شرط صحيحاً، و"false" إذا كان أي شرط خاطئاً. هذا مفيد لبناء فحوصات شروط مركبة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $and[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $and[$authorID == 123; $guildName == MyServer]
+</block>
+
+<block type="callout" kind="note">
+text: يستخدم كل شرط نفس عوامل المقارنة مثل $if (==, !=, >, <, >=, <=). يُعيد النص "true" أو "false".
+</block>
+</dash>
+
+<details>
+syntax: $and[condition1; condition2; condition3; ...]
+param: condition|expression|موصى به|واحد أو أكثر من الشروط لتقييمها. يمكن لكل منها استخدام عوامل مثل ==, !=, >, <, >=, <=. يجب أن تكون جميعها صحيحة ليكون النتيجة "true".
+</details>
