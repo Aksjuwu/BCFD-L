@@ -1,0 +1,58 @@
+name: Auto Update Wiki Index and Version
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'wiki/**/functions/**'
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Update JSON files
+        run: |
+          python -c "
+          import os, json
+          
+          wiki_dir = 'wiki'
+          if os.path.isdir(wiki_dir):
+              for lang in os.listdir(wiki_dir):
+                  lang_path = os.path.join(wiki_dir, lang)
+                  funcs_dir = os.path.join(lang_path, 'functions')
+                  
+                  if os.path.isdir(funcs_dir):
+                      files = sorted(os.listdir(funcs_dir))
+                      with open(os.path.join(lang_path, 'index.json'), 'w', encoding='utf-8') as f:
+                          json.dump(files, f, ensure_ascii=False)
+                      
+                      ver_path = os.path.join(lang_path, 'version.json')
+                      version = 0
+                      if os.path.isfile(ver_path):
+                          try:
+                              with open(ver_path, 'r', encoding='utf-8') as f:
+                                  version = int(json.load(f).get('version', 0))
+                          except: pass
+                      
+                      with open(ver_path, 'w', encoding='utf-8') as f:
+                          json.dump({'version': version + 0.1}, f)
+          "
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add wiki/**/index.json wiki/**/version.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update wiki index and version [skip ci]" && git push)
