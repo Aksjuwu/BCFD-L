@@ -1,0 +1,26 @@
+<dash>
+name: $findChannel
+desc: يبحث عن قناة بالاسم أو المعرّف ثمّ يُعيد معرّفها.
+category: القنوات
+
+<block type="text" title="كيف يعمل الأمر؟">
+text: يبحث $findChannel عن قناة في السيرفر بالاسم أو المعرّف. إذا أُعطي إشارة قناة أو معرّف رقمي، يتحقّق من وجود القناة ويُعيد معرّفها. إذا أُعطي اسم قناة، يبحث في جميع قنوات السيرفر عن تطابق ويُعيد معرّف أوّل تطابق. يُعيد نصّاً فارغاً إذا لم يُعثر عليها.
+</block>
+
+<block type="code" title="الصيغة">
+text: $findChannel[name/mention/ID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $findChannel[general]
+</block>
+
+<block type="callout" kind="note">
+text: مطابقة اسم القناة غير حسّاسة لحالة الأحرف. يمكن استخدامه بشكل مضمن لتحويل أسماء القنوات إلى معرّفات بشكل ديناميكي.
+</block>
+</dash>
+
+<details>
+syntax: $findChannel[name/mention/ID]
+param: channel|text|Required|اسم قناة أو إشارتها أو معرّفها الرقمي المراد البحث عنه.
+</details>
