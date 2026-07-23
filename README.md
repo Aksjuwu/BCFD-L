@@ -3,11 +3,11 @@
 
 # FDSB - Free Design Studio Bot's
 
-> Build and run Discord bots locally using [FDScript](https://github.com/obgwew/FDSB/blob/main/Wiki-FDScript.md) — a lightweight scripting language designed specifically for this tool.
+> Build and run Discord bots locally using FDScript — a lightweight scripting language designed specifically for this tool.
 
 ---
 
-**Description:** A cross-platform application for creating and running Discord bots locally, using [FDScript](https://github.com/obgwew/FDSB/blob/main/Wiki-FDScript.md) - a scripting language specifically designed for bot programming - to run your bots as efficiently as possible.
+**Description:** A cross-platform application for creating and running Discord bots locally, using FDScript - a scripting language specifically designed for bot programming - to run your bots as efficiently as possible.
 
 **Goal:** To simplify the process. No hosting required (it runs on-device), no need to write structurally complex code, and no need to deal with any learning or programming limitations – just write a script and get a responsive bot in 30 seconds.
 
@@ -40,7 +40,7 @@
 
 **6. On the same settings page, click the "wiki-fdscript" link to learn how to write commands.**
 
-**7. Go to the commands tab and click the `+` button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on [wiki-fdscript](https://github.com/obgwew/FDSB/blob/main/Wiki-FDScript.md), then click the `Save` button when finished.**
+**7. Go to the commands tab and click the `+` button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on wiki-fdscript, then click the `Save` button when finished.**
 
 **8. Return to the main interface and press the `Start` button to run your bot.**
 
@@ -129,6 +129,12 @@
   - Various repairs
   - Better stability in the editor
 
+- **2.3.0** - Wiki Page
+  - Support for channel commands
+  - A new wiki interface 
+  - some Fixed in command editor
+  - some Fixed the color text on FDSB.apk
+  
 ---
 
 **Developers:** @y.lw (contributor) · [@obgwew](https://github.com/obgwew) (programming)
