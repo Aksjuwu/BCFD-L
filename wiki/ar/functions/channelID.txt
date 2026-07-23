@@ -1,0 +1,21 @@
+<dash>
+name: $channelID
+desc: يُعيد معرّف قناة Discord التي تم فيها استخدام الأمر.
+category: المعلومات
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: عند استدعاء $channelID، يسترجع البوت معرّف قناة Discord الفريد للقناة التي تم فيها تنفيذ الأمر ويرسله مباشرة كنص رقمي خام.
+</block>
+
+<block type="code" title="الصيغة">
+text: $channelID
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: This command was used in channel $channelID
+</block>
+
+<block type="callout" kind="note">
+text: القيمة المُعادة هي معرّف snowflake (مثل 123456789012345678)، والذي يُعرّف بشكل فريد القناة التي أُرسلت فيها الرسالة.
+</block>
+</dash>

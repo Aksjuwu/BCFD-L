@@ -1,0 +1,26 @@
+<dash>
+name: $channelExists
+desc: يتحقق مما إذا كان القناة موجودة في السيرفر.
+category: القناة
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $channelExists ذكر قناة أو معرّف ويتحقق مما إذا كان البوت يستطيع العثور على تلك القناة في السيرفر. يُعيد "true" إذا كانت القناة موجودة، و"false" إذا لم تكن. إذا لم تُحدد وسيطة، يُعيد "true" افتراضياً.
+</block>
+
+<block type="code" title="الصيغة">
+text: $channelExists[channel mention/ID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $channelExists[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: يمكن استخدام هذا الأمر بشكل مضمن للتحقق من وجود القناة قبل تنفيذ أي إجراءات أخرى عليها.
+</block>
+</dash>
+
+<details>
+syntax: $channelExists[channel mention/ID]
+param: channel|text|اختياري|ذكر القناة أو المعرّف الرقمي للتحقق. إذا كان فارغاً، يُعيد "true".
+</details>

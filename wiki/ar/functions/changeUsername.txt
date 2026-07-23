@@ -1,0 +1,27 @@
+<dash>
+name: $changeUsername
+desc: يُغيّر كنية عضو في السيرفر.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $changeUsername معرّف مستخدم/ذكر واسماً جديداً. يبحث البوت عن العضو في السيرفر ويُغيّر كنيته إلى الاسم المحدد باستخدام Discord API.
+</block>
+
+<block type="code" title="الصيغة">
+text: $changeUsername[user ID/mention; new name]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $changeUsername[123456789; NewNickname]
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت صلاحية "إدارة الألقاب" وأن يكون دوره الأعلى أعلى من الدور الأعلى للهدف. لا يمكن للبوت تغيير كنيته الخاصة أو كنية مالك السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $changeUsername[user ID/mention; new name]
+param: user ID/mention|text|موصى به|معرّف مستخدم Discord أو @mention للعضو المستهدف
+param: new name|text|موصى به|الكنية الجديدة المطلوبة. اتركها فارغة لإعادة التعيين إلى الافتراضي.
+</details>

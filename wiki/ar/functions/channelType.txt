@@ -1,0 +1,26 @@
+<dash>
+name: $channelType
+desc: يُعيد نوع القناة (نص، صوت، فئة، منتforum، مرحلة).
+category: القناة
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: يأخذ $channelType ذكر قناة أو معرّف ويُعيد اسم نوع القناة كنص. الأنواع الصالحة تشمل: text, voice, category, forum, stage. إذا لم تُحدد وسيطة، يُعيد نوع القناة الحالية. يُعيد "unknown" إذا لم يتم العثور على القناة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $channelType[channel mention/ID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $channelType[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: مفيد للتحقق من أنواع القناة قبل تنفيذ عمليات خاصة بالنوع مثل $createChannel أو $voiceUsersLimit.
+</block>
+</dash>
+
+<details>
+syntax: $channelType[channel mention/ID]
+param: channel|text|اختياري|ذكر القناة أو المعرّف الرقمي. إذا كان فارغاً، يستخدم القناة الحالية.
+</details>

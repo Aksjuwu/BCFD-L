@@ -1,0 +1,21 @@
+<dash>
+name: $botName
+desc: يُعيد اسم مستخدم البوت.
+category: المعلومات
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: عند استدعاء $botName، يسترجع البوت اسم مستخدمه ويرسله مباشرة إلى القناة كنص عادي.
+</block>
+
+<block type="code" title="الصيغة">
+text: $botName
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: I am $botName!
+</block>
+
+<block type="callout" kind="note">
+text: يُعيد هذا اسم مستخدم البوت الحالي. إذا تم تغيير اسم البوت عبر بوابة المطور، سيعكس الاستدعاء التالي الاسم المحدّث.
+</block>
+</dash>
