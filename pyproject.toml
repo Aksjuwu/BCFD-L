@@ -1,0 +1,29 @@
+[tool.flet]
+org = "com.fdsb"
+
+[tool.flet.app]
+name = "FDSB"
+module_name = "BCFD"
+
+[project]
+name = "FDSB"
+version = "2.3.0"
+dependencies = [
+    "flet==0.85.2",
+    "arabic-reshaper==3.0.0",
+    "python-bidi==0.4.2",
+    "certifi>=2025.6.15",
+    "aiohttp==3.9.5",
+    "discord.py @ git+https://github.com/DA-344/d.py.git@b699e7e5e569646b6b4208ef6b60bf432ee7cf4b"
+]
+
+[tool.flet.android]
+dependencies = [
+    "pyjnius",
+    "android-notify==1.61.3.dev0"
+]
+
+[tool.flet.android.permission]
+"android.permission.WAKE_LOCK" = true
+"android.permission.POST_NOTIFICATIONS" = true
+"android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" = true

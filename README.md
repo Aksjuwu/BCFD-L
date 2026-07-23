@@ -1,12 +1,53 @@
+![FDSB.png](./main_exe/icons/FDSB.png)
+
+
 # FDSB - Free Design Studio Bot's
 
-> Build and run Discord bots locally using **FDScript** — a lightweight scripting language designed specifically for this tool.
+> Build and run Discord bots locally using FDScript — a lightweight scripting language designed specifically for this tool.
 
 ---
 
-**Description:** A desktop application for creating and running Discord bots locally, using **FDScript** – a scripting language specifically designed for bot scripting – to run your bots as efficiently as possible.
+**Description:** A cross-platform application for creating and running Discord bots locally, using FDScript - a scripting language specifically designed for bot programming - to run your bots as efficiently as possible.
 
 **Goal:** To simplify the process. No hosting required (it runs on-device), no need to write structurally complex code, and no need to deal with any learning or programming limitations – just write a script and get a responsive bot in 30 seconds.
+
+---
+
+# How to use it? 
+
+**APK:**
+
+**1. Download the APK version compatible with your device.**
+
+**2. The main interface (in English by default) will appear, displaying three buttons:**
+```text
+1. Discord -> Server link  
+2. GitHub -> Project link  
+3. New Bot -> Create a bot
+```
+
+**3. Click on the `New Bot` button to open the Discord Developer Portal link. Create your bot, make sure the three gateway intents (the toggle buttons at the bottom of the Bot tab) are enabled, and then copy your bot's token.**
+
+**4. Inside the app, set up your bot by giving it a name and an icon, then paste your token.**
+
+> [!NOTE]
+> Naming and image selection in the app do not affect your original bot on Discord.
+
+> [!WARNING]
+> The token is stored locally on your device, but it is not encrypted.
+
+**5. Log into the bot and go to settings to select your preferred language and interface theme.**
+
+**6. On the same settings page, click the "wiki-fdscript" link to learn how to write commands.**
+
+**7. Go to the commands tab and click the `+` button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on wiki-fdscript, then click the `Save` button when finished.**
+
+**8. Return to the main interface and press the `Start` button to run your bot.**
+
+> [!CAUTION]
+> The app does not run in the background. The user interface must remain open/visible, or you must use an external device to keep the bot online 24/7.
+
+**EXE:** *Coming soon...*
 
 ---
 
@@ -88,6 +129,12 @@
   - Various repairs
   - Better stability in the editor
 
+- **2.3.0** - Wiki Page
+  - Support for channel commands
+  - A new wiki interface 
+  - some Fixed in command editor
+  - some Fixed the color text on FDSB.apk
+  
 ---
 
 **Developers:** @y.lw (contributor) · [@obgwew](https://github.com/obgwew) (programming)

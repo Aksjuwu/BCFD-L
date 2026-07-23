@@ -102,6 +102,31 @@ ENGLISH_DICT = {
     'unsaved_body':        (1114, 'There are unsaved changes. Do you want to save them before exiting?'),
     'discard':             (1115, 'Discard'),
 
+    # ── wiki_view ─────────────────────────────────────────────
+    'tab_wiki':             (1121, 'Wiki'),
+    'search_hint':          (1122, 'Search a function...'),
+    'check_updates':        (1123, 'Check for updates'),
+    'checking':             (1124, 'Checking...'),
+    'downloading':          (1125, 'Downloading wiki...'),
+    'up_to_date':           (1126, 'Wiki is up to date (v{v})'),
+    'update_available':     (1127, 'New update available (v{v})'),
+    'update_failed':        (1128, 'Failed to check for updates'),
+    'no_cache':             (1129, 'No local data yet. Press "Check for updates".'),
+    'no_results':           (1130, 'No results'),
+    'function_info':        (1131, 'Function info'),
+    'no_details':           (1132, 'No details available'),
+    'open_dashboard':       (1133, 'Open dashboard'),
+    'copy_syntax':          (1134, 'Copy'),
+    'copied':               (1135, 'Copied!'),
+    'syntax':               (1136, 'Syntax'),
+    'parameters':           (1137, 'Parameters'),
+    'example':              (1138, 'Example'),
+    'notes':                (1139, 'Notes'),
+    'warnings':             (1140, 'Warnings'),
+    'required':             (1141, 'Required'),
+    'optional':             (1142, 'Optional'),
+    'not_used_in_bot':      (1143, "This function is not used in this bot's commands"),
+
     # ── Old Keys ──────────────────────────────────────────────
     'create_file':         (1116, 'Create New File'),
     'bot_token':           (1078, 'Bot Token'),
@@ -139,4 +164,15 @@ ENGLISH_DICT = {
     'edit_prefix':         (1110, 'Edit Prefix'),
     'prefix_updated':      (1111, 'Prefix updated'),
     'toggle_language':     (1112, 'English'), 
+
+    # ── wiki_view filters ───────────────────────────────────
+    'filter_all':           (1148, 'All'),
+    'filter_command':       (1149, 'Command'),
+    'filter_event':         (1150, 'Event'),
+
+    # ── wiki_view callouts ───────────────────────────────────
+    'callout_note':         (1144, 'Note'),
+    'callout_limit':        (1145, 'Limit'),
+    'callout_important':    (1146, "It's important!"),
+    'callout_question':     (1147, 'What is this?'),
 }

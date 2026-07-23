@@ -167,8 +167,8 @@ ALL_THEMES = {
             'card_border':    '#FFFFFF',
             'footer_bg':      '#D6E7FD',
             'popup_bg':       '#FFFFFF',
-            'input_bg':       '#4E4E4E',
-            'input_border':   '#5A5A5A',
+            'input_bg':       '#F0F3FA',
+            'input_border':   '#C7D0E0',
             'text':           '#000000',
             'text_dim':       '#5C5C5C',
             'text_on_accent': '#FFFFFF',
@@ -255,7 +255,7 @@ ALL_THEMES = {
         'swatch_a': "#6D6D6D",
         'swatch_b': "#1A1A1A",
         'data': {
-            ' bg':             '#1A1C26',
+            'bg':             '#1A1C26',
             'card_bg':        '#23263A',
             'card_border':    '#2E3250',
             'footer_bg':      '#1E2133',
@@ -420,9 +420,6 @@ class BotSettingsTab:
         self._ext_ui_active = _ui_profile_fixed()
 
         self._export_status_text = ft.Text('', size=11, color=_c('success'))
-        # File picker used to let the user save / share the exported ZIP.
-        # Required on mobile since there is no OS file-explorer to reveal
-        # the file in (app storage there is sandboxed).
         self._export_file_picker = ft.FilePicker()
 
         self._captcha_code    = ''
@@ -485,11 +482,6 @@ class BotSettingsTab:
     # ── Build ─────────────────────────────────────────────────────────────────
 
     def build(self) -> ft.Control:
-        # Make sure the export file picker is registered on the page so its
-        # native save/share dialog can actually pop up (needed on mobile).
-        # NOTE: in Flet v1, FilePicker is a *Service*, not a visual control —
-        # it must go into page.services, NOT page.overlay. Putting it in
-        # page.overlay is what causes the "Unknown control: FilePicker" error.
         if self._export_file_picker not in self._page.services:
             self._page.services.append(self._export_file_picker)
             self._page.update()
@@ -914,6 +906,14 @@ class BotSettingsTab:
             self._current_theme  = theme_key
             self._page.bgcolor   = _c('bg')
 
+            # زامن theme_mode مع الثيم المختار حتى لا يفرض نظام أندرويد/iOS
+            # ColorScheme داكن افتراضي فوق ثيماتنا المخصّصة (يسبب ظهور
+            # النصوص السوداء رمادية باهتة).
+            self._page.theme_mode = (
+                ft.ThemeMode.DARK if theme_key in ('system_da', 'v2_dark')
+                else ft.ThemeMode.LIGHT
+            )
+
             if _ui_profile_fixed() and not self._ext_ui_active:
                 self._ext_ui_active = True
 
@@ -996,12 +996,6 @@ class BotSettingsTab:
             self._page.update()
             return
 
-        # The ZIP now exists in the app's private storage. On desktop we can
-        # just reveal it in the OS file explorer. On mobile there is no
-        # equivalent — the app's storage is sandboxed and not browsable —
-        # so we must hand the file to the user via the native save/share
-        # sheet instead, or the button silently "does nothing" from their
-        # point of view even though the export itself succeeded.
         try:
             if is_mobile():
                 saved_path = await self._export_file_picker.save_file(

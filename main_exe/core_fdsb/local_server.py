@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 import json
 import os
+import sys
 import asyncio
 import threading
 import time
@@ -130,7 +131,7 @@ def _get_token(bot_dir: str) -> str:
                 token = data.get('token') or data.get('TOKEN') or data.get('bot_token')
                 if token:
                     return str(token)
-            except Exception as e:
+            except Exception:
                 pass
     return ''
 
@@ -153,6 +154,44 @@ def send_flet_notification(message: str):
             pass
 
 # ══════════════════════════════════════════════════════════════
+#  Android Persistent Status Notification (using android_notify)
+# ══════════════════════════════════════════════════════════════
+
+def send_android_status_notification(bot_name: str, online: bool):
+    try:
+        from android_notify import Notification
+    except ImportError:
+        return
+
+    if not (hasattr(sys, 'getandroidapilevel') or 'ANDROID_ARGUMENT' in os.environ):
+        return
+
+    status_text = "🟢 متصل ويعمل الآن" if online else "🔴 غير متصل"
+    title = bot_name or "FDSB Bot"
+
+    try:
+        Notification(
+            title=title,
+            message=status_text,
+            channel_id="fdsb_bot_status",
+            channel_name="Bot Status",
+            persistent=True, 
+        ).send()
+    except Exception as e:
+        print(f"[AndroidNotif] send failed: {e}")
+
+def clear_android_status_notification():
+    try:
+        from android_notify import NotificationHandler
+    except ImportError:
+        return
+
+    try:
+        NotificationHandler.cancelAll()
+    except Exception as e:
+        print(f"[AndroidNotif] clear failed: {e}")
+
+# ══════════════════════════════════════════════════════════════
 # event_FDScripts
 # ══════════════════════════════════════════════════════════════
 
@@ -170,6 +209,8 @@ def _make_bot():
         print(f"[Bot] Logged in successfully as: {bot.user}")
         set_bot_start_time(time.time())
         send_flet_notification(f"البوت نشط الآن: {bot.user}")
+        await asyncio.sleep(3)
+        send_android_status_notification(str(bot.user), online=True)
     
     @bot.event
     async def on_interaction(interaction: discord.Interaction):
@@ -271,7 +312,7 @@ def _runner(token: str):
     
     try:
         _loop.run_until_complete(_client.start(token))
-    except Exception as e:
+    except Exception:
         pass
     finally:
         _stopping = False
@@ -314,6 +355,7 @@ def stop_bot() -> None:
         asyncio.run_coroutine_threadsafe(_client.close(), _loop)
         
     send_flet_notification("تم إيقاف خدمة البوت.")
+    clear_android_status_notification()
 
 # ══════════════════════════════════════════════════════════════
 #  Flet GUI & Android Background Permissions
@@ -327,6 +369,12 @@ def request_flet_permissions(page: ft.Page):
     battery_status = page.get_permission_status(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
     if battery_status != ft.PermissionStatus.GRANTED:
         page.request_permission(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
+    
+    try:
+        from android_notify.core import asks_permission_if_needed
+        asks_permission_if_needed(legacy=True)
+    except (ImportError, Exception):
+        pass
 
 def main_gui(page: ft.Page):
     global _flet_page

@@ -9,7 +9,6 @@ import re
 import sys
 import json
 import shutil
-import zipfile
 import logging
 import asyncio
 
@@ -52,8 +51,11 @@ def _configure_window(page: ft.Page):
         page.window.height = 700
 
     elif platform in ('macos', 'linux'):
-        page.window.width  = 1350
-        page.window.height = 700
+        page.window.width      = 420
+        page.window.height     = 720
+        page.window.min_width  = 360
+        page.window.min_height = 600
+        page.window.resizable  = False
 
     elif platform in ('android', 'ios'):
         page.padding = 0 
@@ -179,57 +181,6 @@ def bot_exists(bot_name: str) -> bool:
     return os.path.isfile(
         os.path.join(get_bot_dir(bot_name), 'bot_files', 'config.json')
     )
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  IMPORT FROM EXPORT ZIP
-#  (mirror of BotSettingsTab._export_bot_data in main_exe/settings.py, which
-#   zips up 'bot_commands/' and 'bot_vars/' with those names as the top-level
-#   folders inside the archive)
-# ══════════════════════════════════════════════════════════════════════════════
-
-_IMPORTABLE_ROOTS = ('bot_commands', 'bot_vars')
-
-
-def import_bot_export(bot_dir: str, zip_path: str) -> bool:
-    """Extract an exported bot ZIP (bot_commands/, bot_vars/) into bot_dir.
-
-    Only entries rooted at one of _IMPORTABLE_ROOTS are extracted, and every
-    destination path is verified to stay inside bot_dir, to protect against
-    a malicious/corrupt ZIP trying to write outside the bot folder (zip
-    slip / path traversal).
-    """
-    if not zip_path or not os.path.isfile(zip_path):
-        return False
-
-    bot_dir_norm = os.path.normpath(bot_dir)
-
-    try:
-        with zipfile.ZipFile(zip_path, 'r') as zf:
-            for member in zf.infolist():
-                name = member.filename
-                if not name or name.endswith('/'):
-                    continue
-
-                norm = os.path.normpath(name)
-                if os.path.isabs(norm) or norm.split(os.sep)[0] == '..':
-                    continue
-
-                top = norm.split(os.sep)[0]
-                if top not in _IMPORTABLE_ROOTS:
-                    continue
-
-                dest_path = os.path.normpath(os.path.join(bot_dir_norm, norm))
-                if not (dest_path == bot_dir_norm or dest_path.startswith(bot_dir_norm + os.sep)):
-                    continue
-
-                os.makedirs(os.path.dirname(dest_path), exist_ok=True)
-                with zf.open(member) as src, open(dest_path, 'wb') as dst:
-                    shutil.copyfileobj(src, dst)
-        return True
-    except Exception as e:
-        print(f'[FDSB] import failed: {e}')
-        return False
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -388,7 +339,6 @@ class CreateBotDialog:
         self._page      = page
         self._on_create = on_create
         self._img_path  = ''
-        self._import_zip_path = ''
 
         self._avatar_stack = ft.Stack(
             [
@@ -441,29 +391,7 @@ class CreateBotDialog:
             text_style=ft.TextStyle(color=_c('text'), size=13),
         )
 
-        self._file_picker   = ft.FilePicker()
-        self._import_picker = ft.FilePicker()
-
-        # In Flet v1, FilePicker is a *Service*, not a visual control — it
-        # must be registered on page.services (page.overlay is only for
-        # visual/floating controls and throws "Unknown control: FilePicker"
-        # if used for this instead).
-        for _picker in (self._file_picker, self._import_picker):
-            if _picker not in self._page.services:
-                self._page.services.append(_picker)
-
-        # Import-from-export row: lets the user pick a ZIP produced by the
-        # "Export ZIP" button in bot settings and pre-fill the new bot's
-        # commands/variables from it.
-        self._import_status_text = ft.Text('', size=11, color=_c('text_dim'))
-        self._import_btn = ft.TextButton(
-            content=ft.Row(
-                [ft.Icon(ft.Icons.UPLOAD_FILE_OUTLINED, color=_c('accent')),
-                 ft.Text(_t('import_zip') or 'Import from Export ZIP', color=_c('accent'))],
-                spacing=4, tight=True,
-            ),
-            on_click=self._pick_import_zip,
-        )
+        self._file_picker = ft.FilePicker()
 
         self._dlg = ft.AlertDialog(
             modal=True,
@@ -483,12 +411,6 @@ class CreateBotDialog:
                     ),
                     self._name_field,
                     self._token_field,
-                    ft.Divider(color=_c('input_border'), height=1),
-                    ft.Row(
-                        [self._import_btn],
-                        alignment=ft.MainAxisAlignment.CENTER,
-                    ),
-                    self._import_status_text,
                 ],
                 tight=True,
                 spacing=14,
@@ -545,23 +467,6 @@ class CreateBotDialog:
         )
         self._page.update()
 
-    async def _pick_import_zip(self, _):
-        files = await self._import_picker.pick_files(
-            dialog_title='Choose Export ZIP',
-            file_type=ft.FilePickerFileType.CUSTOM,
-            allowed_extensions=['zip'],
-        )
-        if not files:
-            return
-        path = files[0].path
-        if not path or not os.path.isfile(path):
-            return
-
-        self._import_zip_path          = path
-        self._import_status_text.color = _c('success')
-        self._import_status_text.value = os.path.basename(path)
-        self._page.update()
-
     def _submit(self, _):
         name  = self._name_field.value.strip() or 'My Bot'
         token = self._token_field.value.strip()
@@ -582,12 +487,7 @@ class CreateBotDialog:
 
         self._token_field.error_text = None
         self._page.pop_dialog()
-        self._on_create({
-            'name':       name,
-            'token':      token,
-            'image':      self._img_path,
-            'import_zip': self._import_zip_path,
-        })
+        self._on_create({'name': name, 'token': token, 'image': self._img_path})
 
     def _cancel(self, _):
         self._page.pop_dialog()
@@ -719,19 +619,7 @@ class MainView:
         if bot_exists(name):
             _show_warning(self._page, _t('name_taken'))
             return
-
-        saved_config = save_bot_data(data)
-
-        zip_path = data.get('import_zip', '')
-        if zip_path:
-            bot_dir = get_bot_dir(saved_config.get('name', name))
-            if not import_bot_export(bot_dir, zip_path):
-                _show_warning(
-                    self._page,
-                    _t('import_failed') or 'Import failed! The bot was created without the imported data.',
-                )
-
-        self._push_card(saved_config)
+        self._push_card(save_bot_data(data))
         self._refresh_content_area()
         self._page.update()
 
@@ -829,8 +717,18 @@ def main(page: ft.Page):
     }
     default_font = next(iter(page.fonts), "Cairo")
     page.theme = ft.Theme(font_family=default_font)
+    page.dark_theme = ft.Theme(font_family=default_font)
 
     saved_theme = get_current_theme()
+
+    # امنع نظام أندرويد/iOS من فرض ColorScheme داكن افتراضي فوق
+    # ثيماتنا المخصّصة يدوياً، وإلا فقد تظهر النصوص السوداء رمادية باهتة
+    # عندما يكون "الوضع الداكن" مفعّلاً في إعدادات الهاتف.
+    page.theme_mode = (
+        ft.ThemeMode.DARK if saved_theme in ('system_da', 'v2_dark')
+        else ft.ThemeMode.LIGHT
+    )
+
     apply_theme_globally(saved_theme)
 
     def _sync_page_bg(data: dict):

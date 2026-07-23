@@ -1,2 +1,8 @@
 ﻿assets/
 build/
+app_data/
+.vscode/
+functions/
+functions_ar/
+.gitignore/
+pyproject.toml/

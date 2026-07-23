@@ -9,6 +9,7 @@ import asyncio
 import discord
 import io
 import json
+import math
 import os
 import re
 import random
@@ -98,7 +99,7 @@ KNOWN_COMMANDS: set[str] = {
     # b
     "ban", "botID", "botName", "break",
     # c
-    "changeUsername", "channelID", "channelName", "charCount", "clear",
+    "ceil", "changeUsername", "channelID", "channelName", "charCount", "clear",
     "clientTyping", "cloneRole", "color", "cooldown", "createRole",
     "customID",
     # d
@@ -107,12 +108,12 @@ KNOWN_COMMANDS: set[str] = {
     "editButton", "editIn", "editMessage", "elif", "else",
     "endfor", "endif", "endwhile",
     # f
-    "footer", "for",
+    "floor", "footer", "for",
     # g
     "getBotInvent", "getServerInvite", "getUserStatus", "getVar", "guildID",
     "guildName",
     # i
-    "if", "image", "isAdmin", "isBooster", "isBot", "isNumber",
+    "if", "image", "isAdmin", "isBooster", "isBot", "isNSFW", "isNumber",
     "isOwner",
     # k
     "kick",
@@ -123,7 +124,7 @@ KNOWN_COMMANDS: set[str] = {
     # o
     "onlyAdmin", "onlyIf", "or",
     # p
-    "ping",
+    "ping", "power",
     # r
     "randomint", "randomRoleID", "randomRoleMention", "randomstr", "randomUserID",
     "removeButtons", "removeComponent", "replaceText", "reply", "replyIn",
@@ -135,7 +136,7 @@ KNOWN_COMMANDS: set[str] = {
     # t
     "timeout", "title",
     # u
-    "unban", "untimeout", "uptime",
+    "unban", "untimeout", "uptime", "useChannel",
     # v
     "var",
     # w
@@ -332,6 +333,95 @@ def _scan_suppress_errors(script_text: str) -> tuple[bool, str | None]:
             return True, (custom or None)
 
     return True, None
+
+_ID_MENTION_RE = re.compile(r'^<[#@]!?(\d+)>$')
+
+def _scan_use_channel(script_text: str) -> tuple[int | None, int | None]:
+    """
+    Scans the raw, unresolved script text for `$useChannel[guildID; channelID]`,
+    wherever it appears in the script — same "prescan" approach as
+    `_scan_suppress_errors`. Because this runs before execution/variable
+    resolution, both arguments must be literal IDs (or mentions), not
+    variables or the output of other commands.
+
+    Returns (guild_id, channel_id), or (None, None) if not present / malformed.
+    """
+    match = re.search(r'\$useChannel\b', script_text)
+    if not match:
+        return None, None
+
+    end = match.end()
+    if end >= len(script_text) or script_text[end] != '[':
+        return None, None
+
+    close = _find_matching_bracket(script_text, end)
+    if close == -1:
+        return None, None
+
+    inner = script_text[end + 1:close]
+    parts = _split_args(inner)
+    if len(parts) != 2:
+        return None, None
+
+    def _extract_id(raw: str) -> int | None:
+        raw = raw.strip()
+        mention_match = _ID_MENTION_RE.match(raw)
+        if mention_match:
+            return int(mention_match.group(1))
+        if raw.isdigit():
+            return int(raw)
+        return None
+
+    guild_id = _extract_id(parts[0])
+    channel_id = _extract_id(parts[1])
+    if guild_id is None or channel_id is None:
+        return None, None
+
+    return guild_id, channel_id
+
+async def _resolve_use_channel_target(
+    bot: discord.Client,
+    guild_id: int,
+    channel_id: int,
+) -> tuple[discord.abc.Messageable | None, str | None]:
+    """
+    Resolves the (guild_id, channel_id) pair found by `_scan_use_channel`
+    into an actual sendable channel. Returns (channel, None) on success,
+    or (None, error_message) on failure.
+    """
+    guild = bot.get_guild(guild_id)
+    if guild is None:
+        try:
+            guild = await bot.fetch_guild(guild_id)
+        except discord.NotFound:
+            return None, f"no guild found with ID `{guild_id}`"
+        except discord.Forbidden:
+            return None, f"bot is not a member of guild `{guild_id}`"
+        except discord.HTTPException as e:
+            return None, f"failed to fetch guild `{guild_id}`: `{e.text}`"
+
+    channel = guild.get_channel(channel_id) if guild is not None else None
+    if channel is None:
+        channel = bot.get_channel(channel_id)
+    if channel is None:
+        try:
+            channel = await bot.fetch_channel(channel_id)
+        except discord.NotFound:
+            return None, f"no channel found with ID `{channel_id}`"
+        except discord.Forbidden:
+            return None, f"bot lacks access to channel `{channel_id}`"
+        except discord.HTTPException as e:
+            return None, f"failed to fetch channel `{channel_id}`: `{e.text}`"
+
+    channel_guild = getattr(channel, "guild", None)
+    if channel_guild is not None and channel_guild.id != guild_id:
+        return None, f"channel `{channel_id}` does not belong to guild `{guild_id}`"
+
+    if not isinstance(channel, discord.abc.Messageable):
+        return None, f"channel `{channel_id}` is not a text-sendable channel"
+
+    return channel, None
+
 
 _NAMED_SEPARATORS: dict[str, str] = {
     "dot": ".", "com": ",", "apo": "'", "sem": ";", "colon": ":",
@@ -816,6 +906,68 @@ class ExecutionContext:
 
             return str(int(res)) if float(res).is_integer() else str(res)
 
+        if cmd_name in ('floor', 'ceil'):
+            parts = _split_args(inner)
+
+            if len(parts) != 1:
+                self._abort_with_error(
+                    FDLogicError(f"`${cmd_name}` requires exactly 1 argument (e.g. `${cmd_name}[3.7]`)"),
+                    pos
+                )
+
+            try:
+                value = float(parts[0]) if parts[0] else 0.0
+            except ValueError:
+                self._abort_with_error(
+                    FDLogicError(
+                        f"`${cmd_name}` — Non-numeric value. Cannot perform math operations on text, "
+                        f"ensure you are using numbers."
+                    ),
+                    pos
+                )
+
+            res = math.floor(value) if cmd_name == 'floor' else math.ceil(value)
+            return str(res)
+
+        if cmd_name == 'power':
+            parts = _split_args(inner)
+
+            if len(parts) != 2:
+                self._abort_with_error(
+                    FDLogicError("`$power` requires exactly 2 arguments: `$power[base; exponent]`"),
+                    pos
+                )
+
+            try:
+                base = float(parts[0]) if parts[0] else 0.0
+                exponent = float(parts[1]) if parts[1] else 0.0
+            except ValueError:
+                self._abort_with_error(
+                    FDLogicError(
+                        "`$power` — Non-numeric value. Cannot perform math operations on text, "
+                        "ensure you are using numbers."
+                    ),
+                    pos
+                )
+
+            try:
+                res = base ** exponent
+            except (OverflowError, ZeroDivisionError):
+                self._abort_with_error(
+                    FDRuntimeError("`$power` — result is too large or mathematically undefined"),
+                    pos
+                )
+
+            if isinstance(res, complex):
+                self._abort_with_error(
+                    FDRuntimeError(
+                        "`$power` — result is a complex number (negative base with fractional exponent)"
+                    ),
+                    pos
+                )
+
+            return str(int(res)) if float(res).is_integer() else str(res)
+
         if cmd_name == 'randomint':
             parts = [x.strip() for x in inner.split(';')]
             if len(parts) == 2:
@@ -953,6 +1105,7 @@ _INLINE_WITH_ARGS: set[str] = {
     'getVar',
     'randomint', 'randomstr',
     'sum', 'sub', 'mul', 'div', 'mod',
+    'floor', 'ceil', 'power',
     'replaceText',
 }
 

@@ -1,11 +1,9 @@
-welcome to update 2.2.4
+welcome to update 2.3.0
 
-- more 30 command's!
+- Support for channel commands
 
-- Various repairs
+- A new wiki interface
 
-- Better stability in the editor
+- some Fixed in command editor
 
-- Adding the notification feature to the phone
-
-- Stabilized the mobile version and fixed its issues
+- some Fixed the color text on FDSB.apk

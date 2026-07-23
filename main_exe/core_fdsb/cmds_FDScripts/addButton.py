@@ -1,16 +1,20 @@
 # cmds_FDScripts/addButton.py
+from typing import Optional
+
 import discord
 
 from FDScript import ExecutionContext, Command
 from FDCore import BUTTON_STYLES, FDSyntaxError, FDLogicError, _send_error
 
 MAX_BUTTONS_PER_MESSAGE = 25
+MAX_BUTTONS_PER_ROW = 5
+MAX_ROWS = 5
 
 def _build_button(is_link: bool, url_or_id: str, label: str, style: discord.ButtonStyle,
-                   disabled: bool, emoji: str | None) -> discord.ui.Button:
+                   disabled: bool, emoji: str | None, row: int) -> discord.ui.Button:
     if is_link:
-        return discord.ui.Button(label=label, url=url_or_id, disabled=disabled, emoji=emoji)
-    return discord.ui.Button(custom_id=url_or_id, label=label, style=style, disabled=disabled, emoji=emoji)
+        return discord.ui.Button(label=label, url=url_or_id, disabled=disabled, emoji=emoji, row=row)
+    return discord.ui.Button(custom_id=url_or_id, label=label, style=style, disabled=disabled, emoji=emoji, row=row)
 
 def _has_duplicate_id(view: discord.ui.View, custom_id: str) -> bool:
     return any(
@@ -18,10 +22,33 @@ def _has_duplicate_id(view: discord.ui.View, custom_id: str) -> bool:
         for item in view.children
     )
 
+def _next_row(view: discord.ui.View, new_line: bool) -> Optional[int]:
+    buttons = [item for item in view.children if isinstance(item, discord.ui.Button)]
+    if not buttons:
+        return 0
+
+    row_counts: dict[int, int] = {}
+    for b in buttons:
+        r = b.row if b.row is not None else 0
+        row_counts[r] = row_counts.get(r, 0) + 1
+
+    last_row = max(row_counts)
+
+    if not new_line:
+        if row_counts.get(last_row, 0) < MAX_BUTTONS_PER_ROW:
+            return last_row
+        new_line = True
+
+    if new_line:
+        next_row = last_row + 1
+        if next_row >= MAX_ROWS:
+            return None
+        return next_row
+
+    return None
+
 async def _edit_target_with_button(ch: discord.abc.Messageable, target_message: discord.Message,
                                     btn: discord.ui.Button, is_link: bool, url_or_id: str) -> bool:
-    """Fetches the current view on target_message, appends btn, edits it in place.
-    Returns True on success, False if an error was already sent to the channel."""
     existing_view = discord.ui.View.from_message(target_message, timeout=None)
 
     if len(existing_view.children) >= MAX_BUTTONS_PER_MESSAGE:
@@ -51,11 +78,11 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
     if len(args) < 4:
         await _send_error(ch, FDSyntaxError(
             "`$addButton` requires at least 4 arguments: "
-            "`$addButton[isLink; ID/URL; label; style; (disabled; emoji; messageID)]`"
+            "`$addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]`"
         ))
         return
 
-    is_link = args[0].strip().lower() == "yes"
+    new_line = args[0].strip().lower() == "yes"
     url_or_id = args[1].strip()
     label = args[2]
     style_str = args[3].strip().lower()
@@ -70,6 +97,8 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
+    is_link = style_str == "link"
+
     if not url_or_id:
         await _send_error(ch, FDLogicError(
             "`$addButton` — the ID/URL argument (2nd arg) cannot be empty"
@@ -83,7 +112,6 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         return
 
     style = BUTTON_STYLES[style_str]
-    btn = _build_button(is_link, url_or_id, label, style, disabled, emoji)
 
     if message_id_arg is not None:
         if not message_id_arg.isdigit():
@@ -111,6 +139,17 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
             ))
             return
 
+        existing_view = discord.ui.View.from_message(target_message, timeout=None)
+        row = _next_row(existing_view, new_line)
+        if row is None:
+            await _send_error(ch, FDLogicError(
+                f"`$addButton` — that message has no room left "
+                f"(max {MAX_ROWS} rows × {MAX_BUTTONS_PER_ROW} buttons)"
+            ))
+            return
+
+        btn = _build_button(is_link, url_or_id, label, style, disabled, emoji, row)
+
         ok = await _edit_target_with_button(ch, target_message, btn, is_link, url_or_id)
         if not ok:
             return
@@ -133,5 +172,15 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
+    row = _next_row(ctx.view, new_line)
+    if row is None:
+        await _send_error(ch, FDLogicError(
+            f"`$addButton` — no room left "
+            f"(max {MAX_ROWS} rows × {MAX_BUTTONS_PER_ROW} buttons)"
+        ))
+        return
+
+    btn = _build_button(is_link, url_or_id, label, style, disabled, emoji, row)
+
     ctx.view.add_item(btn)
-    ctx.log_event(f"$addButton → queued [{label or url_or_id}] style={style_str} id={url_or_id}")
+    ctx.log_event(f"$addButton → queued [{label or url_or_id}] style={style_str} id={url_or_id} row={row}")

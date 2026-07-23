@@ -15,6 +15,7 @@ from main_exe.commands_view import BotCommandsTab
 from main_exe.langs.translations import Translations
 from main_exe.theme_engine import ThemeEngine
 from main_exe.variables_view import BotVariablesTab
+from main_exe.wiki_view import BotWikiTab
 
 NEW_TXT_PATH = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), '..', 'main_exe/new.txt'
@@ -84,6 +85,7 @@ _TABS = [
     ('main',      ft.Icons.HOME_ROUNDED,     'tab_main'),
     ('commands',  ft.Icons.CODE_ROUNDED,     'tab_commands'),
     ('variables', ft.Icons.TUNE_ROUNDED,     'tab_variables'),
+    ('wiki',      ft.Icons.MENU_BOOK_ROUNDED, 'tab_wiki'),
     ('settings',  ft.Icons.SETTINGS_ROUNDED, 'tab_settings'),
 ]
 
@@ -301,6 +303,11 @@ class BotMainTab:
         if new_state:
             try:
                 from main_exe.core_fdsb import local_server
+                try:
+                    if self._page.platform.value in ('android', 'ios'):
+                        local_server.request_flet_permissions(self._page)
+                except (AttributeError, Exception):
+                    pass
                 local_server.start_bot(self._bot_data.get('bot_dir', ''))
             except Exception as e:
                 print(f'[Dashboard] start failed: {e}')
@@ -345,12 +352,14 @@ class BotDashboardScreen:
         self._commands_tab  = BotCommandsTab(page)
         self._variables_tab = BotVariablesTab(page)
         self._settings_tab  = BotSettingsTab(page)
+        self._wiki_tab   = BotWikiTab(page)
 
         self._tab_views = {
             'main':      self._main_tab,
             'commands':  self._commands_tab,
             'variables': self._variables_tab,
             'settings':  self._settings_tab,
+            'wiki':  self._wiki_tab,
         }
 
         self._tab_ids = [t[0] for t in _TABS]
@@ -473,5 +482,6 @@ class BotDashboardScreen:
         self._commands_tab.load_bot(bot_files_dir)
         self._variables_tab.load_bot(bot_files_dir)
         self._settings_tab.load_bot(bot_data)
+        self._wiki_tab.load_bot(bot_data)
         self._switch_tab('main')
         

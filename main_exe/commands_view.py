@@ -119,7 +119,7 @@ def _list_cmd_files(bot_dir: str) -> list:
             continue
         try:
             for f in os.listdir(folder):
-                if not f.endswith('.py'):
+                if not f.endswith('.fds'):
                     continue
                 parsed = _parse_cmd_file(os.path.join(folder, f))
                 parsed['is_event'] = is_event
@@ -132,7 +132,7 @@ def _list_cmd_files(bot_dir: str) -> list:
 def _cmd_file_exists(bot_dir: str, safe_name: str, exclude_path: str = '') -> bool:
     exclude_abs = os.path.abspath(exclude_path) if exclude_path else ''
     for folder in (_cmds_dir(bot_dir), _events_dir(bot_dir)):
-        candidate = os.path.join(folder, f'{safe_name}.py')
+        candidate = os.path.join(folder, f'{safe_name}.fds')
         if os.path.isfile(candidate) and os.path.abspath(candidate) != exclude_abs:
             return True
     return False
@@ -148,7 +148,7 @@ def _write_cmd_file(bot_dir: str, name: str, prefix: str,
         dest_dir = _ensure_cmds_dir(bot_dir)
         folder_label = 'bot_commands'
 
-    new_path = os.path.join(dest_dir, f'{safe}.py')
+    new_path = os.path.join(dest_dir, f'{safe}.fds')
 
     if old_path and os.path.abspath(old_path) != os.path.abspath(new_path):
         if os.path.isfile(old_path):
@@ -412,7 +412,7 @@ class CommandEditorView:
         )
 
         self._title_text = ft.Text(
-            _ar('New.py'), size=13, weight=ft.FontWeight.BOLD, color=_c('text')
+            _ar('New.fds'), size=13, weight=ft.FontWeight.BOLD, color=_c('text')
         )
         
         self._dirty_dot = ft.Container(
@@ -801,12 +801,12 @@ class CommandEditorView:
             self._name_field.value   = cmd_data.get('name', '')
             self._prefix_field.value = cmd_data.get('prefix', '')
             self._code_edit.value    = cmd_data.get('content', '')
-            self._title_text.value   = _ar(cmd_data.get('name', 'command') + '.py')
+            self._title_text.value   = _ar(cmd_data.get('name', 'command') + '.fds')
         else:
             self._name_field.value   = ''
             self._prefix_field.value = ''
             self._code_edit.value    = ''
-            self._title_text.value   = _ar('New.py')
+            self._title_text.value   = _ar('New.fds')
 
         self._clear_name_error()
 
@@ -848,7 +848,7 @@ class CommandEditorView:
             self._bot_dir, name, prefix, content, self._cmd_path
         )
 
-        self._title_text.value = _ar(name + '.py')
+        self._title_text.value = _ar(name + '.fds')
         self._clear_dirty()
 
         if self._page:

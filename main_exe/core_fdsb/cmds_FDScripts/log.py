@@ -8,8 +8,8 @@ from FDScript import (
 
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
-    channel_id_str = args[0].strip() if args else ""
-    name_code      = args[1].strip() if len(args) > 1 else ""
+    channel_id_str = ctx.resolve(args[0]).strip() if args else ""
+    name_code      = ctx.resolve(args[1]).strip() if len(args) > 1 else ""
 
     if not channel_id_str:
         await _send_error(ch, FDLogicError(

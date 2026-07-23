@@ -112,6 +112,69 @@ def evaluate_condition(expr: str, ctx: ExecutionContext) -> bool:
     return False
 
 # ─────────────────────────────────────────────
+# Position-Independent Directives
+# ─────────────────────────────────────────────
+class _PreScanDirectives:
+
+    @staticmethod
+    async def apply(interpreter: 'Interpreter', ctx: ExecutionContext) -> None:
+        _PreScanDirectives._suppress_errors(interpreter, ctx)
+        await _PreScanDirectives._use_channel(interpreter, ctx)
+
+    @staticmethod
+    def _suppress_errors(interpreter: 'Interpreter', ctx: ExecutionContext) -> None:
+        ctx.suppress_errors, ctx.suppress_errors_message = _scan_suppress_errors(interpreter.script_text)
+
+    @staticmethod
+    async def _use_channel(interpreter: 'Interpreter', ctx: ExecutionContext) -> None:
+        use_channel_match = re.search(r'\$useChannel\[(.*?)\]', interpreter.script_text, flags=re.IGNORECASE)
+        if not use_channel_match:
+            return
+
+        args_raw = use_channel_match.group(1).split(';')
+        if len(args_raw) >= 2:
+            guild_id_raw = ctx.resolve(args_raw[0]).strip()
+            channel_id_raw = ctx.resolve(args_raw[1]).strip()
+
+            if guild_id_raw.isdigit() and channel_id_raw.isdigit():
+                target_guild = ctx.bot.get_guild(int(guild_id_raw))
+                if target_guild:
+                    target_channel = target_guild.get_channel(int(channel_id_raw))
+
+                    if not target_channel:
+                        try:
+                            target_channel = await target_guild.fetch_channel(int(channel_id_raw))
+                        except (discord.NotFound, discord.Forbidden, discord.HTTPException) as e:
+                            ctx.log_event(f"[useChannel] failed to fetch channel {channel_id_raw}: {e}")
+                            target_channel = None
+
+                    if target_channel:
+                        ctx._channel_override = target_channel
+                        ctx.log_event(
+                            f"useChannel → redirecting all output to channel "
+                            f"{channel_id_raw} (guild {guild_id_raw})"
+                        )
+
+                        if ctx.interaction and not ctx.interaction.response.is_done():
+                            try:
+                                await ctx.interaction.response.defer()
+                            except Exception as e:
+                                ctx.log_event(f"[useChannel] failed to defer interaction: {e}")
+                        ctx.interaction = None
+                        ctx.is_global_reply = False
+                    else:
+                        ctx.log_event(f"[useChannel] channel {channel_id_raw} not found in guild {guild_id_raw}")
+                else:
+                    ctx.log_event(f"[useChannel] guild {guild_id_raw} not found (bot may not be a member)")
+            else:
+                ctx.log_event("[useChannel] guildID/channelID must be literal numeric IDs")
+
+        interpreter.script_text = (
+            interpreter.script_text[:use_channel_match.start()]
+            + interpreter.script_text[use_channel_match.end():]
+        )
+
+# ─────────────────────────────────────────────
 # Interpreter
 # ─────────────────────────────────────────────
 
@@ -122,7 +185,7 @@ class Interpreter:
 
     # ── Main entry point ──────────────────────────────────────
     async def run(self, ctx: ExecutionContext):
-        ctx.suppress_errors, ctx.suppress_errors_message = _scan_suppress_errors(self.script_text)
+        await _PreScanDirectives.apply(self, ctx)
 
         tokens = self._tokenise_all()
         errors = self._validate(tokens)
@@ -381,7 +444,7 @@ class Interpreter:
 
     # ── command dispatch ──────────────────────────────────────
     async def _exec_command(self, cmd: Command, ctx: ExecutionContext) -> None:
-        if cmd.name == "suppressErrors":
+        if cmd.name in ("suppressErrors", "useChannel"):
             return
 
         module = _load_cmd(cmd.name)
