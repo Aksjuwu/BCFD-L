@@ -1,11 +1,11 @@
 name: Auto Update Wiki Index and Version
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'wiki/**/functions/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'wiki/**/functions/**'
 
 jobs:
   update-wiki:
@@ -20,11 +20,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Update JSON files
+        shell: python
         run: |
-          python -c "
           import os, json
           
           wiki_dir = 'wiki'
@@ -47,8 +47,7 @@ jobs:
                           except: pass
                       
                       with open(ver_path, 'w', encoding='utf-8') as f:
-                          json.dump({'version': version + 0.1}, f)
-          "
+                          json.dump({'version': version + 1}, f)
 
       - name: Commit and Push Changes
         run: |
