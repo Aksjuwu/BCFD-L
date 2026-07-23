@@ -1,0 +1,21 @@
+<dash>
+name: $addTimestamp
+desc: يجلب الوقت الحالي ويُرسله كصيغة طابع زمني ديناميكي في Discord.
+category: التوقيت والتأخيرات
+
+<block type="text" title="كيف تعمل الأوامر؟">
+text: عند استدعاء $addTimestamp، يحسب البوت الوقت الحالي، ويحوّله إلى صيغة الطابع الزمني الديناميكي في Discord (صيغة الوقت الطويل)، ويرسل النتيجة مباشرة إلى قناة الوجهة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $addTimestamp
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $addTimestamp
+</block>
+
+<block type="callout" kind="note">
+text: يستخدم الطابع الزمني المرسل صيغة الوقت الطويل، مما يعني أنه سيُعدّل تلقائياً ويُعرض لكل مستخدم Discord وفقاً للمنطقة الزمنية المحلية لجهازه (مثل 6:46:58 مساءً).
+</block>
+</dash>
