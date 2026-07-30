@@ -51,7 +51,9 @@
 
 **Changelog:**
 
-- **1.0.0** — Initial beta release
+  - Alfa: 1.0.0 to 2.x.x(now)
+
+- **1.0.0** — Initial Alfa release
   - New interface
   - New language (FDScript) Gen 0
   - New control mechanism
