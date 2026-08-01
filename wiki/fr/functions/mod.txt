@@ -1,0 +1,27 @@
+<dash>
+name: $mod
+desc: Renvoie le reste de la division du premier nombre par chacun des nombres suivants.
+category: Mathématiques & Nombres
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $mod prend deux arguments numériques ou plus. Il calcule le modulo (reste) de la première valeur divisée séquentiellement par chacune des valeurs suivantes. Fonctionne à la fois comme commande autonome et en ligne.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $mod[a; b; ...]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[$mod[10; 3]]
+</block>
+
+<block type="callout" kind="warning">
+text: Un modulo par zéro renvoie une erreur. $mod[10; 3] donne 1 (le reste de 10 / 3).
+</block>
+</dash>
+
+<details>
+syntax: $mod[a; b; ...]
+param: a|number|Requis|Le dividende (nombre à diviser)
+param: b|number|Requis|Le diviseur (ne peut pas être 0). Les diviseurs supplémentaires sont appliqués séquentiellement.
+</details>

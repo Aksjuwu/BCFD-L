@@ -1,0 +1,27 @@
+<dash>
+name: $sub
+desc: Subtrahiert Zahlen nacheinander vom ersten Wert und gibt das Ergebnis zurück.
+category: Mathematik & Zahlen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $sub nimmt zwei oder mehr numerische Argumente entgegen. Es beginnt mit dem ersten Wert und subtrahiert jeden nachfolgenden Wert davon. Funktioniert sowohl als eigenständiger Befehl als auch inline.
+</block>
+
+<block type="code" title="Syntax">
+text: $sub[a; b; ...]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $sendMessage[Result is $sub[10; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: $sub[10; 3; 2] ergibt 10 - 3 - 2 = 5. Wenn ein nicht numerischer Wert angegeben wird, wird ein Fehler zurückgegeben.
+</block>
+</dash>
+
+<details>
+syntax: $sub[a; b; ...]
+param: a|number|Erforderlich|Der Startwert (Minuend)
+param: b|number|Erforderlich|Der zu subtrahierende Wert (weitere Werte werden ebenfalls nacheinander subtrahiert)
+</details>

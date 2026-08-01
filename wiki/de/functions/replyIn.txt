@@ -1,0 +1,27 @@
+<dash>
+name: $replyIn
+desc: Verzögert die nächste Antwort des Bots um eine angegebene Dauer.
+category: Timing & Verzögerungen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $replyIn pausiert die Skriptausführung für die angegebene Dauer. Nach der Verzögerung wird das Skript mit dem nächsten Befehl fortgesetzt. Dies ist nützlich, um zeitgesteuerte Antworten zu erstellen.
+</block>
+
+<block type="code" title="Syntax">
+text: $replyIn[time]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $replyIn[5s]
+$sendMessage[This appears after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: Das Zeitformat verwendet: s (Sekunden), m (Minuten), h (Stunden), d (Tage). Das Skript ist während der Verzögerung eingefroren — keine anderen Befehle in diesem Skript werden ausgeführt, bis die Verzögerung abgeschlossen ist.
+</block>
+</dash>
+
+<details>
+syntax: $replyIn[time]
+param: Zeit|text|Erforderlich|Zu wartende Dauer. Format: Zahl + Einheit (s/m/h/d), z. B. 5s, 10m, 1h
+</details>

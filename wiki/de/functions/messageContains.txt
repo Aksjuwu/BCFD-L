@@ -1,0 +1,31 @@
+<dash>
+name: $messageContains
+desc: Ereignis, das ausgelöst wird, wenn eine Nachricht IRGENDEINES der angegebenen Wörter enthält.
+category: Ereignis
+
+<block type="text" title="Wie funktioniert das Ereignis?">
+text: $messageContains ist ein Ereignis-Präfix, das ein FDScript auslöst, wenn eine Nachricht IRGENDEINS der angegebenen Auslösewörter enthält. Die Wörter werden innerhalb der Klammern durch Semikolons getrennt. Der Abgleich unterscheidet nicht zwischen Groß- und Kleinschreibung.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$messageContains[word1;word2;word3]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: #PREFIX:$messageContains[hello;hi;hey]
+ sendMessage[Hey there! How can I help?]
+</block>
+
+<block type="callout" kind="note">
+text: Das Skript wird ausgeführt, wenn die Nachricht IRGENDEINS der aufgeführten Wörter enthält. Damit ALLE Wörter vorhanden sein müssen, verwende stattdessen $messageContainsAll.
+</block>
+
+<block type="callout" kind="important">
+text: Dieses Ereignis wird im Ordner bot_events ausgeführt, nicht in bot_commands. Erstelle deine .fds-Datei dort.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$messageContains[word1;word2;...]
+param: words|text|Erforderlich|Durch Semikolons getrennte Liste der Auslösewörter. Ein einzelner Treffer löst das Skript aus.
+</details>

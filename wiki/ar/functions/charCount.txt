@@ -1,0 +1,26 @@
+<dash>
+name: $charCount
+desc: يعيد عدد الأحرف الأبجدية الرقمية في النص المعطى.
+category: الرياضيات والأرقام
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $charCount تأخذ وسيطة نصية وتعدّ الأحرف الأبجدية الرقمية فقط (الحروف والأرقام)، متجاهلة المسافات والرموز وعلامات الترقيم. تعيد العدد كرقم.
+</block>
+
+<block type="code" title="الصيغة">
+text: $charCount[text]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $charCount[Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: تُعدّ الحروف فقط (من أي لغة) والأرقام (0-9). تُستثنى المسافات وعلامات الترقيم والأحرف الخاصة من العد.
+</block>
+</dash>
+
+<details>
+syntax: $charCount[text]
+param: النص|text|مطلوب|النص المطلوب عد الأحرف الأبجدية الرقمية فيه. تُحل المتغيرات والنائبات قبل العد.
+</details>

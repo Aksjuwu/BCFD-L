@@ -1,0 +1,21 @@
+<dash>
+name: $botID
+desc: يعيد معرّف مستخدم Discord للبوت.
+category: معلومات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $botID، يسترجع البوت معرّف مستخدم Discord الفريد الخاص به ويرسله مباشرة إلى القناة كسلسلة نصية رقمية خام.
+</block>
+
+<block type="code" title="الصيغة">
+text: $botID
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: My bot ID is $botID
+</block>
+
+<block type="callout" kind="note">
+text: القيمة المُعادة هي معرّف snowflake (على سبيل المثال، 123456789012345678)، وهو المعرّف الرقمي الفريد لحساب مستخدم Discord للبوت.
+</block>
+</dash>

@@ -1,0 +1,26 @@
+<dash>
+name: $ceil
+desc: Rounds a number up to the nearest integer.
+category: Math & Numbers
+
+<block type="text" title="How does the command work?">
+text: $ceil takes a single numeric value and rounds it up to the nearest whole number (ceiling). For example, 3.1 becomes 4, and 5.0 stays 5. Works both as a standalone command and inline inside other commands.
+</block>
+
+<block type="code" title="Syntax">
+text: $ceil[number]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Result is $ceil[3.2]]
+</block>
+
+<block type="callout" kind="note">
+text: $ceil[3.1] returns 4. $ceil[-2.5] returns -2. $ceil[5.0] returns 5. The result is always an integer.
+</block>
+</dash>
+
+<details>
+syntax: $ceil[number]
+param: number|number|Required|The number to round up to the nearest integer, e.g., 3.1, -2.5, 10
+</details>

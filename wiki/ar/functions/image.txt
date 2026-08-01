@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: يرسل إيمبد صورة إلى القناة باستخدام رابط.
+category: الرسائل
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $image يأخذ رابط صورة، ينشئ إيمبداً بتلك الصورة، ويرسله إلى القناة. يجب أن يبدأ الرابط بـ http:// أو https://.
+</block>
+
+<block type="code" title="الصيغة">
+text: $image[URL]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: تُرسل الصورة كإيمبد مع ضبط الصورة كصورة الإيمبد. يجب أن يمتلك البوت صلاحية "روابط الإيمبد" في القناة.
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|مطلوب|رابط مباشر لملف صورة. يجب أن يبدأ بـ http:// أو https://
+</details>

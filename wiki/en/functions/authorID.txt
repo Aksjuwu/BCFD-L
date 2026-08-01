@@ -1,0 +1,21 @@
+<dash>
+name: $authorID
+desc: Returns the Discord user ID of the person who triggered the command.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: When $authorID is called, the bot retrieves the unique Discord user ID of the command author and sends it directly to the channel as a raw numeric string.
+</block>
+
+<block type="code" title="Syntax">
+text: $authorID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Your ID is $authorID
+</block>
+
+<block type="callout" kind="note">
+text: The returned value is a snowflake ID (e.g., 123456789012345678), which is a unique numeric identifier for every Discord user.
+</block>
+</dash>

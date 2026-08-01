@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleMention
+desc: Gibt eine Erwähnung einer zufälligen Rolle vom Server zurück.
+category: Zufall
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $randomRoleMention aufgerufen wird, sammelt der Bot alle Rollen im aktuellen Server (ohne die Standard-Rolle @everyone), wählt eine zufällig aus und sendet ihr Erwähnungsformat an den Kanal.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomRoleMention
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: Congrats $randomRoleMention!
+</block>
+
+<block type="callout" kind="note">
+text: Der zurückgegebene Wert ist eine Discord-Rollen-Erwähnung (z. B. <@&123456789>), die im Chat als anklickbare farbige Erwähnung dargestellt wird. Die Rolle @everyone ist immer ausgeschlossen.
+</block>
+</dash>

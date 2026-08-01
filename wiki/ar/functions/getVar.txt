@@ -1,0 +1,27 @@
+<dash>
+name: $getVar
+desc: يسترجع قيمة متغير دائم بالاسم.
+category: المتغيرات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $getVar يبحث عن متغير مخزن بالاسم. مع وسيط واحد، يسترجع متغيراً عاماً. مع وسيطين (الاسم ومعرف المستخدم)، يسترجع متغيراً خاصاً بمستخدم. يتم إرسال القيمة المخزنة إلى القناة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getVar[name]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $getVar[mySetting]
+</block>
+
+<block type="callout" kind="note">
+text: المتغيرات دائمة — تبقى بعد إعادة تشغيل البوت. استخدم $setVar لتخزين القيم. إذا كان المتغير غير موجود، يتم إرجاع سلسلة فارغة.
+</block>
+</dash>
+
+<details>
+syntax: $getVar[name; (userID)]
+param: name|text|مطلوب|اسم المتغير المراد استرجاعه
+param: userID|snowflake|اختياري|إذا تم توفيره، يسترجع القيمة الخاصة بالمستخدم لهذا المتغير بدلاً من القيمة العامة
+</details>

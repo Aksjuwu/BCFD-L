@@ -1,0 +1,23 @@
+<dash>
+name: $endif
+desc: Marque la fin d'un bloc $if ou $elif.
+category: Contrôle de flux
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $endif signale la limite de fermeture d'un bloc conditionnel $if. Tout le code entre $if et $endif n'est exécuté que lorsque la condition est remplie. Chaque $if doit avoir un $endif correspondant.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $endif
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$endif
+</block>
+
+<block type="callout" kind="warning">
+text: Chaque bloc $if doit être correctement fermé avec $endif. Un $endif manquant provoquera une erreur de script.
+</block>
+</dash>

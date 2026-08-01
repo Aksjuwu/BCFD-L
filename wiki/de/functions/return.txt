@@ -1,0 +1,27 @@
+<dash>
+name: $return
+desc: Ruft einen Wert ab, der von einem $returnXxx-Befehl gespeichert wurde, und sendet ihn in den Kanal.
+category: Variablen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $return nimmt einen Variablennamen und sucht dessen Wert im Speicher für Rückgabevariablen. Dieser Speicher wird durch Befehle wie $returnGuildUsersID, $returnGuildChannelsID usw. befüllt. Allein verwendet, wird der abgerufene Wert in den Kanal gesendet; inline innerhalb der Argumente eines anderen Befehls verwendet, wird der Wert direkt in den Text eingesetzt.
+</block>
+
+<block type="code" title="Syntax">
+text: $return[var]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[User IDs: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: Wenn der Variablenname nicht im Rückgabespeicher existiert, wird ein Fehler zurückgegeben. Stelle sicher, dass du den passenden $returnXxx-Befehl aufrufst, bevor du $return verwendest.
+</block>
+</dash>
+
+<details>
+syntax: $return[var]
+param: Variable|text|Erforderlich|Der Name der abzurufenden Rückgabevariable (z. B. userIDs, channelIDs, roleIDs)
+</details>

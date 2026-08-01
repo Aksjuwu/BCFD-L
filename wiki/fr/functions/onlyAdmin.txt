@@ -1,0 +1,21 @@
+<dash>
+name: $onlyAdmin
+desc: Restreint l'exécution du script aux administrateurs du serveur et au propriétaire du serveur uniquement.
+category: Contrôle d'accès
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Lorsque $onlyAdmin est appelé, le bot vérifie si l'auteur de la commande est un administrateur du serveur ou le propriétaire du serveur. Si la vérification échoue, l'exécution du script est immédiatement interrompue. Un message d'erreur personnalisé peut éventuellement être affiché.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $onlyAdmin
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $onlyAdmin[You need admin permissions!]
+</block>
+
+<block type="callout" kind="note">
+text: Cette commande ne fonctionne que dans un serveur (pas en messages privés). Un utilisateur réussit la vérification s'il dispose de la permission Administrateur ou s'il est le propriétaire du serveur. Si aucun message d'erreur n'est fourni, le script s'interrompt simplement silencieusement.
+</block>
+</dash>

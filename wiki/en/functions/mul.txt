@@ -1,0 +1,27 @@
+<dash>
+name: $mul
+desc: Multiplies two or more numbers together and returns the result.
+category: Math & Numbers
+
+<block type="text" title="How does the command work?">
+text: $mul takes two or more numeric arguments and returns their product. Works both as a standalone command and inline inside other commands.
+</block>
+
+<block type="code" title="Syntax">
+text: $mul[a; b; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[$mul[3; 4]]
+</block>
+
+<block type="callout" kind="note">
+text: Supports any number of arguments. $mul[2; 3; 4] evaluates to 24. The result is an integer if the product has no decimal part.
+</block>
+</dash>
+
+<details>
+syntax: $mul[a; b; ...]
+param: a|number|Required|First number to multiply
+param: b|number|Required|Second number to multiply (additional numbers are also accepted)
+</details>

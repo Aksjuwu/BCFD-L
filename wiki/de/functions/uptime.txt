@@ -1,0 +1,21 @@
+<dash>
+name: $uptime
+desc: Gibt zurück, wie lange der Bot seit seinem letzten Start online ist.
+category: Werkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $uptime aufgerufen wird, berechnet der Bot die verstrichene Zeit seit seinem letzten Start (on_ready-Ereignis), formatiert sie in eine für Menschen lesbare Zeichenfolge und sendet sie dann in den Kanal.
+</block>
+
+<block type="code" title="Syntax">
+text: $uptime
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: Bot has been up for $uptime
+</block>
+
+<block type="callout" kind="note">
+text: Die formatierte Ausgabe umfasst Tage, Stunden, Minuten und Sekunden, sofern zutreffend (z. B. 2d 5h 30m 12s). Damit dies funktioniert, muss der Bot beim Start set_bot_start_time() aufgerufen haben.
+</block>
+</dash>

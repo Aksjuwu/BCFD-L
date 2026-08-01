@@ -1,0 +1,25 @@
+<dash>
+name: $customID
+desc: Gibt die custom_id der Schaltflächen- oder Komponenteninteraktion zurück, die das Skript ausgelöst hat.
+category: Info
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn ein Benutzer auf eine Schaltfläche klickt oder mit einer Komponente interagiert, gibt $customID die custom_id-Zeichenfolge zurück, die dieser Komponente zugewiesen wurde. Dies ist nützlich, um zu identifizieren, welche Schaltfläche in einem onInteraction-Ereignis gedrückt wurde.
+</block>
+
+<block type="code" title="Syntax">
+text: $customID
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $if[$customID == btn_confirm]
+  You confirmed!
+$elif[$customID == btn_cancel]
+  You cancelled!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: Diese Variable ist nur innerhalb von interaktionsausgelösten Skripten (z. B. onInteraction) aussagekräftig. Wenn sie in einem regulären Nachrichtenkontext verwendet wird, gibt sie eine leere Zeichenfolge zurück.
+</block>
+</dash>

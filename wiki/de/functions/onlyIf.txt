@@ -1,0 +1,27 @@
+<dash>
+name: $onlyIf
+desc: Wertet eine Bedingung aus und bricht das Skript ab, wenn die Bedingung falsch ist.
+category: Zugriffskontrolle
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $onlyIf wertet eine Bedingung aus. Wenn die Bedingung wahr ist, läuft das Skript normal weiter. Wenn sie falsch ist, wird die angegebene Fehlermeldung angezeigt und das Skript sofort abgebrochen.
+</block>
+
+<block type="code" title="Syntax">
+text: $onlyIf[condition; error message]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $onlyIf[$authorID == 123456789; You are not authorized!]
+</block>
+
+<block type="callout" kind="note">
+text: Dies ist strenger als $if — es überspringt nicht nur Code, sondern stoppt das gesamte Skript vollständig. Verwende dies für Zugriffskontrollprüfungen, die erfüllt sein müssen, damit das Skript läuft.
+</block>
+</dash>
+
+<details>
+syntax: $onlyIf[condition; error message]
+param: condition|expression|Erforderlich|Die auszuwertende Bedingung. Verwendet dieselben Operatoren wie $if (==, !=, >, <, >=, <=).
+param: error message|text|Erforderlich|Nachricht, die dem Benutzer angezeigt wird, wenn die Bedingung fehlschlägt. Das Skript wird nach dem Senden dieser Nachricht abgebrochen.
+</details>

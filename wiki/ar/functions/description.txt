@@ -1,0 +1,26 @@
+<dash>
+name: $description
+desc: يضبط نص وصف الإيمبد الجاري بناؤه.
+category: منشئ الإيمبد
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $description تأخذ وسيطة نصية وتضبطها كنص الجسم/الوصف الرئيسي للإيمبد الحالي الجاري إنشاؤه. هذه هي منطقة المحتوى الأساسية للإيمبد.
+</block>
+
+<block type="code" title="الصيغة">
+text: $description[text]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $description[This is the embed body text]
+</block>
+
+<block type="callout" kind="note">
+text: يدعم الوصف تنسيق markdown في Discord (غامق، مائل، أكواد، إلخ). يظهر أسفل العنوان في الإيمبد.
+</block>
+</dash>
+
+<details>
+syntax: $description[text]
+param: النص|text|مطلوب|نص الوصف للإيمبد. يدعم تنسيق markdown في Discord.
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: Bulk deletes a specified number of messages from the current channel.
+category: Moderation
+
+<block type="text" title="How does the command work?">
+text: When $clear is called without arguments, it deletes the default number of messages (10). When called with a number, it deletes that many messages. The bot uses Discord's bulk delete API to remove messages efficiently.
+</block>
+
+<block type="code" title="Syntax">
+text: $clear
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: Discord's bulk delete limit is 100 messages per request. Messages older than 14 days cannot be bulk deleted. The bot must have "Manage Messages" permission in the channel.
+</block>
+</dash>

@@ -1,0 +1,26 @@
+<dash>
+name: $isOwner
+desc: Checks whether a user is the owner of the server.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: $isOwner takes a user ID or mention and checks if that user is the owner of the current server. Returns "true" or "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isOwner[userID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isOwner[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Returns "true" only if the user is the server owner. Returns "false" if the user is not the owner or is not found in the server.
+</block>
+</dash>
+
+<details>
+syntax: $isOwner[userID]
+param: userID|text|Required|The user ID or @mention to check. Supports variables and placeholders.
+</details>

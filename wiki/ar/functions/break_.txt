@@ -1,0 +1,25 @@
+<dash>
+name: $break
+desc: يخرج فورًا من أقرب حلقة $for أو $while محيطة.
+category: التحكم في التدفق
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عندما يُصادف $break داخل حلقة ($for أو $while)، يتوقف البوت فورًا عن التكرار ويواصل التنفيذ بعد $endfor أو $endwhile المطابق. يتم تخطي أي تكرارات متبقية في الحلقة الحالية.
+</block>
+
+<block type="code" title="الصيغة">
+text: $break
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $for[10]
+  $if[$message == stop]
+    $break
+  $endif
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: $break يخرج فقط من الحلقة الأعمق التي يوجد فيها حاليًا. إذا كانت الحلقات متداخلة، تستمر الحلقات الخارجية في التنفيذ بشكل طبيعي.
+</block>
+</dash>

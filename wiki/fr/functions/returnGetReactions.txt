@@ -1,0 +1,31 @@
+<dash>
+name: $returnGetReactions
+desc: Récupère les utilisateurs qui ont réagi avec un emoji spécifique sur un message et stocke le résultat.
+category: Commandes de retour
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $returnGetReactions récupère un message spécifique, trouve les utilisateurs qui ont réagi avec un emoji donné et stocke le résultat. Vous pouvez stocker les IDs des utilisateurs ayant réagi ou le nombre total de réactions. Les bots sont toujours exclus — seuls les utilisateurs humains sont pris en compte.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $returnGetReactions[$channelID; 123456789; usersID; reactors; ,; 👍]
+</block>
+
+<block type="callout" kind="note">
+text: Le paramètre type accepte "usersID" (pour stocker les IDs des utilisateurs ayant réagi, séparés par le séparateur) ou "tr" (pour stocker le nombre total de réactions provenant uniquement des utilisateurs humains). Si l'emoji n'est pas trouvé sur le message : "tr" stocke silencieusement "0", tandis que "usersID" renvoie une erreur. En mode "usersID", une erreur est également renvoyée si aucun utilisateur humain n'a réagi avec l'emoji. Le résultat est stocké dans la variable et récupéré plus tard avec $return[var].
+</block>
+</dash>
+
+<details>
+syntax: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+param: channelID|snowflake|Requis|L'ID du canal contenant le message
+param: messageID|snowflake|Requis|L'ID du message dont il faut vérifier les réactions
+param: type|text|Requis|usersID pour stocker les IDs des utilisateurs ayant réagi, ou tr pour stocker le nombre total de réactions (humains uniquement)
+param: var|text|Requis|Le nom de la variable dans laquelle stocker le résultat
+param: separator|text|Requis|Le séparateur entre les IDs de plusieurs utilisateurs (ex. : , ou ;). Vous pouvez utiliser des séparateurs nommés : dot, com, apo, sem, colon
+param: emoji|text|Requis|L'emoji dont il faut rechercher les réactions (correspondance par sa forme textuelle ou son nom)
+</details>

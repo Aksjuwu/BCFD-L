@@ -1,0 +1,26 @@
+<dash>
+name: $or
+desc: Évalue plusieurs conditions et renvoie vrai si N'IMPORTE QUELLE condition est vraie.
+category: Contrôle de flux
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $or prend plusieurs arguments de condition et évalue chacun d'eux. Il renvoie « true » (vrai) si au moins une condition est vraie, et « false » (faux) si toutes les conditions sont fausses. Cela est utile pour construire des vérifications conditionnelles alternatives.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $or[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $or[$authorID == 123; $authorID == 456]
+</block>
+
+<block type="callout" kind="note">
+text: Chaque condition utilise les mêmes opérateurs de comparaison que $if (==, !=, >, <, >=, <=). Renvoie la chaîne « true » ou « false ».
+</block>
+</dash>
+
+<details>
+syntax: $or[condition1; condition2; condition3; ...]
+param: condition|expression|Requis|Une ou plusieurs conditions à évaluer. Chacune peut utiliser des opérateurs comme ==, !=, >, <, >=, <=. Une seule doit être vraie pour que le résultat soit « true ».
+</details>

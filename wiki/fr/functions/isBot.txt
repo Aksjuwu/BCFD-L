@@ -1,0 +1,26 @@
+<dash>
+name: $isBot
+desc: Vérifie si un utilisateur est un compte bot.
+category: Info
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $isBot prend un ID d'utilisateur ou une mention et vérifie si cet utilisateur est un compte bot Discord. Renvoie "true" ou "false".
+</block>
+
+<block type="code" title="Syntaxe">
+text: $isBot[userID]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $isBot[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Renvoie "true" si l'utilisateur est un compte bot, "false" s'il s'agit d'un utilisateur humain. L'utilisateur doit être membre du serveur.
+</block>
+</dash>
+
+<details>
+syntax: $isBot[userID]
+param: userID|text|Requis|L'ID d'utilisateur ou la mention @ à vérifier. Prend en charge les variables et les espaces réservés.
+</details>

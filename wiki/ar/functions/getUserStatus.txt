@@ -1,0 +1,27 @@
+<dash>
+name: $getUserStatus
+desc: يعيد الحالة عبر الإنترنت لمستخدم في السيرفر.
+category: معلومات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $getUserStatus بدون وسائط، فإنه يعيد الحالة عبر الإنترنت لمؤلف الدالة. عند استدعائه مع معرف مستخدم أو منشن، فإنه يعيد حالة ذلك المستخدم. يعيد "offline" إذا لم يتم العثور على المستخدم أو لم يكن عضواً في السيرفر.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getUserStatus
+text: $getUserStatus[(userID/mention)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Your status is: $getUserStatus
+</block>
+
+<block type="callout" kind="note">
+text: قيم الإرجاع الممكنة هي: online، idle، dnd، offline. تعمل هذه الدالة داخل السيرفر فقط (وليس في الرسائل الخاصة) لأن ديسكورد يوفر معلومات الحالة لأعضاء السيرفر فقط.
+</block>
+</dash>
+
+<details>
+syntax: $getUserStatus[(userID/mention)]
+param: userID/mention|text|اختياري|معرف المستخدم أو @منشن لفحصه. إذا تم حذفه، يفحص مؤلف الدالة.
+</details>

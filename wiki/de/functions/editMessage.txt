@@ -1,0 +1,36 @@
+<dash>
+name: $editMessage
+desc: Bearbeitet eine zuvor gesendete Bot-Nachricht in einem beliebigen Kanal, optional mit Umwandlung in ein Embed.
+category: Nachrichten
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $editMessage ruft eine bestimmte Bot-Nachricht anhand von Kanal-ID und Nachrichten-ID ab und bearbeitet dann ihren Inhalt. Optional können Sie Titel, Beschreibung, Farbe und Fußzeile angeben, um die Nachricht in ein Embed umzuwandeln.
+</block>
+
+<block type="code" title="Syntax">
+text: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $editMessage[$channelID; 123456789; Updated content!]
+</block>
+
+<block type="callout" kind="note">
+text: Die Zielnachricht muss von diesem Bot gesendet worden sein. Wenn optionale Embed-Parameter angegeben werden, wird die Nachricht so bearbeitet, dass sie zusätzlich zum Inhalt ein Embed enthält.
+</block>
+
+<block type="callout" kind="warning">
+text: Der Bot muss die Berechtigung haben, Nachrichten im Zielkanal anzuzeigen und zu bearbeiten.
+</block>
+</dash>
+
+<details>
+syntax: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+param: channelID|snowflake|Erforderlich|Die ID des Kanals, der die Nachricht enthält
+param: messageID|snowflake|Erforderlich|Die ID der zu bearbeitenden Bot-Nachricht
+param: content|text|Erforderlich|Der neue Textinhalt für die Nachricht
+param: title|text|Optional|Titel für ein Embed, das an die Nachricht angehängt werden soll
+param: description|text|Optional|Beschreibung für das Embed
+param: color|text|Optional|Hex-Farbe für das Embed
+param: footer|text|Optional|Fußzeilentext für das Embed
+</details>

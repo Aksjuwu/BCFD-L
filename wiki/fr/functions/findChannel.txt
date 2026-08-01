@@ -1,0 +1,26 @@
+<dash>
+name: $findChannel
+desc: Trouve un canal par nom ou ID et renvoie son ID.
+category: Canal
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $findChannel recherche un canal dans le serveur par nom ou mention. Si une mention de canal est fournie, il vérifie que le canal existe et renvoie son ID. Si un nom de canal est fourni, il recherche dans tous les canaux du serveur une correspondance insensible à la casse et renvoie l'ID de la première correspondance. Renvoie une chaîne vide s'il n'est pas trouvé.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $findChannel[name/mention]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $findChannel[general]
+</block>
+
+<block type="callout" kind="note">
+text: La correspondance des noms de canaux est insensible à la casse. Peut être utilisé en ligne pour résoudre dynamiquement des noms de canaux en ID.
+</block>
+</dash>
+
+<details>
+syntax: $findChannel[name/mention/ID]
+param: canal|text|Requis|Un nom de canal ou une mention à rechercher.
+</details>

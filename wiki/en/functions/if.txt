@@ -1,0 +1,39 @@
+<dash>
+name: $if
+desc: Evaluates a condition and executes the enclosed code block if the condition is true.
+category: Flow Control
+
+<block type="text" title="How does the command work?">
+text: $if takes a condition expression and evaluates it. If the condition is true, the code between $if and the next $elif, $else, or $endif is executed. If false, execution skips to the next matching branch.
+</block>
+
+<block type="code" title="Syntax">
+text: $if[condition]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="options" title="Comparison operators">
+option: ==|Equal to (compares numerically when both sides are numbers)
+option: !=|Not equal to
+option: >|Greater than
+option: <|Less than
+option: >=|Greater than or equal to
+option: <=|Less than or equal to
+</block>
+
+<block type="callout" kind="note">
+text: Supports nested $if blocks. You can use $elif for additional conditions and $else for a fallback. Always close with $endif.
+</block>
+</dash>
+
+<details>
+syntax: $if[condition]
+param: condition|expression|Required|A condition to evaluate, e.g., $authorID == 123, $var[score] >= 90, $isNumber[int; $message]. Supports ==, !=, >, <, >=, <= operators.
+</details>

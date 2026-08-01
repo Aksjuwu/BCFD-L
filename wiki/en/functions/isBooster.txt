@@ -1,0 +1,26 @@
+<dash>
+name: $isBooster
+desc: Checks whether a user is a server booster (has an active Nitro boost).
+category: Info
+
+<block type="text" title="How does the command work?">
+text: $isBooster takes a user ID or mention and checks if that user is currently boosting the server (has an active premium subscription). Returns "true" or "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isBooster[userID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isBooster[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Returns "true" if the user has an active Nitro boost for the server, "false" otherwise. The user must be a member of the server.
+</block>
+</dash>
+
+<details>
+syntax: $isBooster[userID]
+param: userID|text|Required|The user ID or @mention to check. Supports variables and placeholders.
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $message
+desc: Gibt die Argumente/Wörter aus der Befehlsnachricht des Benutzers zurück.
+category: Info
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $message ohne Argumente aufgerufen wird, gibt es alles zurück, was der Benutzer nach dem Befehlsnamen eingegeben hat (die vollständige Argumentzeichenkette). Wird es mit einer Indexnummer aufgerufen, gibt es das jeweilige Wort an dieser Position zurück.
+</block>
+
+<block type="code" title="Syntax">
+text: $message
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: Ohne Argumente wird der gesamte Text nach dem Befehl zurückgegeben. Mit $message[1] wird das erste Wort zurückgegeben, $message[2] das zweite und so weiter. Ist der Index außerhalb des Bereichs, wird eine leere Zeichenkette zurückgegeben.
+</block>
+</dash>

@@ -1,0 +1,28 @@
+<dash>
+name: $var
+desc: يقرأ أو يكتب متغيرًا مؤقتًا يعيش فقط أثناء تنفيذ السكربت الحالي.
+category: المتغيرات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $var بوسيط واحد يقرأ قيمة المتغير. $var بوسيطين يكتب قيمة إلى المتغير. تُمسح المتغيرات المؤقتة عند انتهاء السكربت.
+</block>
+
+<block type="code" title="الصيغة">
+text: $var[name; value]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $var[score; 10]
+$sendMessage[Your score is $var[score]]
+</block>
+
+<block type="callout" kind="note">
+text: على عكس $setVar/$getVar (الدائمين)، يتوفر $var فقط أثناء تشغيل السكربت الحالي. يمكن استخدامه داخليًا (inline) داخل وسائط دوال أخرى.
+</block>
+</dash>
+
+<details>
+syntax: $var[name; (value)]
+param: الاسم|text|مطلوب|اسم المتغير المراد قراءته أو الكتابة فيه
+param: القيمة|text|اختياري|إذا تم توفيرها، يكتب هذه القيمة إلى المتغير (وضع الوسيطين). إذا تم حذفها، يقرأ ويُرجع القيمة الحالية (وضع الوسيط الواحد).
+</details>

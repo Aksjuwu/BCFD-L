@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceJoined
+desc: حدث يُطلق عندما ينضم عضو إلى قناة صوتية.
+category: الحدث
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $onVoiceJoined هو بادئة حدث تُطلق سكربت FDScript عندما ينضم عضو إلى قناة صوتية. يستقبل السكربت معلومات العضو والقناة الصوتية. يمكنك اختياريًا تحديد معرّف قناة في السطر الأول لتوجيه الإخراج إلى قناة نصية محددة.
+</block>
+
+<block type="code" title="الصيغة">
+text: #PREFIX:$onVoiceJoined
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: #PREFIX:$onVoiceJoined
+ sendMessage[$mention joined a voice channel!]
+</block>
+
+<block type="callout" kind="note">
+text: ضع هذا في السطر الأول من ملف FDScript الخاص بك. سيعمل السكربت تلقائيًا عندما ينضم أي عضو إلى قناة صوتية.
+</block>
+
+<block type="callout" kind="important">
+text: يعمل هذا الحدث في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceJoined
+</details>

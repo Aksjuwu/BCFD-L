@@ -1,0 +1,22 @@
+<dash>
+name: $reply
+desc: Enables reply mode, making the bot reply to the user's original message instead of sending a new one.
+category: Messaging
+
+<block type="text" title="How does the command work?">
+text: When $reply is called, the bot enables reply mode for the current script execution. All subsequent messages sent by the bot in this script will be sent as replies to the user's original message, creating a threaded conversation effect.
+</block>
+
+<block type="code" title="Syntax">
+text: $reply
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $reply
+$sendMessage[This will be a reply!]
+</block>
+
+<block type="callout" kind="note">
+text: Once enabled, reply mode persists for the entire script execution. The bot's messages will appear as reply threads to the triggering message in the Discord UI.
+</block>
+</dash>

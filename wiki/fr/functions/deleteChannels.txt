@@ -1,0 +1,26 @@
+<dash>
+name: $deleteChannels
+desc: Supprime un ou plusieurs canaux du serveur.
+category: Gestion des canaux
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $deleteChannels prend un ou plusieurs IDs ou mentions de canaux et les supprime du serveur. Le bot doit avoir la permission « Gérer les canaux ». Si un canal ne peut pas être supprimé (ex. permissions manquantes), l'opération s'arrête avec une erreur.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $deleteChannels[channel ID/mention; ...]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $deleteChannels[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="warning">
+text: Cette commande supprime définitivement les canaux. Le bot doit avoir la permission « Gérer les canaux » pour chaque canal supprimé.
+</block>
+</dash>
+
+<details>
+syntax: $deleteChannels[channel ID/mention; ...]
+param: channels|text|Requis|Un ou plusieurs IDs ou mentions de canaux séparés par des points-virgules.
+</details>

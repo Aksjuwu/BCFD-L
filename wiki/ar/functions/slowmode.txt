@@ -1,0 +1,31 @@
+<dash>
+name: $slowmode
+desc: يضبط مهلة الوضع البطيء لقناة محددة.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $slowmode يأخذ معرّف قناة ومدة زمنية، ثم يضبط مهلة الوضع البطيء لتلك القناة. يحد الوضع البطيء من عدد المرات التي يمكن للمستخدمين إرسال الرسائل فيها.
+</block>
+
+<block type="code" title="الصيغة">
+text: $slowmode[channelID; time]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $slowmode[$channelID; 10s]
+</block>
+
+<block type="callout" kind="note">
+text: تنسيق الوقت يستخدم: s (ثوانٍ)، m (دقائق)، h (ساعات). أقصى مهلة للوضع البطيء هي 6 ساعات (21600 ثانية). استخدم 0s لتعطيل الوضع البطيء.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت صلاحية "إدارة القنوات" في القناة المستهدفة.
+</block>
+</dash>
+
+<details>
+syntax: $slowmode[channelID; time]
+param: channelID|snowflake|مطلوب|معرّف القناة التي سيتم ضبط الوضع البطيء لها
+param: الوقت|text|مطلوب|مدة الوضع البطيء. التنسيق: رقم + وحدة (s/m/h)، مثال: 10s، 5m، 0s للتعطيل
+</details>

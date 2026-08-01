@@ -1,0 +1,27 @@
+<dash>
+name: $div
+desc: Dividiert die erste Zahl durch jede nachfolgende Zahl und gibt das Ergebnis zurück.
+category: Mathematik & Zahlen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $div akzeptiert zwei oder mehr numerische Argumente. Es beginnt mit dem ersten Wert und dividiert ihn durch jeden nachfolgenden Wert. Funktioniert sowohl als eigenständiger Befehl als auch inline.
+</block>
+
+<block type="code" title="Syntax">
+text: $div[a; b; ...]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $sendMessage[$div[10; 2]]
+</block>
+
+<block type="callout" kind="warning">
+text: Eine Division durch null gibt einen Fehler zurück. $div[10; 2; 5] ergibt 10 / 2 / 5 = 1. Das Ergebnis ist eine ganze Zahl, wenn der Quotient keinen Dezimalteil hat.
+</block>
+</dash>
+
+<details>
+syntax: $div[a; b; ...]
+param: a|number|Erforderlich|Der Dividend (die zu teilende Zahl)
+param: b|number|Erforderlich|Der Divisor (darf nicht 0 sein). Weitere Divisoren werden nacheinander angewendet.
+</details>

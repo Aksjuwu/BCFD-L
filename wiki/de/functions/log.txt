@@ -1,0 +1,27 @@
+<dash>
+name: $log
+desc: Erstellt eine Momentaufnahme aller Skript-Ereignisse und sendet sie an einen angegebenen Kanal.
+category: Werkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $log erfasst alle Ereignisprotokolle, die während der bisherigen Skriptausführung erzeugt wurden, und sendet sie an den angegebenen Kanal. Optional kann ein Name-Code angegeben werden, um den Protokolleintrag zu beschriften.
+</block>
+
+<block type="code" title="Syntax">
+text: $log[channelID; name_code]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $log[123456789; myCommand]
+</block>
+
+<block type="callout" kind="note">
+text: Das Protokoll wird als Nachricht an den angegebenen Kanal gesendet. Der Parameter name_code ist optional und hilft, verschiedene Protokolleinträge zu beschriften.
+</block>
+</dash>
+
+<details>
+syntax: $log[channelID; name_code]
+param: channelID|snowflake|Erforderlich|Die ID des Kanals, an den das Protokoll gesendet werden soll
+param: name_code|text|Optional|Eine Beschriftung/ein Name für diesen Protokolleintrag
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $setVar
+desc: Stocke une valeur dans une variable persistante.
+category: Variables
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $setVar stocke une valeur sous un nom de variable donné. Avec deux arguments, il stocke une variable globale. Avec trois arguments (nom, valeur, ID utilisateur), il stocke une variable spécifique à l'utilisateur. Les valeurs persistent après les redémarrages du bot.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $setVar[name; value]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $setVar[greeting; Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: Les variables sont stockées sur le disque et survivent aux redémarrages du bot. Utilisez $getVar pour récupérer les valeurs stockées. $setVar ne peut pas être utilisé en ligne (comme espace réservé).
+</block>
+</dash>
+
+<details>
+syntax: $setVar[name; value; (userID)]
+param: nom|text|Requis|Le nom de la variable sous laquelle stocker la valeur
+param: valeur|text|Requis|La valeur à stocker
+param: userID|snowflake|Optionnel|S'il est fourni, stocke la valeur comme spécifique à l'utilisateur au lieu de globale
+</details>

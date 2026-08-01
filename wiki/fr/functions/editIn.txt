@@ -1,0 +1,28 @@
+<dash>
+name: $editIn
+desc: Modifie le dernier message envoyé par le bot après un délai spécifié.
+category: Minutage & Délais
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $editIn attend la durée spécifiée, puis modifie le contenu du message le plus récemment envoyé par le bot pour y mettre le nouveau texte fourni. Le message d'origine doit avoir été envoyé plus tôt dans la même exécution du script.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $editIn[time; newMessage]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Loading...]
+$editIn[5s; Done!]
+</block>
+
+<block type="callout" kind="note">
+text: Le format du temps utilise : s (secondes), m (minutes), h (heures), d (jours). Seul le contenu textuel est remplacé — les embeds et les composants ne sont pas affectés.
+</block>
+</dash>
+
+<details>
+syntax: $editIn[time; newMessage]
+param: temps|text|Requis|Durée à attendre avant la modification. Format : nombre + unité (s/m/h/d), par exemple, 5s, 10m
+param: newMessage|text|Requis|Le nouveau contenu textuel qui remplace l'ancien message
+</details>

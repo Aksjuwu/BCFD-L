@@ -1,0 +1,26 @@
+<dash>
+name: $isOwner
+desc: Prüft, ob ein Benutzer der Besitzer des Servers ist.
+category: Info
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $isOwner nimmt eine Benutzer-ID oder Erwähnung und prüft, ob dieser Benutzer der Besitzer des aktuellen Servers ist. Gibt "true" oder "false" zurück.
+</block>
+
+<block type="code" title="Syntax">
+text: $isOwner[userID]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $isOwner[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Gibt "true" nur zurück, wenn der Benutzer der Serverbesitzer ist. Gibt "false" zurück, wenn der Benutzer nicht der Besitzer ist oder im Server nicht gefunden wird.
+</block>
+</dash>
+
+<details>
+syntax: $isOwner[userID]
+param: userID|text|Erforderlich|Die Benutzer-ID oder @-Erwähnung, die geprüft werden soll. Unterstützt Variablen und Platzhalter.
+</details>

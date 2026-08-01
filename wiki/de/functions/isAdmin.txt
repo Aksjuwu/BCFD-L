@@ -1,0 +1,26 @@
+<dash>
+name: $isAdmin
+desc: Prüft, ob ein Benutzer Administrator-Berechtigungen im Server hat.
+category: Info
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $isAdmin nimmt eine Benutzer-ID oder Erwähnung und prüft, ob dieser Benutzer Administrator-Berechtigungen hat, der Serverbesitzer ist oder ein Bot-Konto ist. Gibt "true" oder "false" zurück.
+</block>
+
+<block type="code" title="Syntax">
+text: $isAdmin[userID]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $isAdmin[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Gibt "true" zurück, wenn der Benutzer der Serverbesitzer, ein Bot ist oder die Berechtigung „Administrator“ besitzt. Andernfalls oder wenn der Benutzer im Server nicht gefunden wird, wird "false" zurückgegeben.
+</block>
+</dash>
+
+<details>
+syntax: $isAdmin[userID]
+param: userID|text|Erforderlich|Die Benutzer-ID oder @-Erwähnung, die geprüft werden soll. Unterstützt Variablen und Platzhalter.
+</details>

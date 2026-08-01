@@ -1,0 +1,27 @@
+<dash>
+name: $getVar
+desc: Ruft den Wert einer persistenten Variable anhand ihres Namens ab.
+category: Variablen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $getVar sucht eine gespeicherte Variable anhand ihres Namens. Mit einem Argument wird eine globale Variable abgerufen. Mit zwei Argumenten (Name und Benutzer-ID) wird eine benutzerspezifische Variable abgerufen. Der gespeicherte Wert wird in den Kanal gesendet.
+</block>
+
+<block type="code" title="Syntax">
+text: $getVar[name]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $getVar[mySetting]
+</block>
+
+<block type="callout" kind="note">
+text: Variablen sind persistent – sie überstehen Bot-Neustarts. Verwenden Sie $setVar, um Werte zu speichern. Wenn die Variable nicht existiert, wird eine leere Zeichenfolge zurückgegeben.
+</block>
+</dash>
+
+<details>
+syntax: $getVar[name; (userID)]
+param: name|text|Erforderlich|Der Name der abzurufenden Variable
+param: userID|snowflake|Optional|Wenn angegeben, wird der benutzerspezifische Wert für diese Variable abgerufen, statt des globalen Werts
+</details>

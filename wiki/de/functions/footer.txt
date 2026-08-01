@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: Legt den Fußzeilentext des erstellten Embeds fest.
+category: Embed-Ersteller
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $footer nimmt ein Textargument und setzt es als Fußzeile des aktuell erstellten Embeds. Die Fußzeile erscheint ganz unten im Embed in kleinerer, hellerer Schrift.
+</block>
+
+<block type="code" title="Syntax">
+text: $footer[text]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: Die Fußzeile ist nützlich für Quellenangaben, Zeitstempel oder zusätzlichen Kontext. Sie erscheint in kleinerer grauer Schrift am unteren Ende des Embeds.
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: Text|text|Erforderlich|Der Fußzeilentext für das Embed
+</details>

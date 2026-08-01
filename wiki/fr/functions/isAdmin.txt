@@ -1,0 +1,26 @@
+<dash>
+name: $isAdmin
+desc: Vérifie si un utilisateur dispose de permissions d'administrateur dans le serveur.
+category: Info
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $isAdmin prend un ID d'utilisateur ou une mention et vérifie si cet utilisateur dispose de permissions d'administrateur, est le propriétaire du serveur ou est un compte bot. Renvoie "true" ou "false".
+</block>
+
+<block type="code" title="Syntaxe">
+text: $isAdmin[userID]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $isAdmin[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Renvoie "true" si l'utilisateur est le propriétaire du serveur, un bot, ou dispose de la permission Administrateur. Renvoie "false" dans le cas contraire ou si l'utilisateur n'est pas trouvé dans le serveur.
+</block>
+</dash>
+
+<details>
+syntax: $isAdmin[userID]
+param: userID|text|Requis|L'ID d'utilisateur ou la mention @ à vérifier. Prend en charge les variables et les espaces réservés.
+</details>

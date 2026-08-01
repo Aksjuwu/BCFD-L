@@ -1,0 +1,29 @@
+<dash>
+name: $replaceText
+desc: Remplace les occurrences d'une sous-chaîne dans un texte par un nouveau texte.
+category: Utilitaires de texte
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $replaceText prend un message, un ancien texte à trouver et un nouveau texte pour le remplacer. En option, vous pouvez spécifier combien d'occurrences remplacer. Renvoie le texte modifié.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $replaceText[message; old; new; (amount)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $replaceText[Hello World; World; FDScript]
+</block>
+
+<block type="callout" kind="note">
+text: Par défaut, toutes les occurrences sont remplacées. Fournissez un nombre comme 4e argument pour limiter les remplacements. Utilisez -1 ou omettez-le pour tout remplacer.
+</block>
+</dash>
+
+<details>
+syntax: $replaceText[message; old; new; (amount)]
+param: message|text|Requis|Le texte d'origine dans lequel rechercher
+param: old|text|Requis|La sous-chaîne à trouver et à remplacer
+param: new|text|Requis|Le texte de remplacement
+param: amount|number|Optionnel|Nombre maximal de remplacements. -1 ou omis = remplace toutes les occurrences
+</details>

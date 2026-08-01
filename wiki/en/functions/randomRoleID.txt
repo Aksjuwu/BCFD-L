@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleID
+desc: Returns the ID of a random role from the server.
+category: Randomness
+
+<block type="text" title="How does the command work?">
+text: When $randomRoleID is called, the bot collects all roles in the current server (excluding the default @everyone role), picks one at random, and sends its role ID as a raw numeric string.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomRoleID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Random role ID: $randomRoleID
+</block>
+
+<block type="callout" kind="note">
+text: This command only works inside a server (not in DMs). The @everyone role is always excluded. If the server has no custom roles, the command will fail with an error.
+</block>
+</dash>

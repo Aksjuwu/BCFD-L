@@ -1,0 +1,26 @@
+<dash>
+name: $displayName
+desc: Renvoie le nom d'affichage d'un utilisateur.
+category: Utilisateur
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $displayName renvoie le nom d'affichage (pseudonyme du serveur ou nom d'utilisateur) d'un utilisateur. Si aucun argument n'est fourni, il renvoie le nom d'affichage de l'auteur de la commande. Lorsqu'un ID d'utilisateur ou une mention est fourni, il renvoie le nom d'affichage de cet utilisateur.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $displayName[(user mention/ID)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: Hello, $displayName!
+</block>
+
+<block type="callout" kind="note">
+text: Le nom d'affichage est le pseudonyme spécifique au serveur s'il est défini, sinon le nom d'utilisateur global. Peut être utilisé en ligne.
+</block>
+</dash>
+
+<details>
+syntax: $displayName[(user mention/ID)]
+param: user|text|Optionnel|Une mention d'utilisateur ou un ID numérique. Si vide, utilise l'auteur de la commande.
+</details>

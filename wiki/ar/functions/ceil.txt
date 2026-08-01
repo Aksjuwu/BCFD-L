@@ -1,0 +1,26 @@
+<dash>
+name: $ceil
+desc: يقرّب رقمًا لأعلى إلى أقرب عدد صحيح.
+category: الرياضيات والأرقام
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $ceil تأخذ قيمة رقمية واحدة وتقرّبها لأعلى إلى أقرب عدد صحيح (ceiling). على سبيل المثال، 3.1 تصبح 4، و5.0 تبقى 5. تعمل كدالة مستقلة وكذلك مضمنة داخل دوال أخرى.
+</block>
+
+<block type="code" title="الصيغة">
+text: $ceil[number]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Result is $ceil[3.2]]
+</block>
+
+<block type="callout" kind="note">
+text: $ceil[3.1] يعيد 4. $ceil[-2.5] يعيد -2. $ceil[5.0] يعيد 5. النتيجة دائمًا عدد صحيح.
+</block>
+</dash>
+
+<details>
+syntax: $ceil[number]
+param: الرقم|number|مطلوب|الرقم المطلوب تقريبه لأعلى إلى أقرب عدد صحيح، مثل 3.1، -2.5، 10
+</details>

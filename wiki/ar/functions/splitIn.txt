@@ -1,0 +1,28 @@
+<dash>
+name: $splitIn
+desc: يقسم سلسلة نصية إلى أجزاء باستخدام فاصل ويخزن النتيجة.
+category: أدوات النصوص
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $splitIn يأخذ سلسلة نصية وفاصلًا، ويقسم النص بهذا الفاصل، ويخزن الأجزاء الناتجة. استخدم $splitOut بعد ذلك للوصول إلى الأجزاء الفردية.
+</block>
+
+<block type="code" title="الصيغة">
+text: $splitIn[text; delimiter]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[1]
+</block>
+
+<block type="callout" kind="note">
+text: تُخزن الأجزاء المقسمة في السياق ويمكن الوصول إليها باستخدام $splitOut مع فهرس (يبدأ من 1)، أو < للعنصر الأول، أو > للعنصر الأخير.
+</block>
+</dash>
+
+<details>
+syntax: $splitIn[text; delimiter]
+param: النص|text|مطلوب|السلسلة النصية المراد تقسيمها
+param: الفاصل|text|مطلوب|الفاصل/المحدد الذي سيتم القسمة عليه (لا يمكن أن يكون فارغًا)
+</details>

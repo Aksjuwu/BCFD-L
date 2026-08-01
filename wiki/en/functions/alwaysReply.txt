@@ -1,0 +1,30 @@
+<dash>
+name: $alwaysReply
+desc: Event triggered on every non-bot message.
+category: Event
+
+<block type="text" title="How does the event work?">
+text: $alwaysReply is an event prefix that triggers an FDScript for every message sent by a non-bot user. The script runs as a reply to the original message. This is useful for auto-responses or message processing.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$alwaysReply
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$alwaysReply
+ sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="warning">
+text: This triggers on EVERY message. Use carefully to avoid excessive bot activity or rate limits.
+</block>
+
+<block type="callout" kind="important">
+text: This event runs in the bot_events folder, not bot_commands. Create your .fds file there.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$alwaysReply
+</details>

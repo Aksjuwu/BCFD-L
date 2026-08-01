@@ -1,0 +1,26 @@
+<dash>
+name: $or
+desc: Evaluates multiple conditions and returns true if ANY condition is true.
+category: Flow Control
+
+<block type="text" title="How does the command work?">
+text: $or takes multiple condition arguments and evaluates each one. It returns "true" if at least one condition is true, and "false" if all conditions are false. This is useful for building alternative conditional checks.
+</block>
+
+<block type="code" title="Syntax">
+text: $or[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $or[$authorID == 123; $authorID == 456]
+</block>
+
+<block type="callout" kind="note">
+text: Each condition uses the same comparison operators as $if (==, !=, >, <, >=, <=). Returns the string "true" or "false".
+</block>
+</dash>
+
+<details>
+syntax: $or[condition1; condition2; condition3; ...]
+param: condition|expression|Required|One or more conditions to evaluate. Each can use operators like ==, !=, >, <, >=, <=. Only one needs to be true for the result to be "true".
+</details>
