@@ -4,11 +4,11 @@ desc: Finds a channel by name or ID and returns its ID.
 category: Channel
 
 <block type="text" title="How does the command work?">
-text: $findChannel searches for a channel in the server by name or ID. If a channel mention or numeric ID is provided, it verifies the channel exists and returns its ID. If a channel name is provided, it searches all server channels for a match and returns the ID of the first match. Returns empty string if not found.
+text: $findChannel searches for a channel in the server by name or mention. If a channel mention is provided, it verifies the channel exists and returns its ID. If a channel name is provided, it searches all server channels for a case-insensitive match and returns the ID of the first match. Returns an empty string if not found.
 </block>
 
 <block type="code" title="Syntax">
-text: $findChannel[name/mention/ID]
+text: $findChannel[name/mention]
 </block>
 
 <block type="code" title="Ready-to-copy Example">
@@ -22,5 +22,5 @@ text: Channel name matching is case-insensitive. Can be used inline to resolve c
 
 <details>
 syntax: $findChannel[name/mention/ID]
-param: channel|text|Required|A channel name, mention, or numeric ID to search for.
+param: channel|text|Required|A channel name or mention to search for.
 </details>

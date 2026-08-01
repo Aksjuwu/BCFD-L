@@ -1,0 +1,28 @@
+<dash>
+name: $getMessage
+desc: Fetches a message from any channel and sends information about it.
+category: Utility
+
+<block type="text" title="How does the command work?">
+text: $getMessage fetches a message from the given channel and extracts a piece of information from it. The type argument chooses what is sent: content (the message text), name (the author's display name), id (the author's user ID), or avatar (the author's avatar URL). If the extracted value is empty, a zero-width space is sent instead.
+</block>
+
+<block type="code" title="Syntax">
+text: $getMessage[channelID; messageID; (type)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $getMessage[123456789; 987654321; content]
+</block>
+
+<block type="callout" kind="note">
+text: The type argument is optional and defaults to content. Valid types: content, name, id, avatar. The bot must be able to view the channel and have Read Message History permission.
+</block>
+</dash>
+
+<details>
+syntax: $getMessage[channelID; messageID; (type)]
+param: channelID|snowflake|Required|The ID of the channel containing the message
+param: messageID|snowflake|Required|The ID of the message to fetch
+param: type|text|Optional|What to send: content (default), name, id, or avatar
+</details>

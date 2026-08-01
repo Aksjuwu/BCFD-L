@@ -1,14 +1,15 @@
 <dash>
 name: $membersCount
-desc: Returns the total number of members in the server.
+desc: Returns the number of members in a server.
 category: Info
 
 <block type="text" title="How does the command work?">
-text: When $membersCount is called without arguments, the bot counts all non-bot human members in the current server and sends the count as a number. Optionally, you can pass a guild ID and a yes/no flag to include bots.
+text: When $membersCount is called without arguments, the bot counts all non-bot human members in the current server and sends the count. When called with a guild ID and a yes/no flag, it counts members in that specific server and optionally includes bots.
 </block>
 
 <block type="code" title="Syntax">
 text: $membersCount
+text: $membersCount[guildID; includeBots]
 </block>
 
 <block type="code" title="Ready-to-copy Example">
@@ -16,6 +17,12 @@ text: We have $membersCount members!
 </block>
 
 <block type="callout" kind="note">
-text: By default, bots are excluded from the count. To include bots, use $membersCount[guildID; yes]. This command only works inside a server unless a guild ID is provided.
+text: By default, bots are excluded from the count. To include bots, use $membersCount[guildID; yes]. Without arguments, this command only works inside a server. When providing a guild ID, the bot must be a member of that guild.
 </block>
 </dash>
+
+<details>
+syntax: $membersCount[(guildID; includeBots)]
+param: guildID|snowflake|Optional|The ID of a different server to count members from. If omitted, uses the current server.
+param: includeBots|yes/no|Optional|Set to "yes" to include bot accounts in the count. If omitted, only human members are counted.
+</details>

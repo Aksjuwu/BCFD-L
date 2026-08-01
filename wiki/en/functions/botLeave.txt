@@ -1,0 +1,27 @@
+<dash>
+name: $botLeave
+desc: Makes the bot leave a server (guild).
+category: Server
+
+<block type="text" title="How does the command work?">
+text: $botLeave makes the bot leave the specified guild. When no guild ID is given, the bot leaves the guild the command was used in. When a guild ID is given, that guild is left instead (this works even from a DM, as long as the bot is a member of the target guild).
+</block>
+
+<block type="code" title="Syntax">
+text: $botLeave
+text: $botLeave[guildID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $botLeave
+</block>
+
+<block type="callout" kind="warning">
+text: This immediately removes the bot from the guild. If no guild ID is provided and the command is used outside a server (in DMs), an error is returned. The guild ID argument must be a numeric snowflake.
+</block>
+</dash>
+
+<details>
+syntax: $botLeave[(guildID)]
+param: guildID|snowflake|Optional|The ID of the guild to leave. If omitted, the current guild is left.
+</details>

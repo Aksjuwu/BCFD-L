@@ -16,7 +16,7 @@ text: $removeComponent[btn_cancel; btn_confirm]
 </block>
 
 <block type="callout" kind="note">
-text: If the last argument is a numeric snowflake, it's treated as a message ID. Otherwise, all arguments are treated as component IDs to remove.
+text: When there are at least two arguments and the last one is a numeric snowflake, it's treated as a message ID. Otherwise, all arguments are treated as component IDs to remove.
 </block>
 
 <block type="callout" kind="warning">

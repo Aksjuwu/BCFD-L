@@ -26,7 +26,7 @@ text: Rate limits are handled automatically — if Discord returns a 429 (Too Ma
 </block>
 
 <block type="callout" kind="warning">
-text: There is a maximum number of emojis allowed per call. Exceeding this limit will cause the command to fail with an error instead of adding any reactions.
+text: There is a maximum of 20 emojis allowed per call. Exceeding this limit will cause the command to fail with an error instead of adding any reactions.
 </block>
 
 <block type="callout" kind="important">

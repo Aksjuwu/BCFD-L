@@ -1,0 +1,30 @@
+<dash>
+name: $onBotOnline
+desc: Event triggered once when the bot comes online.
+category: Event
+
+<block type="text" title="How does the event work?">
+text: $onBotOnline is an event prefix that triggers an FDScript a single time, right after the bot logs in successfully. It runs without any user message, so there is no author, message content, or channel context available. Use it for one-time setup such as storing variables or logging that the bot started.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onBotOnline
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onBotOnline
+$setVar[botStartupTime; $addTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: Because there is no triggering message, sending output with commands like $sendMessage requires $useChannel to pick a target channel first; author/channel based tokens such as $channelID or $message are not available.
+</block>
+
+<block type="callout" kind="important">
+text: This event runs in the bot_events folder, not bot_commands. Create your .fds file there.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotOnline
+</details>

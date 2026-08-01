@@ -16,7 +16,7 @@ text: $editButton[btn_confirm; Confirmed; success]
 </block>
 
 <block type="callout" kind="note">
-text: If messageID is provided, the bot fetches that specific message and edits the button on it. Otherwise, it searches the pending view first, then the interaction source message.
+text: If messageID is provided, the bot fetches that specific message and edits the button on it. Otherwise, it searches the pending view, then the interaction source message, then the last message the bot sent.
 </block>
 
 <block type="callout" kind="warning">

@@ -20,7 +20,7 @@ text: Rate limits are handled automatically — if Discord returns a 429, the co
 </block>
 
 <block type="callout" kind="warning">
-text: If no valid emojis are found in the arguments, the command silently does nothing. The bot must have "Add Reactions" permission in the channel.
+text: Maximum 20 emojis per call. If no valid emojis are found in the arguments, the command silently does nothing. The bot must have "Add Reactions" permission in the channel.
 </block>
 </dash>
 

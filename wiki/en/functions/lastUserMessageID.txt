@@ -1,0 +1,26 @@
+<dash>
+name: $lastUserMessageID
+desc: Returns the ID of the user message that triggered the current script.
+category: Variables
+
+<block type="text" title="How does the command work?">
+text: $lastUserMessageID resolves to the snowflake ID of the message that started the current script execution — always the original author's message, the one that contained the $ command. It does not change during the script's lifetime. It behaves the same as the built-in $messageID token.
+</block>
+
+<block type="code" title="Syntax">
+text: $lastUserMessageID
+text: $lastUserMessageID[]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Your message ID is $lastUserMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: This is an inline-only command and cannot be used as a standalone statement. Use it inside another command's argument brackets or as a bare inline token.
+</block>
+</dash>
+
+<details>
+syntax: $lastUserMessageID
+</details>

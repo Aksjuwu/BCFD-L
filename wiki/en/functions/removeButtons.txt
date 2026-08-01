@@ -9,6 +9,7 @@ text: When $removeButtons is called without arguments, it clears all buttons fro
 
 <block type="code" title="Syntax">
 text: $removeButtons
+text: $removeButtons[(messageID)]
 </block>
 
 <block type="code" title="Ready-to-copy Example">
@@ -19,3 +20,8 @@ text: $removeButtons[123456789012345678]
 text: The message ID must point to a message sent by this bot. If called without arguments, it first checks the pending view, then falls back to the interaction source message.
 </block>
 </dash>
+
+<details>
+syntax: $removeButtons[(messageID)]
+param: messageID|snowflake|Optional|The ID of a bot message to remove all buttons from. If omitted, clears buttons from the pending view or interaction source.
+</details>
