@@ -1,0 +1,21 @@
+<dash>
+name: $ping
+desc: Renvoie la latence du bot (temps de réponse) vers la passerelle Discord en millisecondes.
+category: Utilitaires
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: La commande récupère la vitesse de connexion actuelle entre le bot et la passerelle Discord, puis envoie le résultat directement sous forme de nombre brut représentant le temps en millisecondes.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $ping
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $ping pong!
+</block>
+
+<block type="callout" kind="note">
+text: La valeur obtenue représente la réactivité du serveur du bot. Plus le nombre renvoyé est bas, plus le bot répondra rapidement aux commandes et aux interactions.
+</block>
+</dash>

@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleID
+desc: Renvoie l'ID d'un rôle aléatoire du serveur.
+category: Aléatoire
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Lorsque $randomRoleID est appelé, le bot collecte tous les rôles du serveur actuel (en excluant le rôle par défaut @everyone), en choisit un au hasard, et envoie son ID de rôle sous forme de chaîne numérique brute.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $randomRoleID
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: Random role ID: $randomRoleID
+</block>
+
+<block type="callout" kind="note">
+text: Cette commande ne fonctionne que dans un serveur (pas en messages privés). Le rôle @everyone est toujours exclu. Si le serveur n'a pas de rôles personnalisés, la commande échouera avec une erreur.
+</block>
+</dash>

@@ -1,0 +1,21 @@
+<dash>
+name: $message
+desc: Renvoie les arguments/mots du message de commande de l'utilisateur.
+category: Info
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Lorsque $message est appelé sans arguments, il renvoie tout ce que l'utilisateur a tapé après le nom de la commande (la chaîne d'arguments complète). Lorsqu'il est appelé avec un numéro d'index, il renvoie le mot spécifique à cette position.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $message
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: Sans arguments, renvoie tout le texte après la commande. Avec $message[1], renvoie le premier mot, $message[2] renvoie le deuxième, et ainsi de suite. Renvoie une chaîne vide si l'index est hors limites.
+</block>
+</dash>

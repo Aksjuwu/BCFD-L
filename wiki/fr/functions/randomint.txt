@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: Renvoie un entier aléatoire entre une valeur minimale et une valeur maximale.
+category: Aléatoire
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $randomint prend deux nombres (min et max) et génère un entier aléatoire dans cette plage inclusive, puis l'envoie dans le canal.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: Min et max sont tous deux inclusifs. Si min est supérieur à max, les valeurs sont automatiquement échangées. Le résultat est un nombre entier compris entre les deux bornes.
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Requis|La valeur minimale (incluse)
+param: max|number|Requis|La valeur maximale (incluse)
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $channelExists
+desc: Vérifie si un canal existe dans le serveur.
+category: Canal
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $channelExists prend une mention ou un ID de canal et vérifie si le bot peut trouver ce canal dans le serveur. Renvoie « true » si le canal existe, « false » sinon. Si aucun argument n'est fourni, renvoie « true » par défaut.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $channelExists[channel mention/ID]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $channelExists[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Cette commande peut être utilisée en ligne pour vérifier l'existence d'un canal avant d'effectuer d'autres actions sur ce canal.
+</block>
+</dash>
+
+<details>
+syntax: $channelExists[channel mention/ID]
+param: channel|text|Optionnel|La mention ou l'ID numérique du canal à vérifier. S'il est vide, renvoie « true ».
+</details>

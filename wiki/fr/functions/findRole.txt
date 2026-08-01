@@ -1,0 +1,28 @@
+<dash>
+name: $findRole
+desc: Trouve un rôle par nom, ID ou mention et renvoie son ID de rôle.
+category: Utilitaire
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $findRole recherche un rôle dans le serveur actuel à l'aide d'une mention de rôle, d'un ID de rôle numérique ou d'un nom de rôle (la correspondance par nom est insensible à la casse). Il renvoie l'ID du rôle. Utilisé seul, l'ID est envoyé dans le canal ; utilisé en ligne, l'ID est substitué directement dans le texte environnant.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $findRole[name]
+text: $findRole[roleID]
+text: $findRole[@role]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $findRole[Moderators]
+</block>
+
+<block type="callout" kind="note">
+text: Cette commande ne peut être utilisée qu'à l'intérieur d'un serveur. Si aucun rôle n'est trouvé, une erreur est renvoyée.
+</block>
+</dash>
+
+<details>
+syntax: $findRole[query]
+param: requête|text|Requis|Une mention de rôle, un ID de rôle ou un nom de rôle à rechercher (insensible à la casse)
+</details>

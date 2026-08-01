@@ -1,0 +1,31 @@
+<dash>
+name: $messageContains
+desc: Événement déclenché lorsqu'un message contient N'IMPORTE QUEL des mots spécifiés.
+category: Événement
+
+<block type="text" title="Comment fonctionne l'événement ?">
+text: $messageContains est un préfixe d'événement qui déclenche un FDScript lorsqu'un message contient N'IMPORTE QUEL des mots déclencheurs spécifiés. Les mots sont séparés par des points-virgules entre les crochets. La correspondance ne tient pas compte de la casse.
+</block>
+
+<block type="code" title="Syntaxe">
+text: #PREFIX:$messageContains[word1;word2;word3]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: #PREFIX:$messageContains[hello;hi;hey]
+ sendMessage[Hey there! How can I help?]
+</block>
+
+<block type="callout" kind="note">
+text: Le script s'exécute si le message contient N'IMPORTE QUEL des mots listés. Pour que TOUS les mots soient présents, utilisez plutôt $messageContainsAll.
+</block>
+
+<block type="callout" kind="important">
+text: Cet événement s'exécute dans le dossier bot_events, pas bot_commands. Créez votre fichier .fds à cet endroit.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$messageContains[word1;word2;...]
+param: words|text|Requis|Liste des mots déclencheurs séparés par des points-virgules. N'IMPORTE QUELLE correspondance déclenche le script.
+</details>

@@ -1,0 +1,23 @@
+<dash>
+name: $endfor
+desc: Marque la fin d'un bloc de boucle $for.
+category: Contrôle de flux
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $endfor signale la limite de fermeture d'une boucle $for. Après chaque itération, l'exécution revient au début du corps de la boucle. Chaque $for doit avoir un $endfor correspondant.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $endfor
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="warning">
+text: Chaque bloc $for doit être correctement fermé avec $endfor. Un $endfor manquant provoquera une erreur de script.
+</block>
+</dash>

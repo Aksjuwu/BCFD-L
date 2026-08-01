@@ -1,0 +1,46 @@
+<dash>
+name: $math
+desc: Évalue une expression mathématique et renvoie le résultat.
+category: Mathématiques & Nombres
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $math prend une expression mathématique, l'évalue en toute sécurité à l'aide de l'analyseur AST de Python, puis envoie le résultat. Il prend en charge l'arithmétique de base, les exposants et les fonctions mathématiques courantes.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $math[expression]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $math[2 + 2 * 3]
+</block>
+
+<block type="options" title="Opérateurs pris en charge">
+option: +|Addition
+option: -|Soustraction
+option: *|Multiplication
+option: /|Division
+option: //|Division entière
+option: %|Modulo
+option: **|Exposant
+</block>
+
+<block type="options" title="Fonctions prises en charge">
+option: sqrt|Racine carrée
+option: abs|Valeur absolue
+option: ceil|Arrondi à l'entier supérieur
+option: floor|Arrondi à l'entier inférieur
+option: round|Arrondi au plus proche
+option: log/log2/log10|Logarithme
+option: sin/cos/tan|Fonctions trigonométriques
+</block>
+
+<block type="callout" kind="note">
+text: Les constantes pi, e et inf sont disponibles. L'expression est évaluée en toute sécurité — aucune exécution de code arbitraire n'est possible. La division par zéro renvoie une erreur.
+</block>
+</dash>
+
+<details>
+syntax: $math[expression]
+param: expression|text|Requis|Une expression mathématique à évaluer, p. ex. 2 + 2, sqrt(16), pi * 2
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $isNSFW
+desc: Vérifie si un canal est marqué comme NSFW.
+category: Canal
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $isNSFW prend une mention ou un ID de canal et vérifie si le canal est marqué comme NSFW (Not Safe For Work). Renvoie "true" si le canal est NSFW, "false" dans le cas contraire.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $isNSFW[channel mention/ID]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $isNSFW[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Utile pour la logique conditionnelle afin de restreindre le contenu en fonction de la classification par âge du canal.
+</block>
+</dash>
+
+<details>
+syntax: $isNSFW[channel mention/ID]
+param: canal|text|Requis|La mention de canal ou l'ID numérique à vérifier.
+</details>
