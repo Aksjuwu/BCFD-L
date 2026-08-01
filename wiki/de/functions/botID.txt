@@ -1,0 +1,21 @@
+<dash>
+name: $botID
+desc: Gibt die Discord-Benutzer-ID des Bots zurück.
+category: Info
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $botID aufgerufen wird, ruft der Bot seine eigene eindeutige Discord-Benutzer-ID ab und sendet sie direkt als rohe numerische Zeichenfolge an den Kanal.
+</block>
+
+<block type="code" title="Syntax">
+text: $botID
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: Meine Bot-ID ist $botID
+</block>
+
+<block type="callout" kind="note">
+text: Der zurückgegebene Wert ist eine Snowflake-ID (z. B. 123456789012345678), die die eindeutige numerische Kennung für das Discord-Benutzerkonto des Bots darstellt.
+</block>
+</dash>

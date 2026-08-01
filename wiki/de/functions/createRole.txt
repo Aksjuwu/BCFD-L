@@ -1,0 +1,37 @@
+<dash>
+name: $createRole
+desc: Erstellt eine neue Rolle im Server mit angegebenem Namen, Farbe und Berechtigungen.
+category: Moderation
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $createRole erstellt eine neue Rolle mit dem angegebenen Namen, der angegebenen Farbe und den angegebenen Berechtigungen. Berechtigungen können als Voreinstellung (cosmetic, member, mod, manager) oder als rohe Berechtigungszahl angegeben werden. Optional können Sie steuern, ob die Rolle separat angezeigt wird und ob sie erwähnt werden kann.
+</block>
+
+<block type="code" title="Syntax">
+text: $createRole[role name; color; permissions; (display role; mention role)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $createRole[VIP; #FFD700; member; yes; no]
+</block>
+
+<block type="options" title="Berechtigungsvoreinstellungen">
+option: cosmetic|Keine speziellen Berechtigungen (Nur-Anzeige-Rolle)
+option: member|Grundlegende Mitgliedsberechtigungen (Nachrichten senden, reagieren, verbinden usw.)
+option: mod / moderator|Moderationsberechtigungen (kicken, bannen, Nachrichten verwalten, Timeout usw.)
+option: manager / admin|Vollständige Verwaltungsberechtigungen (Kanäle, Rollen, Webhooks verwalten usw.)
+</block>
+
+<block type="callout" kind="note">
+text: Die ID der erstellten Rolle wird für die spätere Verwendung in $return[createdRoleID] gespeichert. Der Bot muss über die Berechtigung "Rollen verwalten" verfügen.
+</block>
+</dash>
+
+<details>
+syntax: $createRole[role name; color; permissions; (display role; mention role)]
+param: role name|text|Erforderlich|Der Name für die neue Rolle (max. 100 Zeichen)
+param: color|text|Erforderlich|Hex-Farbcode (z. B. #FF5733) oder leer für die Standardfarbe
+param: permissions|text|Erforderlich|Eine Voreinstellung (cosmetic, member, mod/moderator, manager/admin) oder eine rohe Berechtigungszahl
+param: display role|yes/no|Optional|yes, um die Rolle in der Mitgliederliste separat anzuzeigen (Standard: no)
+param: mention role|yes/no|Optional|yes, um die Rolle für alle erwähnbar zu machen (Standard: no)
+</details>

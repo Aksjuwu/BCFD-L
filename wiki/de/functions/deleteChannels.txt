@@ -1,0 +1,26 @@
+<dash>
+name: $deleteChannels
+desc: Löscht einen oder mehrere Kanäle aus dem Server.
+category: Kanalverwaltung
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $deleteChannels akzeptiert eine oder mehrere Kanal-IDs oder Erwähnungen und löscht sie aus dem Server. Der Bot muss über die Berechtigung "Kanäle verwalten" verfügen. Wenn ein Kanal nicht gelöscht werden kann (z. B. fehlende Berechtigungen), wird der Vorgang mit einem Fehler gestoppt.
+</block>
+
+<block type="code" title="Syntax">
+text: $deleteChannels[channel ID/mention; ...]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $deleteChannels[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="warning">
+text: Dieser Befehl löscht Kanäle dauerhaft. Der Bot muss für jeden zu löschenden Kanal über die Berechtigung "Kanäle verwalten" verfügen.
+</block>
+</dash>
+
+<details>
+syntax: $deleteChannels[channel ID/mention; ...]
+param: channels|text|Erforderlich|Eine oder mehrere Kanal-IDs oder Erwähnungen, durch Semikolons getrennt.
+</details>

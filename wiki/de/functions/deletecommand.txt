@@ -1,0 +1,22 @@
+<dash>
+name: $deletecommand
+desc: Löscht die Nachricht, die den Befehl ausgelöst hat.
+category: Moderation
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $deletecommand aufgerufen wird, versucht der Bot, die Nachricht des Benutzers zu löschen, die die Skriptausführung ausgelöst hat. Dies wird häufig verwendet, um Kanäle sauber zu halten, indem der ursprüngliche Befehlsaufruf entfernt wird.
+</block>
+
+<block type="code" title="Syntax">
+text: $deletecommand
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $deletecommand
+$sendMessage[Command received!]
+</block>
+
+<block type="callout" kind="warning">
+text: Der Bot muss im Kanal über die Berechtigung "Nachrichten verwalten" verfügen, um Benutzernachrichten zu löschen. Wenn die Berechtigung fehlt, wird ein Fehler zurückgegeben.
+</block>
+</dash>

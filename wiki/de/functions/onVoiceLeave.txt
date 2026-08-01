@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceLeave
+desc: Ereignis, das ausgelöst wird, wenn ein Mitglied einen Sprachkanal verlässt.
+category: Ereignis
+
+<block type="text" title="Wie funktioniert das Ereignis?">
+text: $onVoiceLeave ist ein Ereignis-Präfix, das ein FDScript auslöst, wann immer ein Mitglied einen Sprachkanal verlässt. Das Skript erhält die Informationen über das Mitglied und den Sprachkanal. Optional kannst du in der ersten Zeile eine Kanal-ID angeben, um die Ausgabe an einen bestimmten Textkanal zu lenken.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onVoiceLeave
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: #PREFIX:$onVoiceLeave
+ sendMessage[$authorName left a voice channel.]
+</block>
+
+<block type="callout" kind="note">
+text: Setze dies in die erste Zeile deiner FDScript-Datei. Das Skript wird automatisch ausgeführt, wenn ein Mitglied einen Sprachkanal verlässt.
+</block>
+
+<block type="callout" kind="important">
+text: Dieses Ereignis wird im Ordner bot_events ausgeführt, nicht in bot_commands. Erstelle deine .fds-Datei dort.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceLeave
+</details>

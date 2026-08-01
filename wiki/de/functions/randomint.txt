@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: Gibt eine zufällige ganze Zahl zwischen einem Minimum und einem Maximum zurück.
+category: Zufall
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $randomint nimmt zwei Zahlen (min und max) und erzeugt eine zufällige ganze Zahl innerhalb dieses inklusiven Bereichs und sendet sie dann an den Kanal.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: Sowohl min als auch max sind inklusive. Wenn min größer als max ist, werden die Werte automatisch getauscht. Das Ergebnis ist eine ganze Zahl zwischen den beiden Grenzen.
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Erforderlich|Der Mindestwert (einschließlich)
+param: max|number|Erforderlich|Der Höchstwert (einschließlich)
+</details>

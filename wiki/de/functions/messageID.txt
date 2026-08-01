@@ -1,0 +1,21 @@
+<dash>
+name: $messageID
+desc: Gibt die Discord-Nachrichten-ID der Nachricht zurück, die den Befehl ausgelöst hat.
+category: Info
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $messageID aufgerufen wird, ruft der Bot die eindeutige Discord-Nachrichten-ID der auslösenden Nachricht ab und sendet sie direkt als rohe numerische Zeichenkette.
+</block>
+
+<block type="code" title="Syntax">
+text: $messageID
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: Your message ID is $messageID
+</block>
+
+<block type="callout" kind="note">
+text: Der zurückgegebene Wert ist eine Snowflake-ID (z. B. 123456789012345678), die die Nachricht eindeutig identifiziert, die das Skript ausgelöst hat.
+</block>
+</dash>

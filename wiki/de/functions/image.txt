@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: Sendet ein Bild-Embed in den Kanal, das eine URL verwendet.
+category: Nachrichten
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $image nimmt eine Bild-URL, erstellt ein Embed mit diesem Bild und sendet es in den Kanal. Die URL muss mit http:// oder https:// beginnen.
+</block>
+
+<block type="code" title="Syntax">
+text: $image[URL]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: Das Bild wird als Embed gesendet, wobei das Bild als Embed-Bild festgelegt ist. Der Bot muss im Kanal die Berechtigung „Links einbetten“ besitzen.
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|Erforderlich|Eine direkte URL zu einer Bilddatei. Muss mit http:// oder https:// beginnen
+</details>

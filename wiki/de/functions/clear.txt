@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: Löscht massenhaft eine bestimmte Anzahl von Nachrichten aus dem aktuellen Kanal.
+category: Moderation
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $clear ohne Argumente aufgerufen wird, wird die standardmäßige Anzahl von Nachrichten (10) gelöscht. Bei Aufruf mit einer Zahl werden so viele Nachrichten gelöscht. Der Bot verwendet Discords Massenlösch-API, um Nachrichten effizient zu entfernen.
+</block>
+
+<block type="code" title="Syntax">
+text: $clear
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: Discords Massenlösch-Limit beträgt 100 Nachrichten pro Anfrage. Nachrichten, die älter als 14 Tage sind, können nicht massenweise gelöscht werden. Der Bot muss im Kanal über die Berechtigung "Nachrichten verwalten" verfügen.
+</block>
+</dash>

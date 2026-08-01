@@ -1,0 +1,27 @@
+<dash>
+name: $botLeave
+desc: Lässt den Bot einen Server (Gilde) verlassen.
+category: Server
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $botLeave lässt den Bot die angegebene Gilde verlassen. Wenn keine Gilden-ID angegeben ist, verlässt der Bot die Gilde, in der der Befehl verwendet wurde. Wenn eine Gilden-ID angegeben ist, wird stattdessen diese Gilde verlassen (dies funktioniert sogar aus einer DM, solange der Bot Mitglied der Zielgilde ist).
+</block>
+
+<block type="code" title="Syntax">
+text: $botLeave
+text: $botLeave[guildID]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $botLeave
+</block>
+
+<block type="callout" kind="warning">
+text: Dies entfernt den Bot sofort aus der Gilde. Wenn keine Gilden-ID angegeben ist und der Befehl außerhalb eines Servers (in DMs) verwendet wird, wird ein Fehler zurückgegeben. Das Gilden-ID-Argument muss eine numerische Snowflake sein.
+</block>
+</dash>
+
+<details>
+syntax: $botLeave[(guildID)]
+param: guildID|snowflake|Optional|Die ID der zu verlassenden Gilde. Wenn sie weggelassen wird, wird die aktuelle Gilde verlassen.
+</details>

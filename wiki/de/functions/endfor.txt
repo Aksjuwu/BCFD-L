@@ -1,0 +1,23 @@
+<dash>
+name: $endfor
+desc: Markiert das Ende eines $for-Schleifenblocks.
+category: Flusssteuerung
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $endfor markiert die Abschlussgrenze einer $for-Schleife. Nach jeder Iteration kehrt die Ausführung zum Anfang des Schleifenrumpfs zurück. Jedes $for benötigt ein passendes $endfor.
+</block>
+
+<block type="code" title="Syntax">
+text: $endfor
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="warning">
+text: Jeder $for-Block muss ordnungsgemäß mit $endfor geschlossen werden. Ein fehlendes $endfor verursacht einen Skriptfehler.
+</block>
+</dash>
