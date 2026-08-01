@@ -1,27 +1,26 @@
 <dash>
 name: $round
-desc: Rounds a number to a specified number of decimal places.
+desc: Rounds a number to the nearest whole number.
 category: Math & Numbers
 
 <block type="text" title="How does the command work?">
-text: $round takes a number and optionally a precision (number of decimal places), then rounds it accordingly and sends the result. If no precision is given, it rounds to the nearest integer.
+text: $round takes a single numeric value, rounds it to the nearest integer, and sends the result. For example, 1.7 becomes 2 and 1.4 becomes 1.
 </block>
 
 <block type="code" title="Syntax">
-text: $round[number; (precision)]
+text: $round[number]
 </block>
 
 <block type="code" title="Ready-to-copy Example">
-text: $round[3.14159; 2]
+text: $round[1.7]
 </block>
 
 <block type="callout" kind="note">
-text: Without the precision argument, the number is rounded to the nearest whole number. With precision, it rounds to that many decimal places.
+text: $round[1.7] returns 2. $round[2.4] returns 2. The command accepts a single argument; if the value is not a valid number, an error is returned.
 </block>
 </dash>
 
 <details>
-syntax: $round[number; (precision)]
-param: number|number|Required|The number to round
-param: precision|number|Optional|Number of decimal places to round to. If omitted, rounds to the nearest integer.
+syntax: $round[number]
+param: number|number|Required|The number to round to the nearest whole number
 </details>

@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: Sets the title of the embed being built.
+category: Embed Builder
+
+<block type="text" title="How does the command work?">
+text: $title takes a text argument and sets it as the title of the current embed being constructed. The title appears at the top of the embed in larger, bold text.
+</block>
+
+<block type="code" title="Syntax">
+text: $title[text]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: The title supports Discord markdown formatting. It appears as the main heading at the top of the embed.
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: text|text|Required|The title text for the embed
+</details>

@@ -1,22 +1,39 @@
 <dash>
 name: $returnGuildChannelsID
-desc: Returns a list of all channel IDs in the server.
+desc: Collects channel IDs from a guild by type and stores them for later retrieval.
 category: Return Commands
 
 <block type="text" title="How does the command work?">
-text: When $returnGuildChannelsID is called, the bot collects the unique Discord channel IDs of all channels in the current server and stores them. The result can be retrieved later using the $return command.
+text: $returnGuildChannelsID collects all channel IDs of a specified type from a given guild and stores them under a variable name. The result can be retrieved later using $return[variableName]. You can filter by channel type such as text, voice, category, forum, stage, or get all channels.
 </block>
 
 <block type="code" title="Syntax">
-text: $returnGuildChannelsID
+text: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
 </block>
 
 <block type="code" title="Ready-to-copy Example">
-text: $returnGuildChannelsID
-$sendMessage[Total channels: $return[channelIDs]]
+text: $returnGuildChannelsID[$guildID; text; channelIDs; ,]
+$sendMessage[Text channels: $return[channelIDs]]
+</block>
+
+<block type="options" title="Channel types">
+option: all|All channel types
+option: text|Text channels only
+option: voice|Voice channels only
+option: category|Category channels only
+option: forum|Forum channels only
+option: stage|Stage channels only
 </block>
 
 <block type="callout" kind="note">
-text: This command only works inside a server. The collected IDs are stored internally and can be accessed via the $return command after execution.
+text: The bot must be a member of the target guild. Use $return[variableName] to retrieve the stored IDs after execution. The separator defines how multiple IDs are joined (e.g., , or ; or space).
 </block>
 </dash>
+
+<details>
+syntax: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+param: GuildID|snowflake|Required|The ID of the guild (server) to collect channels from
+param: ChannelType|text|Required|The type of channels to collect: all, text, voice, category, forum, or stage
+param: var|text|Required|The variable name to store the result in (use with $return[])
+param: separator|text|Required|The separator between multiple IDs (e.g., , or ;). You can use named separators: dot, com, apo, sem, colon
+</details>

@@ -4,7 +4,7 @@ desc: Retrieves a value stored by a $returnXxx command and sends it to the chann
 category: Variables
 
 <block type="text" title="How does the command work?">
-text: $return takes a variable name and looks up its value in the return variables storage. This storage is populated by commands like $returnGuildUsersID, $returnGuildChannelsID, etc. The retrieved value is sent to the channel.
+text: $return takes a variable name and looks up its value in the return variables storage. This storage is populated by commands like $returnGuildUsersID, $returnGuildChannelsID, etc. Used on its own, the retrieved value is sent to the channel; used inline inside another command's arguments, the value is substituted directly into the text.
 </block>
 
 <block type="code" title="Syntax">
@@ -12,7 +12,7 @@ text: $return[var]
 </block>
 
 <block type="code" title="Ready-to-copy Example">
-text: $returnGuildUsersID
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
 $sendMessage[User IDs: $return[userIDs]]
 </block>
 

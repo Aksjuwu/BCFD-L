@@ -4,7 +4,7 @@ desc: Fetches users who reacted with a specific emoji on a message and stores th
 category: Return Commands
 
 <block type="text" title="How does the command work?">
-text: $returnGetReactions fetches a specific message, finds all users (or counts) who reacted with a given emoji, and stores the result. You can retrieve user IDs or the total reaction count.
+text: $returnGetReactions fetches a specific message, finds the users who reacted with a given emoji, and stores the result. You can store the reacted users' IDs or the total reaction count. Bots are always excluded — only human users are considered.
 </block>
 
 <block type="code" title="Syntax">
@@ -16,7 +16,7 @@ text: $returnGetReactions[$channelID; 123456789; usersID; reactors; ,; 👍]
 </block>
 
 <block type="callout" kind="note">
-text: The type parameter accepts "usersID" (to get user IDs) or "tr" (to get total reaction count). The separator defines how multiple values are joined.
+text: The type parameter accepts "usersID" (to store the reacting users' IDs, joined by the separator) or "tr" (to store the total reaction count from human users only). If the emoji is not found on the message: "tr" silently stores "0", while "usersID" raises an error. In "usersID" mode an error is also raised if no human user reacted with the emoji. The result is stored in the variable and retrieved later with $return[var].
 </block>
 </dash>
 
@@ -24,8 +24,8 @@ text: The type parameter accepts "usersID" (to get user IDs) or "tr" (to get tot
 syntax: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
 param: channelID|snowflake|Required|The ID of the channel containing the message
 param: messageID|snowflake|Required|The ID of the message to check reactions on
-param: type|text|Required|usersID to get user IDs, or tr to get total reaction count
+param: type|text|Required|usersID to store the reacting users' IDs, or tr to store the total reaction count (humans only)
 param: var|text|Required|The variable name to store the result in
-param: separator|text|Required|The separator to use between multiple values (e.g., , or ; )
-param: emoji|text|Required|The emoji to look for reactions with
+param: separator|text|Required|The separator between multiple user IDs (e.g., , or ;). You can use named separators: dot, com, apo, sem, colon
+param: emoji|text|Required|The emoji to look for reactions with (matched by its string form or name)
 </details>

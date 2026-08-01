@@ -1,0 +1,27 @@
+<dash>
+name: $sum
+desc: Adds two or more numbers together and returns the result.
+category: Math & Numbers
+
+<block type="text" title="How does the command work?">
+text: $sum takes two or more numeric arguments and returns their sum. Works both as a standalone command and inline inside other commands.
+</block>
+
+<block type="code" title="Syntax">
+text: $sum[a; b; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[$sum[8; 2]]
+</block>
+
+<block type="callout" kind="note">
+text: Supports any number of arguments. All values are treated as numbers. If a non-numeric value is provided, an error is returned. The result is an integer if the sum has no decimal part.
+</block>
+</dash>
+
+<details>
+syntax: $sum[a; b; ...]
+param: a|number|Required|First number to add
+param: b|number|Required|Second number to add (additional numbers are also accepted)
+</details>

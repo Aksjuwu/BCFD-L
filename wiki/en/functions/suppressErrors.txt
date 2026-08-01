@@ -1,0 +1,30 @@
+<dash>
+name: $suppressErrors
+desc: Suppresses all error messages for the script and optionally sends a custom message instead.
+category: Access Control
+
+<block type="text" title="How does the command work?">
+text: When $suppressErrors appears anywhere in the script, all error messages (syntax, logic, runtime, environment) are suppressed. Instead of showing the actual error, the script aborts silently or sends a custom message if one is provided.
+</block>
+
+<block type="code" title="Syntax">
+text: $suppressErrors[custom message]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $suppressErrors[Something went wrong! Please try again.]
+</block>
+
+<block type="callout" kind="note">
+text: This command is detected at parse time — it must appear anywhere in the script (even on a line by itself). When active, all errors are logged internally but not shown to users. If a custom message is provided, it is sent instead of the error.
+</block>
+
+<block type="callout" kind="warning">
+text: Use with caution — suppressing errors can make debugging difficult. The script still aborts on error, just silently.
+</block>
+</dash>
+
+<details>
+syntax: $suppressErrors[(custom message)]
+param: custom message|text|Optional|A message to send to the user when any error occurs, instead of the default error message. If omitted, errors are suppressed silently.
+</details>

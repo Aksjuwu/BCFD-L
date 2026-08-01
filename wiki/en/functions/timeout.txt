@@ -1,0 +1,31 @@
+<dash>
+name: $timeout
+desc: Applies a timeout (mute) to a server member for a specified duration.
+category: Moderation
+
+<block type="text" title="How does the command work?">
+text: $timeout takes a duration and a user ID/mention, then applies a timeout to that member. The timed-out member cannot send messages, react, or join voice channels for the specified duration.
+</block>
+
+<block type="code" title="Syntax">
+text: $timeout[time; user]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $timeout[1h; @user]
+</block>
+
+<block type="callout" kind="note">
+text: The time format uses: s (seconds), m (minutes), h (hours), d (days). Maximum timeout duration is 28 days. Use $untimeout to remove a timeout early.
+</block>
+
+<block type="callout" kind="warning">
+text: The bot must have "Moderate Members" permission and its highest role must be above the target's highest role.
+</block>
+</dash>
+
+<details>
+syntax: $timeout[time; user]
+param: time|text|Required|Duration of the timeout. Format: number + unit (s/m/h/d), e.g., 1h, 30m, 7d
+param: user|text|Required|The user ID or @mention of the member to timeout
+</details>
