@@ -1,0 +1,26 @@
+<dash>
+name: $unban
+desc: Débannit un utilisateur précédemment banni du serveur.
+category: Modération
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $unban prend un ID utilisateur, recherche l'utilisateur dans la liste des bannissements du serveur, puis retire le bannissement. L'utilisateur doit avoir été préalablement banni pour que cette commande fonctionne.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $unban[userID]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $unban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Le bot doit avoir la permission « Bannir des membres ». L'ID utilisateur doit être un ID numérique brut (les mentions et les symboles ne sont pas pris en charge). L'utilisateur doit actuellement être banni.
+</block>
+</dash>
+
+<details>
+syntax: $unban[userID]
+param: userID|snowflake|Requis|L'ID utilisateur numérique de l'utilisateur banni à débannir
+</details>

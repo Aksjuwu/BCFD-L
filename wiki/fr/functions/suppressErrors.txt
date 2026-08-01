@@ -1,0 +1,30 @@
+<dash>
+name: $suppressErrors
+desc: Supprime tous les messages d'erreur du script et envoie éventuellement un message personnalisé à la place.
+category: Contrôle d'accès
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Lorsque $suppressErrors apparaît n'importe où dans le script, tous les messages d'erreur (syntaxe, logique, exécution, environnement) sont supprimés. Au lieu d'afficher l'erreur réelle, le script s'interrompt silencieusement ou envoie un message personnalisé si un en est fourni.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $suppressErrors[custom message]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $suppressErrors[Something went wrong! Please try again.]
+</block>
+
+<block type="callout" kind="note">
+text: Cette commande est détectée au moment de l'analyse — elle doit apparaître n'importe où dans le script (même sur une ligne seule). Lorsqu'elle est active, toutes les erreurs sont journalisées en interne mais pas affichées aux utilisateurs. Si un message personnalisé est fourni, il est envoyé à la place de l'erreur.
+</block>
+
+<block type="callout" kind="warning">
+text: Utilisez avec prudence — supprimer les erreurs peut rendre le débogage difficile. Le script s'interrompt toujours en cas d'erreur, simplement silencieusement.
+</block>
+</dash>
+
+<details>
+syntax: $suppressErrors[(custom message)]
+param: custom message|text|Optionnel|Un message à envoyer à l'utilisateur lorsqu'une erreur survient, à la place du message d'erreur par défaut. S'il est omis, les erreurs sont supprimées silencieusement.
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $sendEmbedMessage
+desc: Envoie un message d'embed à un canal spécifié avec un titre, une description, une couleur et un pied de page.
+category: Messages
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $sendEmbedMessage construit un embed avec le titre, la description, la couleur et le pied de page fournis, puis l'envoie au canal spécifié. Les cinq arguments sont requis.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $sendEmbedMessage[channelID; title; description; color; footer]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendEmbedMessage[$channelID; Welcome!; Thanks for joining; #00FF00; Enjoy your stay]
+</block>
+
+<block type="callout" kind="note">
+text: L'argument couleur accepte les valeurs hexadécimales (ex. : #FF5733). Le bot doit avoir les permissions "Envoyer des messages" et "Intégrer des liens" dans le canal cible.
+</block>
+</dash>
+
+<details>
+syntax: $sendEmbedMessage[channelID; title; description; color; footer]
+param: channelID|snowflake|Requis|L'ID du canal dans lequel envoyer l'embed
+param: titre|text|Requis|Le titre de l'embed
+param: description|text|Requis|Le texte de description/corps de l'embed
+param: couleur|text|Requis|Code couleur hexadécimal pour la barre d'accent de l'embed (ex. : #FF5733)
+param: pied de page|text|Requis|Texte du pied de page affiché en bas de l'embed
+</details>
