@@ -1,0 +1,28 @@
+<dash>
+name: $var
+desc: Liest oder schreibt eine temporäre Variable, die nur während der aktuellen Skriptausführung existiert.
+category: Variablen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $var mit einem Argument liest den Wert der Variablen. $var mit zwei Argumenten schreibt einen Wert in die Variable. Temporäre Variablen werden gelöscht, wenn das Skript endet.
+</block>
+
+<block type="code" title="Syntax">
+text: $var[name; value]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $var[score; 10]
+$sendMessage[Your score is $var[score]]
+</block>
+
+<block type="callout" kind="note">
+text: Im Gegensatz zu $setVar/$getVar (persistent) ist $var nur während der aktuellen Skriptausführung verfügbar. Es kann inline innerhalb der Argumente anderer Befehle verwendet werden.
+</block>
+</dash>
+
+<details>
+syntax: $var[name; (value)]
+param: Name|text|Erforderlich|Der Variablenname, der gelesen oder geschrieben werden soll
+param: Wert|text|Optional|Wenn angegeben, wird dieser Wert in die Variable geschrieben (2-Argument-Modus). Wenn weggelassen, wird der aktuelle Wert gelesen und zurückgegeben (1-Argument-Modus).
+</details>

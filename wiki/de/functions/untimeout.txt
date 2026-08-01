@@ -1,0 +1,30 @@
+<dash>
+name: $untimeout
+desc: Entfernt einen aktiven Timeout von einem Servermitglied.
+category: Moderation
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $untimeout nimmt eine Benutzer-ID oder Erwähnung entgegen und entfernt jeden aktiven Timeout auf diesem Mitglied, wodurch sofort wieder die Berechtigungen zum Senden von Nachrichten, Reagieren und Beitreten zu Sprachkanälen hergestellt werden.
+</block>
+
+<block type="code" title="Syntax">
+text: $untimeout[user]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $untimeout[@user]
+</block>
+
+<block type="callout" kind="note">
+text: Der Benutzer muss aktuell einen aktiven Timeout haben, damit dieser Befehl eine Wirkung erzielt. Wenn der Benutzer keinen Timeout hat, wird der Befehl ohne Fehler abgeschlossen.
+</block>
+
+<block type="callout" kind="warning">
+text: Der Bot muss über die Berechtigung "Moderate Members" verfügen, und seine höchste Rolle muss über der höchsten Rolle des Ziels liegen.
+</block>
+</dash>
+
+<details>
+syntax: $untimeout[user]
+param: Benutzer|text|Erforderlich|Die Benutzer-ID oder @Erwähnung des Mitglieds, von dem der Timeout entfernt werden soll
+</details>

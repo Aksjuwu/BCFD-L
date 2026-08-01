@@ -1,0 +1,30 @@
+<dash>
+name: $suppressErrors
+desc: Unterdrückt alle Fehlermeldungen für das Skript und sendet optional stattdessen eine benutzerdefinierte Nachricht.
+category: Zugriffskontrolle
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $suppressErrors irgendwo im Skript erscheint, werden alle Fehlermeldungen (Syntax, Logik, Laufzeit, Umgebung) unterdrückt. Statt den tatsächlichen Fehler anzuzeigen, bricht das Skript still ab oder sendet eine benutzerdefinierte Nachricht, falls eine angegeben ist.
+</block>
+
+<block type="code" title="Syntax">
+text: $suppressErrors[custom message]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $suppressErrors[Something went wrong! Please try again.]
+</block>
+
+<block type="callout" kind="note">
+text: Dieser Befehl wird beim Parsen erkannt — er muss irgendwo im Skript erscheinen (auch allein auf einer Zeile). Wenn er aktiv ist, werden alle Fehler intern protokolliert, aber nicht den Benutzern angezeigt. Wenn eine benutzerdefinierte Nachricht angegeben ist, wird diese statt des Fehlers gesendet.
+</block>
+
+<block type="callout" kind="warning">
+text: Mit Vorsicht verwenden — das Unterdrücken von Fehlern kann das Debuggen erschweren. Das Skript bricht bei einem Fehler weiterhin ab, nur still.
+</block>
+</dash>
+
+<details>
+syntax: $suppressErrors[(custom message)]
+param: custom message|text|Optional|Eine Nachricht, die dem Benutzer bei einem Fehler statt der Standard-Fehlermeldung gesendet wird. Wenn sie weggelassen wird, werden Fehler still unterdrückt.
+</details>

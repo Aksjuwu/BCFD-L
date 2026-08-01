@@ -1,0 +1,34 @@
+<dash>
+name: $strictArgs
+desc: Erzwingt eine bestimmte Wortzahl-Beschränkung für die Befehlsargumente des Benutzers.
+category: Zugriffskontrolle
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $strictArgs prüft, ob die Anzahl der Wörter, die der Benutzer angegeben hat, der festgelegten Beschränkung entspricht. Wenn die Prüfung fehlschlägt, wird die Fehlermeldung angezeigt und das Skript abgebrochen.
+</block>
+
+<block type="code" title="Syntax">
+text: $strictArgs[comparison; error_message]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $strictArgs[>2; Please provide more than 2 words!]
+</block>
+
+<block type="options" title="Vergleichsoperatoren">
+option: >|Größer als — der Benutzer muss mehr als N Wörter angeben
+option: <|Kleiner als — der Benutzer muss weniger als N Wörter angeben
+option: (none)|Gleich (z. B. einfach 2) — der Benutzer muss genau N Wörter angeben
+option: !|Ungleich — der Benutzer darf NICHT genau N Wörter angeben
+</block>
+
+<block type="callout" kind="note">
+text: Die Wortzahl schließt den Befehlsnamen selbst aus. Wenn der Benutzer zum Beispiel "!cmd hello world" eingibt, beträgt die Wortzahl 2.
+</block>
+</dash>
+
+<details>
+syntax: $strictArgs[comparison; error_message]
+param: Vergleich|text|Erforderlich|Eine Beschränkung wie >2, <2, 2 oder !2, wobei die Zahl die erforderliche Wortzahl ist (einfaches 2 bedeutet genau 2)
+param: error_message|text|Erforderlich|Nachricht, die angezeigt wird, wenn die Wortzahl nicht der Beschränkung entspricht
+</details>

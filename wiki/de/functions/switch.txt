@@ -1,0 +1,27 @@
+<dash>
+name: $switch
+desc: Wählt ein Element aus einer Liste anhand einer Indexzahl aus und gibt es zurück.
+category: Textwerkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $switch nimmt eine Liste von Elementen und eine Indexzahl (als letztes Argument) entgegen. Es gibt das Element an dieser Position zurück (Index ab 1). Dies ist nützlich, um aus vordefinierten Optionen auszuwählen.
+</block>
+
+<block type="code" title="Syntax">
+text: $switch[item1; item2; ... ; index]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $switch[Red; Green; Blue; $randomint[1; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: Der Index ist das LETZTE Argument und muss eine Zahl zwischen 1 und der Gesamtzahl der Elemente sein. Wenn der Index außerhalb des Bereichs liegt, wird ein Fehler zurückgegeben.
+</block>
+</dash>
+
+<details>
+syntax: $switch[item1; item2; ... ; index]
+param: Element|text|Erforderlich|Ein oder mehrere Elemente, aus denen gewählt werden kann
+param: Index|number|Erforderlich|Die Position des zurückzugebenden Elements (ab 1; muss das letzte Argument sein)
+</details>

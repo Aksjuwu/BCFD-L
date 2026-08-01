@@ -1,0 +1,27 @@
+<dash>
+name: $sum
+desc: Addiert zwei oder mehr Zahlen und gibt das Ergebnis zurück.
+category: Mathematik & Zahlen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $sum nimmt zwei oder mehr numerische Argumente entgegen und gibt deren Summe zurück. Funktioniert sowohl als eigenständiger Befehl als auch inline innerhalb anderer Befehle.
+</block>
+
+<block type="code" title="Syntax">
+text: $sum[a; b; ...]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $sendMessage[$sum[8; 2]]
+</block>
+
+<block type="callout" kind="note">
+text: Unterstützt eine beliebige Anzahl von Argumenten. Alle Werte werden als Zahlen behandelt. Wenn ein nicht numerischer Wert angegeben wird, wird ein Fehler zurückgegeben. Das Ergebnis ist eine ganze Zahl, wenn die Summe keinen Dezimalanteil hat.
+</block>
+</dash>
+
+<details>
+syntax: $sum[a; b; ...]
+param: a|number|Erforderlich|Die erste zu addierende Zahl
+param: b|number|Erforderlich|Die zweite zu addierende Zahl (weitere Zahlen werden ebenfalls akzeptiert)
+</details>
