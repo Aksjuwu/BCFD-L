@@ -1,22 +1,34 @@
 <dash>
 name: $returnGuildRolesID
-desc: يُرجع قائمة بجميع معرّفات الأدوار في السيرفر.
-category: Return Commands
+desc: يجمع معرّفات الأدوار من السيرفر، مع التصفية الاختيارية حسب الصلاحية، ويخزنها.
+category: أوامر الإرجاع
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: عند استدعاء $returnGuildRolesID، يجمع البوت معرّفات أدوار Discord الفريدة لجميع الأدوار في السيرفر الحالي ويخزنها. يمكن استرجاع النتيجة لاحقاً باستخدام أمر $return.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $returnGuildRolesID يجمع معرّفات الأدوار من سيرفر محدد، مع التصفية الاختيارية حسب صلاحية مطلوبة. تُخزن النتيجة تحت اسم متغير ويمكن استرجاعها لاحقًا باستخدام $return[variableName]. إذا لم يتم تحديد مرشح صلاحية، يتم جمع جميع الأدوار (باستثناء @everyone).
 </block>
 
-<block type="code" title="Syntax">
-text: $returnGuildRolesID
+<block type="code" title="الصيغة">
+text: $returnGuildRolesID[GuildID; permission; var; separator]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
-text: $returnGuildRolesID
-sendMessage[Total roles: $return[roleIDs]]
+<block type="code" title="مثال جاهز للنسخ">
+text: $returnGuildRolesID[$guildID; all; roleIDs; ,]
+$sendMessage[Roles: $return[roleIDs]]
 </block>
 
 <block type="callout" kind="note">
-text: هذا الأمر يعمل فقط داخل سيرفر. يتم تخزين المعرّفات المجمّعة داخلياً ويمكن الوصول إليها عبر أمر $return بعد التنفيذ.
+text: بالنسبة لمعامل الصلاحية: اتركه فارغًا أو استخدم "all" للحصول على جميع الأدوار. يمكنك أيضًا تحديد صلاحية مسماة (مثال: kick_members، manage_messages) أو رقم صلاحية خام. سيتم تضمين الأدوار التي تمتلك الصلاحية المحددة (أو أعلى) فقط.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يكون البوت عضوًا في السيرفر المستهدف. يتم دائمًا استبعاد دور @everyone من النتائج.
 </block>
 </dash>
+
+<details>
+syntax: $returnGuildRolesID[GuildID; permission; var; separator]
+param: GuildID|snowflake|مطلوب|معرّف السيرفر الذي سيتم جمع الأدوار منه
+param: الصلاحية|text|مطلوب|مرشح الصلاحية: اتركه فارغًا أو استخدم "all" لجميع الأدوار، أو صلاحية مسماة (مثال: kick_members)، أو رقم صلاحية خام
+param: المتغير|text|مطلوب|اسم المتغير لتخزين النتيجة فيه (يُستخدم مع $return[])
+param: الفاصل|text|مطلوب|الفاصل بين المعرّفات المتعددة (مثال: ، أو ؛). يمكنك استخدام فواصل مسماة: dot، com، apo، sem، colon
+</details>

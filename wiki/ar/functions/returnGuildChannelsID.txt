@@ -1,22 +1,39 @@
 <dash>
 name: $returnGuildChannelsID
-desc: يُرجع قائمة بجميع معرّفات القنوات في السيرفر.
-category: Return Commands
+desc: يجمع معرّفات القنوات من السيرفر حسب النوع ويخزنها للاسترجاع لاحقًا.
+category: أوامر الإرجاع
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: عند استدعاء $returnGuildChannelsID، يجمع البوت معرّفات قنوات Discord الفريدة لجميع القنوات في السيرفر الحالي ويخزنها. يمكن استرجاع النتيجة لاحقاً باستخدام أمر $return.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $returnGuildChannelsID يجمع جميع معرّفات القنوات من نوع محدد في سيرفر معين ويخزنها تحت اسم متغير. يمكن استرجاع النتيجة لاحقًا باستخدام $return[variableName]. يمكنك التصفية حسب نوع القناة مثل نصية، صوتية، تصنيفية، منتدى، مرحلة، أو الحصول على جميع القنوات.
 </block>
 
-<block type="code" title="Syntax">
-text: $returnGuildChannelsID
+<block type="code" title="الصيغة">
+text: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
-text: $returnGuildChannelsID
-sendMessage[Total channels: $return[channelIDs]]
+<block type="code" title="مثال جاهز للنسخ">
+text: $returnGuildChannelsID[$guildID; text; channelIDs; ,]
+$sendMessage[Text channels: $return[channelIDs]]
+</block>
+
+<block type="options" title="أنواع القنوات">
+option: all|جميع أنواع القنوات
+option: text|القنوات النصية فقط
+option: voice|القنوات الصوتية فقط
+option: category|القنوات التصنيفية فقط
+option: forum|قنوات المنتدى فقط
+option: stage|قنوات المرحلة فقط
 </block>
 
 <block type="callout" kind="note">
-text: هذا الأمر يعمل فقط داخل سيرفر. يتم تخزين المعرّفات المجمّعة داخلياً ويمكن الوصول إليها عبر أمر $return بعد التنفيذ.
+text: يجب أن يكون البوت عضوًا في السيرفر المستهدف. استخدم $return[variableName] لاسترجاع المعرّفات المخزنة بعد التنفيذ. يحدد الفاصل كيفية ربط المعرّفات المتعددة (مثال: ، أو ؛ أو مسافة).
 </block>
 </dash>
+
+<details>
+syntax: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+param: GuildID|snowflake|مطلوب|معرّف السيرفر الذي سيتم جمع القنوات منه
+param: ChannelType|text|مطلوب|نوع القنوات المراد جمعها: all، text، voice، category، forum، أو stage
+param: المتغير|text|مطلوب|اسم المتغير لتخزين النتيجة فيه (يُستخدم مع $return[])
+param: الفاصل|text|مطلوب|الفاصل بين المعرّفات المتعددة (مثال: ، أو ؛). يمكنك استخدام فواصل مسماة: dot، com، apo، sem، colon
+</details>

@@ -1,10 +1,10 @@
 <dash>
 name: $voiceUsersLimit
-desc: يُعيد حد المستخدمين في قناة صوتية أو قناة مسرح.
-category: القنوات
+desc: يُرجع حد المستخدمين لقناة صوتية أو قناة مرحلة.
+category: القناة
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $voiceUsersLimit يأخذ معرّف قناة صوتية أو مسرح ويُعيد حد المستخدمين فيها. القيمة 0 تعني عدم وجود حد. يُرجع خطأ إذا لم تكن القناة صوتية/مسرح.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $voiceUsersLimit يأخذ معرّف قناة صوتية أو قناة مرحلة ويُرجع حد مستخدميها. القيمة 0 تعني عدم وجود حد. يُرجع خطأً إذا لم تكن القناة قناة صوتية/مرحلة.
 </block>
 
 <block type="code" title="الصيغة">
@@ -16,11 +16,11 @@ text: $voiceUsersLimit[123456789012345678]
 </block>
 
 <block type="callout" kind="note">
-text: يُرجع 0 إذا لم يكن هناك حد مستخدمين مُعيّن للقناة. يمكن استخدامه مباشرة للتحقق الشرطي.
+text: يُرجع 0 إذا لم تكن للقناة قيمة حد مستخدمين مضبوطة. يمكن استخدامها داخليًا (inline) للفحوصات الشرطية.
 </block>
 </dash>
 
 <details>
 syntax: $voiceUsersLimit[voice channel ID]
-param: channelID|text|المطلوب|معرّف القناة الصوتية أو المسرح.
+param: channelID|text|مطلوب|معرّف قناة صوتية أو قناة مرحلة.
 </details>

@@ -1,27 +1,26 @@
 <dash>
 name: $round
-desc: يُقرّب عدداً إلى عدد محدد من خانات العشرية.
-category: Math & Numbers
+desc: يقرّب رقمًا إلى أقرب عدد صحيح.
+category: الرياضيات والأرقام
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $round يأخذ عدداً واختيارياً دقة (عدد خانات العشرية)، ثم يُقرّبه وفقاً لذلك ويرسل النتيجة. إذا لم يتم تحديد الدقة، يتم التقريب لأقرب عدد صحيح.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $round يأخذ قيمة رقمية واحدة، ويقرّبها إلى أقرب عدد صحيح، ويرسل النتيجة. على سبيل المثال، يصبح 1.7 هو 2 و1.4 يصبح 1.
 </block>
 
-<block type="code" title="Syntax">
-text: $round[number; (precision)]
+<block type="code" title="الصيغة">
+text: $round[number]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
-text: $round[3.14159; 2]
+<block type="code" title="مثال جاهز للنسخ">
+text: $round[1.7]
 </block>
 
 <block type="callout" kind="note">
-text: بدون حجّة الدقة، يتم تقريب العد إلى أقرب عدد صحيح. مع الدقة، يتم التقريب إلى ذلك العدد من خانات العشرية.
+text: $round[1.7] يُرجع 2. $round[2.4] يُرجع 2. تقبل الدالة وسيطًا واحدًا؛ إذا لم تكن القيمة رقمًا صالحًا، يتم إرجاع خطأ.
 </block>
 </dash>
 
 <details>
-syntax: $round[number; (precision)]
-param: number|number|Required|العدد المراد تقريره
-param: precision|number|Optional|عدد خانات العشرية للتقريب إليها. إذا غُفل، يتم التقريب لأقرب عدد صحيح.
+syntax: $round[number]
+param: الرقم|number|مطلوب|الرقم المراد تقريبه إلى أقرب عدد صحيح
 </details>

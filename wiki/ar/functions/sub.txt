@@ -1,27 +1,27 @@
 <dash>
 name: $sub
-desc: يطرح الأرقام تسلسلياً من القيمة الأولى ويُرجع النتيجة.
-category: Math & Numbers
+desc: يطرح الأرقام تسلسليًا من القيمة الأولى ويُرجع النتيجة.
+category: الرياضيات والأرقام
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $sub يأخذ حجتين رقميتين أو أكثر. يبدأ بالقيمة الأولى ويطرح كل قيمة لاحقة منها. يعمل كأمر مستقل ومضمن.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $sub يأخذ وسيطين رقميين أو أكثر. يبدأ بالقيمة الأولى ويطرح منها كل قيمة لاحقة. تعمل كدالة مستقلة وداخل النصوص (inline).
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $sub[a; b; ...]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: $sendMessage[Result is $sub[10; 3]]
 </block>
 
 <block type="callout" kind="note">
-text: $sub[10; 3; 2] يُقيَّم إلى 10 - 3 - 2 = 5. إذا مُدّت قيمة غير رقمية، يتم إرجاع خطأ.
+text: $sub[10; 3; 2] تساوي 10 - 3 - 2 = 5. إذا تم توفير قيمة غير رقمية، يتم إرجاع خطأ.
 </block>
 </dash>
 
 <details>
 syntax: $sub[a; b; ...]
-param: a|number|Required|القيمة الأولية (المُطروح منها)
-param: b|number|Required|القيمة المراد طرحها (يتم طرح القيم الإضافية تسلسلياً أيضاً)
+param: a|number|مطلوب|القيمة البادئة (المطروح منها)
+param: b|number|مطلوب|القيمة المراد طرحها (تُطرح القيم الإضافية أيضًا تسلسليًا)
 </details>

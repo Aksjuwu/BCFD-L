@@ -1,28 +1,28 @@
 <dash>
 name: $setVar
-desc: يُخزّن قيمة في متغير دائم.
-category: Variables
+desc: يخزن قيمة في متغير دائم.
+category: المتغيرات
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $setVar يُخزّن قيمة تحت اسماً محدداً للمتغير. بحجّتين، يُخزّن متغيراً عاماً. بثلاث حجج (الاسم والقيمة ومعرّف المستخدم)، يُخزّن متغيراً خاصاً بالمستخدم. تظل القيم محفوظة عبر عمليات إعادة تشغيل البوت.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $setVar يخزن قيمة تحت اسم متغير معين. بوسيطين، يخزن متغيرًا عامًا. بثلاثة وسائط (الاسم، القيمة، معرّف المستخدم)، يخزن متغيرًا خاصًا بالمستخدم. تستمر القيم عبر إعادة تشغيل البوت.
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $setVar[name; value]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: $setVar[greeting; Hello World!]
 </block>
 
 <block type="callout" kind="note">
-text: يتم تخزين المتغيرات على القرص وتتحمل عمليات إعادة تشغيل البوت. استخدم $get retrieve لاسترجاع القيم المخزنة. لا يمكن استخدام $setVar بشكل مضمن (كبدلة).
+text: تُخزن المتغيرات على القرص وتنجو من إعادة تشغيل البوت. استخدم $getVar لاسترجاع القيم المخزنة. لا يمكن استخدام $setVar داخليًا (كبديل نصي).
 </block>
 </dash>
 
 <details>
 syntax: $setVar[name; value; (userID)]
-param: name|text|Required|اسم المتغير لتخزين القيمة تحته
-param: value|text|Required|القيمة المراد تخزينها
-param: userID|snowflake|Optional|إذا مُقدّم، يتم تخزين القيمة كمتغير خاص بالمستخدم بدلاً من عام
+param: الاسم|text|مطلوب|اسم المتغير الذي سيتم تخزين القيمة تحته
+param: القيمة|text|مطلوب|القيمة المراد تخزينها
+param: userID|snowflake|اختياري|إذا تم توفيره، يخزن القيمة كمتغير خاص بالمستخدم بدلاً من متغير عام
 </details>

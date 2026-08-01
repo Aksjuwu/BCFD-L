@@ -1,27 +1,27 @@
 <dash>
 name: $sum
-desc: يُجمع رقمين أو أكثر معاً ويُرجع النتيجة.
-category: Math & Numbers
+desc: يجمع رقمين أو أكثر معًا ويُرجع النتيجة.
+category: الرياضيات والأرقام
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $sum يأخذ حجتين رقميتين أو أكثر ويُرجع مجموعها. يعمل كأمر مستقل ومضمن داخل أوامر أخرى.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $sum يأخذ وسيطين رقميين أو أكثر ويُرجع مجموعهما. تعمل كدالة مستقلة وداخل وسائط دوال أخرى (inline).
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $sum[a; b; ...]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: $sendMessage[$sum[8; 2]]
 </block>
 
 <block type="callout" kind="note">
-text: يدعم أي عدد من الحجج. تُعالج جميع القيم كأرقام. إذا مُدّت قيمة غير رقمية، يتم إرجاع خطأ. النتيجة عدد صحيح إذا لم يكن المجموع يحتوي على جزء عشري.
+text: تدعم أي عدد من الوسائط. تُعامل جميع القيم كأرقام. إذا تم توفير قيمة غير رقمية، يتم إرجاع خطأ. تكون النتيجة عددًا صحيحًا إذا لم يكن للمجموع جزء عشري.
 </block>
 </dash>
 
 <details>
 syntax: $sum[a; b; ...]
-param: a|number|Required|الرقم الأول المراد جمعه
-param: b|number|Required|الرقم الثاني المراد جمعه (يُقبل أرقام إضافية أيضاً)
+param: a|number|مطلوب|الرقم الأول المراد جمعه
+param: b|number|مطلوب|الرقم الثاني المراد جمعه (يُقبل أيضًا المزيد من الأرقام)
 </details>

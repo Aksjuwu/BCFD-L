@@ -1,21 +1,21 @@
 <dash>
 name: $serverOwnerID
-desc: يُرجع معرّف مستخدم Discord لمالك السيرفر.
-category: Info
+desc: يُرجع معرّف مستخدم ديسكورد لمالك السيرفر.
+category: معلومات
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: عند استدعاء $serverOwnerID، يسترجع البوت معرّف مستخدم Discord الفريد لمالك السيرفر ويرسله مباشرة كرقم خام.
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $serverOwnerID، يسترجع البوت معرّف مستخدم ديسكورد الفريد لمالك السيرفر ويرسله مباشرة كسلسلة رقمية خام.
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $serverOwnerID
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: Server owner ID: $serverOwnerID
 </block>
 
 <block type="callout" kind="note">
-text: هذا الأمر يعمل فقط داخل سيرفر (وليس في الرسائل الخاصة). القيمة المرجعة هي معرّف المستخدم snowflake للحساب الذي يملك السيرفر.
+text: تعمل هذه الدالة فقط داخل سيرفر (وليس في الرسائل الخاصة). القيمة المرجعة هي معرّف الثلج (snowflake) لحساب مالك السيرفر.
 </block>
 </dash>

@@ -1,27 +1,37 @@
 <dash>
 name: $roleAssign
-desc: يُعيّن أو يزيل دوراً من عضو في السيرفر.
-category: Moderation
+desc: يضيف أو يزيل دورًا واحدًا أو أكثر من عضو في السيرفر.
+category: الإشراف
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $roleAssign يأخذ معرّف/ذكر دور ومعرّف/ذكر مستخدم. يضيف أو يزيل البوت الدور المحدد من العضو المستهدف. يعتمد الإجراء على ما إذا كان يتم استخدام وضع تبديل الدور.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $roleAssign يأخذ مستخدمًا كأول وسيط، متبوعًا بعملية دور واحدة أو أكثر. تبدأ كل عملية دور بالرمز + لإضافة الدور أو بالرمز - لإزالته، متبوعًا بمعرّف الدور أو منشوره. يمكن تعيين أو إزالة أدوار متعددة في استدعاء واحد.
 </block>
 
-<block type="code" title="Syntax">
-text: $roleAssign[role ID or @mention; user ID or @mention]
+<block type="code" title="الصيغة">
+text: $roleAssign[user; +role1; -role2; ...]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
-text: $roleAssign[&123456789; 987654321]
+<block type="code" title="مثال جاهز للنسخ">
+text: $roleAssign[$authorID; +&123456789; -&987654321]
+</block>
+
+<block type="options" title="بادئات الأدوار">
+option: +|يضيف الدور إلى المستخدم (مثال: +&123456789 أو +@RoleName)
+option: -|يزيل الدور من المستخدم (مثال: -&123456789 أو -@RoleName)
 </block>
 
 <block type="callout" kind="note">
-text: يجب أن يمتلك البوت صلاحية "Manage Roles" وأن يكون دوره الأعلى أعلى من الدور المستهدف. يجب أن يكون المستخدم المستهدف عضواً في السيرفر.
+text: يمكنك تعيين وإزالة أدوار متعددة في استدعاء واحد. المستخدم هو دائمًا الوسيط الأول. يجب أن يمتلك البوت صلاحية "إدارة الأدوار" ويجب أن يكون أعلى دور لديه أعلى من الأدوار التي يتم تعيينها.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يكون المستخدم المستهدف عضوًا في السيرفر. إذا كان معرّف الدور غير صالح، يتم تخطي عملية الدور هذه. إذا كان البوت يفتقر إلى الصلاحيات أو كانت هناك مشكلة في التسلسل الهرمي للأدوار، يتم إرجاع خطأ.
 </block>
 </dash>
 
 <details>
-syntax: $roleAssign[role ID or @mention; user ID or @mention]
-param: role ID or @mention|text|Required|معرّف أو ذكر الدور المراد تعيينه
-param: user ID or @mention|text|Required|معرّف أو ذكر المستخدم المراد تعيين الدور له
+syntax: $roleAssign[user; +role1; -role2; ...]
+param: المستخدم|text|مطلوب|معرّف المستخدم أو منشوره (@mention) للعضو الذي سيتم تعديل أدواره
+param: +role1|text|مطلوب|دور للإضافة: أسبقه بالرمز + متبوعًا بمعرّف الدور أو منشوره (مثال: +&123456789)
+param: -role2|text|اختياري|دور للإزالة: أسبقه بالرمز - متبوعًا بمعرّف الدور أو منشوره. يمكنك تضمين عمليات +/- متعددة.
 </details>
