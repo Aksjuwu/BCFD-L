@@ -1,0 +1,31 @@
+<dash>
+name: $onBotMessage
+desc: حدث يُطلق عند كل رسالة يرسلها بوت (بما في ذلك البوتات الأخرى).
+category: الحدث
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $onBotMessage هو بادئة حدث تُطلق سكربت FDScript عندما يرسل أي بوت رسالة. افتراضيًا يتجاهل السكربت الرسائل المرسلة من قبل البوت نفسه ويتفاعل فقط مع البوتات الأخرى. اضبط الوسيطة على yes لتشغيل السكربت أيضًا على رسائل البوت الخاصة، أو على no لتخطي رسائله الخاصة (وهذا أيضًا هو السلوك الافتراضي عندما تكون الوسيطة فارغة).
+</block>
+
+<block type="code" title="الصيغة">
+text: #PREFIX:$onBotMessage[yes/no]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: #PREFIX:$onBotMessage[no]
+$sendMessage[Another bot said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: استخدم yes لتتبع رسائل البوت الخاصة، أو no للتفاعل مع البوتات الأخرى فقط. يستخدم المثال أعلاه $message لقراءة محتوى رسالة البوت.
+</block>
+
+<block type="callout" kind="important">
+text: يعمل هذا الحدث في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotMessage[(yes/no)]
+param: yes/no|text|اختياري|yes للتشغيل أيضًا على رسائل البوت الخاصة، no (الافتراضي) للتفاعل مع البوتات الأخرى فقط
+</details>

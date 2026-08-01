@@ -1,0 +1,26 @@
+<dash>
+name: $floor
+desc: يقرّب رقماً للأسفل إلى أقرب عدد صحيح.
+category: الرياضيات والأرقام
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $floor يأخذ قيمة رقمية واحدة ويقرّبها للأسفل إلى أقرب عدد صحيح (الجزء الصحيح). على سبيل المثال، 3.9 تصبح 3، و-2.1 تصبح -3. يعمل كدالة مستقلة وكداخل في الدوال الأخرى أيضاً.
+</block>
+
+<block type="code" title="الصيغة">
+text: $floor[number]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Result is $floor[3.9]]
+</block>
+
+<block type="callout" kind="note">
+text: $floor[3.9] يعيد 3. $floor[-2.1] يعيد -3. $floor[5.0] يعيد 5. النتيجة دائماً عدد صحيح.
+</block>
+</dash>
+
+<details>
+syntax: $floor[number]
+param: number|number|مطلوب|الرقم المراد تقريبه للأسفل إلى أقرب عدد صحيح، مثال: 3.9، -2.1، 10
+</details>

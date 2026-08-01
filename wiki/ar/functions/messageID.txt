@@ -1,10 +1,10 @@
 <dash>
 name: $messageID
-desc: يُعيد معرّف رسالة Discord للرسالة التي شغّلت الأمر.
+desc: إرجاع معرّف رسالة Discord للرسالة التي شغّلت الأمر.
 category: معلومات
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: عند استدعاء $messageID، يجلب البوت معرّف رسالة Discord الفريد للرسالة المُفعّلة ويُرسله مباشرة كنصّ رقمي خام.
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $messageID، يسترجع البوت معرّف رسالة Discord الفريد للرسالة المشغّلة ويرسلها مباشرة كسلسلة رقمية خام.
 </block>
 
 <block type="code" title="الصيغة">
@@ -16,6 +16,6 @@ text: Your message ID is $messageID
 </block>
 
 <block type="callout" kind="note">
-text: القيمة المُرتدّدة هي معرّف snowflake (مثال: 123456789012345678)، الذي يُعرّف الرسالة المُفعّلة بشكل فريد.
+text: القيمة المرجعة هي معرّف snowflake (مثل 123456789012345678)، والذي يحدد بشكل فريد الرسالة التي شغّلت السكربت.
 </block>
 </dash>

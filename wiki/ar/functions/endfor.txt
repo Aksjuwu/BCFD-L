@@ -1,10 +1,10 @@
 <dash>
 name: $endfor
-desc: يُعلّم نهاية كتلة حلقة $for.
-category: التحكّم بالتدفّق
+desc: يحدد نهاية كتلة حلقة $for.
+category: التحكم في التدفق
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يُشير $endfor إلى حدّ الإغلاق لحلقة $for. بعد كلّ تكرار، يعود التنفيذ إلى أعلى جسم الحلقة. يجب أن يكون لكلّ $for ما يُقابلها من $endfor.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $endfor يشير إلى الحدود الختامية لحلقة $for. بعد كل تكرار، يعود التنفيذ إلى أعلى جسم الحلقة. يجب أن يكون لكل $for $endfor مطابق.
 </block>
 
 <block type="code" title="الصيغة">
@@ -18,6 +18,6 @@ $endfor
 </block>
 
 <block type="callout" kind="warning">
-text: يجب إغلاق كلّ كتلة $for بشكل صحيح بـ $endfor. غياب $endfor سيسبّب خطأ في السكربت.
+text: يجب إغلاق كل كتلة $for بشكل صحيح باستخدام $endfor. نقص $endfor سيسبب خطأً في السكربت.
 </block>
 </dash>

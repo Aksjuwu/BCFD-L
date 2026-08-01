@@ -1,10 +1,10 @@
 <dash>
 name: $endwhile
-desc: يُعلّم نهاية كتلة حلقة $while.
-category: التحكّم بالتدفّق
+desc: يحدد نهاية كتلة حلقة $while.
+category: التحكم في التدفق
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يُشير $endwhile إلى حدّ الإغلاق لحلقة $while. بعد كلّ تكرار، يعود التنفيذ إلى شرط $while لإعادة تقييمه. يجب أن يكون لكلّ $while ما يُقابلها من $endwhile.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $endwhile يشير إلى الحدود الختامية لحلقة $while. بعد كل تكرار، يعود التنفيذ إلى شرط $while لإعادة تقييمه. يجب أن يكون لكل $while $endwhile مطابق.
 </block>
 
 <block type="code" title="الصيغة">
@@ -20,6 +20,6 @@ $endwhile
 </block>
 
 <block type="callout" kind="warning">
-text: يجب إغلاق كلّ كتلة $while بشكل صحيح بـ $endwhile. غياب $endwhile سيسبّب خطأ في السكربت. تأكّد من وجود شرط إنهاء لحلقتك لتجنّب الحلقات اللانهائيّة.
+text: يجب إغلاق كل كتلة $while بشكل صحيح باستخدام $endwhile. نقص $endwhile سيسبب خطأً في السكربت. تأكد من أن حلقتك تحتوي على شرط إنهاء لتجنب الحلقات اللانهائية.
 </block>
 </dash>

@@ -1,32 +1,32 @@
 <dash>
 name: $onInteraction
-desc: حدث يتم تشغيله عند حدوث تفاعل مع مكون (زر/قائمة منسدلة).
-category: Event
+desc: حدث يُطلق عند حدوث تفاعل مكوّن (زر/قائمة اختيار).
+category: الحدث
 
-<block type="text" title="كيف يعمل الحدث؟">
-text: $onInteraction هو بادئة حدث يقوم بتشغيل FDScript عندما يتفاعل المستخدم مع مكون (نقر زر، قائمة منسدلة، إلخ). يمكنك اختيارياً تحديد معرّف مخصص لتشغيل الحدث لمكونات محددة فقط. بدون معرّف، يتم تشغيله لجميع تفاعلات المكونات.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $onInteraction هو بادئة حدث تُطلق سكربت FDScript عندما يتفاعل مستخدم مع مكوّن (نقرة زر، قائمة اختيار، إلخ). يمكنك اختياريًا تحديد معرّف مخصص للتفعيل فقط لمكوّنات محددة. بدون معرّف، يتم التفعيل لجميع تفاعلات المكوّنات.
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: #PREFIX:$onInteraction
 text: #PREFIX:$onInteraction[button_custom_id]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: #PREFIX:$onInteraction[confirm_btn]
  sendMessage[You clicked the confirm button!]
 </block>
 
 <block type="callout" kind="note">
-text: استخدم $onInteraction بدون أقواس للتعامل مع جميع التفاعلات، أو مع custom_id محدد للتعامل مع مكون معين فقط.
+text: استخدم $onInteraction بدون أقواس للتعامل مع جميع التفاعلات، أو مع custom_id محدد للتعامل مع ذلك المكوّن فقط.
 </block>
 
 <block type="callout" kind="important">
-text: هذا الحدث يعمل في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+text: يعمل هذا الحدث في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
 </block>
 </dash>
 
 <details>
 syntax: #PREFIX:$onInteraction[(custom_id)]
-param: customID|text|Optional|المعرّف المخصص للمكون المحدد المستمع إليه. إذا كان فارغاً، يتم التشغيل لجميع التفاعلات.
+param: customID|text|اختياري|معرّف custom_id لمكوّن محدد للاستماع إليه. إذا كان فارغًا، يُفعَّل لجميع التفاعلات.
 </details>

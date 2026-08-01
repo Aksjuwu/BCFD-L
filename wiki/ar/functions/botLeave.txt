@@ -1,0 +1,27 @@
+<dash>
+name: $botLeave
+desc: يجعل البوت يغادر سيرفرًا (guild).
+category: السيرفر
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $botLeave تجعل البوت يغادر السيرفر المحدد. عندما لا يُعطى أي معرّف سيرفر، يغادر البوت السيرفر الذي استُخدمت فيه الدالة. عندما يُعطى معرّف سيرفر، تُغادر تلك السيرفر بدلاً من ذلك (يعمل هذا حتى من رسالة خاصة، طالما أن البوت عضو في السيرفر الهدف).
+</block>
+
+<block type="code" title="الصيغة">
+text: $botLeave
+text: $botLeave[guildID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $botLeave
+</block>
+
+<block type="callout" kind="warning">
+text: يزيل هذا البوت من السيرفر فورًا. إذا لم يُقدَّم معرّف سيرفر واستُخدمت الدالة خارج سيرفر (في الرسائل الخاصة)، يُعاد خطأ. يجب أن تكون وسيطة معرّف السيرفر رقمًا من نوع snowflake.
+</block>
+</dash>
+
+<details>
+syntax: $botLeave[(guildID)]
+param: معرّف السيرفر|snowflake|اختياري|معرّف السيرفر المطلوب مغادرته. إذا حُذف، يُغادر السيرفر الحالي.
+</details>

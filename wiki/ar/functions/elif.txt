@@ -1,10 +1,10 @@
 <dash>
 name: $elif
-desc: يوفّر شرطاً بديلاً داخل كتلة $if عندما تكون الشروط السابقة خاطئة.
-category: التحكّم بالتدفّق
+desc: يوفر شرطاً بديلاً داخل كتلة $if عندما تكون الشروط السابقة خاطئة.
+category: التحكم في التدفق
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يُستخدم $elif داخل كتلة $if لإضافة شروط إضافيّة. عند كون الشرط السابق $if (أو $elif) خاطئاً، يُفحص الشرط التالي $elif. إذا كان صحيحاً، يُنفّذ كتلة الكود الخاصّة به.
+<block type="text" title="كيف تعمل الدالة؟">
+text: يُستخدم $elif داخل كتلة $if لإضافة شروط إضافية. عندما يكون شرط $if (أو $elif) السابق خاطئاً، يتم فحص شرط $elif التالي. إذا كان صحيحاً، يتم تنفيذ كتلة الكود الخاصة به.
 </block>
 
 <block type="code" title="الصيغة">
@@ -20,11 +20,11 @@ $endif
 </block>
 
 <block type="callout" kind="note">
-text: يجب وضع $elif بين $if و$endif. يمكن ربط كتل $elif متعدّدة. لا تُنفّذ إلا كتلة الكود الخاصة بأوّل شرط يتطابق.
+text: يجب وضع $elif بين $if و $endif. يمكن ربط عدة كتل $elif معاً. يتم تنفيذ كتلة الكود الخاصة بالشرط الأول المطابق فقط.
 </block>
 </dash>
 
 <details>
 syntax: $elif[condition]
-param: condition|expression|Required|الشرط المراد تقييمه (مثال: $message == hello، $authorID == 123). يستخدم نفس العمليّات المقارنة مثل $if.
+param: condition|expression|مطلوب|الشرط المطلوب تقييمه (مثال: $message == hello، $authorID == 123). يستخدم نفس معاملات $if.
 </details>

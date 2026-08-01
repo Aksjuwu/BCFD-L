@@ -1,21 +1,21 @@
 <dash>
 name: $ping
-desc: يُرجع زمن استجابة البوت (زمن الاستجابة) لبوابة Discord بالمللي ثانية.
-category: Utilities
+desc: إرجاع زمن استجابة البوت (وقت الاستجابة) لبوابة Discord بالمللي ثانية.
+category: أدوات
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يجلب الأمر سرعة الاتصال الحالية بين البوت وبوابة Discord، ثم يُرسل النتيجة مباشرة كرقم خام يمثل الزمن بالمللي ثانية.
+<block type="text" title="كيف تعمل الدالة؟">
+text: يجلب الأمر سرعة الاتصال الحالية بين البوت وبوابة Discord Gateway، ثم يرسل النتيجة مباشرة كرقم خام يمثل الوقت بالمللي ثانية.
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $ping
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: $ping pong!
 </block>
 
 <block type="callout" kind="note">
-text: القيمة الناتجة تمثل سرعة استجابة خادم البوت. كلما كان الرقم الأقل، كان البوت أسرع في الاستجابة للأوامر والتفاعلات.
+text: القيمة الناتجة تمثل استجابة خادم البوت. كلما كان الرقم المعاد أصغر، كان البوت أسرع في الاستجابة للأوامر والتفاعلات.
 </block>
 </dash>

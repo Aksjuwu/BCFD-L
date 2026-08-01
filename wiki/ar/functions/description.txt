@@ -1,10 +1,10 @@
 <dash>
 name: $description
-desc: يُعيّن نص الوصف للـ embed الذي يتم بناؤه.
-category: بناء الـ Embed
+desc: يضبط نص وصف الإيمبد الجاري بناؤه.
+category: منشئ الإيمبد
 
-<block type="text" title="كيف تعمل الأوامر؟">
-text: يأخذ $description نصاً ويُعيّنه كنص الجسم/الوصف الرئيسي للـ embed الحالي قيد الإنشاء. هذا هو منطقة المحتوى الأساسية في الـ embed.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $description تأخذ وسيطة نصية وتضبطها كنص الجسم/الوصف الرئيسي للإيمبد الحالي الجاري إنشاؤه. هذه هي منطقة المحتوى الأساسية للإيمبد.
 </block>
 
 <block type="code" title="الصيغة">
@@ -16,11 +16,11 @@ text: $description[This is the embed body text]
 </block>
 
 <block type="callout" kind="note">
-text: يدعم الوصف تنسيق Discord markdown (غامق، مائل، كتل كود، إلخ). يظهر أسفل العنوان في الـ embed.
+text: يدعم الوصف تنسيق markdown في Discord (غامق، مائل، أكواد، إلخ). يظهر أسفل العنوان في الإيمبد.
 </block>
 </dash>
 
 <details>
 syntax: $description[text]
-param: text|text|موصى به|نص الوصف للـ embed. يدعم تنسيق Discord markdown.
+param: النص|text|مطلوب|نص الوصف للإيمبد. يدعم تنسيق markdown في Discord.
 </details>

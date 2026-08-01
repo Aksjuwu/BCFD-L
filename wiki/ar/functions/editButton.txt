@@ -1,10 +1,10 @@
 <dash>
 name: $editButton
-desc: يُعدّل خصائص زر موجود على رسالة.
-category: المكونات
+desc: يعدّل خصائص زر موجود على رسالة.
+category: المكوّنات
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يبحث $editButton عن زر بمعرّفه أو رابطه على رسالة ثم يُحدّث نصّه ونمطه وحالته التعطيل و/أو إيموجيه. يمكنه استهداف أزرار في عرض معلّق أو رسالة تفاعل مصدريّة أو رسالة محدّدة بمعرّفها.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $editButton يبحث عن زر بواسطة معرفه أو رابطه على رسالة ويحدّث نصّه ونمطه وحالة تعطيله و/أو إيموجيه. يمكنه استهداف الأزرار في عرض معلّق، أو رسالة مصدر التفاعل، أو رسالة محددة بواسطة معرفها.
 </block>
 
 <block type="code" title="الصيغة">
@@ -16,20 +16,20 @@ text: $editButton[btn_confirm; Confirmed; success]
 </block>
 
 <block type="callout" kind="note">
-text: إذا تمّ تمرير messageID، يجلب البوت تلك الرسالة المحدّدة ويُعدّل الزر فيها. وإلّا، يبحث أولاً في العرض المعلّق ثمّ في رسالة التفاعل المصدريّة.
+text: إذا تم توفير messageID، فإن البوت يجلب تلك الرسالة المحددة ويعدّل الزر الموجود عليها. وإلا، فإنه يبحث في العرض المعلّق، ثم في رسالة مصدر التفاعل، ثم في آخر رسالة أرسلها البوت.
 </block>
 
 <block type="callout" kind="warning">
-text: يجب أن تكون الرسالة المستهدفة قد أُرسلت بواسطة هذا البوت. ويجب أن يكون الزر موجوداً بالفعل على الرسالة بالمعرّف أو الرابط المعطى.
+text: يجب أن تكون الرسالة الهدف قد أُرسلت بواسطة هذا البوت. يجب أن يكون الزر موجوداً بالفعل على الرسالة بالمعرف أو الرابط المعطى.
 </block>
 </dash>
 
 <details>
 syntax: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
-param: ID/URL|text|Required|المعرّف المخصص أو رابط الزر المراد تعديله
-param: label|text|Required|النصّ الجديد الذي سيظهر على الزر
-param: style|text|Required|primary / secondary / success / danger / link
-param: disabled|yes/no|Optional|yes لتعطيل الزر، no لتفعيله
-param: emoji|text|Optional|إيموجي جديد لعرضه داخل الزر
-param: messageID|snowflake|Optional|معرّف رسالة بوت محدّدة لتعديل الزر فيها
+param: ID/URL|text|مطلوب|المعرف المخصص أو رابط الزر المراد تعديله
+param: label|text|مطلوب|النص الجديد الذي سيُعرض على الزر
+param: style|text|مطلوب|primary / secondary / success / danger / link
+param: disabled|yes/no|اختياري|yes لتعطيل الزر، no لتفعيله
+param: emoji|text|اختياري|إيموجي جديد للعرض داخل الزر
+param: messageID|snowflake|اختياري|معرف رسالة بوت محددة لتعديل الزر عليها
 </details>

@@ -1,0 +1,28 @@
+<dash>
+name: $findRole
+desc: يبحث عن دور بالاسم أو المعرف أو المنشن ويعيد معرف الدور.
+category: أداة
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $findRole يبحث عن دور في السيرفر الحالي باستخدام منشن دور، أو معرف دور رقمي، أو اسم دور (مطابقة الاسم غير حساسة لحالة الأحرف). يعيد معرف الدور. عند استخدامه بمفرده، يتم إرسال المعرف إلى القناة؛ وعند استخدامه داخل النص، يتم استبدال المعرف مباشرة في النص المحيط.
+</block>
+
+<block type="code" title="الصيغة">
+text: $findRole[name]
+text: $findRole[roleID]
+text: $findRole[@role]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $findRole[Moderators]
+</block>
+
+<block type="callout" kind="note">
+text: يمكن استخدام هذه الدالة داخل السيرفر فقط. إذا لم يتم العثور على دور، يتم إرجاع خطأ.
+</block>
+</dash>
+
+<details>
+syntax: $findRole[query]
+param: query|text|مطلوب|منشن دور، أو معرف دور، أو اسم دور للبحث عنه (غير حساس لحالة الأحرف)
+</details>

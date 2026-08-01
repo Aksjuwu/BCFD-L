@@ -1,21 +1,21 @@
 <dash>
 name: $randomUserID
-desc: يُرجع معرّف مستخدم لعضو بشري عشوائي من السيرفر.
-category: Randomness
+desc: إرجاع معرّف مستخدم لعضو بشري عشوائي من السيرفر.
+category: العشوائية
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: عند استدعاء $randomUserID، يجمع البوت جميع الأعضاء غير البوتات في السيرفر الحالي، يختار واحداً عشوائياً، ويرسل معرّف المستخدم كنص رقمي خام.
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $randomUserID، يجمع البوت جميع الأعضاء غير البوتات في السيرفر الحالي، ويختار واحدًا عشوائيًا، ويرسل معرّف المستخدم الخاص به كسلسلة رقمية خام.
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $randomUserID
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: Random user ID: $randomUserID
 </block>
 
 <block type="callout" kind="note">
-text: هذا الأمر يعمل فقط داخل سيرفر (وليس في الرسائل الخاصة). حسابات البوتات مستبعدة من مجموعة الاختيار. إذا لم يكن هناك أعضاء بشريون، سيفشل الأمر بخطأ.
+text: يعمل هذا الأمر داخل السيرفر فقط (وليس في الرسائل الخاصة). يتم استبعاد حسابات البوتات من مجموعة الاختيار. إذا لم يوجد أعضاء بشر، سيفشل الأمر بخطأ.
 </block>
 </dash>

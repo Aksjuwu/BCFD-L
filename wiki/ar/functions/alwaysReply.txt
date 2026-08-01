@@ -1,10 +1,10 @@
 <dash>
 name: $alwaysReply
-desc: حدث يُشغّل على كل رسالة غير صادرة عن البوت.
+desc: حدث يُشغَّل عند كل رسالة من غير البوت.
 category: الحدث
 
-<block type="text" title="كيف تعمل الأحداث؟">
-text: $alwaysReply هو بادئة حدث تُشغّل FDScript لكل رسالة يرسلها مستخدم ليس بوتاً. يعمل السكربت كرد على الرسالة الأصلية. هذا مفيد للردود التلقائية أو معالجة الرسائل.
+<block type="text" title="كيف يعمل الحدث؟">
+text: $alwaysReply هي بادئة حدث تشغّل سكربت FDScript لكل رسالة يرسلها مستخدم غير البوت. يعمل السكربت كرد على الرسالة الأصلية. هذا مفيد للردود التلقائية أو معالجة الرسائل.
 </block>
 
 <block type="code" title="الصيغة">
@@ -13,15 +13,15 @@ text: #PREFIX:$alwaysReply
 
 <block type="code" title="مثال جاهز للنسخ">
 text: #PREFIX:$alwaysReply
-  sendMessage[You said: $message]
+ sendMessage[You said: $message]
 </block>
 
 <block type="callout" kind="warning">
-text: هذا يُشغّل على كل رسالة. استخدمه بحذر لتجنب نشاط البوت المفرط أو حدود المعدل.
+text: يتم تشغيل هذا على كل رسالة. استخدمه بحذر لتجنب النشاط الزائد للبوت أو حدود المعدل.
 </block>
 
 <block type="callout" kind="important">
-text: هذا الحدث يعمل في مجلد bot_events، وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+text: يعمل هذا الحدث في مجلد bot_events، وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
 </block>
 </dash>
 

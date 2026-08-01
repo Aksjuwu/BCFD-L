@@ -1,10 +1,10 @@
 <dash>
 name: $math
-desc: يُقيّم تعبيراً رياضيّاً ويُعيد النتيجة.
-category: الرياضيّات والأرقام
+desc: يقيّم تعبيرًا رياضيًا ويعيد النتيجة.
+category: الرياضيات والأرقام
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يأخذ $math تعبيراً رياضيّاً، يُقيّمه بأمان باستخدام محلّل AST الخاص بـ Python، ويُرسل النتيجة. يدعم العمليّات الحسابيّة الأساسية والأسس ودوال الرياضيّات الشائعة.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $math يأخذ تعبيرًا رياضيًا، ويقيمه بأمان باستخدام محلل AST الخاص بـ Python، ثم يرسل النتيجة. يدعم العمليات الحسابية الأساسية والأسس والدوال الرياضية الشائعة.
 </block>
 
 <block type="code" title="الصيغة">
@@ -15,32 +15,32 @@ text: $math[expression]
 text: $math[2 + 2 * 3]
 </block>
 
-<block type="options" title="العمليّات المدعومة">
-option: +|جمع
-option: -|طرح
-option: *|ضرب
-option: /|قسمة
-option: //|قسمة صحيحة
-option: %|باقي القسمة
-option: **|أسس
+<block type="options" title="العوامل المدعومة">
+option: +|الجمع
+option: -|الطرح
+option: *|الضرب
+option: /|القسمة
+option: //|القسمة الصحيحة
+option: %|المودولو (الباقي)
+option: **|الأس
 </block>
 
 <block type="options" title="الدوال المدعومة">
-option: sqrt| الجذر التربيعي
-option: abs|قيمة مطلقة
-option: ceil|تقريب للأعلى
-option: floor|تقريب للأسفل
-option: round|تقريب لأقرب عدد
-option: log/log2/log10|لوغاريتم
-option: sin/cos/tan|دوال مثلّثيّة
+option: sqrt|الجذر التربيعي
+option: abs|القيمة المطلقة
+option: ceil|التقريب لأعلى
+option: floor|التقريب لأسفل
+option: round|التقريب لأقرب عدد
+option: log/log2/log10|اللوغاريتم
+option: sin/cos/tan|الدوال المثلثية
 </block>
 
 <block type="callout" kind="note">
-text: الثوابت pi وe وinf متاحة. يُقيَّم التعبير بأمان — لا يمكن تنفيذ كود عشوائي. القسمة على صفر تُعيد خطأ.
+text: الثوابت pi وe وinf متاحة. يتم تقييم التعبير بأمان — لا يمكن تنفيذ كود عشوائي. القسمة على صفر تُرجع خطأ.
 </block>
 </dash>
 
 <details>
 syntax: $math[expression]
-param: expression|text|Required|تعبير رياضيّ المراد تقييمه، مثال: 2 + 2، sqrt(16)، pi * 2
+param: expression|text|مطلوب|تعبير رياضي للتقييم، مثل 2 + 2 أو sqrt(16) أو pi * 2
 </details>

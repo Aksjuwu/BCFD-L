@@ -1,10 +1,10 @@
 <dash>
 name: $editMessage
-desc: يُعدّل رسالة بوت سابقة في أيّ قناة، مع تحويلها اختياريّاً إلى مُضمَن.
-category: المراسلة
+desc: يعدّل رسالة بوت أُرسلت سابقاً في أي قناة، مع إمكانية تحويلها إلى إيمبد.
+category: الرسائل
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يجلب $editMessage رسالة بوت محدّدة بمعرّف القناة ومعرّف الرسالة ثمّ يُعدّل محتواها. اختياريّاً، يمكنك تمرير عنوان ووصف ولون وتذييل لتحويل الرسالة إلى مُضمَن.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $editMessage يجلب رسالة بوت محددة بواسطة معرف القناة ومعرف الرسالة، ثم يعدّل محتواها. اختيارياً، يمكنك توفير عنوان ووصف ولون وتذييل لتحويل الرسالة إلى إيمبد.
 </block>
 
 <block type="code" title="الصيغة">
@@ -16,21 +16,21 @@ text: $editMessage[$channelID; 123456789; Updated content!]
 </block>
 
 <block type="callout" kind="note">
-text: يجب أن تكون الرسالة المستهدفة قد أُرسلت بواسطة هذا البوت. إذا تمّ تمرير معاملات مُضمَن اختياريّة، تُعدّل الرسالة لتضمّن مُضمَن بجانب المحتوى.
+text: يجب أن تكون الرسالة الهدف قد أُرسلت بواسطة هذا البوت. إذا تم توفير معاملات الإيمبد الاختيارية، يتم تعديل الرسالة لتشمل إيمبداً بجانب المحتوى.
 </block>
 
 <block type="callout" kind="warning">
-text: يجب أن يمتلك البوت إذن عرض وتعديل الرسائل في القناة المستهدفة.
+text: يجب أن يمتلك البوت صلاحية عرض وتعديل الرسائل في القناة الهدف.
 </block>
 </dash>
 
 <details>
 syntax: $editMessage[channelID; messageID; content; (title; description; color; footer)]
-param: channelID|snowflake|Required|معرّف القناة تحتوي الرسالة
-param: messageID|snowflake|Required|معرّف رسالة البوت المراد تعديلها
-param: content|text|Required|المحتوى النصّي الجديد للرسالة
-param: title|text|Optional|عنوان المُضمَن المراد إلحاقه بالرسالة
-param: description|text|Optional|وصف المُضمَن
-param: color|text|Optional|لون المُضمَن بالتنسيق العشريني
-param: footer|text|Optional|نصّ التذييل الخاص بالمُضمَن
+param: channelID|snowflake|مطلوب|معرف القناة التي تحتوي على الرسالة
+param: messageID|snowflake|مطلوب|معرف رسالة البوت المراد تعديلها
+param: content|text|مطلوب|محتوى النص الجديد للرسالة
+param: title|text|اختياري|عنوان إيمبد لإرفاقه بالرسالة
+param: description|text|اختياري|وصف الإيمبد
+param: color|text|اختياري|اللون الست عشري للإيمبد
+param: footer|text|اختياري|نص تذييل الإيمبد
 </details>

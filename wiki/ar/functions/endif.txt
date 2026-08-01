@@ -1,10 +1,10 @@
 <dash>
 name: $endif
-desc: يُعلّم نهاية كتلة $if أو $elif.
-category: التحكّم بالتدفّق
+desc: يحدد نهاية كتلة $if أو $elif.
+category: التحكم في التدفق
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يُشير $endif إلى حدّ الإغلاق لكتلة $if الشرطيّة. الكود الواقف بين $if و$endif لا يُنفّذ إلا عند تحقّق الشرط. يجب أن يكون لكلّ $if ما يُقابلها من $endif.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $endif يشير إلى الحدود الختامية لكتلة $if الشرطية. يتم تنفيذ جميع الأكواد بين $if و $endif فقط عند تحقق الشرط. يجب أن يكون لكل $if $endif مطابق.
 </block>
 
 <block type="code" title="الصيغة">
@@ -18,6 +18,6 @@ $endif
 </block>
 
 <block type="callout" kind="warning">
-text: يجب إغلاق كلّ كتلة $if بشكل صحيح بـ $endif. غياب $endif سيسبّب خطأ في السكربت.
+text: يجب إغلاق كل كتلة $if بشكل صحيح باستخدام $endif. نقص $endif سيسبب خطأً في السكربت.
 </block>
 </dash>

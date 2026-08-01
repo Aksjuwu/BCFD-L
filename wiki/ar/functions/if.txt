@@ -1,10 +1,10 @@
 <dash>
 name: $if
-desc: يُقيّم شرطاً ويُنفّذ كتلة الكود المحصورة إذا كان الشرط صحيحاً.
-category: التحكّم بالتدفّق
+desc: يقيّم شرطاً وينفذ كتلة الكود المحاطة إذا كان الشرط صحيحاً.
+category: التحكم في التدفق
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: يأخذ $if تعبير شرطي ويُقيّمه. إذا كان الشرط صحيحاً، يُنفّذ الكود بين $if والتالي $elif أو $else أو $endif. إذا كان خاطئاً، يقفز التنفيذ إلى الفرع المُتطابِق التالي.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $if يأخذ تعبير شرط ويقيمه. إذا كان الشرط صحيحاً، يتم تنفيذ الكود بين $if و $elif التالي أو $else أو $endif. إذا كان خاطئاً، ينتقل التنفيذ إلى الفرع المطابق التالي.
 </block>
 
 <block type="code" title="الصيغة">
@@ -19,8 +19,8 @@ $else
 $endif
 </block>
 
-<block type="options" title="عمليّات المقارنة">
-option: ==|يساوي (قارن رقميّاً عندما يكون كلا الطرفين رقماً)
+<block type="options" title="معاملات المقارنة">
+option: ==|يساوي (يقارن عددياً عندما يكون كلا الطرفين أرقاماً)
 option: !=|لا يساوي
 option: >|أكبر من
 option: <|أصغر من
@@ -29,11 +29,11 @@ option: <=|أصغر من أو يساوي
 </block>
 
 <block type="callout" kind="note">
-text: يدعم تداخل كتل $if. يمكنك استخدام $elif لشروط إضافيّة و$else لبديل. أغلِ دائماً بـ $endif.
+text: يدعم كتل $if المتداخلة. يمكنك استخدام $elif لشروط إضافية و $else كحل بديل. أغلق دائماً بـ $endif.
 </block>
 </dash>
 
 <details>
 syntax: $if[condition]
-param: condition|expression|Required|الشرط المراد تقييمه، مثال: $authorID == 123، $var[score] >= 90، $isNumber[int; $message]. يدعم عمليّات == و!= و> و< و>= و<=.
+param: condition|expression|مطلوب|شرط لتقييمه، مثال: $authorID == 123، $var[score] >= 90، $isNumber[int; $message]. يدعم معاملات ==، !=، >، <، >=، <=.
 </details>

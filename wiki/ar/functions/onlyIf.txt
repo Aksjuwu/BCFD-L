@@ -1,27 +1,27 @@
 <dash>
 name: $onlyIf
-desc: يقيّم شرطاً ويوقف السكريبت إذا كان الشرط خاطئاً.
-category: Access Control
+desc: يقيّم شرطًا ويوقف السكربت إذا كان الشرط خاطئًا.
+category: التحكم في الوصول
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $onlyIf يقيّم شرطاً. إذا كان الشرط صحيحاً، يستمر السكريبت بشكل طبيعي. إذا كان خاطئاً، يتم عرض رسالة الخطأ المقدمة وإيقاف السكريبت فوراً.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $onlyIf يقيّم شرطًا. إذا كان الشرط صحيحًا، يستمر السكربت بشكل طبيعي. إذا كان خاطئًا، يتم عرض رسالة الخطأ المقدمة ويتم إيقاف السكربت فورًا.
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $onlyIf[condition; error message]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: $onlyIf[$authorID == 123456789; You are not authorized!]
 </block>
 
 <block type="callout" kind="note">
-text: هذا أشد صرامة من $if — لا يتخطى الكود فحسب، بل يوقف السكريبت بالكامل. استخدم هذا لفحص ضوابط الوصول التي يجب أن تنجح لتشغيل السكريبت.
+text: هذا أكثر صرامة من $if — لا يتخطى الكود فحسب، بل يوقف السكربت بأكمله تمامًا. استخدم هذا لفحوصات التحكم في الوصول التي يجب أن تنجح حتى يعمل السكربت.
 </block>
 </dash>
 
 <details>
 syntax: $onlyIf[condition; error message]
-param: condition|expression|Required|الشرط المراد تقييمه. يستخدم نفس المشغّلات مثل $if (==, !=, >, <, >=, <=).
-param: error message|text|Required|الرسالة المعروضة للمستخدم إذا فشل الشرط. يتم إيقاف السكريبت بعد إرسالها.
+param: condition|expression|مطلوب|الشرط الذي سيُقيَّم. يستخدم نفس عوامل التشغيل مثل $if (==, !=, >, <, >=, <=).
+param: error message|text|مطلوب|الرسالة المعروضة للمستخدم إذا فشل الشرط. يتم إيقاف السكربت بعد إرسالها.
 </details>

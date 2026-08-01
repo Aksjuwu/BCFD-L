@@ -1,10 +1,10 @@
 <dash>
 name: $messageContainsAll
-desc: حدث يُفعَّل عندما تحتوي الرسالة على جميع الكلمات المحدّدة.
-category: الأحداث
+desc: حدث يُطلق عندما تحتوي رسالة على جميع الكلمات المحددة.
+category: الحدث
 
-<block type="text" title="كيف يعمل الحدث؟">
-text: $messageContainsAll بادئة حدث تُشغّل FDScript فقط عندما تحتوي الرسالة على جميع كلمات التفعيل المحدّدة. تُفصل الكلمات بفواصل منقوطة داخل الأقواس. المطابقة غير حسّاسة لحالة الأحرف.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $messageContainsAll هو بادئة حدث تُطلق سكربت FDScript فقط عندما تحتوي رسالة على جميع كلمات التشغيل المحددة. تُفصل الكلمات بفواصل منقوطة داخل الأقواس. المطابقة غير حساسة لحالة الأحرف.
 </block>
 
 <block type="code" title="الصيغة">
@@ -13,19 +13,19 @@ text: #PREFIX:$messageContainsAll[word1;word2;word3]
 
 <block type="code" title="مثال جاهز للنسخ">
 text: #PREFIX:$messageContainsAll[bot;help]
-  sendMessage[Need help with the bot? Here's how...]
+ sendMessage[Need help with the bot? Here's how...]
 </block>
 
 <block type="callout" kind="note">
-text: على عكس $messageContains، يتطلّب هذا وجود جميع الكلمات المُدرجة في الرسالة. إذا كانت أيّ كلمة ناقصة، لن يُشغَّل السكربت.
+text: على عكس $messageContains، يتطلب هذا وجود جميع الكلمات المدرجة في الرسالة. إذا كانت أي كلمة مفقودة، لن يعمل السكربت.
 </block>
 
 <block type="callout" kind="important">
-text: هذا الحدث يعمل في مجلّد bot_events وليس bot_commands. أنشئ ملفّ .fds الخاصّ بك هناك.
+text: يعمل هذا الحدث في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
 </block>
 </dash>
 
 <details>
 syntax: #PREFIX:$messageContainsAll[word1;word2;...]
-param: words|text|Required|قائمة مفصولة بفواصل منقوطة من كلمات التفعيل. يجب تطابق جميعها لتشغيل السكربت.
+param: words|text|مطلوب|قائمة كلمات التشغيل مفصولة بفواصل منقوطة. يجب أن تتطابق جميعها لإطلاق السكربت.
 </details>

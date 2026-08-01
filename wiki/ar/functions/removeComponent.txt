@@ -1,31 +1,31 @@
 <dash>
 name: $removeComponent
-desc: يزيل مكونات أزرار محددة من رسالة بواسطة معرّفها المخصص أو الرابط.
-category: Components
+desc: يزيل مكوّنات أزرار محددة من رسالة حسب معرّفها المخصص أو عنوان URL.
+category: المكوّنات
 
-<block type="text" title="كيف يعمل الأمر؟">
-text: $removeComponent يأخذ معرّفات مخصصة (أو روابط) واحدة أو أكثر ويزيل مكونات الأزرار المطابقة من رسالة. يمكن استهداف العرض المعلّق، أو رسالة مصدر التفاعل، أو رسالة محددة بالمعرّف.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $removeComponent يأخذ معرّفًا مخصصًا واحدًا أو أكثر (أو عناوين URL) ويزيل مكوّنات الأزرار المطابقة من رسالة. يمكنه استهداف العرض المعلّق أو رسالة مصدر التفاعل أو رسالة محددة بمعرّفها.
 </block>
 
-<block type="code" title="Syntax">
+<block type="code" title="الصيغة">
 text: $removeComponent[customID1; customID2; ...; (messageID)]
 </block>
 
-<block type="code" title="Ready-to-copy Example">
+<block type="code" title="مثال جاهز للنسخ">
 text: $removeComponent[btn_cancel; btn_confirm]
 </block>
 
 <block type="callout" kind="note">
-text: إذا كان آخر حجة رقم snowflake، يتم التعامل معه كمعرّف رسالة. وإلا، يتم التعامل مع جميع الحجج كمعرّفات مكونات لإزالتها.
+text: عندما يكون هناك وسيطتان على الأقل وكانت الأخيرة snowflake رقمية، يتم التعامل معها كمعرّف رسالة. بخلاف ذلك، يتم التعامل مع جميع الوسائط كمعرّفات مكوّنات لإزالتها.
 </block>
 
 <block type="callout" kind="warning">
-text: إذا لم يتم العثور على أي من المعرّفات المقدمة على رسالة الهدف، يتم إرجاع خطأ. يجب أن تكون رسالة الهدف قد أُرسلت بواسطة هذا البوت.
+text: إذا لم يتم العثور على أي من المعرّفات المقدمة في الرسالة المستهدفة، يتم إرجاع خطأ. يجب أن تكون الرسالة المستهدفة قد أُرسلت بواسطة هذا البوت.
 </block>
 </dash>
 
 <details>
 syntax: $removeComponent[customID1; customID2; ...; (messageID)]
-param: customID|text|Required|معرّف مخصص واحد أو أكثر أو روابط مكونات الأزرار المراد إزالتها
-param: messageID|snowflake|Optional|معرّف رسالة بوت محددة لإزالة المكونات منها
+param: customID|text|مطلوب|معرّف مخصص واحد أو أكثر أو عناوين URL لمكوّنات الأزرار المراد إزالتها
+param: messageID|snowflake|اختياري|معرّف رسالة بوت محددة لإزالة المكوّنات منها
 </details>

@@ -1,10 +1,10 @@
 <dash>
 name: $createRole
-desc: يُنشئ دوراً جديداً في السيرفر بالاسم واللون والصلاحيات المحددة.
+desc: ينشئ دورًا جديدًا في السيرفر بالاسم واللون والصلاحيات المحددة.
 category: الإشراف
 
-<block type="text" title="كيف تعمل الأوامر؟">
-text: يُنشئ $createRole دوراً جديداً بالاسم واللون والصلاحيات المحددة. يمكن تحديد الصلاحيات كإعداد مسبق (cosmetic, member, mod, manager) أو كرقم صلاحيات خام. اختيارياً، يمكنك التحكم فيما إذا كان الدور يُعرض بشكل منفصل وما إذا كان قابلاً للذكر.
+<block type="text" title="كيف تعمل الدالة؟">
+text: $createRole تنشئ دورًا جديدًا بالاسم واللون والصلاحيات المعطاة. يمكن تحديد الصلاحيات كإعداد مسبق (cosmetic، member، mod، manager) أو كرقم صلاحيات خام. اختياريًا، يمكنك التحكم فيما إذا كان الدور يُعرض بشكل منفصل وما إذا كان قابلًا للمنشن.
 </block>
 
 <block type="code" title="الصيغة">
@@ -16,22 +16,22 @@ text: $createRole[VIP; #FFD700; member; yes; no]
 </block>
 
 <block type="options" title="الإعدادات المسبقة للصلاحيات">
-option: cosmetic|بدون صلاحيات خاصة (دور للعرض فقط)
+option: cosmetic|لا صلاحيات خاصة (دور للعرض فقط)
 option: member|صلاحيات عضو أساسية (إرسال رسائل، تفاعل، اتصال، إلخ)
-option: mod|صلاحيات إشراف (طرد، حظر، إدارة رسائل، مهلة، إلخ)
-option: manager|صلاحيات إدارة كاملة (إدارة قنوات، أدوار، ويبهوكس، إلخ)
+option: mod / moderator|صلاحيات إشرافية (طرد، حظر، إدارة رسائل، مهلة، إلخ)
+option: manager / admin|صلاحيات إدارة كاملة (إدارة قنوات، أدوار، خطافات ويب، إلخ)
 </block>
 
 <block type="callout" kind="note">
-text: يتم تخزين معرّف الدور المُنشأ في $return[createdRoleID] للاستخدام لاحقاً. يجب أن يمتلك البوت صلاحية "إدارة الأدوار".
+text: يُخزَّن معرّف الدور المنشأ في $return[createdRoleID] لاستخدامه لاحقًا. يجب أن يمتلك البوت صلاحية "إدارة الأدوار".
 </block>
 </dash>
 
 <details>
 syntax: $createRole[role name; color; permissions; (display role; mention role)]
-param: role name|text|موصى به|اسم الدور الجديد (بحد أقصى 100 حرف)
-param: color|text|موصى به|كود لون hex (مثل #FF5733) أو فارغ للافتراضي
-param: permissions|text|موصى به|إعداد مسبق (cosmetic, member, mod, manager) أو رقم صلاحيات خام
-param: display role|yes/no|اختياري|yes لعرض الدور بشكل منفصل في قائمة الأعضاء (الافتراضي: no)
-param: mention role|yes/no|اختياري|yes لجعل الدور قابلاً للذكر من الجميع (الافتراضي: no)
+param: اسم الدور|text|مطلوب|اسم الدور الجديد (بحد أقصى 100 حرف)
+param: اللون|text|مطلوب|كود لون سداسي عشري (مثل #FF5733) أو فارغ للافتراضي
+param: الصلاحيات|text|مطلوب|إعداد مسبق (cosmetic، member، mod/moderator، manager/admin) أو عدد صلاحيات خام
+param: عرض الدور|yes/no|اختياري|yes لعرض الدور بشكل منفصل في قائمة الأعضاء (الافتراضي: no)
+param: منشن الدور|yes/no|اختياري|yes لجعل الدور قابلًا للمنشن من قبل الجميع (الافتراضي: no)
 </details>
