@@ -1,0 +1,44 @@
+<dash>
+name: $addButton
+desc: Ajoute un bouton (Button) au message en cours de construction, ou à un message précédemment envoyé via son ID.
+category: Composants
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $addButton ajoute un bouton par appel. Vous pouvez contrôler le type de bouton (lien ou interactif), le style, l'état (activé/désactivé) et la position (même rangée ou nouvelle rangée).
+</block>
+
+<block type="code" title="Syntaxe">
+text: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $addButton[no; btn_confirm; Confirm; success]
+</block>
+
+<block type="options" title="Styles de bouton (style)">
+option: primary|Bouton bleu (couleur par défaut)
+option: secondary|Bouton gris
+option: success|Bouton vert
+option: danger|Bouton rouge
+option: link|Bouton de lien externe (pas de custom_id, ne déclenche pas d'interaction du bot)
+</block>
+
+<block type="callout" kind="note">
+text: Quand style = link, le deuxième argument (ID/URL) doit être une URL complète commençant par http:// ou https://.
+</block>
+
+<block type="callout" kind="warning">
+text: Maximum 25 boutons par message (5 rangées × 5 boutons par rangée). Quand la rangée actuelle est pleine, le bouton passe automatiquement à une nouvelle rangée.
+</block>
+</dash>
+
+<details>
+syntax: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+param: newLine|yes/no|Requis|Le bouton commence-t-il sur une nouvelle rangée ? yes = nouvelle rangée, no = même rangée à côté du dernier bouton
+param: ID/URL|text|Requis|ID personnalisé pour le bouton interactif, ou une URL complète si style = link
+param: label|text|Peut être laissé vide|Le texte affiché sur le bouton
+param: style|text|Requis|primary / secondary / success / danger / link
+param: disabled|yes/no|Optionnel|yes pour désactiver le bouton (défaut : no)
+param: emoji|text|Optionnel|Un emoji à afficher à l'intérieur du bouton
+param: messageID|snowflake|Optionnel|ID d'un message du bot précédemment envoyé auquel ajouter le bouton au lieu du message actuel
+</details>

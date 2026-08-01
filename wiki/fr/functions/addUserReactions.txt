@@ -1,0 +1,30 @@
+<dash>
+name: $addUserReactions
+desc: Ajoute une ou plusieurs réactions emoji au message d'origine de l'utilisateur qui a déclenché la commande.
+category: Composants
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $addUserReactions prend un ou plusieurs arguments emoji, résout toutes les variables/placeholders qu'ils contiennent, et ajoute chaque emoji résultant comme réaction au message déclencheur de l'utilisateur. Il réagit dans l'ordre avec un court délai entre chaque pour éviter les limites de taux.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $addUserReactions[emoji1; emoji2; emoji3; ...]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $addUserReactions[👍; ❤️]
+</block>
+
+<block type="callout" kind="note">
+text: Les limites de taux sont gérées automatiquement — si Discord renvoie une erreur 429, la commande attend et réessaie cet emoji spécifique une fois avant de continuer.
+</block>
+
+<block type="callout" kind="warning">
+text: Maximum 20 emojis par appel. Si aucun emoji valide n'est trouvé dans les arguments, la commande ne fait silencieusement rien. Le bot doit avoir la permission « Ajouter des réactions » dans le canal.
+</block>
+</dash>
+
+<details>
+syntax: $addUserReactions[emoji1; emoji2; emoji3; ...]
+param: emoji|text|Requis|Une ou plusieurs valeurs emoji avec lesquelles réagir. Tous les arguments sont résolus (variables/placeholders pris en charge) puis fusionnés, puis chaque emoji trouvé est ajouté comme réaction au message de l'utilisateur, dans l'ordre.
+</details>
