@@ -7,6 +7,10 @@ from FDScript import (
 )
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     channel_id_str = ctx.resolve(args[0]).strip() if args else ""
     name_code      = ctx.resolve(args[1]).strip() if len(args) > 1 else ""

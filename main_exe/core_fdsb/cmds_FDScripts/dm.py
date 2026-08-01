@@ -7,6 +7,14 @@ from FDScript import (
 )
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    if not args:
+        ctx.dm_target = ctx.message.author
+    else:
+        ctx.dm_target = ctx.resolve(args[0]).strip() or ctx.message.author
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if not args:
         ctx.dm_target = ctx.message.author

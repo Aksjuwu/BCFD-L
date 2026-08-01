@@ -6,6 +6,12 @@ from FDScript import (
 )
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    if args:
+        ctx.embed_builder.color = _parse_color(ctx.resolve(args[0]).strip())
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) == 1:
         resolved_color = ctx.resolve(args[0]).strip()

@@ -2,6 +2,15 @@
 import discord
 from FDScript import ExecutionContext, Command, FDEnvironmentError, FDAbortScript, _send_error
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    if not ctx.message.guild:
+        return "false"
+    author = ctx.message.author
+    is_owner = (author.id == ctx.message.guild.owner_id)
+    is_admin = getattr(author.guild_permissions, 'administrator', False)
+    return "true" if (is_owner or is_admin) else "false"
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if not ctx.message.guild:
         await _send_error(ch, FDEnvironmentError("`$onlyAdmin` can only be used within a server."))

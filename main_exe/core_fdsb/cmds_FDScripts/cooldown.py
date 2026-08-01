@@ -8,16 +8,20 @@ from FDScript import (
     _cooldowns,
 )
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
-    if len(args) < 2:
+    if len(args) < 1:
         await _send_error(ch, FDLogicError(
-            "`$cooldown` requires a time and an error message separated by a semicolon `;` — "
-            "example: `$cooldown[10s; Please wait!]`"
+            "`$cooldown` requires at least a time — "
+            "example: `$cooldown[10s]` or `$cooldown[10s; Please wait!]`"
         ))
         return
 
     time_str  = args[0].strip()
-    error_msg = args[1].strip()
+    error_msg = args[1].strip() if len(args) >= 2 and args[1].strip() else None
 
     match = re.match(r"^(\d+)([smhd])$", time_str.lower())
     if not match:
@@ -48,16 +52,17 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         if current_time < expiry:
             remaining = expiry - current_time
 
-            formatted_error = (
-                error_msg
-                .replace("{time}", f"{remaining:.1f}s")
-                .replace("%time%", f"{remaining:.1f}s")
-            )
+            if error_msg:
+                formatted_error = (
+                    error_msg
+                    .replace("{time}", f"{remaining:.1f}s")
+                    .replace("%time%", f"{remaining:.1f}s")
+                )
 
-            ctx.stop_typing()
-            dest = await ctx.get_dest()
-            sent = await dest.send(formatted_error)
-            ctx.last_bot_message = sent
+                ctx.stop_typing()
+                dest = await ctx.get_dest()
+                sent = await dest.send(formatted_error)
+                ctx.last_bot_message = sent
 
             ctx.log_event(f"cooldown → user {user_id} blocked ({remaining:.1f}s remaining) on [{cmd.raw}]")
             raise FDAbortScript()

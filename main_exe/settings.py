@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # -*- coding: utf-8 -*-
-# main_exe/settings.py . migrated to Flet 0.80+ / v1 API u
+# main_exe/settings.py . migrated to Flet 0.85.2+ / v1 API u
 
 import os
 import sys
@@ -17,6 +17,7 @@ import flet as ft
 
 from main_exe.langs.translations import Translations
 from main_exe.theme_engine import ThemeEngine
+from main_exe.load.loading_view import LoadingScreen
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  PERSISTENT STORAGE PATHS (writable — settings, bot configs, app_data/)
@@ -414,6 +415,8 @@ class BotSettingsTab:
         self._loading_overlay: ft.Control | None = None
         self._is_committing   = False
 
+        self._container: ft.Container | None = None
+
         self._lang          = get_current_lang()
         self._current_theme = get_current_theme()
         self._theme_btns: dict[str, ft.FilledButton] = {}
@@ -504,7 +507,9 @@ class BotSettingsTab:
             ],
             expand=True,
         )
-        return self._root_col
+
+        self._container = ft.Container(content=self._root_col, expand=True)
+        return self._container
 
     # ── In-place rebuild (language change without parent callback) ────────────
 
@@ -592,7 +597,7 @@ class BotSettingsTab:
             color=_c('text'),
             text_style=ft.TextStyle(color=_c('text'), size=13),
             label_style=ft.TextStyle(color=_c('text_dim'), size=12),
-            on_select=self._on_lang_change,
+            on_select=lambda e: self._page.run_task(self._on_lang_change, e),
         )
 
     # ── Loading overlay ───────────────────────────────────────────────────────
@@ -635,29 +640,28 @@ class BotSettingsTab:
 
     # ── Language change handler ───────────────────────────────────────────────
 
-    def _on_lang_change(self, e: ft.ControlEvent):
+    async def _on_lang_change(self, e: ft.ControlEvent):
         selected = e.control.value
         if not selected or selected == self._lang:
             return
         save_settings({'lang': selected})
         self._lang = selected
 
-        self._show_loading('Applying language…')
-
-        _start = time.monotonic()
-        try:
+        async def _apply(ls: LoadingScreen):
+            ls.set_progress(0.3, _t('language'))
             if self._on_lang_change_cb:
                 self._on_lang_change_cb(selected)
+                ls.set_progress(0.7, _t('language'))
             elif self._on_theme_change:
                 self._on_theme_change(self._current_theme)
+                ls.set_progress(0.7, _t('language'))
             else:
                 self._rebuild_in_place()
-        finally:
-            _elapsed = time.monotonic() - _start
-            _min_visible = 0.35
-            if _elapsed < _min_visible:
-                time.sleep(_min_visible - _elapsed)
-            self.hide_loading()
+                ls.set_progress(0.7, _t('language'))
+            ls.set_progress(1.0, _t('language'))
+
+        ls = LoadingScreen(page=self._page, title=_t('language'))
+        await ls.run_overlay(_apply)
 
     # ── Section: Export ───────────────────────────────────────────────────────
 
@@ -823,7 +827,7 @@ class BotSettingsTab:
                 color='#FFFFFF' if is_sel else _c('text_dim'),
                 weight=ft.FontWeight.BOLD,
             ),
-            on_click=lambda _, k=theme_key: self._select_theme(k),
+            on_click=lambda _, k=theme_key: self._page.run_task(self._select_theme, k),
             style=ft.ButtonStyle(
                 bgcolor=_c('accent') if is_sel else _c('card_border'),
                 color='#FFFFFF',
@@ -888,59 +892,56 @@ class BotSettingsTab:
 
     # ── Theme selection ───────────────────────────────────────────────────────
 
-    def _select_theme(self, theme_key: str):
+    async def _select_theme(self, theme_key: str):
         if self._is_committing:
             return
-        self._commit_theme(theme_key)
+        await self._commit_theme(theme_key)
 
-    def _commit_theme(self, theme_key: str):
+    async def _commit_theme(self, theme_key: str):
         if self._is_committing:
             return
         self._is_committing = True
 
-        _commit_start = time.monotonic()
         try:
-            self._show_loading('Applying theme…')
+            async def _apply(ls: LoadingScreen):
+                ls.set_progress(0.3, _t('design_section'))
 
-            apply_theme_globally(theme_key)
-            self._current_theme  = theme_key
-            self._page.bgcolor   = _c('bg')
+                apply_theme_globally(theme_key)
+                self._current_theme  = theme_key
+                self._page.bgcolor   = _c('bg')
 
-            # زامن theme_mode مع الثيم المختار حتى لا يفرض نظام أندرويد/iOS
-            # ColorScheme داكن افتراضي فوق ثيماتنا المخصّصة (يسبب ظهور
-            # النصوص السوداء رمادية باهتة).
-            self._page.theme_mode = (
-                ft.ThemeMode.DARK if theme_key in ('system_da', 'v2_dark')
-                else ft.ThemeMode.LIGHT
-            )
+                self._page.theme_mode = (
+                    ft.ThemeMode.DARK if theme_key in ('system_da', 'v2_dark')
+                    else ft.ThemeMode.LIGHT
+                )
 
-            if _ui_profile_fixed() and not self._ext_ui_active:
-                self._ext_ui_active = True
+                if _ui_profile_fixed() and not self._ext_ui_active:
+                    self._ext_ui_active = True
 
-            if self._on_theme_change:
-                self._on_theme_change(theme_key)
-            else:
-                for key, btn in self._theme_btns.items():
-                    active = key == theme_key
-                    btn.content = ft.Text(
-                        '✓' if active else '>',
-                        color='#FFFFFF' if active else _c('text_dim'),
-                        weight=ft.FontWeight.BOLD,
-                    )
-                    btn.style = ft.ButtonStyle(
-                        bgcolor=_c('accent') if active else _c('card_border'),
-                        color='#FFFFFF',
-                        shape=ft.RoundedRectangleBorder(radius=8),
-                        padding=ft.Padding(left=12, top=4, right=12, bottom=4),
-                    )
-                self._page.update()
+                ls.set_progress(0.6, _t('design_section'))
 
-            _elapsed = time.monotonic() - _commit_start
-            _min_visible = 0.35
-            if _elapsed < _min_visible:
-                time.sleep(_min_visible - _elapsed)
+                if self._on_theme_change:
+                    self._on_theme_change(theme_key)
+                else:
+                    for key, btn in self._theme_btns.items():
+                        active = key == theme_key
+                        btn.content = ft.Text(
+                            '✓' if active else '>',
+                            color='#FFFFFF' if active else _c('text_dim'),
+                            weight=ft.FontWeight.BOLD,
+                        )
+                        btn.style = ft.ButtonStyle(
+                            bgcolor=_c('accent') if active else _c('card_border'),
+                            color='#FFFFFF',
+                            shape=ft.RoundedRectangleBorder(radius=8),
+                            padding=ft.Padding(left=12, top=4, right=12, bottom=4),
+                        )
+
+                ls.set_progress(1.0, _t('design_section'))
+
+            ls = LoadingScreen(page=self._page, title=_t('design_section'))
+            await ls.run_overlay(_apply)
         finally:
-            self.hide_loading()
             self._is_committing = False
 
 

@@ -171,4 +171,14 @@ CHINESE_DICT = {
     'filter_all':           (1148, '全部'),
     'filter_command':       (1149, '指令'),
     'filter_event':         (1150, '事件'),
+
+    # ── variables_view ────────────────────────────────────────
+    'variables_slash':      (1151, '變數 /'),
+    'scoped_vars':          (1152, '每位用戶的值'),
+    'value_label':          (1153, '值'),
+    'var_name_hint':        (1154, 'variable_name'),
+    'var_value_hint':       (1155, 'variable_value'),
+    'info_var':             (1156, '變數資訊'),
+    'invalid_json':         (1157, '無效的 JSON'),
+    'json_must_be_object':  (1158, '頂層值必須是 JSON 物件 ({"userID": "value"}).'),
 }

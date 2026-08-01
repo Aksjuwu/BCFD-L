@@ -171,4 +171,14 @@ ARABIC_DICT = {
     'filter_all':           (1148, 'الكل'),
     'filter_command':       (1149, 'أمر'),
     'filter_event':         (1150, 'حدث'),
+
+    # ── variables_view ────────────────────────────────────────
+    'variables_slash':      (1151, "المتغيرات /"),
+    'scoped_vars':          (1152, 'قيم لكل مستخدم'),
+    'value_label':          (1153, 'القيمة'),
+    'var_name_hint':        (1154, 'variable_name'),
+    'var_value_hint':       (1155, 'variable_value'),
+    'info_var':             (1156, 'معلومات المتغير'),
+    'invalid_json':         (1157, 'JSON غير صالح'),
+    'json_must_be_object':  (1158, 'يجب أن تكون القيمة العلوية كائن JSON ({"userID": "value"}).'),
 }

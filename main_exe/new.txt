@@ -1,9 +1,6 @@
-welcome to update 2.3.0
-
-- Support for channel commands
-
-- A new wiki interface
-
-- some Fixed in command editor
-
-- some Fixed the color text on FDSB.apk
+welcome to update 2.3.1
+- update the load secren
+- fixed the them and luang
+- update variables view
+- update wiki view
+- some fixed commands

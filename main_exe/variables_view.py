@@ -2,10 +2,11 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # -*- coding: utf-8 -*-
-# main_exe/variables_view.py . migrated to Flet 0.80+ / v1 API
+# main_exe/variables_view.py . migrated to Flet 0.85.2+ / v1 API
 
 import os
 import json
+import asyncio
 import flet as ft
 
 from main_exe.langs.translations import Translations
@@ -32,6 +33,34 @@ def _sync_fdcore(bot_dir: str):
     path = _vars_dir(bot_dir)
     os.makedirs(path, exist_ok=True)
     _fd_set_vars_dir(path)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Per-user variable data ($getVar[var; userID] / $setVar[var; value; userID])
+# Mirrors FDCore._get_ids_data_path(): a single ids_data.json living in a
+# 'bot_ids' directory that is a sibling of the vars dir.
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _ids_data_path(bot_dir: str) -> str:
+    vars_dir = _vars_dir(bot_dir)
+    return os.path.join(os.path.dirname(vars_dir), 'bot_ids', 'ids_data.json')
+
+def _load_ids_data(bot_dir: str) -> dict:
+    path = _ids_data_path(bot_dir)
+    if not os.path.isfile(path):
+        return {}
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except Exception as e:
+        print(f'[Variables] ids_data load error {path}: {e}')
+        return {}
+
+def _save_ids_data(bot_dir: str, data: dict):
+    path = _ids_data_path(bot_dir)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Translation & Language helper
@@ -242,6 +271,7 @@ class BotVariablesTab:
         self._page         = page
         self._bot_dir      = ''
         self._variables    = []
+        self._ids_data: dict = {}
         self._edit_path    = ''
         self._current_view = 'list'
 
@@ -249,7 +279,15 @@ class BotVariablesTab:
         self._is_dirty  = False
         self._snapshot: dict = {}
 
+        # ── Live auto-refresh (list view only) ───────────────────────────────
+        self._poll_task = None
+
+        # ── Per-user (JSON) variable editor state ────────────────────────────
+        self._json_editor_var = ''
+        self._json_editor_dirty = False
+
         self._build_controls()
+        self._build_json_editor_dialog()
         self._container = ft.Container(
             content=self._list_root,
             expand=True,
@@ -266,8 +304,39 @@ class BotVariablesTab:
         self._bot_dir   = bot_dir
         _sync_fdcore(bot_dir)
         self._variables = _load_all_vars(bot_dir)
+        self._ids_data  = _load_ids_data(bot_dir)
         if self._current_view == 'list':
             self._refresh_list()
+        self._start_polling()
+
+    def dispose(self):
+        self._stop_polling()
+
+    # ── Live auto-refresh ────────────────────────────────────────────────────
+    # Global values ($getVar[var]) are read/written by the running bot process,
+    # not by this UI, so the list needs to poll disk to reflect changes made
+    # while the bot is online instead of only refreshing on user actions.
+
+    def _start_polling(self):
+        if self._poll_task is not None:
+            return
+        self._poll_task = self._page.run_task(self._poll_loop)
+
+    def _stop_polling(self):
+        if self._poll_task is not None:
+            self._poll_task.cancel()
+            self._poll_task = None
+
+    async def _poll_loop(self):
+        try:
+            while True:
+                await asyncio.sleep(2)
+                if not self._bot_dir:
+                    continue
+                if self._current_view == 'list':
+                    self._refresh_list()
+        except asyncio.CancelledError:
+            pass
 
     # ── Dirty tracking ────────────────────────────────────────────────────────
 
@@ -288,13 +357,19 @@ class BotVariablesTab:
             self._clear_name_error()
             name_error_was_cleared = True
 
+        scoped_visibility_changed = False
+        if e is not None and e.control is self._name_inp:
+            was_visible = self._scoped_btn.visible
+            self._update_scoped_btn_visibility()
+            scoped_visibility_changed = (self._scoped_btn.visible != was_visible)
+
         cur = {
             'name':  self._name_inp.value  or '',
             'value': self._value_inp.value or '',
         }
         dirty = cur != self._snapshot
-        state_changed = dirty != self._is_dirty
-        if state_changed:
+        state_changed = (dirty != self._is_dirty) or scoped_visibility_changed
+        if dirty != self._is_dirty:
             self._is_dirty          = dirty
             self._dirty_dot.visible = dirty
 
@@ -367,6 +442,7 @@ class BotVariablesTab:
         self._back_btn.bgcolor               = g('accent')
         self._back_btn.icon_color            = g('text_on_accent')
         self._dirty_dot.bgcolor              = g('warning')
+        self._scoped_btn.icon_color          = g('text_dim')
         self._name_inp.bgcolor               = g('card_bg')
         self._name_inp.border_color          = g('card_border')
         self._name_inp.focused_border_color  = g('accent')
@@ -502,6 +578,15 @@ class BotVariablesTab:
             visible=False,
             tooltip=_t('unsaved_title'),
         )
+        self._scoped_btn = ft.IconButton(
+            icon=ft.Icons.MENU_ROUNDED,
+            icon_color=_c('text_dim'),
+            icon_size=18,
+            tooltip=_t('scoped_vars') or 'Per-user values',
+            visible=False,
+            on_click=lambda _: self._open_json_editor(self._name_inp.value or ''),
+            style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=8)),
+        )
 
         self._name_lbl  = ft.Text(_t('name_label')  or 'Name',  size=10, weight=ft.FontWeight.BOLD, color=_c('text_dim'))
         self._value_lbl = ft.Text(_t('value_label') or 'Value', size=10, weight=ft.FontWeight.BOLD, color=_c('text_dim'))
@@ -565,6 +650,8 @@ class BotVariablesTab:
                             self._editor_breadcrumb,
                             self._editor_title,
                             self._dirty_dot,
+                            ft.Container(expand=True),
+                            self._scoped_btn,
                         ],
                         spacing=6,
                         vertical_alignment=ft.CrossAxisAlignment.CENTER,
@@ -625,11 +712,16 @@ class BotVariablesTab:
             self._value_inp.value    = var.get('value', '')
             self._editor_title.value = _ar(f'{name}.json')
 
+        self._update_scoped_btn_visibility()
         self._clear_name_error()
         self._clear_dirty()
 
         self._container.content = self._editor_root
         self._page.update()
+
+    def _update_scoped_btn_visibility(self):
+        name = (self._name_inp.value or '').strip()
+        self._scoped_btn.visible = bool(name and self._ids_data.get(name))
 
     # ── List rendering ────────────────────────────────────────────────────────
 
@@ -640,6 +732,7 @@ class BotVariablesTab:
     def _refresh_list(self):
         if self._bot_dir:
             self._variables = _load_all_vars(self._bot_dir)
+            self._ids_data  = _load_ids_data(self._bot_dir)
 
         seen   = set()
         unique = []
@@ -776,4 +869,160 @@ class BotVariablesTab:
     def _save_variable(self, _):
         if self._perform_save():
             self._show_list()
-            
+
+    # ══════════════════════════════════════════════════════════════════════
+    #  Per-user (id-scoped) variable JSON editor
+    #  $getVar[var; userID] / $setVar[var; value; userID] → bot_ids/ids_data.json
+    # ══════════════════════════════════════════════════════════════════════
+
+    def _build_json_editor_dialog(self):
+        self._json_editor_title = ft.Text(
+            '', size=14, weight=ft.FontWeight.BOLD, color=_c('text'),
+        )
+        self._json_editor_error_lbl = ft.Text(
+            '', size=12, color=_c('danger'), visible=False,
+        )
+        self._json_editor = ft.TextField(
+            value='{}',
+            multiline=True,
+            min_lines=18,
+            max_lines=None,
+            expand=True,
+            border=ft.InputBorder.NONE,
+            bgcolor='transparent',
+            color=_c('text'),
+            cursor_color=_c('accent'),
+            text_style=ft.TextStyle(
+                font_family='Consolas, Menlo, monospace', size=13,
+            ),
+            content_padding=ft.Padding(left=4, right=4, top=4, bottom=4),
+            on_change=lambda _: self._mark_json_dirty(),
+        )
+        self._json_editor_dirty_dot = ft.Container(
+            width=7, height=7,
+            bgcolor=_c('warning'),
+            border_radius=4,
+            visible=False,
+            tooltip=_t('unsaved_title'),
+        )
+
+        editor_box = ft.Container(
+            content=self._json_editor,
+            bgcolor=_c('card_bg'),
+            border=_border_all(1, _c('card_border')),
+            border_radius=10,
+            padding=6,
+            width=560,
+            height=420,
+        )
+
+        self._json_editor_dialog = ft.AlertDialog(
+            modal=True,
+            bgcolor=_c('card_bg'),
+            shape=ft.RoundedRectangleBorder(radius=16),
+            title=ft.Row(
+                [
+                    ft.Icon(ft.Icons.DATA_OBJECT_ROUNDED, color=_c('accent'), size=20),
+                    self._json_editor_title,
+                    self._json_editor_dirty_dot,
+                ],
+                spacing=8,
+            ),
+            content=ft.Column(
+                [editor_box, self._json_editor_error_lbl],
+                spacing=8,
+                tight=True,
+            ),
+            actions=[
+                ft.TextButton(
+                    content=ft.Text(_t('cancel') or 'Cancel', color=_c('text_dim')),
+                    on_click=self._request_close_json_editor,
+                ),
+                ft.FilledButton(
+                    content=ft.Row(
+                        [ft.Icon(ft.Icons.SAVE_OUTLINED, color='#FFFFFF', size=16),
+                         ft.Text(_t('save') or 'Save', color='#FFFFFF',
+                                 weight=ft.FontWeight.BOLD)],
+                        spacing=6, tight=True,
+                    ),
+                    on_click=self._save_json_editor,
+                    style=_btn_style(_c('success')),
+                ),
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+
+    def _mark_json_dirty(self):
+        if not self._json_editor_dirty:
+            self._json_editor_dirty = True
+            self._json_editor_dirty_dot.visible = True
+            if self._page:
+                self._page.update()
+        if self._json_editor_error_lbl.visible:
+            self._json_editor_error_lbl.visible = False
+            if self._page:
+                self._page.update()
+
+    def _open_json_editor(self, name: str):
+        self._json_editor_var   = name
+        self._json_editor_dirty = False
+        self._json_editor_dirty_dot.visible = False
+        self._json_editor_error_lbl.visible = False
+
+        scoped = self._ids_data.get(name, {})
+        self._json_editor.value = json.dumps(scoped, ensure_ascii=False, indent=2)
+        self._json_editor_title.value = _ar(f'{name} — {_t("scoped_vars") or "Per-user values"}')
+
+        self._page.show_dialog(self._json_editor_dialog)
+        self._page.update()
+
+    def _request_close_json_editor(self, _):
+        if self._json_editor_dirty:
+            _confirm_unsaved(
+                self._page,
+                on_save=lambda: self._save_json_editor(None),
+                on_discard=self._close_json_editor,
+            )
+        else:
+            self._close_json_editor()
+
+    def _close_json_editor(self):
+        self._page.pop_dialog()
+        self._page.update()
+
+    def _save_json_editor(self, _):
+        raw = self._json_editor.value or '{}'
+        try:
+            parsed = json.loads(raw)
+        except Exception as e:
+            self._json_editor_error_lbl.value   = f'{_t("invalid_json") or "Invalid JSON"}: {e}'
+            self._json_editor_error_lbl.visible = True
+            self._page.update()
+            return
+
+        if not isinstance(parsed, dict):
+            self._json_editor_error_lbl.value   = (
+                _t('json_must_be_object') or 'Top level value must be a JSON object ({"userID": "value"}).'
+            )
+            self._json_editor_error_lbl.visible = True
+            self._page.update()
+            return
+
+        # Values are stored as strings by $setVar — normalize non-string values.
+        normalized = {str(uid): ('' if v is None else str(v)) for uid, v in parsed.items()}
+
+        if not self._bot_dir:
+            print('[Variables] bot_dir not set')
+            return
+
+        self._ids_data = _load_ids_data(self._bot_dir)
+        if normalized:
+            self._ids_data[self._json_editor_var] = normalized
+        else:
+            self._ids_data.pop(self._json_editor_var, None)
+        _save_ids_data(self._bot_dir, self._ids_data)
+
+        self._json_editor_dirty = False
+        self._json_editor_dirty_dot.visible = False
+        self._close_json_editor()
+        self._refresh_list()

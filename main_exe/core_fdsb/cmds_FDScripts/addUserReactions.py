@@ -9,6 +9,10 @@ from FDScript import (
 )
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if not args:
         await _send_error(ch, FDLogicError(

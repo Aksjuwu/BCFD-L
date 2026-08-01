@@ -7,6 +7,10 @@ from FDScript import (
 )
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) < 5 or not args[4].strip():
         await _send_error(ch, FDLogicError(

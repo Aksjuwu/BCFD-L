@@ -77,6 +77,10 @@ def _parse_bool(raw: str) -> bool:
     return raw.strip().lower() in ("true", "yes", "on", "1")
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) < 3:
         await _send_error(ch, FDSyntaxError(

@@ -54,6 +54,9 @@ CONTROL_FLOW_COMMANDS = {
     "break", "return", "and", "or", "onlyIf", "onlyAdmin", "log"
 }
 
+_HL_FONT_SIZE   = 13
+_HL_FONT_FAMILY = 'Consolas'
+
 
 def _t(key: str) -> str:
     return Translations.get(key, get_current_lang() or 'en')
@@ -518,6 +521,12 @@ class BotWikiTab:
 
         self._busy = False
 
+        # Colors are cached from the same theme snapshot commands_view.py
+        # uses (populated in _on_theme), instead of calling ThemeEngine.hex()
+        # fresh on every highlight pass — this guarantees the wiki code
+        # blocks always match the command editor's colors exactly.
+        self._hl_colors: Dict[str, str] = {}
+
         self._header_title = ft.Text(
             _t('tab_wiki'), size=15, weight=ft.FontWeight.BOLD, color=_c('text'),
         )
@@ -669,6 +678,20 @@ class BotWikiTab:
         )
 
         self._root = ft.Container(expand=True)
+
+        # Populate _hl_colors with sane fallbacks before the first theme
+        # event arrives, so the very first render isn't left with an
+        # empty dict (which would previously fall back silently).
+        self._hl_colors = {
+            'base':    '#2ECC71',
+            'control': '#9B59B6',
+            'known':   '#3498DB',
+            'bracket': '#FC2323',
+            'semi':    '#8A200D',
+            'string':  '#FC2323',
+            'comment': '#7F8C8D',
+        }
+
         self._render()
 
         ThemeEngine.subscribe(self._on_theme)
@@ -704,6 +727,21 @@ class BotWikiTab:
         self._dash_title.color          = get('text')
         self._detail_back_btn.bgcolor   = get('accent')
         self._detail_title.color        = get('text')
+
+        # Same lookup/fallbacks commands_view.py uses for its own
+        # _hl_colors, sourced from the exact same `data` snapshot — this
+        # is what keeps the wiki's code highlighting pixel-identical to
+        # the command editor's.
+        self._hl_colors = {
+            'base':    get('success'),
+            'control': get('syntax_control_flow'),
+            'known':   get('syntax_cmd'),
+            'bracket': get('syntax_brackets'),
+            'semi':    get('syntax_semicolon'),
+            'string':  get('warning'),
+            'comment': get('text_dim'),
+        }
+
         self._update_filter_btns()
         self._render()
         self._page.update()
@@ -887,11 +925,6 @@ class BotWikiTab:
     # ── Highlighting Logic ───────────────────────────────────────────────────
 
     def _highlight_code(self, text: str) -> List[ft.TextSpan]:
-        try:
-            from main_exe.core_fdsb.FDCore import KNOWN_COMMANDS
-        except ImportError:
-            KNOWN_COMMANDS = set()
-
         known_cmds = set(KNOWN_COMMANDS) if KNOWN_COMMANDS else set()
         control_flow_escaped = '|'.join(sorted(CONTROL_FLOW_COMMANDS, key=len, reverse=True))
         known_escaped = '|'.join(sorted(known_cmds - CONTROL_FLOW_COMMANDS, key=len, reverse=True))
@@ -909,24 +942,19 @@ class BotWikiTab:
             r'|(?P<text>[^#"\'$\[\];]+)'
         )
 
-        base_color = _c('success') or '#2ECC71'
-        colors = {
-            'base':    base_color,
-            'control': _c('syntax_control_flow') or '#9B59B6',
-            'known':   _c('syntax_cmd') or '#3498DB',
-            'bracket': _c('syntax_brackets') or '#FC2323',
-            'semi':    _c('syntax_semicolon') or '#8A200D',
-            'string':  _c('warning') or '#FC2323',
-            'comment': _c('text_dim') or '#7F8C8D',
-        }
+        # Sourced from self._hl_colors (refreshed in _on_theme), so this is
+        # guaranteed to be the same dict commands_view.py builds for the
+        # command editor — no more drift between the two views.
+        colors = self._hl_colors
+        base_color = colors.get('base', '#2ECC71')
 
         def _span(value: str, color: str) -> ft.TextSpan:
             return ft.TextSpan(
                 value,
                 ft.TextStyle(
                     color=color,
-                    size=13,
-                    font_family='Consolas',
+                    size=_HL_FONT_SIZE,
+                    font_family=_HL_FONT_FAMILY,
                 ),
             )
 
@@ -963,16 +991,69 @@ class BotWikiTab:
                 ft.IconButton(
                     icon=ft.Icons.COPY_ROUNDED, icon_color=_c('text_dim'), icon_size=18,
                     tooltip=_t('copy_syntax'),
-                    on_click=(lambda e, s=text: self._copy_syntax(e, s)),
+                    # IMPORTANT: on_click must be the async function itself,
+                    # not a sync lambda that merely *calls* it. Flet decides
+                    # whether to `await` a handler by checking
+                    # inspect.iscoroutinefunction(handler) on whatever is
+                    # assigned to on_click. A `lambda e: self._copy_syntax(e)`
+                    # is itself a plain sync function — calling it just
+                    # creates (and immediately drops) a coroutine object
+                    # without ever running a single line inside it. Using a
+                    # small async closure factory keeps on_click a real
+                    # coroutine function while still capturing `text`.
+                    on_click=self._make_copy_handler(text),
                 ),
             ],
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
-    def _copy_syntax(self, e, text: str):
-        self._page.set_clipboard(text)
-        self._page.open(ft.SnackBar(content=ft.Text(_t('copied')), duration=1400))
-        self._page.update()
+    def _show_snack(self, snack: ft.SnackBar):
+        """Show a SnackBar in a way that's compatible across Flet versions.
+        Newer Flet (>=0.24-ish) exposes `Page.open(control)`.
+        Some builds bundled with serious_python don't have it, so we
+        fall back to the classic `page.snack_bar = ...; open = True`.
+        """
+        page = self._page
+        opener = getattr(page, 'open', None)
+        if callable(opener):
+            try:
+                opener(snack)
+                return
+            except Exception as ex:
+                print(f'[Wiki] page.open(snack_bar) failed, falling back: {ex}')
+        # Fallback for Flet builds without Page.open
+        page.snack_bar = snack
+        snack.open = True
+        page.update()
+
+    def _make_copy_handler(self, text: str) -> Callable:
+        async def _handler(e):
+            await self._copy_syntax(e, text)
+        return _handler
+
+    async def _copy_syntax(self, e, text: str):
+        # `Page.set_clipboard` was deprecated in Flet 0.80.0 and no longer
+        # exists as of this build (0.85.x) — confirmed via:
+        #   AttributeError: type object 'Page' has no attribute
+        #   'set_clipboard'. Did you mean: 'clipboard'?
+        # The current API is the standalone Clipboard *service*:
+        #   await ft.Clipboard().set(text)
+        # https://docs.flet.dev/services/clipboard/
+        ok = False
+        try:
+            await ft.Clipboard().set(text)
+            ok = True
+        except Exception as ex:
+            print(f'[Wiki] clipboard copy failed: {ex}')
+
+        if ok:
+            print(f'[Wiki] copied to clipboard OK ({len(text)} chars)')
+            self._show_snack(ft.SnackBar(content=ft.Text(_t('copied')), duration=1400))
+        else:
+            self._show_snack(ft.SnackBar(
+                content=ft.Text(_t('copy_failed') or 'فشل النسخ — راجع الطرفية'),
+                duration=2200,
+            ))
 
     def _render_dash_block(self, block: WikiDashBlock) -> ft.Control:
         if block.type == 'toc':
@@ -1196,37 +1277,59 @@ class BotWikiTab:
             self._set_busy(False, _t('up_to_date').format(v=local_version))
             return
 
-        self._set_busy(True, _t('downloading'))
+        from main_exe.load.loading_view import LoadingScreen
 
-        try:
+        loader = LoadingScreen(container=self._root, page=self._page, title=_t('downloading'))
+
+        async def _do_download(screen: LoadingScreen):
             index = await loop.run_in_executor(None, WikiRemote.fetch_index, lang)
-            
             index.sort()
 
+            total = len(index) or 1
+            done_count = 0
+            screen.set_progress(0.0, f'0/{total}')
+
             async def _fetch_one(file_name: str):
+                nonlocal done_count
                 text = await loop.run_in_executor(None, WikiRemote.fetch_function, lang, file_name)
                 WikiCache.save_function(lang, file_name, text)
+                done_count += 1
+                screen.set_progress(done_count / total, f'{done_count}/{total}')
 
             chunk_size = 5
             for i in range(0, len(index), chunk_size):
                 chunk = index[i:i + chunk_size]
-                
+
                 await asyncio.gather(*[_fetch_one(fn) for fn in chunk])
-                
+
                 await asyncio.sleep(20)
 
             WikiCache.save_index(lang, index)
             WikiCache.set_local_version(lang, remote_version)
 
-            self._entries  = WikiCache.load_light_entries(lang)
-            self._filtered = list(self._entries)
-            self._filter_type = None
-            self._update_filter_btns()
-            self._apply_filters()
-
-            self._set_busy(False, _t('up_to_date').format(v=remote_version))
+        try:
+            await loader.run(
+                _do_download,
+                done_message=_t('up_to_date').format(v=remote_version),
+                extra_hold_max=5.0,
+            )
         except Exception:
             self._set_busy(False, _t('update_failed'))
+            return
+
+        self._entries  = WikiCache.load_light_entries(lang)
+        self._filtered = list(self._entries)
+        self._filter_type = None
+        self._update_filter_btns()
+        self._apply_filters()
+        self._render()
+
+        self._set_busy(False, _t('up_to_date').format(v=remote_version))
+
+        self._show_snack(ft.SnackBar(
+            content=ft.Text(_t('up_to_date').format(v=remote_version)),
+            duration=2500,
+        ))
             
     def load_bot(self, *_args, **_kwargs):
         self._lang    = get_current_lang() or 'en'

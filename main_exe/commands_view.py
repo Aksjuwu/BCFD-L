@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # -*- coding: utf-8 -*-
-# main_exe/commands_view.py . migrated to Flet 0.80+ / v1 API
+# main_exe/commands_view.py . migrated to Flet 0.85.2+ / v1 API
 
 import os
 import flet as ft
@@ -321,6 +321,7 @@ class CommandEditorView:
         self._bot_dir  = ''
         self._cmd_path = ''
         self._debounce_timer = None
+        self._body_col = None
 
         # ── Dirty-tracking ────────────────────────────────────────────────────
         self._is_dirty = False
@@ -329,6 +330,7 @@ class CommandEditorView:
         self._hl_colors = {}
 
         self._name_field = ft.TextField(
+            key="cmd_name_field",
             label=_t('name_label'),
             hint_text=_t('commands_label'),
             dense=True,
@@ -458,6 +460,26 @@ class CommandEditorView:
             self._name_field.error                = None
             self._name_field.border_color         = _c('card_border')
             self._name_field.focused_border_color = _c('accent')
+
+    async def _scroll_to_name_error_async(self):
+        # scroll_to() و focus() في Flet كلاهما async، لذا يجب await لهما،
+        # ويجب استدعاء scroll_to على الحاوية القابلة للتمرير الفعلية
+        # (body_col) وليس على page، لأن page ليست هي من يقوم بالتمرير هنا.
+        if self._body_col is not None:
+            try:
+                await self._body_col.scroll_to(
+                    scroll_key="cmd_name_field", duration=300,
+                )
+            except Exception:
+                pass
+        try:
+            await self._name_field.focus()
+        except Exception:
+            pass
+
+    def _scroll_to_name_error(self):
+        if self._page:
+            self._page.run_task(self._scroll_to_name_error_async)
 
     def _mark_dirty(self, e=None):
         name_error_was_cleared = False
@@ -650,6 +672,7 @@ class CommandEditorView:
             expand=True,
             scroll=ft.ScrollMode.ADAPTIVE,
         )
+        self._body_col = body_col
 
         return ft.Column(
             [
@@ -693,9 +716,18 @@ class CommandEditorView:
 
     # ── Keyboard avoidance (mobile) ──────────────────────────────────────────
 
+    async def _scroll_to_editor_async(self):
+        if self._body_col is not None:
+            try:
+                await self._body_col.scroll_to(
+                    scroll_key="cmd_editor_area", duration=250,
+                )
+            except Exception:
+                pass
+
     def _on_code_focus(self, e):
         if self._page:
-            self._page.scroll_to(scroll_key="cmd_editor_area", duration=250)
+            self._page.run_task(self._scroll_to_editor_async)
 
     # ── Highlighting ──────────────────────────────────────────────────────────
 
@@ -832,6 +864,7 @@ class CommandEditorView:
             self._set_name_error()
             if self._page:
                 self._page.update()
+            self._scroll_to_name_error()
             return False
 
         safe_name = ''.join(c for c in name if c.isalnum() or c in ('-', '_')).strip() or 'command'
@@ -840,6 +873,7 @@ class CommandEditorView:
             self._set_name_taken_error()
             if self._page:
                 self._page.update()
+            self._scroll_to_name_error()
             return False
 
         self._clear_name_error()

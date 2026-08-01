@@ -1,5 +1,7 @@
 ![FDSB.png](./main_exe/icons/FDSB.png)
-
+  <p>
+    <img src="https://img.shields.io/badge/version-2.3.1-blue.svg?cacheSeconds=2592000" alt="Version" />
+  </p>
 
 # FDSB - Free Design Studio Bot's
 
@@ -15,45 +17,34 @@
 
 # How to use it? 
 
-**APK:**
+**APK/EXE**
 
-**1. Download the APK version compatible with your device.**
+1. Download the APK/EXE version compatible with your device.
 
-**2. The main interface (in English by default) will appear, displaying three buttons:**
-```text
-1. Discord -> Server link  
-2. GitHub -> Project link  
-3. New Bot -> Create a bot
-```
+2. You'll see the main interface, which is in English by default.
 
-**3. Click on the `New Bot` button to open the Discord Developer Portal link. Create your bot, make sure the three gateway intents (the toggle buttons at the bottom of the Bot tab) are enabled, and then copy your bot's token.**
-
-**4. Inside the app, set up your bot by giving it a name and an icon, then paste your token.**
-
+3. Click the New Bot button to open a page showing two options. Enter your bot token, bot name, and optionally add a bot image.
 > [!NOTE]
-> Naming and image selection in the app do not affect your original bot on Discord.
+> On the Discord Developer Portal, create your bot and make sure the three gateway intents (the toggle buttons at the bottom of the Bot tab) are enabled. Then copy your bot's token to paste into the app.
 
+4. Log into the bot and go to Settings to select your preferred language and interface theme.
+> [!NOTE]
+> The bot's name and image set inside the app do not affect the original bot on Discord.
 > [!WARNING]
 > The token is stored locally on your device, but it is not encrypted.
 
-**5. Log into the bot and go to settings to select your preferred language and interface theme.**
+5. go to the wiki page, And look for all the commands that pique your curiosity.
 
-**6. On the same settings page, click the "wiki-fdscript" link to learn how to write commands.**
+6. Go to the Commands tab and click the + button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on wiki, then click Save when finished.
 
-**7. Go to the commands tab and click the `+` button to create a new command. In the editor, enter a name (required) and choose your desired prefix. Write your command's code based on wiki-fdscript, then click the `Save` button when finished.**
-
-**8. Return to the main interface and press the `Start` button to run your bot.**
-
+7. Return to the main interface and press Start to run your bot.
 > [!CAUTION]
 > The app does not run in the background. The user interface must remain open/visible, or you must use an external device to keep the bot online 24/7.
-
-**EXE:** *Coming soon...*
 
 ---
 
 **Notes:**
 
-- Some themes require a restart to take effect.
 - The built-in command set is clearly designed to be deliberately simple, with FDScript handling the more complex tasks. (However, this is not related to the number of commands I plan to add later.)
 - While FDScript gen 2 offers greater command-line processing capabilities, it's important to note that some poorly planned complexities may produce undesirable results (please report any such issues).
 
@@ -61,7 +52,9 @@
 
 **Changelog:**
 
-- **1.0.0** — Initial beta release
+  - Alfa: 1.0.0 to 2.x.x(now)
+
+- **1.0.0** — Initial Alfa release
   - New interface
   - New language (FDScript) Gen 0
   - New control mechanism
@@ -134,6 +127,13 @@
   - A new wiki interface 
   - some Fixed in command editor
   - some Fixed the color text on FDSB.apk
+
+- **2.3.1** - Fixed App
+ - update the load secren
+ - fixed the them and luang
+ - update variables view
+ - update wiki view
+ - some fixed commands
   
 ---
 

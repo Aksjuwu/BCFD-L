@@ -97,48 +97,52 @@ KNOWN_COMMANDS: set[str] = {
     "addBotReactions", "addButton", "addTimestamp", "addUserReactions", "and",
     "authorID", "authorName",
     # b
-    "ban", "botID", "botName", "break",
+    "ban", "botID", "botLeave", "botName", "break",
     # c
-    "ceil", "changeUsername", "channelID", "channelName", "charCount", "clear",
-    "clientTyping", "cloneRole", "color", "cooldown", "createRole",
-    "customID",
+    "ceil", "changeUsername", "channelExists", "channelID", "channelName",
+    "channelType", "charCount", "clear", "clientTyping", "cloneRole",
+    "color", "cooldown", "createChannel", "createRole", "customID",
     # d
-    "deletecommand", "deleteRole", "description", "div", "dm",
+    "deleteChannels", "deletecommand", "deleteRole", "description",
+    "displayName", "div", "dm",
     # e
-    "editButton", "editIn", "editMessage", "elif", "else",
-    "endfor", "endif", "endwhile",
+    "editButton", "editChannelPerms", "editIn", "editMessage",
+    "elif", "else", "endfor", "endif", "endwhile",
     # f
-    "floor", "footer", "for",
+    "findChannel", "findRole", "floor", "footer", "for",
     # g
-    "getBotInvent", "getServerInvite", "getUserStatus", "getVar", "guildID",
-    "guildName",
+    "getBotInvent", "getMessage", "getServerInvite", "getUserStatus",
+    "getVar", "guildID", "guildName",
     # i
-    "if", "image", "isAdmin", "isBooster", "isBot", "isNSFW", "isNumber",
-    "isOwner",
+    "if", "image", "isAdmin", "isBooster", "isBot", "isNSFW",
+    "isNumber", "isOwner",
     # k
     "kick",
     # l
-    "log",
+    "lastBotMessageID", "lastUserMessageID", "log",
     # m
-    "math", "membersCount", "mention", "message", "messageID", "mod", "mul",
+    "math", "membersCount", "mention", "message", "messageID",
+    "mod", "mul",
     # o
     "onlyAdmin", "onlyIf", "or",
     # p
     "ping", "power",
     # r
-    "randomint", "randomRoleID", "randomRoleMention", "randomstr", "randomUserID",
-    "removeButtons", "removeComponent", "replaceText", "reply", "replyIn",
-    "return", "returnGetReactions", "returnGuildChannelsID", "returnGuildRolesID", "returnGuildUsersID",
+    "randomint", "randomRoleID", "randomRoleMention", "randomstr",
+    "randomUserID", "removeButtons", "removeComponent", "replaceText",
+    "reply", "replyIn", "return", "returnGetReactions",
+    "returnGuildChannelsID", "returnGuildRolesID", "returnGuildUsersID",
     "roleAssign", "round",
     # s
-    "sendEmbedMessage", "sendMessage", "serverOwnerID", "setVar", "slowmode",
-    "splitIn", "splitOut", "strictArgs", "sub", "suppressErrors", "sum", "switch",
+    "sendEmbedMessage", "sendMessage", "serverOwnerID", "setVar",
+    "slowmode", "splitIn", "splitOut", "strictArgs", "sub", "sum",
+    "suppressErrors", "switch",
     # t
     "timeout", "title",
     # u
     "unban", "untimeout", "uptime", "useChannel",
     # v
-    "var",
+    "var", "voiceUsersLimit",
     # w
     "wait", "while"
 }
@@ -334,95 +338,6 @@ def _scan_suppress_errors(script_text: str) -> tuple[bool, str | None]:
 
     return True, None
 
-_ID_MENTION_RE = re.compile(r'^<[#@]!?(\d+)>$')
-
-def _scan_use_channel(script_text: str) -> tuple[int | None, int | None]:
-    """
-    Scans the raw, unresolved script text for `$useChannel[guildID; channelID]`,
-    wherever it appears in the script — same "prescan" approach as
-    `_scan_suppress_errors`. Because this runs before execution/variable
-    resolution, both arguments must be literal IDs (or mentions), not
-    variables or the output of other commands.
-
-    Returns (guild_id, channel_id), or (None, None) if not present / malformed.
-    """
-    match = re.search(r'\$useChannel\b', script_text)
-    if not match:
-        return None, None
-
-    end = match.end()
-    if end >= len(script_text) or script_text[end] != '[':
-        return None, None
-
-    close = _find_matching_bracket(script_text, end)
-    if close == -1:
-        return None, None
-
-    inner = script_text[end + 1:close]
-    parts = _split_args(inner)
-    if len(parts) != 2:
-        return None, None
-
-    def _extract_id(raw: str) -> int | None:
-        raw = raw.strip()
-        mention_match = _ID_MENTION_RE.match(raw)
-        if mention_match:
-            return int(mention_match.group(1))
-        if raw.isdigit():
-            return int(raw)
-        return None
-
-    guild_id = _extract_id(parts[0])
-    channel_id = _extract_id(parts[1])
-    if guild_id is None or channel_id is None:
-        return None, None
-
-    return guild_id, channel_id
-
-async def _resolve_use_channel_target(
-    bot: discord.Client,
-    guild_id: int,
-    channel_id: int,
-) -> tuple[discord.abc.Messageable | None, str | None]:
-    """
-    Resolves the (guild_id, channel_id) pair found by `_scan_use_channel`
-    into an actual sendable channel. Returns (channel, None) on success,
-    or (None, error_message) on failure.
-    """
-    guild = bot.get_guild(guild_id)
-    if guild is None:
-        try:
-            guild = await bot.fetch_guild(guild_id)
-        except discord.NotFound:
-            return None, f"no guild found with ID `{guild_id}`"
-        except discord.Forbidden:
-            return None, f"bot is not a member of guild `{guild_id}`"
-        except discord.HTTPException as e:
-            return None, f"failed to fetch guild `{guild_id}`: `{e.text}`"
-
-    channel = guild.get_channel(channel_id) if guild is not None else None
-    if channel is None:
-        channel = bot.get_channel(channel_id)
-    if channel is None:
-        try:
-            channel = await bot.fetch_channel(channel_id)
-        except discord.NotFound:
-            return None, f"no channel found with ID `{channel_id}`"
-        except discord.Forbidden:
-            return None, f"bot lacks access to channel `{channel_id}`"
-        except discord.HTTPException as e:
-            return None, f"failed to fetch channel `{channel_id}`: `{e.text}`"
-
-    channel_guild = getattr(channel, "guild", None)
-    if channel_guild is not None and channel_guild.id != guild_id:
-        return None, f"channel `{channel_id}` does not belong to guild `{guild_id}`"
-
-    if not isinstance(channel, discord.abc.Messageable):
-        return None, f"channel `{channel_id}` is not a text-sendable channel"
-
-    return channel, None
-
-
 _NAMED_SEPARATORS: dict[str, str] = {
     "dot": ".", "com": ",", "apo": "'", "sem": ";", "colon": ":",
 }
@@ -580,14 +495,6 @@ class ExecutionContext:
         self.suppress_errors: bool = False
         self.suppress_errors_message: str | None = None
         self.view = None
-        # Unified pending-view token system: when a button is added onto an
-        # ALREADY-sent message (no new send happened yet since), _view_dirty
-        # is True and _view_dirty_target holds that exact message. Exactly
-        # one place (Interpreter._flush_message) resolves this — either by
-        # editing that target, or by being cleared automatically the moment
-        # any wrapper .send() goes out carrying the same ctx.view. There is
-        # no timer and no second code path, so the same button can never be
-        # applied twice.
         self._view_dirty: bool = False
         self._view_dirty_target: discord.Message | None = None
         self.temp_vars: dict = {}
@@ -604,6 +511,7 @@ class ExecutionContext:
         self.current_line_no: int | None = None
         self._resolve_root_text: str = ''
         self.text_buffer = ""
+        self._pending_inline_actions = []
 
         if interaction is not None:
             self.message = interaction.message or message
@@ -794,6 +702,11 @@ class ExecutionContext:
                 if val is not None:
                     result.append(val)
                     i = j
+                elif cmd_name and (cmd_name[0].isalpha() or cmd_name[0] == '_'):
+                    self._abort_with_error(
+                        FDSyntaxError(f"Unknown Syntax : `${cmd_name}`"),
+                        base_offset + i
+                    )
                 else:
                     result.append('$')
                     i += 1
@@ -1013,7 +926,10 @@ class ExecutionContext:
                 ),
                 pos
             )
-        return f"${cmd_name}[{inner}]"
+        self._abort_with_error(
+            FDLogicError(f"Unknown command: `${cmd_name}`"),
+            pos
+        )
     
 class Command:
     def __init__(self, name: str, args: list[str], raw: str, line_no: int | None = None):

@@ -171,4 +171,14 @@ GERMAN_DICT = {
     'filter_all':           (1148, 'Alle'),
     'filter_command':       (1149, 'Befehl'),
     'filter_event':         (1150, 'Ereignis'),
+
+    # ── variables_view ────────────────────────────────────────
+    'variables_slash':      (1151, 'Variablen /'),
+    'scoped_vars':          (1152, 'Werte pro Benutzer'),
+    'value_label':          (1153, 'Wert'),
+    'var_name_hint':        (1154, 'variable_name'),
+    'var_value_hint':       (1155, 'variable_value'),
+    'info_var':             (1156, 'Variableninfo'),
+    'invalid_json':         (1157, 'Ungültiges JSON'),
+    'json_must_be_object':  (1158, 'Der oberste Wert muss ein JSON-Objekt sein ({"userID": "value"}).'),
 }

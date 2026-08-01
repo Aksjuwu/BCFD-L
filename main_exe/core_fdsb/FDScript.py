@@ -119,60 +119,10 @@ class _PreScanDirectives:
     @staticmethod
     async def apply(interpreter: 'Interpreter', ctx: ExecutionContext) -> None:
         _PreScanDirectives._suppress_errors(interpreter, ctx)
-        await _PreScanDirectives._use_channel(interpreter, ctx)
 
     @staticmethod
     def _suppress_errors(interpreter: 'Interpreter', ctx: ExecutionContext) -> None:
         ctx.suppress_errors, ctx.suppress_errors_message = _scan_suppress_errors(interpreter.script_text)
-
-    @staticmethod
-    async def _use_channel(interpreter: 'Interpreter', ctx: ExecutionContext) -> None:
-        use_channel_match = re.search(r'\$useChannel\[(.*?)\]', interpreter.script_text, flags=re.IGNORECASE)
-        if not use_channel_match:
-            return
-
-        args_raw = use_channel_match.group(1).split(';')
-        if len(args_raw) >= 2:
-            guild_id_raw = ctx.resolve(args_raw[0]).strip()
-            channel_id_raw = ctx.resolve(args_raw[1]).strip()
-
-            if guild_id_raw.isdigit() and channel_id_raw.isdigit():
-                target_guild = ctx.bot.get_guild(int(guild_id_raw))
-                if target_guild:
-                    target_channel = target_guild.get_channel(int(channel_id_raw))
-
-                    if not target_channel:
-                        try:
-                            target_channel = await target_guild.fetch_channel(int(channel_id_raw))
-                        except (discord.NotFound, discord.Forbidden, discord.HTTPException) as e:
-                            ctx.log_event(f"[useChannel] failed to fetch channel {channel_id_raw}: {e}")
-                            target_channel = None
-
-                    if target_channel:
-                        ctx._channel_override = target_channel
-                        ctx.log_event(
-                            f"useChannel → redirecting all output to channel "
-                            f"{channel_id_raw} (guild {guild_id_raw})"
-                        )
-
-                        if ctx.interaction and not ctx.interaction.response.is_done():
-                            try:
-                                await ctx.interaction.response.defer()
-                            except Exception as e:
-                                ctx.log_event(f"[useChannel] failed to defer interaction: {e}")
-                        ctx.interaction = None
-                        ctx.is_global_reply = False
-                    else:
-                        ctx.log_event(f"[useChannel] channel {channel_id_raw} not found in guild {guild_id_raw}")
-                else:
-                    ctx.log_event(f"[useChannel] guild {guild_id_raw} not found (bot may not be a member)")
-            else:
-                ctx.log_event("[useChannel] guildID/channelID must be literal numeric IDs")
-
-        interpreter.script_text = (
-            interpreter.script_text[:use_channel_match.start()]
-            + interpreter.script_text[use_channel_match.end():]
-        )
 
 # ─────────────────────────────────────────────
 # Interpreter
@@ -217,7 +167,8 @@ class Interpreter:
 
         try:
             await self._execute(tokens, ctx)
-            
+            await self._drain_pending_inline(ctx)
+
             await self._flush_message(ctx)
             
         except FDAbortScript:
@@ -237,9 +188,6 @@ class Interpreter:
 
         if not text_content and not has_embed and not has_view:
             return
-
-        if not text_content and not has_embed and has_view:
-            text_content = "\u200b"
 
         ctx.stop_typing()
         ch = await ctx.get_dest()
@@ -262,6 +210,27 @@ class Interpreter:
         except discord.HTTPException as e:
             ctx.log_event(f"Failed to send buffered message: {e}")
             print(f"[FDScript] Buffered message send error: {e}")
+
+    # ── Flush a standalone $addButton chain (no text/embed) ────
+    async def _flush_view_only(self, ctx: ExecutionContext):
+        if not (ctx.view and ctx.view.children):
+            return
+
+        ctx.stop_typing()
+        ch = await ctx.get_dest()
+
+        try:
+            if getattr(ctx, "is_global_reply", False):
+                sent = await ctx.message.reply(view=ctx.view)
+            else:
+                sent = await ch.send(view=ctx.view)
+            ctx.last_bot_message = sent
+            ctx.log_event("buttons-only message → sent")
+        except discord.HTTPException as e:
+            ctx.log_event(f"Failed to send buttons-only message: {e}")
+            print(f"[FDScript] buttons-only send error: {e}")
+        finally:
+            ctx.view = None
 
     # ── Flush pending log snapshots ───────────────────────────
     async def _flush_logs(self, ctx: ExecutionContext):
@@ -395,10 +364,11 @@ class Interpreter:
         return []
 
     # ── Append resolved text ──────────────────────────────────
-    def _append_text(self, ctx: ExecutionContext, tok) -> None:
+    async def _append_text(self, ctx: ExecutionContext, tok) -> None:
         line_no = getattr(tok, 'line_no', None)
         ctx.set_line(line_no)
         resolved_text = ctx.resolve(tok)
+        await self._drain_pending_inline(ctx)
         if not resolved_text.strip():
             return
 
@@ -413,6 +383,80 @@ class Interpreter:
         ctx.text_buffer += resolved_text
         ctx._last_text_line = line_no
 
+    # ── Run coroutines queued by inline commands ───────────────────
+    async def _drain_pending_inline(self, ctx: ExecutionContext) -> None:
+        pending = ctx._pending_inline_actions
+        if not pending:
+            return
+        ctx._pending_inline_actions = []
+        for coro in pending:
+            try:
+                await coro
+            except Exception as e:
+                ctx.log_event(f"warning: inline action failed: {e}")
+
+    async def _collect_trailing_buttons(self, tokens: list, next_idx: int, ctx: ExecutionContext):
+        wait_cmd = None
+        while next_idx < len(tokens):
+            next_tok = tokens[next_idx]
+
+            if isinstance(next_tok, str):
+                if not next_tok.strip():
+                    next_idx += 1
+                    continue
+                else:
+                    break
+            elif isinstance(next_tok, Command):
+                if next_tok.name == "addButton":
+                    await self._exec_command(next_tok, ctx)
+                    next_idx += 1
+                    continue
+                elif next_tok.name == "wait" and wait_cmd is None:
+                    wait_cmd = next_tok
+                    next_idx += 1
+                    break
+                else:
+                    break
+            else:
+                break
+
+        return next_idx, wait_cmd
+
+    # ── Send a bare-text token now, same shape as $sendMessage ─────────
+    async def _send_text_now(self, ctx: ExecutionContext, resolved_text: str) -> None:
+        ctx.stop_typing()
+        ch = await ctx.get_dest()
+        view = ctx.view if ctx.view is not None else discord.utils.MISSING
+
+        try:
+            if getattr(ctx, "is_global_reply", False):
+                sent = await ctx.message.reply(content=resolved_text, view=view)
+            else:
+                sent = await ch.send(resolved_text, view=view)
+            ctx.last_bot_message = sent
+            ctx.log_event(f"text → sent as message: {_truncate(resolved_text)!r}")
+        except discord.HTTPException as e:
+            ctx.log_event(f"Failed to send text message: {e}")
+        finally:
+            ctx.view = None
+
+    async def _process_text_token(self, tokens: list, tok, next_idx: int, ctx: ExecutionContext) -> int:
+        line_no = getattr(tok, 'line_no', None)
+        ctx.set_line(line_no)
+        resolved_text = ctx.resolve(tok)
+        await self._drain_pending_inline(ctx)
+
+        if not resolved_text.strip():
+            return next_idx
+
+        next_idx, wait_cmd = await self._collect_trailing_buttons(tokens, next_idx, ctx)
+        await self._send_text_now(ctx, resolved_text)
+
+        if wait_cmd is not None:
+            await self._exec_command(wait_cmd, ctx)
+
+        return next_idx
+
     # ── Execute ───────────────────────────────────────────────
     async def _execute(self, tokens: list, ctx: ExecutionContext, start: int = 0) -> int:
         i = start
@@ -421,7 +465,7 @@ class Interpreter:
             i += 1
 
             if isinstance(tok, str):
-                self._append_text(ctx, tok)
+                i = await self._process_text_token(tokens, tok, i, ctx)
                 continue
                 
             if tok.name == "if":
@@ -442,9 +486,57 @@ class Interpreter:
 
         return i
 
+    # ── $useChannel — redirects output from this point onward ──
+    async def _exec_use_channel(self, cmd: Command, ctx: ExecutionContext) -> None:
+        args = cmd.args
+        if len(args) < 2:
+            ctx.log_event("[useChannel] requires guildID and channelID")
+            return
+
+        guild_id_raw   = ctx.resolve(args[0]).strip()
+        channel_id_raw = ctx.resolve(args[1]).strip()
+
+        if not (guild_id_raw.isdigit() and channel_id_raw.isdigit()):
+            ctx.log_event("[useChannel] guildID/channelID must be literal numeric IDs")
+            return
+
+        target_guild = ctx.bot.get_guild(int(guild_id_raw))
+        if not target_guild:
+            ctx.log_event(f"[useChannel] guild {guild_id_raw} not found (bot may not be a member)")
+            return
+
+        target_channel = target_guild.get_channel(int(channel_id_raw))
+        if not target_channel:
+            try:
+                target_channel = await target_guild.fetch_channel(int(channel_id_raw))
+            except (discord.NotFound, discord.Forbidden, discord.HTTPException) as e:
+                ctx.log_event(f"[useChannel] failed to fetch channel {channel_id_raw}: {e}")
+                target_channel = None
+
+        if not target_channel:
+            ctx.log_event(f"[useChannel] channel {channel_id_raw} not found in guild {guild_id_raw}")
+            return
+
+        ctx._channel_override = target_channel
+        ctx.log_event(
+            f"useChannel → redirecting output (from this line onward) to channel "
+            f"{channel_id_raw} (guild {guild_id_raw})"
+        )
+
+        if ctx.interaction and not ctx.interaction.response.is_done():
+            try:
+                await ctx.interaction.response.defer()
+            except Exception as e:
+                ctx.log_event(f"[useChannel] failed to defer interaction: {e}")
+        ctx.interaction = None
+        ctx.is_global_reply = False
+
     # ── command dispatch ──────────────────────────────────────
     async def _exec_command(self, cmd: Command, ctx: ExecutionContext) -> None:
-        if cmd.name in ("suppressErrors", "useChannel"):
+        if cmd.name == "suppressErrors":
+            return
+        if cmd.name == "useChannel":
+            await self._exec_use_channel(cmd, ctx)
             return
 
         module = _load_cmd(cmd.name)
@@ -463,14 +555,24 @@ class Interpreter:
 
         try:
             await module.execute(cmd, cmd.args, ctx, ch)
+            await self._drain_pending_inline(ctx)
         except FDAbortScript:
             raise
         except Exception as e:
             await _send_error(ch, FDLogicError(f"`${cmd.name}` raised an error: `{e}`"))
 
     # ── command Lookahead Wrapper ────────────
+    _SEND_COMMANDS = ("sendMessage", "sendEmbedMessage", "reply", "replyIn", "editMessage")
+
     async def _exec_command_with_lookahead(self, cmd: Command, tokens: list, next_idx: int, ctx: ExecutionContext) -> int:
-        if cmd.name in ("sendMessage", "sendEmbedMessage", "reply", "replyIn", "editMessage"):
+        wait_cmd = None
+        standalone_buttons = cmd.name == "addButton"
+        is_edit_batch = cmd.name == "editButton"
+
+        if standalone_buttons:
+            await self._exec_command(cmd, ctx)
+
+        if cmd.name in self._SEND_COMMANDS or standalone_buttons:
             while next_idx < len(tokens):
                 next_tok = tokens[next_idx]
                 
@@ -486,11 +588,66 @@ class Interpreter:
                         await self._exec_command(next_tok, ctx)
                         next_idx += 1
                         continue
+                    elif next_tok.name == "wait" and wait_cmd is None:
+                        wait_cmd = next_tok
+                        next_idx += 1
+                        break
                     else:
                         break 
                 else:
                     break
-                    
+
+            if not standalone_buttons:
+                await self._exec_command(cmd, ctx)
+            elif wait_cmd is not None:
+                await self._flush_view_only(ctx)
+
+            if wait_cmd is not None:
+                await self._exec_command(wait_cmd, ctx)
+
+            return next_idx
+
+        if is_edit_batch:
+            edit_cmds = [cmd]
+            while next_idx < len(tokens):
+                next_tok = tokens[next_idx]
+
+                if isinstance(next_tok, str):
+                    if not next_tok.strip():
+                        next_idx += 1
+                        continue
+                    else:
+                        break
+
+                elif isinstance(next_tok, Command):
+                    if next_tok.name == "editButton":
+                        edit_cmds.append(next_tok)
+                        next_idx += 1
+                        continue
+                    elif next_tok.name == "wait" and wait_cmd is None:
+                        wait_cmd = next_tok
+                        next_idx += 1
+                        break
+                    else:
+                        break
+                else:
+                    break
+
+            # ننفّذ كل التعديلات: كل شيء do_edit=False ما عدا الأخير
+            for i, edit_cmd in enumerate(edit_cmds):
+                is_last = (i == len(edit_cmds) - 1)
+                module = _load_cmd("editButton")
+                ch = await ctx.get_dest()
+                if module and hasattr(module, "execute"):
+                    # نستدعي execute مع معامل do_edit
+                    await module.execute(edit_cmd, edit_cmd.args, ctx, ch, do_edit=is_last)
+                await self._drain_pending_inline(ctx)
+
+            if wait_cmd is not None:
+                await self._exec_command(wait_cmd, ctx)
+
+            return next_idx
+
         await self._exec_command(cmd, ctx)
         return next_idx
 
@@ -590,8 +747,9 @@ class Interpreter:
                 continue
 
             if execute and depth == 0:
-                self._append_text(ctx, tok)
-            i += 1
+                i = await self._process_text_token(tokens, tok, i + 1, ctx)
+            else:
+                i += 1
         return i
 
     # ── _run_block_slice ──────────────────────────────────────
@@ -601,7 +759,7 @@ class Interpreter:
             tok = tokens[i]
             i += 1
             if isinstance(tok, str):
-                self._append_text(ctx, tok)
+                i = await self._process_text_token(tokens, tok, i, ctx)
                 continue
             
             if tok.name == "break": return "break"

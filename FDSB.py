@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # -*- coding: utf-8 -*-
-# FDSB.py (root) . Flet 0.80+ / v1 API
+# FDSB.py (root) . Flet 0.85.2+ / v1 API
 
 import os
 import re
@@ -102,7 +102,7 @@ from main_exe.main import BotDashboardScreen
 
 logging.getLogger('discord').setLevel(logging.INFO)
 
-import main_exe.core_fdsb.local_server
+from main_exe.core_fdsb import local_server
 
 icon_path = get_resource_path('main_exe', 'icons', 'FDSB.png')
 
@@ -188,11 +188,11 @@ def bot_exists(bot_name: str) -> bool:
 # ══════════════════════════════════════════════════════════════════════════════
 
 DISCORD_TOKEN_RE = re.compile(
-    r'^[A-Za-z0-9_-]{24,28}'   # Part 1
+    r'^[A-Za-z0-9_-]{24,28}'   
     r'\.'
-    r'[A-Za-z0-9_-]{6}'        # Part 2
+    r'[A-Za-z0-9_-]{6}'        
     r'\.'
-    r'[A-Za-z0-9_-]{27,38}$'   # Part 3
+    r'[A-Za-z0-9_-]{27,38}$'   
 )
 
 
@@ -203,33 +203,11 @@ def is_valid_discord_token(token: str) -> bool:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  THEME
+#  THEME — delegates to ThemeEngine for all theme keys
 # ══════════════════════════════════════════════════════════════════════════════
 
-THEME = {
-    'bg':             '#FFFFFF',
-    'card_bg':        '#C7D6FF',
-    'card_border':    '#FFFFFF',
-    'footer_bg':      '#A3CBFF',
-    'popup_bg':       '#FFFFFF',
-    'input_bg':       '#818181',
-    'input_border':   '#797979',
-    'text':           '#000000',
-    'text_dim':       '#8A90A8',
-    'text_on_accent': '#FFFFFF',
-    'accent':         '#1B1F2E',
-    'accent_hover':   '#2C3150',
-    'success':        '#16A34A',
-    'danger':         '#DC2626',
-    'icon_bg':        '#8F8F8F',
-    'discord':        '#5865F2',
-    'github':         '#24292E',
-    'title_bcfd':     '#1B1F2E',
-}
-
-
 def _c(key: str) -> str:
-    return THEME[key]
+    return ThemeEngine.hex(key)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -638,18 +616,6 @@ class MainView:
         else:
             self._content_area.content = self._empty_label
 
-    def _start_bot(self, data):
-        try:
-            main_exe.core_fdsb.local_server.start_bot(data.get('bot_dir', ''))
-        except Exception as e:
-            print(f'[FDSB] start: {e}')
-
-    def _stop_bot(self, data):
-        try:
-            main_exe.core_fdsb.local_server.stop_bot()
-        except Exception as e:
-            print(f'[FDSB] stop: {e}')
-
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  NAVIGATION HELPERS
@@ -704,6 +670,11 @@ def main(page: ft.Page):
 
     _configure_window(page)
 
+    try:
+        local_server.ensure_background_mode(page)
+    except Exception as e:
+        print(f'[FDSB] background mode failed: {e}')
+
     fonts_dir = get_resource_path('main_exe', 'langs', 'fonts')
     fonts = {}
     if os.path.isdir(fonts_dir):
@@ -721,9 +692,6 @@ def main(page: ft.Page):
 
     saved_theme = get_current_theme()
 
-    # امنع نظام أندرويد/iOS من فرض ColorScheme داكن افتراضي فوق
-    # ثيماتنا المخصّصة يدوياً، وإلا فقد تظهر النصوص السوداء رمادية باهتة
-    # عندما يكون "الوضع الداكن" مفعّلاً في إعدادات الهاتف.
     page.theme_mode = (
         ft.ThemeMode.DARK if saved_theme in ('system_da', 'v2_dark')
         else ft.ThemeMode.LIGHT

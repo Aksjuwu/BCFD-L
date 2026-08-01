@@ -171,4 +171,14 @@ RUSSIAN_DICT = {
     'filter_all':           (1148, 'Все'),
     'filter_command':       (1149, 'Команда'),
     'filter_event':         (1150, 'Событие'),
+
+    # ── variables_view ────────────────────────────────────────
+    'variables_slash':      (1151, 'Переменные /'),
+    'scoped_vars':          (1152, 'Значения для каждого пользователя'),
+    'value_label':          (1153, 'Значение'),
+    'var_name_hint':        (1154, 'variable_name'),
+    'var_value_hint':       (1155, 'variable_value'),
+    'info_var':             (1156, 'Информация о переменной'),
+    'invalid_json':         (1157, 'Неверный JSON'),
+    'json_must_be_object':  (1158, 'Верхний уровень должен быть JSON-объектом ({"userID": "value"}).'),
 }

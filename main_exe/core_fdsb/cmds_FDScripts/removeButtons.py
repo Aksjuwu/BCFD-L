@@ -21,6 +21,10 @@ def _reschedule_debounced_edit(ctx: ExecutionContext) -> None:
     ctx._view_edit_task = asyncio.create_task(_commit_edit())
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     message_id_arg = args[0].strip() if len(args) > 0 and args[0].strip() else None
 

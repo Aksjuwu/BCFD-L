@@ -171,4 +171,14 @@ FRENCH_DICT = {
     'filter_all':           (1148, 'Tout'),
     'filter_command':       (1149, 'Commande'),
     'filter_event':         (1150, 'Événement'),
+
+    # ── variables_view ────────────────────────────────────────
+    'variables_slash':      (1151, 'Variables /'),
+    'scoped_vars':          (1152, 'Valeurs par utilisateur'),
+    'value_label':          (1153, 'Valeur'),
+    'var_name_hint':        (1154, 'variable_name'),
+    'var_value_hint':       (1155, 'variable_value'),
+    'info_var':             (1156, 'Info variable'),
+    'invalid_json':         (1157, 'JSON invalide'),
+    'json_must_be_object':  (1158, 'La valeur de niveau supérieur doit être un objet JSON ({"userID": "value"}).'),
 }

@@ -175,4 +175,14 @@ ENGLISH_DICT = {
     'callout_limit':        (1145, 'Limit'),
     'callout_important':    (1146, "It's important!"),
     'callout_question':     (1147, 'What is this?'),
+
+    # ── variables_view ────────────────────────────────────────
+    'variables_slash':      (1151, "Variable's /"),
+    'scoped_vars':          (1152, 'Per-user values'),
+    'value_label':          (1153, 'Value'),
+    'var_name_hint':        (1154, 'variable_name'),
+    'var_value_hint':       (1155, 'variable_value'),
+    'info_var':             (1156, 'Variable Info'),
+    'invalid_json':         (1157, 'Invalid JSON'),
+    'json_must_be_object':  (1158, 'Top level value must be a JSON object ({"userID": "value"}).'),
 }

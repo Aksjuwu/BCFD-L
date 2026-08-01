@@ -5,6 +5,13 @@ from main_exe.core_fdsb.FDScript import (
     FDLogicError, FDAbortScript, _send_error, evaluate_condition
 )
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    if len(args) < 2:
+        return "false"
+    from main_exe.core_fdsb.FDScript import evaluate_condition
+    return "true" if evaluate_condition(args[0].strip(), ctx) else "false"
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(cmd.args) < 2:
         await _send_error(ch, FDLogicError(

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # -*- coding: utf-8 -*-
-# main_exe/main.py . migrated to Flet 0.80+ / v1 API 
+# main_exe/main.py . migrated to Flet 0.85.2+ / v1 API 
 
 import os
 import json
@@ -303,9 +303,10 @@ class BotMainTab:
         if new_state:
             try:
                 from main_exe.core_fdsb import local_server
+                local_server.set_flet_page(self._page)
                 try:
                     if self._page.platform.value in ('android', 'ios'):
-                        local_server.request_flet_permissions(self._page)
+                        self._page.run_task(local_server.request_flet_permissions, self._page)
                 except (AttributeError, Exception):
                     pass
                 local_server.start_bot(self._bot_data.get('bot_dir', ''))
@@ -315,6 +316,7 @@ class BotMainTab:
         else:
             try:
                 from main_exe.core_fdsb import local_server
+                local_server.set_flet_page(self._page)
                 local_server.stop_bot()
             except Exception as e:
                 print(f'[Dashboard] stop failed: {e}')
@@ -330,6 +332,7 @@ class BotDashboardScreen:
         self._page    = page
         self._on_back = on_back
         self._active  = 'main'
+        self._bot_dir = bot_dir
 
         self._title_text = ft.Text(
             '', size=16, weight=ft.FontWeight.BOLD,
@@ -351,7 +354,11 @@ class BotDashboardScreen:
         self._main_tab      = BotMainTab(page)
         self._commands_tab  = BotCommandsTab(page)
         self._variables_tab = BotVariablesTab(page)
-        self._settings_tab  = BotSettingsTab(page)
+        self._settings_tab  = BotSettingsTab(
+            page,
+            on_lang_change=self._on_settings_lang_change,
+            on_theme_change=self._on_settings_theme_change,
+        )
         self._wiki_tab   = BotWikiTab(page)
 
         self._tab_views = {
@@ -379,18 +386,68 @@ class BotDashboardScreen:
         self._back_btn.bgcolor        = get('accent')
         self._nav_bar.bgcolor         = get('nav_bg')
         self._nav_bar.indicator_color = get('nav_active')
+        if hasattr(self, '_header'):
+            self._header.bgcolor      = get('card_bg')
+            self._header.border       = ft.Border(bottom=ft.BorderSide(1, get('divider')))
 
         self._nav_bar.destinations = self._build_destinations()
 
         if hasattr(self, '_content'):
             self._content.content = self._tab_views[self._active].build()
 
+    # ── Full tab recreation ────────────────────────────────────────────────────
+
+    def _rebuild_all_tabs(self, update_nav: bool):
+        self._main_tab      = BotMainTab(self._page)
+        self._commands_tab  = BotCommandsTab(self._page)
+        self._variables_tab = BotVariablesTab(self._page)
+        self._settings_tab  = BotSettingsTab(
+            self._page,
+            on_lang_change=self._on_settings_lang_change,
+            on_theme_change=self._on_settings_theme_change,
+        )
+        self._wiki_tab      = BotWikiTab(self._page)
+
+        self._tab_views = {
+            'main':      self._main_tab,
+            'commands':  self._commands_tab,
+            'variables': self._variables_tab,
+            'settings':  self._settings_tab,
+            'wiki':      self._wiki_tab,
+        }
+
+        if self._bot_dir:
+            bot_files_dir = os.path.join(self._bot_dir, 'bot_files')
+            config_path   = os.path.join(self._bot_dir, 'bot_files', 'config.json')
+            try:
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    bot_data = json.load(f)
+                bot_data['bot_dir'] = self._bot_dir
+            except Exception:
+                bot_data = {}
+
+            self._title_text.value = bot_data.get('name', 'Bot')
+            self._main_tab.load_bot(bot_data)
+            self._commands_tab.load_bot(bot_files_dir)
+            self._variables_tab.load_bot(bot_files_dir)
+            self._settings_tab.load_bot(bot_data)
+            self._wiki_tab.load_bot(bot_data)
+
+        if update_nav:
+            self._nav_bar.destinations = self._build_destinations()
+        self._content.content = self._tab_views[self._active].build()
         self._page.update()
+
+    def _on_settings_lang_change(self, lang: str):
+        self._rebuild_all_tabs(update_nav=True)
+
+    def _on_settings_theme_change(self, theme_key: str):
+        self._rebuild_all_tabs(update_nav=False)
 
     # ── Build ─────────────────────────────────────────────────────────────────
 
     def build(self) -> ft.Control:
-        header = ft.Container(
+        self._header = ft.Container(
             content=ft.Row(
                 [
                     self._back_btn,
@@ -409,7 +466,7 @@ class BotDashboardScreen:
         self._switch_tab('main')
 
         return ft.Column(
-            [header, self._content, self._nav_bar],
+            [self._header, self._content, self._nav_bar],
             spacing=0,
             expand=True,
         )
@@ -484,4 +541,3 @@ class BotDashboardScreen:
         self._settings_tab.load_bot(bot_data)
         self._wiki_tab.load_bot(bot_data)
         self._switch_tab('main')
-        

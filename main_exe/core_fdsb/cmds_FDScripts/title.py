@@ -3,6 +3,12 @@ import discord
 from FDScript import ExecutionContext, Command, FDLogicError, _send_error, _truncate
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    if args:
+        ctx.embed_builder.title = ctx.resolve(args[0])
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) == 1:
         resolved_text = ctx.resolve(args[0])

@@ -3,6 +3,10 @@ import discord
 from FDScript import ExecutionContext, Command, FDEnvironmentError, _send_error
 
 
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     try:
         await ctx.message.delete()

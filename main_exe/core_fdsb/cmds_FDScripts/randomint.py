@@ -8,6 +8,7 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
     if len(args) == 2:
         try:
             a, b = int(float(args[0])), int(float(args[1]))
+            random.seed()
             result = random.randint(min(a, b), max(a, b))
             ctx.stop_typing()
             dest = await ctx.get_dest()

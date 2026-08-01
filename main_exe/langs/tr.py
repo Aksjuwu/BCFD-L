@@ -171,4 +171,14 @@ TURKISH_DICT = {
     'filter_all':           (1148, 'Tümü'),
     'filter_command':       (1149, 'Komut'),
     'filter_event':         (1150, 'Olay'),
+
+    # ── variables_view ────────────────────────────────────────
+    'variables_slash':      (1151, 'Değişkenler /'),
+    'scoped_vars':          (1152, 'Kullanıcı başına değerler'),
+    'value_label':          (1153, 'Değer'),
+    'var_name_hint':        (1154, 'variable_name'),
+    'var_value_hint':       (1155, 'variable_value'),
+    'info_var':             (1156, 'Değişken bilgisi'),
+    'invalid_json':         (1157, 'Geçersiz JSON'),
+    'json_must_be_object':  (1158, 'Üst düzey değer bir JSON nesnesi olmalıdır ({"userID": "value"}).'),
 }

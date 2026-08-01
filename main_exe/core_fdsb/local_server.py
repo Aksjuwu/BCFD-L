@@ -13,6 +13,12 @@ import asyncio
 import threading
 import time
 import flet as ft 
+
+try:
+    from flet_android_notifications import FletAndroidNotifications
+except ImportError:
+    FletAndroidNotifications = None
+
 from main_exe.core_fdsb.FDScript import run_script
 from main_exe.core_fdsb.FDCore   import set_vars_dir, set_bot_start_time
 
@@ -29,6 +35,8 @@ EVENT_PREFIXES: set[str] = {
     '$alwaysReply',
     '$messageContains',
     '$messageContainsAll',
+    '$onBotOnline',
+    '$onBotMessage',
 }
 
 # ══════════════════════════════════════════════════════════════
@@ -139,57 +147,173 @@ def _get_token(bot_dir: str) -> str:
 #  Flet Notifications (Safe & Native SnackBar)
 # ══════════════════════════════════════════════════════════════
 
+def set_flet_page(page: ft.Page):
+    """يجب استدعاؤها من واجهة التطبيق الفعلية (main.py) لتسجيل الصفحة
+    حتى تعمل send_flet_notification، لأن main_gui() لا يتم تشغيلها في
+    مسار التطبيق الحقيقي."""
+    global _flet_page
+    _flet_page = page
+
 def send_flet_notification(message: str):
     global _flet_page
     if _flet_page:
         try:
-            _flet_page.snack_bar = ft.SnackBar(
-                content=ft.Text(message, color=ft.colors.WHITE),
-                bgcolor=ft.colors.BLUE_GREY_900,
-                open=True,
-                duration=4000
+            _flet_page.open(
+                ft.SnackBar(
+                    content=ft.Text(message, color=ft.Colors.WHITE),
+                    bgcolor=ft.Colors.BLUE_GREY_900,
+                    duration=4000,
+                )
             )
-            _flet_page.update()
         except Exception:
             pass
 
 # ══════════════════════════════════════════════════════════════
-#  Android Persistent Status Notification (using android_notify)
+#  Android Background Mode (flet-android-notifications + Wakelock)
 # ══════════════════════════════════════════════════════════════
 
-def send_android_status_notification(bot_name: str, online: bool):
+_android_notifications = None
+_wakelock = None
+_flet_session_loop = None
+_fgs_running = False
+
+def _is_android() -> bool:
+    return (
+        hasattr(sys, 'getandroidapilevel')
+        or 'ANDROID_ARGUMENT' in os.environ
+        or os.environ.get('FLET_PLATFORM') == 'android'
+    )
+
+def _schedule_on_flet_loop(coro):
+    loop = _flet_session_loop
+    if loop is None or loop.is_closed():
+        return None
     try:
-        from android_notify import Notification
-    except ImportError:
+        return asyncio.run_coroutine_threadsafe(coro, loop)
+    except RuntimeError:
+        return None
+
+def ensure_background_mode(page: ft.Page):
+    """
+    يسجّل خدمات الخلفية (Foreground Service + Wakelock) في سياق
+    صفحة Flet حتى تعمل استدعاءاتها عبر حلقة Flet.
+    يُستدعى من داخل main(page) قبل تشغيل البوت.
+    """
+    global _android_notifications, _wakelock, _flet_session_loop
+    if not _is_android():
+        return
+    try:
+        _flet_session_loop = asyncio.get_running_loop()
+    except RuntimeError:
+        _flet_session_loop = None
+
+    if _android_notifications is None and FletAndroidNotifications is not None:
+        _android_notifications = FletAndroidNotifications()
+    if _wakelock is None:
+        try:
+            _wakelock = ft.Wakelock()
+        except Exception as e:
+            print(f"[Background] Wakelock unavailable: {e}")
+            _wakelock = None
+
+    if _client and not _client.is_closed():
+        _schedule_on_flet_loop(_start_background_mode(str(_client.user) or 'FDSB Bot'))
+
+async def start_android_foreground_service(bot_name: str):
+    """
+    يبدأ Foreground Service حقيقي مع إشعار دائم.
+    هذا يساعد على إبقاء العملية حية في الخلفية.
+    """
+    global _fgs_running
+
+    if not _is_android():
         return
 
-    if not (hasattr(sys, 'getandroidapilevel') or 'ANDROID_ARGUMENT' in os.environ):
+    notifications = _android_notifications
+    if not notifications:
+        print("[FGS] flet-android-notifications not registered")
         return
 
-    status_text = "🟢 متصل ويعمل الآن" if online else "🔴 غير متصل"
+    if _fgs_running:
+        return
+
     title = bot_name or "FDSB Bot"
+    body = "🟢 البوت متصل ويعمل في الخلفية"
 
     try:
-        Notification(
+        await notifications.request_permissions()
+
+        await notifications.start_foreground_service(
+            notification_id=1,
             title=title,
-            message=status_text,
-            channel_id="fdsb_bot_status",
-            channel_name="Bot Status",
-            persistent=True, 
-        ).send()
+            body=body,
+            foreground_service_types=["special_use"],
+            start_type="start_sticky",
+            ongoing=True,
+        )
+        _fgs_running = True
+        print("[FGS] Foreground Service started")
     except Exception as e:
-        print(f"[AndroidNotif] send failed: {e}")
+        print(f"[FGS] start failed: {e}")
 
-def clear_android_status_notification():
-    try:
-        from android_notify import NotificationHandler
-    except ImportError:
+async def stop_android_foreground_service():
+    """يوقف Foreground Service ويزيل الإشعار."""
+    global _fgs_running
+
+    if not _is_android():
+        return
+
+    notifications = _android_notifications
+    if not notifications:
         return
 
     try:
-        NotificationHandler.cancelAll()
+        await notifications.stop_foreground_service()
+        _fgs_running = False
+        print("[FGS] Foreground Service stopped")
     except Exception as e:
-        print(f"[AndroidNotif] clear failed: {e}")
+        print(f"[FGS] stop failed: {e}")
+
+async def _enable_wakelock():
+    w = _wakelock
+    if w is None:
+        return
+    try:
+        await w.enable()
+    except Exception as e:
+        print(f"[Wakelock] enable failed: {e}")
+
+async def _disable_wakelock():
+    w = _wakelock
+    if w is None:
+        return
+    try:
+        await w.disable()
+    except Exception:
+        pass
+
+async def _start_background_mode(bot_name: str):
+    await _enable_wakelock()
+    await start_android_foreground_service(bot_name)
+
+async def _stop_background_mode():
+    await _disable_wakelock()
+    await stop_android_foreground_service()
+
+async def update_android_status_notification(bot_name: str, online: bool):
+    """
+    عند الاتصال: يشغّل FGS (مجدولاً على حلقة Flet).
+    عند الانقطاع: يوقف FGS.
+    """
+    if online:
+        future = _schedule_on_flet_loop(_start_background_mode(bot_name))
+    else:
+        future = _schedule_on_flet_loop(_stop_background_mode())
+    if future is not None:
+        try:
+            await future
+        except Exception as e:
+            print(f"[FGS] background mode error: {e}")
 
 # ══════════════════════════════════════════════════════════════
 # event_FDScripts
@@ -209,8 +333,15 @@ def _make_bot():
         print(f"[Bot] Logged in successfully as: {bot.user}")
         set_bot_start_time(time.time())
         send_flet_notification(f"البوت نشط الآن: {bot.user}")
-        await asyncio.sleep(3)
-        send_android_status_notification(str(bot.user), online=True)
+        await asyncio.sleep(2)
+        await update_android_status_notification(str(bot.user), online=True)
+
+        scripts = prefix_manager.get_event_scripts("$onBotOnline")
+        if scripts:
+            from main_exe.core_fdsb.event_FDScripts.onBotOnline import handle_event as handle_bot_online
+            for script_text in scripts:
+                try: await handle_bot_online(bot, script_text)
+                except Exception: pass
     
     @bot.event
     async def on_interaction(interaction: discord.Interaction):
@@ -271,6 +402,10 @@ def _make_bot():
     @bot.event
     async def on_message(message):
         if message.author.bot:
+            try:
+                from main_exe.core_fdsb.event_FDScripts.onBotMessage import handle_event as handle_bot_message
+                await handle_bot_message(message, bot, prefix_manager._bot_events_dir)
+            except Exception: pass
             return
 
         always_scripts = prefix_manager.get_event_scripts("$alwaysReply")
@@ -340,9 +475,11 @@ def start_bot(bot_dir: str) -> bool:
     set_vars_dir(_vars_dir_path)
 
     _client = _make_bot()
-    _thread = threading.Thread(target=_runner, args=(token,), daemon=True)
+    _thread = threading.Thread(target=_runner, args=(token,))
     _thread.start()
-    
+
+    _schedule_on_flet_loop(_start_background_mode('FDSB Bot'))
+
     send_flet_notification("جاري تهيئة وتشغيل البوت...")
     return True
 
@@ -355,35 +492,48 @@ def stop_bot() -> None:
         asyncio.run_coroutine_threadsafe(_client.close(), _loop)
         
     send_flet_notification("تم إيقاف خدمة البوت.")
-    clear_android_status_notification()
+
+    # إيقاف Foreground Service عبر حلقة Flet (دالة invoke)
+    _schedule_on_flet_loop(_stop_background_mode())
 
 # ══════════════════════════════════════════════════════════════
 #  Flet GUI & Android Background Permissions
 # ══════════════════════════════════════════════════════════════
 
-def request_flet_permissions(page: ft.Page):
-    notif_status = page.get_permission_status(ft.PermissionType.NOTIFICATION)
-    if notif_status != ft.PermissionStatus.GRANTED:
-        page.request_permission(ft.PermissionType.NOTIFICATION)
-    
-    battery_status = page.get_permission_status(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
-    if battery_status != ft.PermissionStatus.GRANTED:
-        page.request_permission(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
-    
+_permission_handler = None
+
+async def request_flet_permissions(page: ft.Page):
+    global _permission_handler
+    if _permission_handler is None:
+        _permission_handler = ft.PermissionHandler()
+        page.overlay.append(_permission_handler)
+        page.update()
+
+    ph = _permission_handler
+
     try:
-        from android_notify.core import asks_permission_if_needed
-        asks_permission_if_needed(legacy=True)
-    except (ImportError, Exception):
-        pass
+        notif_status = ph.check_permission(ft.PermissionType.NOTIFICATION)
+        if notif_status != ft.PermissionStatus.GRANTED:
+            ph.request_permission(ft.PermissionType.NOTIFICATION)
+    except Exception as e:
+        print(f"[Permissions] notification request failed: {e}")
+
+    try:
+        battery_status = ph.check_permission(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
+        if battery_status != ft.PermissionStatus.GRANTED:
+            ph.request_permission(ft.PermissionType.IGNORE_BATTERY_OPTIMIZATIONS)
+    except Exception as e:
+        print(f"[Permissions] battery optimization request failed: {e}")
 
 def main_gui(page: ft.Page):
     global _flet_page
-    _flet_page = page 
+    _flet_page = page
+    ensure_background_mode(page)
     
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-    status_icon = ft.Icon(name=ft.icons.DNS, size=60, color=ft.colors.GREY)
+    status_icon = ft.Icon(name=ft.Icons.DNS, size=60, color=ft.Colors.GREY)
     status_text = ft.Text(value="جاري التحميل...", size=16, weight=ft.FontWeight.BOLD)
 
     page.add(
@@ -394,18 +544,18 @@ def main_gui(page: ft.Page):
         )
     )
 
-    def launch_sequence():
-        request_flet_permissions(page)
+    async def launch_sequence():
+        await request_flet_permissions(page)
 
         bot_directory = os.path.dirname(os.path.abspath(__file__))
         
         is_running = start_bot(bot_directory)
 
         if is_running:
-            status_icon.color = ft.colors.GREEN
+            status_icon.color = ft.Colors.GREEN
             status_text.value = "البوت متصل ويعمل حالياً"
         else:
-            status_icon.color = ft.colors.RED
+            status_icon.color = ft.Colors.RED
             status_text.value = "فشل بدء البوت"
             
         page.update()

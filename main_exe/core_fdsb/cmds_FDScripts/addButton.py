@@ -47,8 +47,9 @@ def _next_row(view: discord.ui.View, new_line: bool) -> Optional[int]:
 
     return None
 
-async def _edit_target_with_button(ch: discord.abc.Messageable, target_message: discord.Message,
-                                    btn: discord.ui.Button, is_link: bool, url_or_id: str) -> bool:
+async def _edit_target_with_button(ch: discord.abc.Messageable, ctx: ExecutionContext,
+                                    target_message: discord.Message, btn: discord.ui.Button,
+                                    is_link: bool, url_or_id: str) -> bool:
     existing_view = discord.ui.View.from_message(target_message, timeout=None)
 
     if len(existing_view.children) >= MAX_BUTTONS_PER_MESSAGE:
@@ -65,14 +66,27 @@ async def _edit_target_with_button(ch: discord.abc.Messageable, target_message: 
 
     existing_view.add_item(btn)
     try:
-        await target_message.edit(view=existing_view)
+        updated_message = await target_message.edit(view=existing_view)
     except discord.HTTPException as e:
         await _send_error(ch, FDLogicError(
             f"`$addButton` — failed to edit message `{target_message.id}`: `{e}`"
         ))
         return False
 
+    if ctx.last_bot_message is not None and ctx.last_bot_message.id == updated_message.id:
+        ctx.last_bot_message = updated_message
+    if (
+        ctx.interaction is not None
+        and ctx.interaction.message is not None
+        and ctx.interaction.message.id == updated_message.id
+    ):
+        ctx.interaction.message = updated_message
+
     return True
+
+def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
+    return ""
+
 
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) < 4:
@@ -89,6 +103,12 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
     disabled = len(args) > 4 and args[4].strip().lower() == "yes"
     emoji = args[5].strip() if len(args) > 5 and args[5].strip() else None
     message_id_arg = args[6].strip() if len(args) > 6 and args[6].strip() else None
+
+    if not label.strip() and not emoji:
+        label = "\u200b"
+        _log_label = f"{url_or_id} (blank label)"
+    else:
+        _log_label = label or url_or_id
 
     if style_str not in BUTTON_STYLES:
         await _send_error(ch, FDLogicError(
@@ -150,11 +170,11 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
 
         btn = _build_button(is_link, url_or_id, label, style, disabled, emoji, row)
 
-        ok = await _edit_target_with_button(ch, target_message, btn, is_link, url_or_id)
+        ok = await _edit_target_with_button(ch, ctx, target_message, btn, is_link, url_or_id)
         if not ok:
             return
 
-        ctx.log_event(f"$addButton → attached [{label or url_or_id}] to message {message_id_arg}")
+        ctx.log_event(f"$addButton → attached [{_log_label}] to message {message_id_arg}")
         return
 
     if ctx.view is None:
@@ -183,4 +203,4 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
     btn = _build_button(is_link, url_or_id, label, style, disabled, emoji, row)
 
     ctx.view.add_item(btn)
-    ctx.log_event(f"$addButton → queued [{label or url_or_id}] style={style_str} id={url_or_id} row={row}")
+    ctx.log_event(f"$addButton → queued [{_log_label}] style={style_str} id={url_or_id} row={row}")
