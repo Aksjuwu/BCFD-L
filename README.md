@@ -128,11 +128,11 @@
   - some Fixed the color text on FDSB.apk
 
 - **2.3.1** - Fixed App
- - update the load secren
- - fixed the them and luang
- - update variables view
- - update wiki view
- - some fixed commands
+  - update the load secren
+  - fixed the them and luang
+  - update variables view
+  - update wiki view
+  - some fixed commands
   
 ---
 
