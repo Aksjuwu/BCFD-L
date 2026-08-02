@@ -127,8 +127,8 @@
   - some Fixed in command editor
   - some Fixed the color text on FDSB.apk
 
-- **2.3.1** - Fixed App
-  - update the load secren
+- **2.3.1** - App Fixed
+  - update the load screen
   - fixed the them and luang
   - update variables view
   - update wiki view
