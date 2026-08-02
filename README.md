@@ -106,7 +106,6 @@
   - Fixed more commands & vars
   - Fixed Color-Code
   - Fixed some ui on view command
-  - Fixed some ui on view command
   - Fix server
   - add 3 languages ch(chinese) & ru(russian) & tr(turkish)
 
