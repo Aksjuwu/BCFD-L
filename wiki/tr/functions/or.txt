@@ -1,0 +1,26 @@
+<dash>
+name: $or
+desc: Birden fazla koşulu değerlendirir ve HERHANGİ bir koşul doğruysa true döndürür.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $or birden fazla koşul argümanı alır ve her birini değerlendirir. En az bir koşul doğruysa "true", tüm koşullar yanlışsa "false" döndürür. Bu, alternatif koşullu kontroller oluşturmak için kullanışlıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $or[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $or[$authorID == 123; $authorID == 456]
+</block>
+
+<block type="callout" kind="note">
+text: Her koşul, $if ile aynı karşılaştırma operatörlerini kullanır (==, !=, >, <, >=, <=). "true" veya "false" dizesini döndürür.
+</block>
+</dash>
+
+<details>
+syntax: $or[condition1; condition2; condition3; ...]
+param: condition|expression|Required|Değerlendirilecek bir veya daha fazla koşul. Her biri ==, !=, >, <, >=, <= gibi operatörleri kullanabilir. Sonucun "true" olması için yalnızca birinin doğru olması yeterlidir.
+</details>

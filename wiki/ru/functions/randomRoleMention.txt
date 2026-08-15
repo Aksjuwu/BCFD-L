@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleMention
+desc: Возвращает упоминание случайной роли с сервера.
+category: Случайность
+
+<block type="text" title="Как работает команда?">
+text: При вызове $randomRoleMention бот собирает все роли на текущем сервере (исключая роль по умолчанию @everyone), выбирает одну случайным образом и отправляет её формат упоминания в канал.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $randomRoleMention
+</block>
+
+<block type="code" title="Пример для копирования">
+text: Congrats $randomRoleMention!
+</block>
+
+<block type="callout" kind="note">
+text: Возвращаемое значение — это упоминание роли Discord (например, <@&123456789>), которое отображается в чате как кликабельное цветное упоминание. Роль @everyone всегда исключается.
+</block>
+</dash>

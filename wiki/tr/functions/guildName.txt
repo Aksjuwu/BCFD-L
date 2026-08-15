@@ -1,0 +1,21 @@
+<dash>
+name: $guildName
+desc: Komutun kullanıldığı sunucunun (guild) adını döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $guildName çağrıldığında bot, komutun çalıştırıldığı sunucunun adını alır ve bunu düz metin bir dize olarak doğrudan kanala gönderir. Bir DM'de kullanılırsa "DM" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $guildName
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Welcome to $guildName!
+</block>
+
+<block type="callout" kind="note">
+text: Bir sunucu dışında (DM'lerde) kullanıldığında komut, bir sunucu adı yerine "DM" dizesini döndürür.
+</block>
+</dash>

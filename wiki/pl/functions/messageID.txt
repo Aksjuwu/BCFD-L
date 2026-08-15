@@ -1,0 +1,21 @@
+<dash>
+name: $messageID
+desc: Zwraca ID wiadomości Discord, która wyzwoliła komendę.
+category: Informacje
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy wywoływany jest $messageID, bot pobiera unikalne ID wiadomości Discord wiadomości wyzwalającej i wysyła je bezpośrednio jako surowy ciąg numeryczny.
+</block>
+
+<block type="code" title="Składnia">
+text: $messageID
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: Your message ID is $messageID
+</block>
+
+<block type="callout" kind="note">
+text: Zwracana wartość to ID typu snowflake (np. 123456789012345678), które jednoznacznie identyfikuje wiadomość, która wyzwoliła skrypt.
+</block>
+</dash>

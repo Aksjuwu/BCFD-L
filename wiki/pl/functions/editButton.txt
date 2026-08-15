@@ -1,0 +1,35 @@
+<dash>
+name: $editButton
+desc: Edytuje właściwości istniejącego przycisku na wiadomości.
+category: Komponenty
+
+<block type="text" title="Jak działa ta komenda?">
+text: $editButton znajduje przycisk po jego ID lub URL na wiadomości i aktualizuje jego etykietę, styl, stan wyłączenia i/lub emoji. Może celować w przyciski na oczekującym widoku, w wiadomości źródłowej interakcji lub w konkretnej wiadomości po jej ID.
+</block>
+
+<block type="code" title="Składnia">
+text: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $editButton[btn_confirm; Confirmed; success]
+</block>
+
+<block type="callout" kind="note">
+text: Jeśli podano messageID, bot pobiera tę konkretną wiadomość i edytuje przycisk na niej. W przeciwnym razie przeszukuje oczekujący widok, następnie wiadomość źródłową interakcji, a potem ostatnią wiadomość wysłaną przez bota.
+</block>
+
+<block type="callout" kind="warning">
+text: Docelowa wiadomość musi zostać wysłana przez tego bota. Przycisk o podanym ID lub URL musi już istnieć na wiadomości.
+</block>
+</dash>
+
+<details>
+syntax: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+param: ID/URL|text|Required|Custom ID lub URL przycisku do edycji
+param: label|text|Required|Nowy tekst do wyświetlenia na przycisku
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|yes aby wyłączyć przycisk, no aby go włączyć
+param: emoji|text|Optional|Nowe emoji do wyświetlenia wewnątrz przycisku
+param: messageID|snowflake|Optional|ID konkretnej wiadomości bota, na której edytować przycisk
+</details>

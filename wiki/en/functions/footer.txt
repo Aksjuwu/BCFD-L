@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: Sets the footer text of the embed being built.
+category: Embed Builder
+
+<block type="text" title="How does the command work?">
+text: $footer takes a text argument and sets it as the footer of the current embed being constructed. The footer appears at the very bottom of the embed in smaller, lighter text.
+</block>
+
+<block type="code" title="Syntax">
+text: $footer[text]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: The footer is useful for attribution, timestamps, or additional context. It appears in smaller grey text at the bottom of the embed.
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: text|text|Required|The footer text for the embed
+</details>

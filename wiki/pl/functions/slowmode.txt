@@ -1,0 +1,31 @@
+<dash>
+name: $slowmode
+desc: Ustawia opóźnienie trybu powolnego dla określonego kanału.
+category: Moderacja
+
+<block type="text" title="Jak działa komenda?">
+text: $slowmode przyjmuje ID kanału oraz czas, a następnie ustawia opóźnienie trybu powolnego dla tego kanału. Tryb powolny ogranicza, jak często użytkownicy mogą wysyłać wiadomości.
+</block>
+
+<block type="code" title="Składnia">
+text: $slowmode[channelID; time]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $slowmode[$channelID; 10s]
+</block>
+
+<block type="callout" kind="note">
+text: Format czasu używa: s (sekundy), m (minuty), h (godziny). Maksymalny tryb powolny to 6 godzin (21600 sekund). Użyj 0s, aby wyłączyć tryb powolny.
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie „Zarządzanie kanałami" na docelowym kanale.
+</block>
+</dash>
+
+<details>
+syntax: $slowmode[channelID; time]
+param: channelID|snowflake|Required|ID kanału, dla którego ma zostać ustawiony tryb powolny
+param: time|text|Required|Czas trwania trybu powolnego. Format: liczba + jednostka (s/m/h), np. 10s, 5m, 0s, aby wyłączyć
+</details>

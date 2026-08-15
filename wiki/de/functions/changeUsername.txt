@@ -1,0 +1,27 @@
+<dash>
+name: $changeUsername
+desc: Ändert den Spitznamen eines Servermitglieds.
+category: Moderation
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $changeUsername akzeptiert eine Benutzer-ID/Erwähnung und einen neuen Namen. Der Bot sucht das Mitglied im Server und ändert mithilfe der Discord-API seinen Spitznamen in den angegebenen Namen.
+</block>
+
+<block type="code" title="Syntax">
+text: $changeUsername[user ID/mention; new name]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $changeUsername[123456789; NewNickname]
+</block>
+
+<block type="callout" kind="warning">
+text: Der Bot muss über die Berechtigung "Spitznamen verwalten" verfügen, und seine höchste Rolle muss über der höchsten Rolle des Ziels liegen. Der Bot kann weder seinen eigenen Spitznamen noch den des Serverbesitzers ändern.
+</block>
+</dash>
+
+<details>
+syntax: $changeUsername[user ID/mention; new name]
+param: user ID/mention|text|Erforderlich|Die Discord-Benutzer-ID oder @Erwähnung des Zielmitglieds
+param: new name|text|Erforderlich|Der zuzuweisende neue Spitzname. Leer lassen, um auf den Standard zurückzusetzen.
+</details>

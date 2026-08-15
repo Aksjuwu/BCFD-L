@@ -1,0 +1,26 @@
+<dash>
+name: $round
+desc: Bir sayıyı en yakın tam sayıya yuvarlar.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $round tek bir sayısal değer alır, onu en yakın tam sayıya yuvarlar ve sonucu gönderir. Örneğin, 1.7, 2 olur ve 1.4, 1 olur.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $round[number]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $round[1.7]
+</block>
+
+<block type="callout" kind="note">
+text: $round[1.7] 2 döndürür. $round[2.4] 2 döndürür. Komut tek bir argüman kabul eder; değer geçerli bir sayı değilse bir hata döndürülür.
+</block>
+</dash>
+
+<details>
+syntax: $round[number]
+param: number|number|Required|En yakın tam sayıya yuvarlanacak sayı
+</details>

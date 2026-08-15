@@ -1,0 +1,26 @@
+<dash>
+name: $isAdmin
+desc: Проверяет, имеет ли пользователь права администратора на сервере.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: $isAdmin принимает ID пользователя или упоминание и проверяет, есть ли у этого пользователя права администратора, является ли он владельцем сервера или ботом. Возвращает "true" или "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isAdmin[userID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isAdmin[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает "true", если пользователь является владельцем сервера, ботом или имеет право «Администратор». В противном случае или если пользователь не найден на сервере, возвращается "false".
+</block>
+</dash>
+
+<details>
+syntax: $isAdmin[userID]
+param: userID|text|Required|ID пользователя или @упоминание для проверки. Поддерживаются переменные и плейсхолдеры.
+</details>

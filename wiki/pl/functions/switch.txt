@@ -1,0 +1,27 @@
+<dash>
+name: $switch
+desc: Wybiera i zwraca jeden element z listy na podstawie numeru indeksu.
+category: Narzędzia tekstowe
+
+<block type="text" title="Jak działa komenda?">
+text: $switch przyjmuje listę elementów oraz numer indeksu (jako ostatni argument). Zwraca element na tej pozycji (indeks liczony od 1). Jest to przydatne do wybierania spośród predefiniowanych opcji.
+</block>
+
+<block type="code" title="Składnia">
+text: $switch[item1; item2; ... ; index]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $switch[Red; Green; Blue; $randomint[1; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: Indeks jest OSTATNIM argumentem i musi być liczbą od 1 do całkowitej liczby elementów. Jeśli indeks jest poza zakresem, zwracany jest błąd.
+</block>
+</dash>
+
+<details>
+syntax: $switch[item1; item2; ... ; index]
+param: item|text|Required|Jeden lub więcej elementów do wyboru
+param: index|number|Required|Pozycja elementu do zwrócenia liczona od 1 (musi być ostatnim argumentem)
+</details>

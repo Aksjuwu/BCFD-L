@@ -1,0 +1,27 @@
+<dash>
+name: $div
+desc: İlk sayıyı sonraki her sayıya böler ve sonucu döndürür.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $div, iki veya daha fazla sayısal argüman alır. İlk değerle başlar ve onu sonraki her değere böler. Hem bağımsız bir komut olarak hem de satır içinde çalışır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $div[a; b; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[$div[10; 2]]
+</block>
+
+<block type="callout" kind="warning">
+text: Sıfıra bölme hata döndürür. $div[10; 2; 5] ifadesi 10 / 2 / 5 = 1 sonucunu verir. Bölümün ondalık kısmı yoksa sonuç bir tam sayıdır.
+</block>
+</dash>
+
+<details>
+syntax: $div[a; b; ...]
+param: a|number|Required|Bölünen sayı
+param: b|number|Required|Bölen (0 olamaz). Ek bölenler sırayla uygulanır.
+</details>

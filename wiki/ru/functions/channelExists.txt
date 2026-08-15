@@ -1,0 +1,26 @@
+<dash>
+name: $channelExists
+desc: Проверяет, существует ли канал на сервере.
+category: Каналы
+
+<block type="text" title="Как работает команда?">
+text: $channelExists принимает упоминание канала или его ID и проверяет, может ли бот найти этот канал на сервере. Возвращает "true", если канал существует, иначе "false". Если аргумент не указан, по умолчанию возвращает "true".
+</block>
+
+<block type="code" title="Syntax">
+text: $channelExists[channel mention/ID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $channelExists[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Эту команду можно использовать встроенно, чтобы проверить существование канала перед выполнением других действий с ним.
+</block>
+</dash>
+
+<details>
+syntax: $channelExists[channel mention/ID]
+param: channel|text|Optional|Упоминание канала или его числовой ID для проверки. Если пусто, возвращает "true".
+</details>

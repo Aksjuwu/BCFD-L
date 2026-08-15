@@ -1,0 +1,26 @@
+<dash>
+name: $getSplitOutLength
+desc: $splitIn'in bölme sonucundaki öğe sayısını döndürür.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $getSplitOutLength, son $splitIn çağrısının ürettiği parça sayısını döndürür. $splitOut'u kullanmadan önce yeterli veri olup olmadığını kontrol etmek için kullanışlıdır. Değer kanala gönderilir veya satır içi kullanılabilir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $getSplitOutLength
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $splitIn[apple,banana,cherry; ,]
+$getSplitOutLength
+</block>
+
+<block type="callout" kind="note">
+text: Henüz bölme yapılmadığında "0" döndürür. Aynı değer satır içi kullanılabilir, örneğin $if ile birlikte.
+</block>
+</dash>
+
+<details>
+syntax: $getSplitOutLength
+</details>

@@ -1,0 +1,34 @@
+<dash>
+name: $strictArgs
+desc: Применяет конкретное ограничение на количество слов в аргументах команды пользователя.
+category: Контроль доступа
+
+<block type="text" title="Как работает команда?">
+text: $strictArgs проверяет, соответствует ли количество слов, введённых пользователем, указанному ограничению. Если проверка не проходит, отображается сообщение об ошибке и выполнение скрипта прерывается.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $strictArgs[comparison; error_message]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $strictArgs[>2; Please provide more than 2 words!]
+</block>
+
+<block type="options" title="Операторы сравнения">
+option: >|Больше — пользователь должен ввести более N слов
+option: <|Меньше — пользователь должен ввести менее N слов
+option: (none)|Равно (например, просто 2) — пользователь должен ввести ровно N слов
+option: !|Не равно — пользователь НЕ должен вводить ровно N слов
+</block>
+
+<block type="callout" kind="note">
+text: Количество слов не включает имя самой команды. Например, если пользователь вводит "!cmd hello world", количество слов равно 2.
+</block>
+</dash>
+
+<details>
+syntax: $strictArgs[comparison; error_message]
+param: comparison|text|Required|Ограничение вида >2, <2, 2 или !2, где число — требуемое количество слов (просто 2 означает ровно 2)
+param: error_message|text|Required|Сообщение, отображаемое, если количество слов не соответствует ограничению
+</details>

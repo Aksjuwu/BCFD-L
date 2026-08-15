@@ -1,0 +1,27 @@
+<dash>
+name: $lastBotMessageID
+desc: Geçerli betik sırasında botun gönderdiği son mesajın ID'sini döndürür.
+category: Değişkenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $lastBotMessageID, geçerli betik yürütmesi sırasında botun gönderdiği en son mesajın snowflake ID'sine çözümlenir. $sendMessage, $reply ve $sendEmbedMessage gibi çıktı komutları tarafından otomatik olarak güncellenir. Bot henüz hiçbir mesaj göndermediyse boş bir dize döndürülür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $lastBotMessageID
+text: $lastBotMessageID[]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Look at this!]
+$editIn[10s; The last message ID was $lastBotMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: Bu yalnızca satır içi (inline) kullanılabilen bir komuttur ve bağımsız bir ifade olarak kullanılamaz. Bunu başka bir komutun argüman parantezleri içinde veya çıplak bir satır içi belirteç olarak kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $lastBotMessageID
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $deleteRole
+desc: Supprime un rôle du serveur.
+category: Modération
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $deleteRole prend un ID de rôle ou une @mention, recherche le rôle dans le serveur, puis le supprime définitivement. Cette action ne peut pas être annulée.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $deleteRole[role ID or @mention]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $deleteRole[&123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Le bot doit avoir la permission « Gérer les rôles » et son rôle le plus élevé doit être au-dessus du rôle ciblé. La suppression d'un rôle est définitive et ne peut pas être annulée.
+</block>
+</dash>
+
+<details>
+syntax: $deleteRole[role ID or @mention]
+param: role ID or @mention|text|Requis|L'ID ou la @mention du rôle à supprimer
+</details>

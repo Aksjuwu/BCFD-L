@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleMention
+desc: Zwraca wzmiankę o losowej roli z serwera.
+category: Losowość
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy wywoływany jest $randomRoleMention, bot zbiera wszystkie role na bieżącym serwerze (z wyłączeniem domyślnej roli @everyone), wybiera jedną losowo i wysyła jej format wzmianki na kanał.
+</block>
+
+<block type="code" title="Składnia">
+text: $randomRoleMention
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: Congrats $randomRoleMention!
+</block>
+
+<block type="callout" kind="note">
+text: Zwracana wartość to wzmianka roli Discord (np. <@&123456789>), która renderuje się w czacie jako klikalna kolorowa wzmianka. Rola @everyone jest zawsze wykluczona.
+</block>
+</dash>

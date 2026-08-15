@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: 批量删除当前频道中指定数量的消息。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: 当不带参数调用 $clear 时，它会删除默认数量的消息（10 条）。当带数字调用时，则删除相应数量的消息。机器人使用 Discord 的批量删除 API 来高效地删除消息。
+</block>
+
+<block type="code" title="语法">
+text: $clear
+</block>
+
+<block type="code" title="可复制示例">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: Discord 的批量删除限制为每次请求 100 条消息。超过 14 天的消息无法批量删除。机器人必须拥有在频道中管理消息的权限（“Manage Messages”权限）。
+</block>
+</dash>

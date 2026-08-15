@@ -1,0 +1,28 @@
+<dash>
+name: $httpAddHeader
+desc: Ajoute un en-tête HTTP personnalisé envoyé avec la prochaine requête HTTP.
+category: HTTP
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $httpAddHeader enregistre un en-tête (nom et valeur) qui sera attaché à la prochaine requête HTTP effectuée avec $httpGet, $httpPost, $httpPut, $httpPatch ou $httpDelete. Les en-têtes sont effacés automatiquement après la requête.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $httpAddHeader[name; value]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $httpAddHeader[Authorization; Bearer token123]
+$httpGet[https://api.example.com/data]
+</block>
+
+<block type="callout" kind="note">
+text: Ajouter deux fois le même nom écrase la valeur précédente. Les en-têtes stockés sont effacés après l'envoi de la requête.
+</block>
+</dash>
+
+<details>
+syntax: $httpAddHeader[name; value]
+param: name|text|Requis|Le nom de l'en-tête (par ex. Authorization)
+param: value|text|Requis|La valeur de l'en-tête
+</details>

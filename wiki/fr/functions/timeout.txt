@@ -1,0 +1,31 @@
+<dash>
+name: $timeout
+desc: Applique un timeout (sourdine) à un membre du serveur pour une durée spécifiée.
+category: Modération
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $timeout prend une durée et un ID/une mention d'utilisateur, puis applique un timeout à ce membre. Le membre mis en timeout ne peut ni envoyer de messages, ni réagir, ni rejoindre des canaux vocaux pendant la durée spécifiée.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $timeout[time; user]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $timeout[1h; @user]
+</block>
+
+<block type="callout" kind="note">
+text: Le format du temps utilise : s (secondes), m (minutes), h (heures), d (jours). La durée maximale d'un timeout est de 28 jours. Utilisez $untimeout pour retirer un timeout avant son terme.
+</block>
+
+<block type="callout" kind="warning">
+text: Le bot doit avoir la permission « Modérer les membres » et son rôle le plus élevé doit être au-dessus du rôle le plus élevé de la cible.
+</block>
+</dash>
+
+<details>
+syntax: $timeout[time; user]
+param: time|text|Requis|Durée du timeout. Format : nombre + unité (s/m/h/d), ex. 1h, 30m, 7d
+param: user|text|Requis|L'ID utilisateur ou la @mention du membre à mettre en timeout
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $sendEmbedMessage
+desc: Başlık, açıklama, renk ve alt bilgi içeren bir embed mesajını belirtilen kanala gönderir.
+category: Mesajlaşma
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $sendEmbedMessage, sağlanan başlık, açıklama, renk ve alt bilgiyle bir embed oluşturur ve ardından bunu belirtilen kanala gönderir. Beş argümanın tümü gereklidir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $sendEmbedMessage[channelID; title; description; color; footer]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendEmbedMessage[$channelID; Welcome!; Thanks for joining; #00FF00; Enjoy your stay]
+</block>
+
+<block type="callout" kind="note">
+text: Renk argümanı onaltılık değerleri kabul eder (örn. #FF5733). Botun hedef kanalda "Send Messages" (Mesaj Gönder) ve "Embed Links" (Embed Bağlantıları) izinlerine sahip olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $sendEmbedMessage[channelID; title; description; color; footer]
+param: channelID|snowflake|Required|Embed'in gönderileceği kanalın kimliği
+param: title|text|Required|Embed'in başlığı
+param: description|text|Required|Embed'in açıklaması/gövde metni
+param: color|text|Required|Embed vurgu çubuğu için onaltılık renk kodu (örn. #FF5733)
+param: footer|text|Required|Embed'in altında görüntülenen alt bilgi metni
+</details>

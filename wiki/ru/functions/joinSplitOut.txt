@@ -1,0 +1,27 @@
+<dash>
+name: $joinSplitOut
+desc: Соединяет все элементы текущего результата разделения ($splitIn) обратно в единый текст.
+category: Строковые утилиты
+
+<block type="text" title="Как работает команда?">
+text: $joinSplitOut объединяет каждый элемент, сохранённый с помощью $splitIn, в одну строку, вставляя заданный разделитель между ними. Полученное значение отправляется в канал.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $joinSplitOut[separator]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $splitIn[apple,banana,cherry; ,]
+$joinSplitOut[ + ]
+</block>
+
+<block type="callout" kind="note">
+text: $splitIn должен вызываться до $joinSplitOut, чтобы было что соединять.
+</block>
+</dash>
+
+<details>
+syntax: $joinSplitOut[separator]
+param: separator|text|Required|Текст, вставляемый между каждыми двумя элементами
+</details>

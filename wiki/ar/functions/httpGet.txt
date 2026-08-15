@@ -1,0 +1,28 @@
+<dash>
+name: $httpGet
+desc: يرسل طلب HTTP من نوع GET إلى عنوان URL ويخزّن رمز الحالة والاستجابة.
+category: HTTP
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: ينفّذ $httpGet طلب GET بمهلة 10 ثوانٍ. تُخزَّن الاستجابة في $httpResult (بصيغة JSON عندما يكون ذلك ممكنًا، وإلا كنص عادي) ويُخزَّن رمز الحالة في $httpStatus. تُرسل أي ترويسات أُضيفت بواسطة $httpAddHeader ثم تُمسح.
+</block>
+
+<block type="code" title="الصيغة">
+text: $httpGet[URL]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $httpGet[https://api.example.com/users]
+$httpStatus
+$httpResult[0; name]
+</block>
+
+<block type="callout" kind="note">
+text: عند الفشل، يُضبط رمز الحالة على 500 ويحتوي $httpResult على رسالة الخطأ.
+</block>
+</dash>
+
+<details>
+syntax: $httpGet[URL]
+param: URL|text|مطلوب|عنوان URL الذي سيُرسل إليه طلب GET
+</details>

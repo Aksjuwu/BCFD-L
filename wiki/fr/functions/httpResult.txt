@@ -1,0 +1,27 @@
+<dash>
+name: $httpResult
+desc: Renvoie la réponse de la dernière requête HTTP, avec possibilité d'extraire des valeurs JSON imbriquées.
+category: HTTP
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $httpResult renvoie le résultat stocké par la dernière requête HTTP ($httpGet, $httpPost, $httpPut, $httpPatch ou $httpDelete). Sans argument, il renvoie la réponse entière (sous forme de texte JSON lorsqu'il s'agit d'un objet ou d'un tableau). Avec des arguments, il navigue pas à pas dans le résultat, en prenant en charge les clés d'objet et les index numériques de tableau. Renvoie un texte vide lorsqu'une clé n'existe pas.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $httpResult[(key1; key2; ...)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $httpGet[https://api.example.com/users]
+$httpResult[0; username]
+</block>
+
+<block type="callout" kind="note">
+text: Utilisez un nombre pour sélectionner un élément de liste. Si une clé est manquante, un texte vide est renvoyé.
+</block>
+</dash>
+
+<details>
+syntax: $httpResult[(key1; key2; ...)]
+param: key|text|Optionnel|Clé ou index numérique pour naviguer dans le résultat JSON (à répéter pour les valeurs imbriquées)
+</details>

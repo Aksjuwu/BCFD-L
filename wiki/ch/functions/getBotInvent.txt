@@ -1,0 +1,21 @@
+<dash>
+name: $getBotInvent
+desc: 生成并发送机器人的 OAuth2 邀请链接。
+category: 工具
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $getBotInvent 时，机器人会使用其应用程序 ID 构建一个具有完全权限（8）和 bot 作用域的 OAuth2 授权 URL，然后将链接发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $getBotInvent
+</block>
+
+<block type="code" title="可复制示例">
+text: Invite me: $getBotInvent
+</block>
+
+<block type="callout" kind="note">
+text: 生成的链接包含所有权限（permissions=8）。链接格式为：https://discord.com/oauth2/authorize?client_id={id}&permissions=8&scope=bot
+</block>
+</dash>

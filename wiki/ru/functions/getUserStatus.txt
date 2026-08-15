@@ -1,0 +1,27 @@
+<dash>
+name: $getUserStatus
+desc: Возвращает статус присутствия пользователя на сервере.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $getUserStatus без аргументов возвращается статус присутствия автора команды. При вызове с ID или упоминанием пользователя возвращается статус этого пользователя. Возвращает "offline", если пользователь не найден или не является участником сервера.
+</block>
+
+<block type="code" title="Syntax">
+text: $getUserStatus
+text: $getUserStatus[(userID/mention)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Your status is: $getUserStatus
+</block>
+
+<block type="callout" kind="note">
+text: Возможные возвращаемые значения: online, idle, dnd, offline. Эта команда работает только внутри сервера (не в личных сообщениях), поскольку Discord предоставляет информацию о статусе только для участников сервера.
+</block>
+</dash>
+
+<details>
+syntax: $getUserStatus[(userID/mention)]
+param: userID/mention|text|Optional|ID пользователя или @упоминание для проверки. Если не указано, проверяется автор команды.
+</details>

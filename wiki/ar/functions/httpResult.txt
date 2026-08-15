@@ -1,0 +1,27 @@
+<dash>
+name: $httpResult
+desc: يعيد استجابة آخر طلب HTTP، مع إمكانية استخراج قيم JSON المتداخلة.
+category: HTTP
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يعيد $httpResult النتيجة المخزنة بواسطة آخر طلب HTTP ($httpGet أو $httpPost أو $httpPut أو $httpPatch أو $httpDelete). بدون وسائط يعيد الاستجابة كاملة (كنص JSON عندما تكون كائنًا أو مصفوفة). مع الوسائط يتنقل داخل النتيجة خطوة بخطوة، ويدعم مفاتيح الكائنات والفهارس الرقمية للمصفوفات. يعيد نصًا فارغًا عندما لا يوجد المفتاح.
+</block>
+
+<block type="code" title="الصيغة">
+text: $httpResult[(key1; key2; ...)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $httpGet[https://api.example.com/users]
+$httpResult[0; username]
+</block>
+
+<block type="callout" kind="note">
+text: استخدم رقمًا لاختيار عنصر قائمة. إذا كان أي مفتاح مفقودًا، يُعاد نص فارغ.
+</block>
+</dash>
+
+<details>
+syntax: $httpResult[(key1; key2; ...)]
+param: key|text|اختياري|مفتاح أو فهرس رقمي للتنقل داخل نتيجة JSON (كرره للقيم المتداخلة)
+</details>

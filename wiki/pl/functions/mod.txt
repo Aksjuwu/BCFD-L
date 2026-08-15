@@ -1,0 +1,27 @@
+<dash>
+name: $mod
+desc: Zwraca resztę z dzielenia pierwszej liczby przez każdą kolejną liczbę.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa komenda?">
+text: $mod przyjmuje dwa lub więcej argumentów liczbowych. Oblicza modulo (resztę z dzielenia) pierwszej wartości przez każdą kolejną wartość sekwencyjnie. Działa zarówno jako samodzielna komenda, jak i inline.
+</block>
+
+<block type="code" title="Składnia">
+text: $mod[a; b; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[$mod[10; 3]]
+</block>
+
+<block type="callout" kind="warning">
+text: Modulo przez zero zwraca błąd. $mod[10; 3] daje 1 (reszta z dzielenia 10 / 3).
+</block>
+</dash>
+
+<details>
+syntax: $mod[a; b; ...]
+param: a|number|Required|Dzielna (liczba, która jest dzielona)
+param: b|number|Required|Dzielnik (nie może być 0). Dodatkowe dzielniki są stosowane sekwencyjnie.
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $mul
+desc: Mnoży przez siebie dwie lub więcej liczb i zwraca wynik.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa komenda?">
+text: $mul przyjmuje dwa lub więcej argumentów liczbowych i zwraca ich iloczyn. Działa zarówno jako samodzielna komenda, jak i inline wewnątrz innych komend.
+</block>
+
+<block type="code" title="Składnia">
+text: $mul[a; b; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[$mul[3; 4]]
+</block>
+
+<block type="callout" kind="note">
+text: Obsługuje dowolną liczbę argumentów. $mul[2; 3; 4] daje 24. Wynik jest liczbą całkowitą, jeśli iloczyn nie ma części dziesiętnej.
+</block>
+</dash>
+
+<details>
+syntax: $mul[a; b; ...]
+param: a|number|Required|Pierwsza liczba do pomnożenia
+param: b|number|Required|Druga liczba do pomnożenia (dodatkowe liczby również są akceptowane)
+</details>

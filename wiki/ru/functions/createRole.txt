@@ -1,0 +1,37 @@
+<dash>
+name: $createRole
+desc: Создаёт новую роль на сервере с указанными названием, цветом и правами.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: $createRole создаёт новую роль с заданными названием, цветом и правами. Права можно указать как пресет (cosmetic, member, mod, manager) или как сырое числовое значение прав. При желании можно управлять тем, отображается ли роль отдельно и упоминаема ли она.
+</block>
+
+<block type="code" title="Syntax">
+text: $createRole[role name; color; permissions; (display role; mention role)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $createRole[VIP; #FFD700; member; yes; no]
+</block>
+
+<block type="options" title="Пресеты прав">
+option: cosmetic|Без особых прав (роль только для отображения)
+option: member|Базовые права участника (отправка сообщений, реакции, подключение и т.д.)
+option: mod / moderator|Права модератора (кик, бан, управление сообщениями, тайм-аут и т.д.)
+option: manager / admin|Полные права управления (управление каналами, ролями, вебхуками и т.д.)
+</block>
+
+<block type="callout" kind="note">
+text: ID созданной роли сохраняется в $return[createdRoleID] для дальнейшего использования. У бота должно быть разрешение «Manage Roles».
+</block>
+</dash>
+
+<details>
+syntax: $createRole[role name; color; permissions; (display role; mention role)]
+param: role name|text|Required|Название новой роли (максимум 100 символов)
+param: color|text|Required|Hex-код цвета (например, #FF5733) или пусто для значения по умолчанию
+param: permissions|text|Required|Пресет (cosmetic, member, mod/moderator, manager/admin) или сырое числовое значение прав
+param: display role|yes/no|Optional|yes, чтобы отображать роль отдельно в списке участников (по умолчанию: no)
+param: mention role|yes/no|Optional|yes, чтобы сделать роль упоминаемой для всех (по умолчанию: no)
+</details>

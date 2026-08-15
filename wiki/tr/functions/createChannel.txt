@@ -1,0 +1,32 @@
+<dash>
+name: $createChannel
+desc: Sunucuda yeni bir kanal oluşturur.
+category: Kanal Yönetimi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $createChannel, sunucuda belirtilen ad ve türle yeni bir kanal oluşturur. text, voice, category, forum ve stage kanal türlerini destekler. Kanalı belirli bir kategorinin altına yerleştirmek için isteğe bağlı bir kategori kimliği (category ID) sağlanabilir. Botun "Kanalları Yönet" iznine sahip olması gerekir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $createChannel[name; type; (category ID)]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $createChannel[my-channel; text]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Kanalları Yönet" iznine sahip olması gerekir. Desteklenen türler: text, voice, category, forum, stage.
+</block>
+
+<block type="callout" kind="note">
+text: Kategori kimliği (category ID) isteğe bağlıdır. Sağlanırsa, yeni kanal o kategorinin altında oluşturulur.
+</block>
+</dash>
+
+<details>
+syntax: $createChannel[name; type; (category ID)]
+param: name|text|Required|Yeni kanalın adı.
+param: type|text|Required|Kanal türü: text, voice, category, forum veya stage.
+param: categoryID|text|Optional|Kanalın altına yerleştirileceği kategorinin kimliği (ID).
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleMention
+desc: Sunucudan rastgele bir rolün etiketini (mention) döndürür.
+category: Rastgelelik
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $randomRoleMention çağrıldığında, bot geçerli sunucudaki tüm rolleri (varsayılan @everyone rolü hariç) toplar, rastgele birini seçer ve etiket formatını kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $randomRoleMention
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Congrats $randomRoleMention!
+</block>
+
+<block type="callout" kind="note">
+text: Döndürülen değer, sohbette tıklanabilir renkli bir etiket olarak görünen bir Discord rol etiketidir (örn. <@&123456789>). @everyone rolü her zaman hariç tutulur.
+</block>
+</dash>

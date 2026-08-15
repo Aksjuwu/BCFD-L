@@ -1,0 +1,28 @@
+<dash>
+name: $dm
+desc: Sonraki mesajların gönderileceği hedefi doğrudan mesaj (DM) olarak ayarlar.
+category: Mesajlaşma
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $dm argüman olmadan çağrıldığında, mesaj hedefini komut yazarının DM kutusuna ayarlar. Bir kullanıcı kimliği veya bahsetmesi ile çağrıldığında, hedefi o kullanıcının DM kutusuna ayarlar. Sonraki tüm $sendMessage çağrıları, geçerli kanal yerine DM hedefine gönderilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $dm
+text: $dm[(userID/mention)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $dm
+$sendMessage[Check your DMs!]
+</block>
+
+<block type="callout" kind="note">
+text: DM'lerin çalışması için bot ile hedef kullanıcı aynı sunucuyu paylaşmalıdır. Kullanıcı DM'lerini kapatmışsa mesaj gönderilemez. $dm komutunu köşeli parantez olmadan kullanmak komut yazarını hedefler.
+</block>
+</dash>
+
+<details>
+syntax: $dm[(userID/mention)]
+param: userID/mention|text|Optional|DM gönderilecek kullanıcı kimliği veya @bahsetmesi. Boş bırakılırsa komut yazarını hedefler.
+</details>

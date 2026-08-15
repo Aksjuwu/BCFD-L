@@ -1,0 +1,21 @@
+<dash>
+name: $onlyAdmin
+desc: Betik yürütmeyi yalnızca sunucu yöneticileri ve sunucu sahibiyle sınırlandırır.
+category: Erişim Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $onlyAdmin çağrıldığında, bot komut yazarının sunucu yöneticisi veya sunucu sahibi olup olmadığını kontrol eder. Kontrol başarısız olursa betik yürütmesi hemen durdurulur. İsteğe bağlı olarak özel bir hata mesajı görüntülenebilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $onlyAdmin
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $onlyAdmin[You need admin permissions!]
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut yalnızca bir sunucu içinde çalışır (özel mesajlarda değil). Bir kullanıcı, Yönetici iznine sahipse veya sunucu sahibiyse kontrolü geçer. Hata mesajı sağlanmazsa betik sessizce sona erer.
+</block>
+</dash>

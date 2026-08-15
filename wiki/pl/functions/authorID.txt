@@ -1,0 +1,21 @@
+<dash>
+name: $authorID
+desc: Zwraca identyfikator użytkownika Discorda osoby, która wyzwoliła komendę.
+category: Informacje
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy wywoływany jest $authorID, bot pobiera unikalny identyfikator użytkownika Discorda autora komendy i wysyła go bezpośrednio na kanał jako surowy ciąg liczbowy.
+</block>
+
+<block type="code" title="Składnia">
+text: $authorID
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: Your ID is $authorID
+</block>
+
+<block type="callout" kind="note">
+text: Zwracana wartość to identyfikator snowflake (np. 123456789012345678), który jest unikalnym numerycznym identyfikatorem każdego użytkownika Discorda.
+</block>
+</dash>

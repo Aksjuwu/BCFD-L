@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: Cuts a text to a maximum number of characters, optionally adding an ending like "...".
+category: String Utilities
+
+<block type="text" title="How does the command work?">
+text: $cropText shortens a text to at most the given number of characters. If the text is longer, it is cut and the optional ending (for example "..." or "... [more]") is appended. If the text is already short enough, it is returned unchanged.
+</block>
+
+<block type="code" title="Syntax">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: The max characters argument must be a non-negative integer. When no ending is given, the text is simply cut at the limit.
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|Required|The text to crop
+param: max characters|number|Required|Maximum number of characters to keep (must be a non-negative integer)
+param: ending|text|Optional|Text appended when the input is longer than the limit (e.g. "...")
+</details>

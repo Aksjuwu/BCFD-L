@@ -1,0 +1,28 @@
+<dash>
+name: $splitIn
+desc: Divise une chaîne de texte en parties à l'aide d'un délimiteur et stocke le résultat.
+category: Utilitaires de texte
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $splitIn prend une chaîne de texte et un délimiteur, divise le texte selon ce délimiteur et stocke les parties résultantes. Utilisez $splitOut ensuite pour accéder aux parties individuelles.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $splitIn[text; delimiter]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[1]
+</block>
+
+<block type="callout" kind="note">
+text: Les parties divisées sont stockées dans le contexte et peuvent être consultées avec $splitOut à l'aide d'un index (basé sur 1), < pour la première, ou > pour la dernière.
+</block>
+</dash>
+
+<details>
+syntax: $splitIn[text; delimiter]
+param: texte|text|Requis|La chaîne de texte à diviser
+param: délimiteur|text|Requis|Le délimiteur/séparateur selon lequel diviser (ne peut pas être vide)
+</details>

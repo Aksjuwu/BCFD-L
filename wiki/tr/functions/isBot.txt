@@ -1,0 +1,26 @@
+<dash>
+name: $isBot
+desc: Bir kullanıcının bir bot hesabı olup olmadığını kontrol eder.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $isBot bir kullanıcı kimliği veya bahsetmesi alır ve o kullanıcının bir Discord bot hesabı olup olmadığını kontrol eder. "true" veya "false" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $isBot[userID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $isBot[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Kullanıcı bir bot hesabıysa "true", gerçek bir kullanıcıysa "false" döndürür. Kullanıcı sunucunun bir üyesi olmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $isBot[userID]
+param: userID|text|Required|Kontrol edilecek kullanıcı kimliği veya @bahsetmesi. Değişkenleri ve yer tutucuları destekler.
+</details>

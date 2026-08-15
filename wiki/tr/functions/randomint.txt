@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: Bir minimum ve maksimum değer arasında rastgele bir tam sayı döndürür.
+category: Rastgelelik
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $randomint iki sayı alır (min ve max) ve bu kapsayıcı aralık içinde rastgele bir tam sayı üretir, ardından kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: Hem min hem de max kapsayıcıdır. min, max'tan büyükse değerler otomatik olarak değiştirilir. Sonuç, iki sınır arasında bir tam sayıdır.
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Required|Minimum değer (kapsayıcı)
+param: max|number|Required|Maksimum değer (kapsayıcı)
+</details>

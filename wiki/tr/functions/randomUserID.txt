@@ -1,0 +1,21 @@
+<dash>
+name: $randomUserID
+desc: Sunucudan rastgele bir insan üyenin kullanıcı ID'sini döndürür.
+category: Rastgelelik
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $randomUserID çağrıldığında, bot geçerli sunucudaki bot olmayan tüm üyeleri toplar, rastgele birini seçer ve kullanıcı ID'sini ham bir sayısal dize olarak gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $randomUserID
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Random user ID: $randomUserID
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut yalnızca bir sunucu içinde çalışır (özel mesajlarda değil). Bot hesapları seçim havuzundan çıkarılır. İnsan üye yoksa komut bir hatayla başarısız olur.
+</block>
+</dash>

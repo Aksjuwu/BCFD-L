@@ -1,0 +1,27 @@
+<dash>
+name: $onlyIf
+desc: 计算一个条件，如果条件为假则中止脚本。
+category: 访问控制
+
+<block type="text" title="命令如何工作？">
+text: $onlyIf 计算一个条件。如果条件为真，脚本会正常继续。如果为假，则会显示提供的错误消息并立即中止脚本。
+</block>
+
+<block type="code" title="语法">
+text: $onlyIf[condition; error message]
+</block>
+
+<block type="code" title="可复制示例">
+text: $onlyIf[$authorID == 123456789; You are not authorized!]
+</block>
+
+<block type="callout" kind="note">
+text: 这比 $if 更严格 —— 它不只是跳过代码，而是完全停止整个脚本。请将其用于脚本运行所必须通过的访问控制检查。
+</block>
+</dash>
+
+<details>
+syntax: $onlyIf[condition; error message]
+param: condition|expression|Required|要计算的条件。使用与 $if 相同的运算符（==、!=、>、<、>=、<=）。
+param: error message|text|Required|条件不满足时显示给用户的消息。发送此消息后脚本会中止。
+</details>

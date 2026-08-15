@@ -1,0 +1,31 @@
+<dash>
+name: $timeout
+desc: 对服务器成员应用指定时长的超时（禁言）。
+category: 管理
+
+<block type="text" title="此命令如何工作？">
+text: $timeout 接受一个时长和一个用户 ID/提及，然后对该成员应用超时。被超时的成员在指定时长内无法发送消息、做出反应或加入语音频道。
+</block>
+
+<block type="code" title="语法">
+text: $timeout[time; user]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $timeout[1h; @user]
+</block>
+
+<block type="callout" kind="note">
+text: 时间格式使用：s（秒）、m（分钟）、h（小时）、d（天）。最大超时时长为 28 天。使用 $untimeout 提前移除超时。
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须拥有 "审核成员" 权限，且其最高角色的层级必须高于目标的最高角色。
+</block>
+</dash>
+
+<details>
+syntax: $timeout[time; user]
+param: time|text|Required|超时的时长。格式：数字 + 单位（s/m/h/d），例如 1h、30m、7d
+param: user|text|Required|要超时的成员的用户 ID 或 @提及
+</details>

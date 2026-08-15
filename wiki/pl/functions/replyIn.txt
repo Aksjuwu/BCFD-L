@@ -1,0 +1,27 @@
+<dash>
+name: $replyIn
+desc: Opóźnia następną odpowiedź bota o określony czas.
+category: Czas i opóźnienia
+
+<block type="text" title="Jak działa komenda?">
+text: $replyIn wstrzymuje wykonanie skryptu na określony czas. Po upływie opóźnienia skrypt kontynuuje działanie od następnej komendy. Jest to przydatne do tworzenia odpowiedzi czasowych.
+</block>
+
+<block type="code" title="Składnia">
+text: $replyIn[time]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $replyIn[5s]
+$sendMessage[This appears after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: Format czasu używa: s (sekundy), m (minuty), h (godziny), d (dni). Skrypt jest zamrożony podczas opóźnienia — żadne inne komendy w tym skrypcie nie zostaną wykonane, dopóki opóźnienie się nie zakończy.
+</block>
+</dash>
+
+<details>
+syntax: $replyIn[time]
+param: time|text|Required|Czas oczekiwania. Format: liczba + jednostka (s/m/h/d), np. 5s, 10m, 1h
+</details>

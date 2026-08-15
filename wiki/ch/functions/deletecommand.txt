@@ -1,0 +1,22 @@
+<dash>
+name: $deletecommand
+desc: 删除触发命令的消息。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $deletecommand 时，机器人会尝试删除触发脚本执行的用户消息。这通常用于通过移除原始命令调用来保持频道的整洁。
+</block>
+
+<block type="code" title="语法">
+text: $deletecommand
+</block>
+
+<block type="code" title="可复制示例">
+text: $deletecommand
+$sendMessage[Command received!]
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须拥有在频道中管理消息的权限（“Manage Messages”权限）才能删除用户消息。如果缺少该权限，将返回错误。
+</block>
+</dash>

@@ -1,0 +1,25 @@
+<dash>
+name: $else
+desc: Предоставляет альтернативный блок кода, когда предыдущее условие $if ложно.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: При использовании внутри блока $if, $else определяет запасной путь выполнения кода. Если условие $if оценивается как ложное, вместо него выполняется код после $else (и до $endif).
+</block>
+
+<block type="code" title="Syntax">
+text: $else
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $else должен находиться между $if и $endif. Использование $else вне блока $if приведёт к ошибке.
+</block>
+</dash>

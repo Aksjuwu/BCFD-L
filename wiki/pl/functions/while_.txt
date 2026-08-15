@@ -1,0 +1,30 @@
+<dash>
+name: $while
+desc: Powtarza zamknięty blok kodu, dopóki warunek pozostaje prawdziwy.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa komenda?">
+text: $while sprawdza warunek przed każdą iteracją. Jeśli warunek jest prawdziwy, ciało pętli jest wykonywane. Trwa to do momentu, aż warunek stanie się fałszywy lub zostanie napotkane $break.
+</block>
+
+<block type="code" title="Składnia">
+text: $while[condition]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $setVar[i; 0]
+$while[$getVar[i] < 5]
+  $sendMessage[Count: $getVar[i]]
+  $setVar[i; $math[$getVar[i] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: Upewnij się, że Twoja pętla ma jasny warunek zakończenia, aby uniknąć nieskończonych pętli. Nieskończona pętla zawiesi skrypt na czas nieokreślony. Użyj $break, aby wcześniej wyjść z pętli.
+</block>
+</dash>
+
+<details>
+syntax: $while[condition]
+param: condition|expression|Required|Warunek sprawdzany przed każdą iteracją. Pętla działa, dopóki jest prawdziwy. Używa tych samych operatorów co $if (==, !=, >, <, >=, <=).
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceJoined
+desc: Zdarzenie wyzwalane, gdy członek dołącza do kanału głosowego.
+category: Zdarzenie
+
+<block type="text" title="Jak działa to zdarzenie?">
+text: $onVoiceJoined to prefiks zdarzenia, który wyzwala skrypt FDScript za każdym razem, gdy członek dołącza do kanału głosowego. Skrypt otrzymuje informacje o członku i kanale głosowym. Opcjonalnie możesz podać ID kanału w pierwszej linii, aby skierować dane wyjściowe do konkretnego kanału tekstowego.
+</block>
+
+<block type="code" title="Składnia">
+text: #PREFIX:$onVoiceJoined
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: #PREFIX:$onVoiceJoined
+ sendMessage[$mention joined a voice channel!]
+</block>
+
+<block type="callout" kind="note">
+text: Umieść to w pierwszej linii swojego pliku FDScript. Skrypt uruchomi się automatycznie, gdy jakikolwiek członek dołączy do kanału głosowego.
+</block>
+
+<block type="callout" kind="important">
+text: To zdarzenie działa w folderze bot_events, a nie bot_commands. Utwórz tam swój plik .fds.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceJoined
+</details>

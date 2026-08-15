@@ -1,0 +1,21 @@
+<dash>
+name: $channelID
+desc: Komutun kullanıldığı Discord kanal kimliğini (channel ID) döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $channelID çağrıldığında bot, komutun yürütüldüğü kanalın benzersiz Discord kanal kimliğini alır ve ham sayısal bir dize olarak doğrudan gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $channelID
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: This command was used in channel $channelID
+</block>
+
+<block type="callout" kind="note">
+text: Döndürülen değer, mesajın gönderildiği kanalı benzersiz şekilde tanımlayan bir snowflake kimliğidir (ör. 123456789012345678).
+</block>
+</dash>

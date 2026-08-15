@@ -1,0 +1,46 @@
+<dash>
+name: $math
+desc: Oblicza wyrażenie matematyczne i zwraca wynik.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa komenda?">
+text: $math przyjmuje wyrażenie matematyczne, bezpiecznie je oblicza za pomocą parsera AST Pythona i wysyła wynik. Obsługuje podstawową arytmetykę, potęgi i typowe funkcje matematyczne.
+</block>
+
+<block type="code" title="Składnia">
+text: $math[expression]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $math[2 + 2 * 3]
+</block>
+
+<block type="options" title="Obsługiwane operatory">
+option: +|Dodawanie
+option: -|Odejmowanie
+option: *|Mnożenie
+option: /|Dzielenie
+option: //|Dzielenie całkowite
+option: %|Modulo
+option: **|Potęgowanie
+</block>
+
+<block type="options" title="Obsługiwane funkcje">
+option: sqrt|Pierwiastek kwadratowy
+option: abs|Wartość bezwzględna
+option: ceil|Zaokrąglij w górę
+option: floor|Zaokrąglij w dół
+option: round|Zaokrąglij do najbliższej
+option: log/log2/log10|Logarytm
+option: sin/cos/tan|Funkcje trygonometryczne
+</block>
+
+<block type="callout" kind="note">
+text: Dostępne są stałe pi, e i inf. Wyrażenie jest oceniane bezpiecznie — nie jest możliwe wykonanie dowolnego kodu. Dzielenie przez zero zwraca błąd.
+</block>
+</dash>
+
+<details>
+syntax: $math[expression]
+param: expression|text|Required|Wyrażenie matematyczne do obliczenia, np. 2 + 2, sqrt(16), pi * 2
+</details>

@@ -1,0 +1,31 @@
+<dash>
+name: $slowmode
+desc: 设置指定频道的慢速模式延迟。
+category: 管理
+
+<block type="text" title="此命令如何工作？">
+text: $slowmode 接受一个频道 ID 和一个时长，然后设置该频道的慢速模式延迟。慢速模式限制用户发送消息的频率。
+</block>
+
+<block type="code" title="语法">
+text: $slowmode[channelID; time]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $slowmode[$channelID; 10s]
+</block>
+
+<block type="callout" kind="note">
+text: 时间格式使用：s（秒）、m（分钟）、h（小时）。最大慢速模式时长为 6 小时（21600 秒）。使用 0s 可禁用慢速模式。
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须在目标频道中拥有 "管理频道" 权限。
+</block>
+</dash>
+
+<details>
+syntax: $slowmode[channelID; time]
+param: channelID|snowflake|Required|要设置慢速模式的频道的 ID
+param: time|text|Required|慢速模式的时长。格式：数字 + 单位（s/m/h），例如 10s、5m，0s 可禁用
+</details>

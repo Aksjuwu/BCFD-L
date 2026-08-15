@@ -1,0 +1,34 @@
+<dash>
+name: $returnGuildRolesID
+desc: Bir sunucudan, isteğe bağlı olarak izinle filtrelenmiş rol kimliklerini toplar ve saklar.
+category: Dönüş Komutları
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $returnGuildRolesID, belirtilen sunucudan rol kimliklerini toplar ve isteğe bağlı olarak gerekli bir izne göre filtreler. Sonuç bir değişken adı altında saklanır ve daha sonra $return[variableName] kullanılarak alınabilir. İzin filtresi belirtilmezse @everyone dışındaki tüm roller toplanır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $returnGuildRolesID[GuildID; permission; var; separator]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $returnGuildRolesID[$guildID; all; roleIDs; ,]
+$sendMessage[Roles: $return[roleIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: İzin parametresi için: tüm rolleri almak üzere boş bırakın veya "all" kullanın. Ayrıca adlandırılmış bir izin (örn. kick_members, manage_messages) veya ham bir izin tamsayısı belirtebilirsiniz. Yalnızca belirtilen izne (veya daha üstüne) sahip roller dahil edilir.
+</block>
+
+<block type="callout" kind="warning">
+text: Bot, hedef sunucunun bir üyesi olmalıdır. @everyone rolü sonuçlardan her zaman hariç tutulur.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildRolesID[GuildID; permission; var; separator]
+param: GuildID|snowflake|Required|Rol toplanacak sunucunun (server) kimliği
+param: permission|text|Required|İzin filtresi: tüm roller için boş bırakın veya "all", adlandırılmış bir izin (örn. kick_members) veya ham bir izin tamsayısı
+param: var|text|Required|Sonucun saklanacağı değişken adı ($return[] ile kullanın)
+param: separator|text|Required|Birden çok kimlik arasındaki ayraç (örn. , veya ;). Adlandırılmış ayraçlar kullanabilirsiniz: dot, com, apo, sem, colon
+</details>

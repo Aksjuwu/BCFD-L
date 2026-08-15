@@ -1,0 +1,28 @@
+<dash>
+name: $dm
+desc: Ustawia miejsce docelowe kolejnych wiadomości jako wiadomość prywatną (DM).
+category: Wiadomości
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $dm zostanie wywołane bez argumentów, ustawia miejsce docelowe wiadomości na prywatne wiadomości autora komendy. Gdy zostanie wywołane z ID użytkownika lub wzmianką, ustawia miejsce docelowe na prywatne wiadomości tego użytkownika. Wszystkie kolejne wywołania $sendMessage zostaną wysłane do celu DM zamiast do bieżącego kanału.
+</block>
+
+<block type="code" title="Składnia">
+text: $dm
+text: $dm[(userID/mention)]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $dm
+$sendMessage[Check your DMs!]
+</block>
+
+<block type="callout" kind="note">
+text: Bot i docelowy użytkownik muszą mieć wspólny serwer, aby DM działały. Jeśli użytkownik ma wyłączone wiadomości prywatne, wysłanie wiadomości nie powiedzie się. Użycie $dm bez nawiasów kieruje wiadomości do autora komendy.
+</block>
+</dash>
+
+<details>
+syntax: $dm[(userID/mention)]
+param: userID/mention|text|Optional|ID użytkownika lub wzmianka @mention, na które wysłać DM. Jeśli pominięte, dotyczy autora komendy.
+</details>

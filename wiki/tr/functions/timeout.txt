@@ -1,0 +1,31 @@
+<dash>
+name: $timeout
+desc: Bir sunucu üyesine belirtilen süre boyunca bir zaman aşımı (susturma) uygular.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $timeout bir süre ve bir kullanıcı kimliği/etiketi alır ve ardından o üyeye bir zaman aşımı uygular. Zaman aşımı uygulanan üye belirtilen süre boyunca mesaj gönderemez, tepki veremez veya ses kanallarına katılamaz.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $timeout[time; user]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $timeout[1h; @user]
+</block>
+
+<block type="callout" kind="note">
+text: Zaman biçimi şunları kullanır: s (saniye), m (dakika), h (saat), d (gün). Maksimum zaman aşımı süresi 28 gündür. Zaman aşımını erken kaldırmak için $untimeout kullanın.
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Moderate Members" (Üyeleri Denetle) iznine sahip olması ve en yüksek rolünün hedefin en yüksek rolünün üzerinde olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $timeout[time; user]
+param: time|text|Required|Zaman aşımının süresi. Biçim: sayı + birim (s/m/h/d), örn. 1h, 30m, 7d
+param: user|text|Required|Zaman aşımı uygulanacak üyenin kullanıcı kimliği veya @etiketi
+</details>

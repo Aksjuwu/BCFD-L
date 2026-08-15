@@ -1,0 +1,27 @@
+<dash>
+name: $cloneRole
+desc: Создаёт копию существующей роли с теми же правами и настройками.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: $cloneRole принимает ID/упоминание роли и, при желании, новое имя. Бот получает свойства исходной роли (права, цвет, hoist, mentionable) и создаёт новую роль с теми же настройками.
+</block>
+
+<block type="code" title="Syntax">
+text: $cloneRole[role ID or @mention; (optional new name)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $cloneRole[&123456789; Cloned Role]
+</block>
+
+<block type="callout" kind="note">
+text: Если новое имя не указано, склонированная роль сохраняет имя исходной роли. У бота должно быть разрешение «Manage Roles».
+</block>
+</dash>
+
+<details>
+syntax: $cloneRole[role ID or @mention; (optional new name)]
+param: role ID or @mention|text|Required|ID или @упоминание роли для клонирования
+param: optional new name|text|Optional|Пользовательское имя для склонированной роли. Если не указано, используется исходное имя.
+</details>

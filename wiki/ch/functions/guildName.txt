@@ -1,0 +1,21 @@
+<dash>
+name: $guildName
+desc: 返回命令被使用处的服务器（guild）名称。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $guildName 时，机器人会检索命令执行所在服务器的名称，并将其作为纯文本字符串直接发送到频道。如果在私信中使用，则返回 "DM"。
+</block>
+
+<block type="code" title="语法">
+text: $guildName
+</block>
+
+<block type="code" title="可复制示例">
+text: Welcome to $guildName!
+</block>
+
+<block type="callout" kind="note">
+text: 在服务器外部（私信中）使用时，该命令返回字符串 "DM" 而不是服务器名称。
+</block>
+</dash>

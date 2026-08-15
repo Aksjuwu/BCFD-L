@@ -1,0 +1,28 @@
+<dash>
+name: $findRole
+desc: 按名称、ID 或提及查找角色并返回其角色 ID。
+category: 工具
+
+<block type="text" title="命令如何工作？">
+text: $findRole 使用角色提及、数字角色 ID 或角色名称（名称匹配不区分大小写）在当前服务器中查找角色。它返回角色的 ID。单独使用时，该 ID 会发送到频道；内联使用时，该 ID 会直接替换到周围的文本中。
+</block>
+
+<block type="code" title="语法">
+text: $findRole[name]
+text: $findRole[roleID]
+text: $findRole[@role]
+</block>
+
+<block type="code" title="可复制示例">
+text: $findRole[Moderators]
+</block>
+
+<block type="callout" kind="note">
+text: 此命令只能在服务器内部使用。如果未找到角色，则返回错误。
+</block>
+</dash>
+
+<details>
+syntax: $findRole[query]
+param: query|text|Required|要搜索的角色提及、角色 ID 或角色名称（不区分大小写）
+</details>

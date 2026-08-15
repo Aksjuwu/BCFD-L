@@ -1,0 +1,28 @@
+<dash>
+name: $removeSplitOutElement
+desc: 按从 1 开始的索引从当前拆分结果（$splitIn）中移除一个元素。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $removeSplitOutElement 从 $splitIn 存储的数据中删除指定位置的元素。其余元素保持原有顺序。必须先调用 $splitIn 才能使用此命令。
+</block>
+
+<block type="code" title="语法">
+text: $removeSplitOutElement[index]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $splitIn[apple,banana,cherry; ,]
+$removeSplitOutElement[2]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: 索引必须是当前拆分长度范围内的正整数，否则会报错。
+</block>
+</dash>
+
+<details>
+syntax: $removeSplitOutElement[index]
+param: index|number|Required|要移除的元素的位置（从 1 开始）
+</details>

@@ -1,0 +1,32 @@
+<dash>
+name: $editChannelPerms
+desc: Изменяет переопределения прав для роли или участника на канале.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: $editChannelPerms изменяет переопределения прав для конкретной роли или участника на канале. Используйте +perm, чтобы разрешить, -perm, чтобы запретить, или /perm, чтобы сбросить право. Бот должен иметь право «Управление каналами» (Manage Channels).
+</block>
+
+<block type="code" title="Syntax">
+text: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $editChannelPerms[123456789; 987654321; +send_messages; -connect]
+</block>
+
+<block type="callout" kind="warning">
+text: Бот должен иметь право «Управление каналами» (Manage Channels) или «Управление правами» (Manage Permissions). Целью может быть ID/упоминание роли или участника.
+</block>
+
+<block type="callout" kind="note">
+text: Названия прав используют формат snake_case от Discord: send_messages, view_channel, connect, manage_roles и т. д. Используйте +, чтобы разрешить, -, чтобы запретить, / или ~, чтобы сбросить.
+</block>
+</dash>
+
+<details>
+syntax: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+param: channelID|text|Required|ID канала или упоминание, для которого нужно изменить права.
+param: targetID|text|Required|ID/упоминание роли или участника, для которого задаются права.
+param: permissions|text|Required|Одно или несколько прав с префиксом +/- (например, +send_messages, -connect).
+</details>

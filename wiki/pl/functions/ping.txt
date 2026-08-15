@@ -1,0 +1,21 @@
+<dash>
+name: $ping
+desc: Zwraca opóźnienie (czas odpowiedzi) bota do bramki Discord w milisekundach.
+category: Narzędzia
+
+<block type="text" title="Jak działa komenda?">
+text: Komenda pobiera aktualną prędkość połączenia między botem a bramką Discord, a następnie wysyła wynik bezpośrednio jako surową liczbę oznaczającą czas w milisekundach.
+</block>
+
+<block type="code" title="Składnia">
+text: $ping
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $ping pong!
+</block>
+
+<block type="callout" kind="note">
+text: Wynikowa wartość reprezentuje szybkość reagowania serwera bota. Im niższa zwrócona liczba, tym szybciej bot będzie odpowiadał na komendy i interakcje.
+</block>
+</dash>

@@ -1,0 +1,27 @@
+<dash>
+name: $sum
+desc: İki veya daha fazla sayıyı toplar ve sonucu döndürür.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $sum iki veya daha fazla sayısal argüman alır ve toplamlarını döndürür. Hem bağımsız bir komut olarak hem de diğer komutların içinde satır içinde çalışır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $sum[a; b; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[$sum[8; 2]]
+</block>
+
+<block type="callout" kind="note">
+text: Herhangi bir sayıda argümanı destekler. Tüm değerler sayı olarak işlenir. Sayısal olmayan bir değer sağlanırsa bir hata döndürülür. Toplamın ondalık kısmı yoksa sonuç bir tam sayıdır.
+</block>
+</dash>
+
+<details>
+syntax: $sum[a; b; ...]
+param: a|number|Required|Toplanacak ilk sayı
+param: b|number|Required|Toplanacak ikinci sayı (ek sayılar da kabul edilir)
+</details>

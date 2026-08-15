@@ -1,0 +1,22 @@
+<dash>
+name: $deletecommand
+desc: Usuwa wiadomość, która wyzwoliła komendę.
+category: Moderacja
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy wywoływany jest $deletecommand, bot próbuje usunąć wiadomość użytkownika, która wyzwoliła wykonanie skryptu. Jest to często używane, aby utrzymać kanały w czystości przez usunięcie oryginalnego wywołania komendy.
+</block>
+
+<block type="code" title="Składnia">
+text: $deletecommand
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $deletecommand
+$sendMessage[Command received!]
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć na kanale uprawnienie „Zarządzanie wiadomościami”, aby usuwać wiadomości użytkowników. Jeśli uprawnienie jest nieobecne, zwracany jest błąd.
+</block>
+</dash>

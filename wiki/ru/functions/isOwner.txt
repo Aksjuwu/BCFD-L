@@ -1,0 +1,26 @@
+<dash>
+name: $isOwner
+desc: Проверяет, является ли пользователь владельцем сервера.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: $isOwner принимает ID пользователя или упоминание и проверяет, является ли этот пользователь владельцем текущего сервера. Возвращает "true" или "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isOwner[userID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isOwner[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает "true", только если пользователь является владельцем сервера. Возвращает "false", если пользователь не владелец или не найден на сервере.
+</block>
+</dash>
+
+<details>
+syntax: $isOwner[userID]
+param: userID|text|Required|ID пользователя или @упоминание для проверки. Поддерживаются переменные и плейсхолдеры.
+</details>

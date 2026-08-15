@@ -1,0 +1,26 @@
+<dash>
+name: $color
+desc: Définit la couleur de l'embed en cours de construction.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $color prend une valeur de couleur hexadécimale ou une couleur nommée et l'applique à l'embed actuel en cours de construction. La couleur apparaît comme la barre d'accent du côté gauche de l'embed.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $color[hex or name]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $color[#FF5733]
+</block>
+
+<block type="callout" kind="note">
+text: Vous pouvez utiliser des codes hexadécimaux (par ex., #FF5733, FF5733) ou des couleurs nommées. Cette commande n'affecte que les embeds envoyés après son appel.
+</block>
+</dash>
+
+<details>
+syntax: $color[hex or name]
+param: hex or name|text|Requis|Un code couleur hexadécimal (par ex., #FF5733) ou une couleur nommée pour définir la couleur de la barre d'accent de l'embed
+</details>

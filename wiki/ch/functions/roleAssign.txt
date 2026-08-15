@@ -1,0 +1,37 @@
+<dash>
+name: $roleAssign
+desc: 为服务器成员添加或移除一个或多个角色。
+category: 管理
+
+<block type="text" title="此命令如何工作？">
+text: $roleAssign 以用户作为第一个参数，后面跟一个或多个角色操作。每个角色操作以 + 开头表示添加角色，或以 - 开头表示移除角色，后跟角色 ID 或提及。可以在一次调用中分配或移除多个角色。
+</block>
+
+<block type="code" title="语法">
+text: $roleAssign[user; +role1; -role2; ...]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $roleAssign[$authorID; +&123456789; -&987654321]
+</block>
+
+<block type="options" title="角色前缀">
+option: +|向用户添加角色（例如 +&123456789 或 +@RoleName）
+option: -|从用户移除角色（例如 -&123456789 或 -@RoleName）
+</block>
+
+<block type="callout" kind="note">
+text: 您可以在一次调用中分配和移除多个角色。用户始终是第一个参数。机器人必须拥有 "管理角色" 权限，且其最高角色的层级必须高于要分配的角色。
+</block>
+
+<block type="callout" kind="warning">
+text: 目标用户必须是服务器的成员。如果角色 ID 无效，则跳过该角色操作。如果机器人缺少权限或角色层级存在问题，将返回错误。
+</block>
+</dash>
+
+<details>
+syntax: $roleAssign[user; +role1; -role2; ...]
+param: user|text|Required|要修改角色的成员的用户 ID 或 @提及
+param: +role1|text|Required|要添加的角色：以 + 为前缀，后跟角色 ID 或 @提及（例如 +&123456789）
+param: -role2|text|Optional|要移除的角色：以 - 为前缀，后跟角色 ID 或 @提及。您可以包含多个 +/- 角色操作。
+</details>

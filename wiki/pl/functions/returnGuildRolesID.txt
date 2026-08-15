@@ -1,0 +1,34 @@
+<dash>
+name: $returnGuildRolesID
+desc: Zbiera ID ról z serwera, opcjonalnie filtrując po uprawnieniu, i zapisuje je.
+category: Komendy zwrotne
+
+<block type="text" title="Jak działa komenda?">
+text: $returnGuildRolesID zbiera ID ról z określonego serwera, opcjonalnie filtrując według wymaganego uprawnienia. Wynik jest zapisywany pod nazwą zmiennej i można go pobrać później za pomocą $return[variableName]. Jeśli filtr uprawnień nie zostanie określony, zbierane są wszystkie role (z wyjątkiem @everyone).
+</block>
+
+<block type="code" title="Składnia">
+text: $returnGuildRolesID[GuildID; permission; var; separator]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $returnGuildRolesID[$guildID; all; roleIDs; ,]
+$sendMessage[Roles: $return[roleIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: Dla parametru uprawnienia: zostaw puste lub użyj „all", aby pobrać wszystkie role. Możesz też podać uprawnienie nazwane (np. kick_members, manage_messages) lub surową liczbę uprawnienia. Uwzględnione zostaną tylko role, które mają określone uprawnienie (lub wyższe).
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi być członkiem docelowego serwera. Rola @everyone jest zawsze wykluczana z wyników.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildRolesID[GuildID; permission; var; separator]
+param: GuildID|snowflake|Required|ID serwera, z którego mają być zebrane role
+param: permission|text|Required|Filtr uprawnień: zostaw puste lub „all" dla wszystkich ról, uprawnienie nazwane (np. kick_members) lub surowa liczba uprawnienia
+param: var|text|Required|Nazwa zmiennej, w której zostanie zapisany wynik (użyj z $return[])
+param: separator|text|Required|Separator między wieloma ID (np. , lub ;). Możesz użyć separatorów nazwanych: dot, com, apo, sem, colon
+</details>

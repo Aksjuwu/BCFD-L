@@ -1,0 +1,26 @@
+<dash>
+name: $channelType
+desc: Возвращает тип канала (text, voice, category, forum, stage).
+category: Каналы
+
+<block type="text" title="Как работает команда?">
+text: $channelType принимает упоминание канала или его ID и возвращает название типа канала в виде строки. Допустимые типы: text, voice, category, forum, stage. Если аргумент не указан, возвращает тип текущего канала. Возвращает "unknown", если канал не удалось найти.
+</block>
+
+<block type="code" title="Syntax">
+text: $channelType[channel mention/ID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $channelType[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Полезно для проверки типа канала перед выполнением операций, зависящих от типа, таких как $createChannel или $voiceUsersLimit.
+</block>
+</dash>
+
+<details>
+syntax: $channelType[channel mention/ID]
+param: channel|text|Optional|Упоминание канала или его числовой ID. Если пусто, используется текущий канал.
+</details>

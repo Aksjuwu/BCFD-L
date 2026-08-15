@@ -1,0 +1,26 @@
+<dash>
+name: $isAdmin
+desc: Checks whether a user has administrator permissions in the server.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: $isAdmin takes a user ID or mention and checks if that user has administrator permissions, is the server owner, or is a bot account. Returns "true" or "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isAdmin[userID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isAdmin[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Returns "true" if the user is the server owner, a bot, or has the Administrator permission. Returns "false" otherwise or if the user is not found in the server.
+</block>
+</dash>
+
+<details>
+syntax: $isAdmin[userID]
+param: userID|text|Required|The user ID or @mention to check. Supports variables and placeholders.
+</details>

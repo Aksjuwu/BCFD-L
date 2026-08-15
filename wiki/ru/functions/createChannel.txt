@@ -1,0 +1,32 @@
+<dash>
+name: $createChannel
+desc: Создаёт новый канал на сервере.
+category: Управление каналами
+
+<block type="text" title="Как работает команда?">
+text: $createChannel создаёт новый канал на сервере с указанным названием и типом. Поддерживаются типы каналов text, voice, category, forum и stage. Можно указать необязательный ID категории, чтобы разместить канал внутри конкретной категории. У бота должно быть разрешение «Manage Channels».
+</block>
+
+<block type="code" title="Syntax">
+text: $createChannel[name; type; (category ID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $createChannel[my-channel; text]
+</block>
+
+<block type="callout" kind="warning">
+text: У бота должно быть разрешение «Manage Channels». Поддерживаемые типы: text, voice, category, forum, stage.
+</block>
+
+<block type="callout" kind="note">
+text: ID категории необязателен. Если он указан, новый канал будет создан внутри этой категории.
+</block>
+</dash>
+
+<details>
+syntax: $createChannel[name; type; (category ID)]
+param: name|text|Required|Название нового канала.
+param: type|text|Required|Тип канала: text, voice, category, forum или stage.
+param: categoryID|text|Optional|ID категории, внутри которой разместить канал.
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $displayName
+desc: Bir kullanıcının görünen adını döndürür.
+category: Kullanıcı
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $displayName, bir kullanıcının görünen adını (sunucu takma adı veya kullanıcı adı) döndürür. Argüman verilmezse komut yazarının görünen adını döndürür. Bir kullanıcı kimliği veya bahsetmesi verildiğinde, o kullanıcının görünen adını döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $displayName[(user mention/ID)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Hello, $displayName!
+</block>
+
+<block type="callout" kind="note">
+text: Görünen ad, ayarlanmışsa sunucuya özel takma addır, aksi halde genel kullanıcı adıdır. Satır içinde kullanılabilir.
+</block>
+</dash>
+
+<details>
+syntax: $displayName[(user mention/ID)]
+param: user|text|Optional|Bir kullanıcı bahsetmesi veya sayısal kimlik. Boş bırakılırsa komut yazarı kullanılır.
+</details>

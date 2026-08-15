@@ -3,7 +3,6 @@ build/
 app_data/
 .vscode/
 functions_ar/
-wiki/
 storage/
 requirements.txt
 build_apk.ps1

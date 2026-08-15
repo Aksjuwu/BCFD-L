@@ -1,0 +1,28 @@
+<dash>
+name: $var
+desc: 读取或写入一个仅在当前脚本执行期间存在的临时变量。
+category: 变量
+
+<block type="text" title="此命令如何工作？">
+text: 带一个参数的 $var 读取变量的值。带两个参数的 $var 向变量写入值。临时变量在脚本结束时被清除。
+</block>
+
+<block type="code" title="语法">
+text: $var[name; value]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $var[score; 10]
+$sendMessage[Your score is $var[score]]
+</block>
+
+<block type="callout" kind="note">
+text: 与 $setVar/$getVar（持久化）不同，$var 仅在当前脚本运行期间可用。它可以内联用于其他命令的参数中。
+</block>
+</dash>
+
+<details>
+syntax: $var[name; (value)]
+param: name|text|Required|要读取或写入的变量名称
+param: value|text|Optional|如果提供，则将该值写入变量（双参数模式）。如果省略，则读取并返回当前值（单参数模式）。
+</details>

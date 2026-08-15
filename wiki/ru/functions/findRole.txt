@@ -1,0 +1,28 @@
+<dash>
+name: $findRole
+desc: Находит роль по имени, ID или упоминанию и возвращает её ID.
+category: Утилиты
+
+<block type="text" title="Как работает команда?">
+text: $findRole ищет роль на текущем сервере по упоминанию роли, числовому ID роли или имени роли (совпадение имени не учитывает регистр). Возвращает ID роли. При использовании отдельно ID отправляется в канал; при использовании встроенно ID подставляется непосредственно в окружающий текст.
+</block>
+
+<block type="code" title="Syntax">
+text: $findRole[name]
+text: $findRole[roleID]
+text: $findRole[@role]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $findRole[Moderators]
+</block>
+
+<block type="callout" kind="note">
+text: Эту команду можно использовать только внутри сервера. Если роль не найдена, возвращается ошибка.
+</block>
+</dash>
+
+<details>
+syntax: $findRole[query]
+param: query|text|Required|Упоминание роли, ID роли или имя роли для поиска (без учёта регистра)
+</details>

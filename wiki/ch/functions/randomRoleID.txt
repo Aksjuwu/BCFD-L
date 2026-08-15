@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleID
+desc: 返回服务器中随机一个角色的 ID。
+category: 随机
+
+<block type="text" title="命令如何工作？">
+text: 调用 $randomRoleID 时，机器人会收集当前服务器中的所有角色（排除默认的 @everyone 角色），随机选取一个，并将其角色 ID 作为原始数字字符串发送。
+</block>
+
+<block type="code" title="语法">
+text: $randomRoleID
+</block>
+
+<block type="code" title="可复制示例">
+text: Random role ID: $randomRoleID
+</block>
+
+<block type="callout" kind="note">
+text: 此命令仅在服务器内有效（在私信中无效）。@everyone 角色始终被排除。如果服务器没有任何自定义角色，命令将失败并返回错误。
+</block>
+</dash>

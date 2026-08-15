@@ -1,0 +1,28 @@
+<dash>
+name: $var
+desc: Yalnızca geçerli betik yürütmesi sırasında var olan geçici bir değişkeni okur veya yazar.
+category: Değişkenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $var tek argümanla değişkenin değerini okur. $var iki argümanla değişkene bir değer yazar. Geçici değişkenler betik bittiğinde temizlenir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $var[name; value]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $var[score; 10]
+$sendMessage[Your score is $var[score]]
+</block>
+
+<block type="callout" kind="note">
+text: $setVar/$getVar'ın (kalıcı) aksine $var yalnızca geçerli betik çalışması sırasında kullanılabilir. Diğer komutların argümanlarının içinde satır içinde kullanılabilir.
+</block>
+</dash>
+
+<details>
+syntax: $var[name; (value)]
+param: name|text|Required|Okunacak veya yazılacak değişken adı
+param: value|text|Optional|Belirtilirse bu değeri değişkene yazar (2 argümanlı mod). Atlanırsa geçerli değeri okur ve döndürür (1 argümanlı mod).
+</details>

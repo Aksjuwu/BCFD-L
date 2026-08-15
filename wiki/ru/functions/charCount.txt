@@ -1,0 +1,26 @@
+<dash>
+name: $charCount
+desc: Возвращает количество буквенно-цифровых символов в заданном тексте.
+category: Математика и числа
+
+<block type="text" title="Как работает команда?">
+text: $charCount принимает текстовый аргумент и подсчитывает только буквенно-цифровые символы (буквы и цифры), игнорируя пробелы, символы и знаки препинания. Возвращает количество в виде числа.
+</block>
+
+<block type="code" title="Syntax">
+text: $charCount[text]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $charCount[Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: Подсчитываются только буквы (из любого языка) и цифры (0-9). Пробелы, знаки препинания и специальные символы исключаются из подсчёта.
+</block>
+</dash>
+
+<details>
+syntax: $charCount[text]
+param: text|text|Required|Текст, в котором нужно подсчитать буквенно-цифровые символы. Переменные и плейсхолдеры раскрываются перед подсчётом.
+</details>

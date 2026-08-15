@@ -1,0 +1,28 @@
+<dash>
+name: $wait
+desc: Wstrzymuje wykonanie skryptu na określony czas.
+category: Czas i opóźnienia
+
+<block type="text" title="Jak działa komenda?">
+text: $wait zamraża całe wykonanie skryptu na określony czas. Żadne kolejne komendy w skrypcie nie zostaną wykonane, dopóki okres oczekiwania nie minie.
+</block>
+
+<block type="code" title="Składnia">
+text: $wait[time]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Starting...]
+$wait[5s]
+$sendMessage[Done after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: Format czasu używa: s (sekundy), m (minuty), h (godziny), d (dni). Cały skrypt jest zamrożony podczas oczekiwania — inne skrypty innych użytkowników nie są zmieniane.
+</block>
+</dash>
+
+<details>
+syntax: $wait[time]
+param: time|text|Required|Czas oczekiwania. Format: liczba + jednostka (s/m/h/d), np. 5s, 10m, 1h, 1d
+</details>

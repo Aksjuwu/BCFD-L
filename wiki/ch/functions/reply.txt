@@ -1,0 +1,22 @@
+<dash>
+name: $reply
+desc: 启用回复模式，使机器人回复用户的原始消息而不是发送新消息。
+category: 消息发送
+
+<block type="text" title="此命令如何工作？">
+text: 调用 $reply 后，机器人为当前脚本执行启用回复模式。脚本中之后发送的所有消息都会以回复用户原始消息的形式发送，从而产生线程式的对话效果。
+</block>
+
+<block type="code" title="语法">
+text: $reply
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $reply
+$sendMessage[This will be a reply!]
+</block>
+
+<block type="callout" kind="note">
+text: 一旦启用，回复模式将持续到整个脚本执行结束。在 Discord 界面中，机器人的消息会显示为触发消息的回复线程。
+</block>
+</dash>

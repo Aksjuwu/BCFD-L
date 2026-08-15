@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: 设置正在构建的嵌入消息的页脚文本。
+category: 嵌入构建
+
+<block type="text" title="命令如何工作？">
+text: $footer 接受一个文本参数，并将其设置为当前正在构建的嵌入消息的页脚。页脚以更小、更浅的文本显示在嵌入消息的最底部。
+</block>
+
+<block type="code" title="语法">
+text: $footer[text]
+</block>
+
+<block type="code" title="可复制示例">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: 页脚可用于署名、时间戳或附加上下文。它显示在嵌入消息底部的较小灰色文本中。
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: text|text|Required|嵌入消息的页脚文本
+</details>

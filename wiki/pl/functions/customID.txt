@@ -1,0 +1,25 @@
+<dash>
+name: $customID
+desc: Zwraca custom_id interakcji przycisku lub komponentu, która wyzwoliła skrypt.
+category: Informacje
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy użytkownik kliknie przycisk lub wejdzie w interakcję z komponentem, $customID zwraca ciąg custom_id przypisany do tego komponentu. Jest to przydatne do identyfikacji, który przycisk został naciśnięty w zdarzeniu onInteraction.
+</block>
+
+<block type="code" title="Składnia">
+text: $customID
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $if[$customID == btn_confirm]
+  You confirmed!
+$elif[$customID == btn_cancel]
+  You cancelled!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: Ta zmienna ma znaczenie tylko wewnątrz skryptów wyzwalanych interakcjami (np. onInteraction). Gdy jest użyta w zwykłym kontekście wiadomości, zwraca pusty ciąg.
+</block>
+</dash>

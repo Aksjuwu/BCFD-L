@@ -1,0 +1,28 @@
+<dash>
+name: $httpStatus
+desc: Возвращает HTTP-код состояния последнего запроса.
+category: HTTP
+
+<block type="text" title="Как работает команда?">
+text: $httpStatus возвращает код состояния, сохранённый последним HTTP-запросом. Возвращает "0", если запрос ещё не выполнялся.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $httpStatus
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $httpGet[https://api.example.com/data]
+$if[$httpStatus == 200] {
+  $reply[Request succeeded]
+}
+</block>
+
+<block type="callout" kind="note">
+text: При неудачном запросе код состояния устанавливается в 500.
+</block>
+</dash>
+
+<details>
+syntax: $httpStatus
+</details>

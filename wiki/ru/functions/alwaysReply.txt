@@ -1,0 +1,30 @@
+<dash>
+name: $alwaysReply
+desc: Событие, запускаемое на каждое сообщение, отправленное не ботом.
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $alwaysReply — это префикс события, который запускает FDScript для каждого сообщения, отправленного пользователем, не являющимся ботом. Скрипт выполняется как ответ на исходное сообщение. Это полезно для автоматических ответов или обработки сообщений.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$alwaysReply
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$alwaysReply
+ sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="warning">
+text: Это срабатывает на КАЖДОЕ сообщение. Используйте с осторожностью, чтобы избежать чрезмерной активности бота или ограничений скорости.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие выполняется из папки bot_events, а не bot_commands. Создайте свой файл .fds там.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$alwaysReply
+</details>

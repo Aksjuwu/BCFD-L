@@ -1,0 +1,25 @@
+<dash>
+name: $endwhile
+desc: Oznacza koniec bloku pętli $while.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: $endwhile wyznacza zamykającą granicę pętli $while. Po każdej iteracji wykonanie wraca do warunku $while, aby go ponownie ocenić. Każdy $while musi mieć pasujący $endwhile.
+</block>
+
+<block type="code" title="Składnia">
+text: $endwhile
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $setVar[count; 0]
+$while[$getVar[count] < 5]
+  $sendMessage[Count: $getVar[count]]
+  $setVar[count; $math[$getVar[count] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: Każdy blok $while musi być poprawnie zamknięty za pomocą $endwhile. Brak $endwhile spowoduje błąd skryptu. Upewnij się, że Twoja pętla ma warunek zakończenia, aby uniknąć nieskończonych pętli.
+</block>
+</dash>

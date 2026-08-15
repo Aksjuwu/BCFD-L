@@ -1,0 +1,21 @@
+<dash>
+name: $serverOwnerID
+desc: Zwraca ID użytkownika Discorda będącego właścicielem serwera.
+category: Informacje
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy $serverOwnerID zostanie wywołane, bot pobiera unikalne ID użytkownika Discorda, który jest właścicielem serwera, i wysyła je bezpośrednio jako surowy ciąg liczbowy.
+</block>
+
+<block type="code" title="Składnia">
+text: $serverOwnerID
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: Server owner ID: $serverOwnerID
+</block>
+
+<block type="callout" kind="note">
+text: Ta komenda działa tylko na serwerze (nie w DM). Zwracana wartość to snowflake ID konta, które jest właścicielem serwera.
+</block>
+</dash>

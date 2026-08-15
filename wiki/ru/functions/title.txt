@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: Устанавливает заголовок создаваемого embed.
+category: Конструктор embed
+
+<block type="text" title="Как работает команда?">
+text: $title принимает текстовый аргумент и устанавливает его в качестве заголовка текущего создаваемого embed. Заголовок отображается в верхней части embed более крупным жирным шрифтом.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $title[text]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: Заголовок поддерживает форматирование Discord-разметки. Он отображается в качестве основного заголовка в верхней части embed.
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: text|text|Required|Текст заголовка для embed
+</details>

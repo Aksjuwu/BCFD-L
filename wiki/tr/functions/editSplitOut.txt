@@ -1,0 +1,29 @@
+<dash>
+name: $editSplitOut
+desc: Geçerli bölme sonucunun ($splitIn) bir öğesini yeni bir değerle değiştirir.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $editSplitOut, $splitIn tarafından saklanan bölme sonucunu değiştirir. Dizin 1 tabanlıdır. Seçilen öğe yeni değerle değiştirilir ve diğer her şey değişmeden kalır. Bu komuttan önce $splitIn çağrılmalıdır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $editSplitOut[index; value]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $splitIn[apple,banana,cherry; ,]
+$editSplitOut[2; mango]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: Dizin, geçerli bölme uzunluğu içinde pozitif bir tam sayı olmalıdır (1 ile toplam öğe sayısı arası), aksi halde hata oluşur.
+</block>
+</dash>
+
+<details>
+syntax: $editSplitOut[index; value]
+param: index|number|Required|Değiştirilecek öğenin 1 tabanlı konumu
+param: value|text|Required|Bu öğe için yeni değer
+</details>

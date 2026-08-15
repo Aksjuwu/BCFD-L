@@ -1,0 +1,21 @@
+<dash>
+name: $ban
+desc: 将用户从服务器中封禁。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: 当不带参数调用 $ban 时，它会封禁命令作者。当带有用户 ID 或提及调用时，它会封禁该特定用户。机器人会从提供的参数中提取数字用户 ID，并通过 Discord API 发出封禁请求。
+</block>
+
+<block type="code" title="语法">
+text: $ban
+</block>
+
+<block type="code" title="可复制示例">
+text: $ban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须拥有“Ban Members”（封禁成员）权限，且其最高角色的位置必须高于目标用户的最高角色。不带方括号使用 $ban 将封禁触发命令的用户。
+</block>
+</dash>

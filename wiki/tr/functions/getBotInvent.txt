@@ -1,0 +1,21 @@
+<dash>
+name: $getBotInvent
+desc: Botun OAuth2 davet bağlantısını oluşturur ve gönderir.
+category: Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $getBotInvent çağrıldığında bot, uygulama kimliğini kullanarak tam izinlerle (8) ve bot kapsamıyla bir OAuth2 yetkilendirme URL'si oluşturur ve ardından bağlantıyı kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $getBotInvent
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Invite me: $getBotInvent
+</block>
+
+<block type="callout" kind="note">
+text: Oluşturulan bağlantı tüm izinleri içerir (permissions=8). Bağlantı biçimi şudur: https://discord.com/oauth2/authorize?client_id={id}&permissions=8&scope=bot
+</block>
+</dash>

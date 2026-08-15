@@ -1,0 +1,25 @@
+<dash>
+name: $break
+desc: Немедленно завершает ближайший окружающий цикл $for или $while.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: Когда $break встречается внутри цикла ($for или $while), бот немедленно прекращает итерации и продолжает выполнение после соответствующего $endfor или $endwhile. Все оставшиеся итерации текущего цикла пропускаются.
+</block>
+
+<block type="code" title="Syntax">
+text: $break
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $for[10]
+  $if[$message == stop]
+    $break
+  $endif
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: $break завершает только самый внутренний цикл, в котором он находится. Если циклы вложены, внешние циклы продолжают выполняться в обычном режиме.
+</block>
+</dash>

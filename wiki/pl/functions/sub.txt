@@ -1,0 +1,27 @@
+<dash>
+name: $sub
+desc: Odejmuje liczby kolejno od pierwszej wartości i zwraca wynik.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa komenda?">
+text: $sub przyjmuje dwa lub więcej argumentów liczbowych. Zaczyna od pierwszej wartości i odejmuje od niej każdą kolejną. Działa zarówno jako samodzielna komenda, jak i w tekście.
+</block>
+
+<block type="code" title="Składnia">
+text: $sub[a; b; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Result is $sub[10; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: $sub[10; 3; 2] oblicza się jako 10 - 3 - 2 = 5. Jeśli podano wartość nieliczbową, zwracany jest błąd.
+</block>
+</dash>
+
+<details>
+syntax: $sub[a; b; ...]
+param: a|number|Required|Wartość początkowa (odjemna)
+param: b|number|Required|Wartość do odjęcia (kolejne wartości również są odejmowane sekwencyjnie)
+</details>

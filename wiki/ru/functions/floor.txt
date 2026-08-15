@@ -1,0 +1,26 @@
+<dash>
+name: $floor
+desc: Округляет число вниз до ближайшего целого.
+category: Математика и числа
+
+<block type="text" title="Как работает команда?">
+text: $floor принимает одно числовое значение и округляет его вниз до ближайшего целого числа (floor). Например, 3.9 станет 3, а -2.1 станет -3. Работает как самостоятельная команда, так и встроенно внутри других команд.
+</block>
+
+<block type="code" title="Syntax">
+text: $floor[number]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Result is $floor[3.9]]
+</block>
+
+<block type="callout" kind="note">
+text: $floor[3.9] возвращает 3. $floor[-2.1] возвращает -3. $floor[5.0] возвращает 5. Результат всегда является целым числом.
+</block>
+</dash>
+
+<details>
+syntax: $floor[number]
+param: number|number|Required|Число для округления вниз до ближайшего целого, например, 3.9, -2.1, 10
+</details>

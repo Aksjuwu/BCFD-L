@@ -1,0 +1,28 @@
+<dash>
+name: $dm
+desc: 设置后续消息的发送目标为私信（DM）。
+category: 消息发送
+
+<block type="text" title="命令如何工作？">
+text: 当 $dm 无参数调用时，它将消息目标设置为命令作者的私信。当使用用户 ID 或提及调用时，它将目标设置为该用户的私信。之后所有 $sendMessage 调用都会发送到该私信目标，而不是当前频道。
+</block>
+
+<block type="code" title="语法">
+text: $dm
+text: $dm[(userID/mention)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $dm
+$sendMessage[Check your DMs!]
+</block>
+
+<block type="callout" kind="note">
+text: 机器人和目标用户必须共享同一个服务器，私信才能正常工作。如果用户已禁用私信，消息将发送失败。使用不带括号的 $dm 以命令作者为目标。
+</block>
+</dash>
+
+<details>
+syntax: $dm[(userID/mention)]
+param: userID/mention|text|Optional|要发送私信的目标用户 ID 或 @提及。如果省略，则以命令作者为目标。
+</details>

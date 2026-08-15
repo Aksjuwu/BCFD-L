@@ -1,0 +1,26 @@
+<dash>
+name: $isBot
+desc: Проверяет, является ли пользователь ботом.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: $isBot принимает ID пользователя или упоминание и проверяет, является ли этот пользователь ботом Discord. Возвращает "true" или "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isBot[userID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isBot[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает "true", если пользователь является ботом, и "false", если это обычный пользователь. Пользователь должен быть участником сервера.
+</block>
+</dash>
+
+<details>
+syntax: $isBot[userID]
+param: userID|text|Required|ID пользователя или @упоминание для проверки. Поддерживаются переменные и плейсхолдеры.
+</details>

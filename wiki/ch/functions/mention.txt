@@ -1,0 +1,21 @@
+<dash>
+name: $mention
+desc: 返回触发命令的用户的提及。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 调用 $mention 时，机器人会获取执行命令的用户的 Discord 提及格式，并将其直接发送到频道。这会创建一个可点击的提及，用于提醒该用户。
+</block>
+
+<block type="code" title="语法">
+text: $mention
+</block>
+
+<block type="code" title="可复制示例">
+text: Hello $mention!
+</block>
+
+<block type="callout" kind="note">
+text: 返回的值是 Discord 提及格式（例如 <@123456789>），在聊天中会渲染为可点击的蓝色提及，并通知该用户。
+</block>
+</dash>

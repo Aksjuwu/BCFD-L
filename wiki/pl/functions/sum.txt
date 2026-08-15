@@ -1,0 +1,27 @@
+<dash>
+name: $sum
+desc: Dodaje dwie lub więcej liczb do siebie i zwraca wynik.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa komenda?">
+text: $sum przyjmuje dwa lub więcej argumentów liczbowych i zwraca ich sumę. Działa zarówno jako samodzielna komenda, jak i w tekście wewnątrz innych komend.
+</block>
+
+<block type="code" title="Składnia">
+text: $sum[a; b; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[$sum[8; 2]]
+</block>
+
+<block type="callout" kind="note">
+text: Obsługuje dowolną liczbę argumentów. Wszystkie wartości są traktowane jako liczby. Jeśli podano wartość nieliczbową, zwracany jest błąd. Wynik jest liczbą całkowitą, jeśli suma nie ma części dziesiętnej.
+</block>
+</dash>
+
+<details>
+syntax: $sum[a; b; ...]
+param: a|number|Required|Pierwsza liczba do dodania
+param: b|number|Required|Druga liczba do dodania (kolejne liczby również są akceptowane)
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $sendMessage
+desc: Geçerli kanala bir metin mesajı gönderir.
+category: Mesajlaşma
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $sendMessage bir metin argümanı alır, içindeki değişkenleri/yer tutucuları çözer ve elde edilen mesajı geçerli kanala gönderir. Butonlu bir görünüm beklemedeyse, bunu mesaja ekler.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $sendMessage[text]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Hello, $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: FDScript'te mesaj göndermenin ana yoludur. Metnin içindeki değişkenler ve yer tutucular göndermeden önce otomatik olarak çözülür.
+</block>
+</dash>
+
+<details>
+syntax: $sendMessage[text]
+param: text|text|Required|Gönderilecek mesaj metni. Değişkenleri, yer tutucuları ve Discord işaretleme (markdown) biçimini destekler.
+</details>

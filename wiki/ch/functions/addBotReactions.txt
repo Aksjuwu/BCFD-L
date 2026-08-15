@@ -1,0 +1,40 @@
+<dash>
+name: $addBotReactions
+desc: 向机器人在此脚本执行期间发送的最后一条消息添加一个或多个表情符号反应。
+category: 组件
+
+<block type="text" title="命令如何工作？">
+text: $addBotReactions 接受一个或多个表情符号参数，解析其中的变量/占位符，并将每个解析出的表情符号作为反应添加到机器人在当前脚本运行期间发送的最后一条消息上。它会按顺序添加反应，每次反应之间会有短暂的延迟，以避免触发速率限制。
+</block>
+
+<block type="code" title="语法">
+text: $addBotReactions[emoji1; emoji2; emoji3; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $addBotReactions[✅; ❌; 🎉]
+</block>
+
+<block type="list" title="要求">
+item: 在同一个脚本执行过程中，必须先由机器人发送过一条消息。
+item: 必须能从给定的参数中提取出至少一个有效的表情符号。
+item: 机器人必须拥有在频道中添加反应的权限（“Add Reactions”权限）。
+</block>
+
+<block type="callout" kind="note">
+text: 速率限制会自动处理——如果 Discord 返回 429（请求过多），命令会等待并针对该特定表情符号重试一次，然后再继续。
+</block>
+
+<block type="callout" kind="warning">
+text: 每次调用最多允许添加 20 个表情符号。超过此限制会导致命令报错失败，而不会添加任何反应。
+</block>
+
+<block type="callout" kind="important">
+text: 如果尚未发送任何机器人消息，或给定参数中没有一个能解析为有效的表情符号，命令会立即失败，且不会添加任何反应。
+</block>
+</dash>
+
+<details>
+syntax: $addBotReactions[emoji1; emoji2; emoji3; ...]
+param: emoji|text|Required|一个或多个用于添加反应的表情符号值。所有参数都会被解析（支持变量/占位符）并合并，然后按顺序将结果文本中发现的每个表情符号添加为反应。
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $alwaysReply
+desc: Bot dışı her mesajda tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $alwaysReply, bot dışı bir kullanıcı tarafından gönderilen her mesaj için bir FDScript tetikleyen bir olay önekidir. Betik, orijinal mesaja yanıt olarak çalışır. Bu, otomatik yanıtlar veya mesaj işleme için kullanışlıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$alwaysReply
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: #PREFIX:$alwaysReply
+ sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="warning">
+text: Bu, HER mesajda tetiklenir. Aşırı bot etkinliğinden veya hız sınırlamalarından kaçınmak için dikkatli kullanın.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$alwaysReply
+</details>

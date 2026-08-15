@@ -1,0 +1,28 @@
+<dash>
+name: $httpDelete
+desc: يرسل طلب HTTP من نوع DELETE إلى عنوان URL مع نص جسم اختياري.
+category: HTTP
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يرسل $httpDelete طلب DELETE بمهلة 10 ثوانٍ. يُرسل الجسم بصيغة JSON عندما يكون JSON صالحًا، وإلا كنص خام. تُخزَّن الاستجابة في $httpResult ويُخزَّن رمز الحالة في $httpStatus. تُرسل الترويسات المضافة بواسطة $httpAddHeader ثم تُمسح.
+</block>
+
+<block type="code" title="الصيغة">
+text: $httpDelete[URL; (Body)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $httpDelete[https://api.example.com/users/1]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: إذا كان الجسم JSON صالحًا يُرسل بصيغة JSON، وإلا يُرسل كبيانات خام. عند الفشل يُضبط رمز الحالة على 500 ويحتوي $httpResult على رسالة الخطأ.
+</block>
+</dash>
+
+<details>
+syntax: $httpDelete[URL; (Body)]
+param: URL|text|مطلوب|عنوان URL الذي سيُرسل إليه طلب DELETE
+param: Body|text|اختياري|نص جسم الطلب (JSON أو نص خام)
+</details>

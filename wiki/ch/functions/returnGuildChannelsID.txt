@@ -1,0 +1,39 @@
+<dash>
+name: $returnGuildChannelsID
+desc: 从服务器收集指定类型的频道 ID 并存储以供后续获取。
+category: 返回命令
+
+<block type="text" title="此命令如何工作？">
+text: $returnGuildChannelsID 从给定的服务器收集指定类型的所有频道 ID，并将其存储在变量名下。之后可以使用 $return[variableName] 获取结果。您可以按频道类型筛选，例如文本、语音、分类、论坛、舞台，或获取所有频道。
+</block>
+
+<block type="code" title="语法">
+text: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $returnGuildChannelsID[$guildID; text; channelIDs; ,]
+$sendMessage[Text channels: $return[channelIDs]]
+</block>
+
+<block type="options" title="频道类型">
+option: all|所有频道类型
+option: text|仅文本频道
+option: voice|仅语音频道
+option: category|仅分类频道
+option: forum|仅论坛频道
+option: stage|仅舞台频道
+</block>
+
+<block type="callout" kind="note">
+text: 机器人必须是目标服务器的成员。执行后使用 $return[variableName] 获取存储的 ID。分隔符定义了多个 ID 的拼接方式（例如 , 或 ; 或空格）。
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+param: GuildID|snowflake|Required|要收集频道的服务器（guild）的 ID
+param: ChannelType|text|Required|要收集的频道类型：all、text、voice、category、forum 或 stage
+param: var|text|Required|用于存储结果的变量名称（与 $return[] 一起使用）
+param: separator|text|Required|多个 ID 之间的分隔符（例如 , 或 ;）。您可以使用命名分隔符：dot、com、apo、sem、colon
+</details>

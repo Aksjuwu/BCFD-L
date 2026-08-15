@@ -1,0 +1,27 @@
+<dash>
+name: $log
+desc: Tüm betik olaylarının anlık görüntüsünü alır ve belirtilen kanala gönderir.
+category: Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $log, şu ana kadar geçerli betik yürütmesi sırasında üretilen tüm olay günlüklerini yakalar ve belirtilen kanala gönderir. Günlük kaydını etiketlemek için isteğe bağlı bir ad kodu sağlanabilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $log[channelID; name_code]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $log[123456789; myCommand]
+</block>
+
+<block type="callout" kind="note">
+text: Günlük, belirtilen kanala bir mesaj olarak gönderilir. name_code parametresi isteğe bağlıdır ve farklı günlük kayıtlarını etiketlemeye yardımcı olur.
+</block>
+</dash>
+
+<details>
+syntax: $log[channelID; name_code]
+param: channelID|snowflake|Required|Günlüğün gönderileceği kanalın ID'si
+param: name_code|text|Optional|Bu günlük kaydı için bir etiket/ad
+</details>

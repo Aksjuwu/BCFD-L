@@ -1,0 +1,30 @@
+<dash>
+name: $while
+desc: Повторяет заключённый блок кода, пока условие остаётся истинным.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $while вычисляет условие перед каждой итерацией. Если условие истинно, выполняется тело цикла. Это повторяется, пока условие не станет ложным или не встретится $break.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $while[condition]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $setVar[i; 0]
+$while[$getVar[i] < 5]
+  $sendMessage[Count: $getVar[i]]
+  $setVar[i; $math[$getVar[i] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: Убедитесь, что ваш цикл имеет явное условие завершения, чтобы избежать бесконечных циклов. Бесконечный цикл зависнет скрипт навсегда. Используйте $break для досрочного выхода.
+</block>
+</dash>
+
+<details>
+syntax: $while[condition]
+param: condition|expression|Required|Условие, вычисляемое перед каждой итерацией. Цикл продолжается, пока оно истинно. Используются те же операторы, что и в $if (==, !=, >, <, >=, <=).
+</details>

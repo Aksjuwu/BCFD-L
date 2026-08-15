@@ -1,0 +1,27 @@
+<dash>
+name: $mod
+desc: İlk sayının, kendisinden sonraki her bir sayıya bölünmesinden kalanı döndürür.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $mod iki veya daha fazla sayısal argüman alır. İlk değerin, sonraki her bir değere sırayla bölünmesinden kalanını (mod) hesaplar. Hem bağımsız bir komut olarak hem de satır içi olarak çalışır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $mod[a; b; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[$mod[10; 3]]
+</block>
+
+<block type="callout" kind="warning">
+text: Sıfıra mod alma hata döndürür. $mod[10; 3] 1 olarak hesaplanır (10 / 3 işleminin kalanı).
+</block>
+</dash>
+
+<details>
+syntax: $mod[a; b; ...]
+param: a|number|Required|Bölünen (bölünecek sayı)
+param: b|number|Required|Bölen (0 olamaz). Ek bölenler sırayla uygulanır.
+</details>

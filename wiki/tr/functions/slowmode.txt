@@ -1,0 +1,31 @@
+<dash>
+name: $slowmode
+desc: Belirtilen kanal için yavaş mod gecikmesini ayarlar.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $slowmode bir kanal kimliği ve bir süre alır ve ardından o kanal için yavaş mod gecikmesini ayarlar. Yavaş mod, kullanıcıların mesaj gönderebilme sıklığını sınırlar.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $slowmode[channelID; time]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $slowmode[$channelID; 10s]
+</block>
+
+<block type="callout" kind="note">
+text: Zaman biçimi şunları kullanır: s (saniye), m (dakika), h (saat). Maksimum yavaş mod 6 saattir (21600 saniye). Yavaş modu kapatmak için 0s kullanın.
+</block>
+
+<block type="callout" kind="warning">
+text: Botun hedef kanalda "Manage Channels" (Kanalları Yönet) iznine sahip olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $slowmode[channelID; time]
+param: channelID|snowflake|Required|Yavaş mod ayarlanacak kanalın kimliği
+param: time|text|Required|Yavaş modun süresi. Biçim: sayı + birim (s/m/h), örn. 10s, 5m, devre dışı bırakmak için 0s
+</details>

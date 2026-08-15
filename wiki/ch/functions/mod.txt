@@ -1,0 +1,27 @@
+<dash>
+name: $mod
+desc: 返回第一个数字依次除以每个后续数字所得的余数。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $mod 接受两个或更多数字参数。它依次计算第一个值除以每个后续值所得的模（余数）。既可作为独立命令使用，也可内联使用。
+</block>
+
+<block type="code" title="语法">
+text: $mod[a; b; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[$mod[10; 3]]
+</block>
+
+<block type="callout" kind="warning">
+text: 对零取模会返回错误。$mod[10; 3] 的计算结果为 1（10 / 3 的余数）。
+</block>
+</dash>
+
+<details>
+syntax: $mod[a; b; ...]
+param: a|number|Required|被除数（要被除的数）
+param: b|number|Required|除数（不能为 0）。额外的除数会依次应用。
+</details>

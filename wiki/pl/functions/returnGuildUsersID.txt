@@ -1,0 +1,35 @@
+<dash>
+name: $returnGuildUsersID
+desc: Zbiera ID ludzkich (nie-botowych) członków z serwera i zapisuje je.
+category: Komendy zwrotne
+
+<block type="text" title="Jak działa komenda?">
+text: $returnGuildUsersID zbiera wszystkie ID ludzkich (nie-botowych) członków z określonego serwera i zapisuje je pod nazwą zmiennej. Możesz wybrać tryb „cache" (używa już zapisanych w pamięci podręcznej członków) lub tryb „chunk" (najpierw wymusza pełne pobranie listy członków serwera w celu uzyskania kompletnych danych). Wynik można pobrać później za pomocą $return[variableName].
+</block>
+
+<block type="code" title="Składnia">
+text: $returnGuildUsersID[guildID; cache/chunk; var; separator]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[Users: $return[userIDs]]
+</block>
+
+<block type="options" title="Tryby pobierania">
+option: cache|Używa listy członków z pamięci podręcznej bota (szybkie, ale może być niekompletne dla dużych serwerów)
+option: chunk|Najpierw wymusza pełne pobranie listy członków z Discorda (wolniejsze, ale kompletne)
+</block>
+
+<block type="callout" kind="note">
+text: Uwzględniani są tylko ludzcy (nie-botowi) członkowie. Bot musi być członkiem docelowego serwera. Użyj trybu „chunk" na dużych serwerach, gdzie lista członków z pamięci podręcznej może być niekompletna.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildUsersID[guildID; cache/chunk; var; separator]
+param: guildID|snowflake|Required|ID serwera, z którego mają być zebrane ID członków
+param: cache/chunk|text|Required|Tryb pobierania: „cache" dla członków z pamięci podręcznej (szybki), „chunk" dla pełnego pobrania (kompletny)
+param: var|text|Required|Nazwa zmiennej, w której zostanie zapisany wynik (użyj z $return[])
+param: separator|text|Required|Separator między wieloma ID (np. , lub ;). Możesz użyć separatorów nazwanych: dot, com, apo, sem, colon
+</details>

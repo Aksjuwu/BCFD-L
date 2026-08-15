@@ -1,0 +1,34 @@
+<dash>
+name: $returnGuildRolesID
+desc: Собирает ID ролей сервера, при необходимости фильтруя по разрешению, и сохраняет их.
+category: Возвращаемые команды
+
+<block type="text" title="Как работает команда?">
+text: $returnGuildRolesID собирает ID ролей с указанного сервера, при необходимости фильтруя по требуемому разрешению. Результат сохраняется под именем переменной и может быть извлечён позже с помощью $return[variableName]. Если фильтр разрешений не указан, собираются все роли (кроме @everyone).
+</block>
+
+<block type="code" title="Синтаксис">
+text: $returnGuildRolesID[GuildID; permission; var; separator]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $returnGuildRolesID[$guildID; all; roleIDs; ,]
+$sendMessage[Roles: $return[roleIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: Для параметра permission: оставьте его пустым или используйте "all", чтобы получить все роли. Также можно указать именованное разрешение (например, kick_members, manage_messages) или числовое значение разрешения. Включены будут только роли, обладающие указанным разрешением (или более высоким).
+</block>
+
+<block type="callout" kind="warning">
+text: Бот должен быть участником целевого сервера. Роль @everyone всегда исключается из результатов.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildRolesID[GuildID; permission; var; separator]
+param: GuildID|snowflake|Required|ID сервера, с которого собираются роли
+param: permission|text|Required|Фильтр разрешений: оставьте пустым или "all" для всех ролей, именованное разрешение (например, kick_members) или числовое значение разрешения
+param: var|text|Required|Имя переменной, в которую сохраняется результат (используется с $return[])
+param: separator|text|Required|Разделитель между несколькими ID (например, , или ;). Можно использовать именованные разделители: dot, com, apo, sem, colon
+</details>

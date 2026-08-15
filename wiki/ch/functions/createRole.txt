@@ -1,0 +1,37 @@
+<dash>
+name: $createRole
+desc: 以指定的名称、颜色和权限在服务器中创建新角色。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: $createRole 以给定的名称、颜色和权限创建一个新角色。权限可以指定为预设值（cosmetic、member、mod、manager）或原始权限数字。可选地，你可以控制角色是否单独显示以及是否可被提及。
+</block>
+
+<block type="code" title="语法">
+text: $createRole[role name; color; permissions; (display role; mention role)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $createRole[VIP; #FFD700; member; yes; no]
+</block>
+
+<block type="options" title="权限预设">
+option: cosmetic|没有特殊权限（仅用于展示的角色）
+option: member|基础成员权限（发送消息、添加反应、连接语音等）
+option: mod / moderator|管理权限（踢人、封禁、管理消息、超时等）
+option: manager / admin|完整管理权限（管理频道、角色、Webhooks 等）
+</block>
+
+<block type="callout" kind="note">
+text: 创建的角色 ID 存储在 $return[createdRoleID] 中供后续使用。机器人必须拥有“Manage Roles”（管理角色）权限。
+</block>
+</dash>
+
+<details>
+syntax: $createRole[role name; color; permissions; (display role; mention role)]
+param: role name|text|Required|新角色的名称（最多 100 个字符）
+param: color|text|Required|十六进制颜色代码（例如 #FF5733）或留空使用默认值
+param: permissions|text|Required|一个预设值（cosmetic、member、mod/moderator、manager/admin）或一个原始权限整数
+param: display role|yes/no|Optional|yes 表示在成员列表中单独显示该角色（默认：no）
+param: mention role|yes/no|Optional|yes 表示允许所有人提及该角色（默认：no）
+</details>

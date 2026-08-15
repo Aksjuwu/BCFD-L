@@ -1,0 +1,23 @@
+<dash>
+name: $endfor
+desc: Отмечает конец блока цикла $for.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $endfor обозначает закрывающую границу цикла $for. После каждой итерации выполнение возвращается в начало тела цикла. Каждый $for должен иметь соответствующий $endfor.
+</block>
+
+<block type="code" title="Syntax">
+text: $endfor
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="warning">
+text: Каждый блок $for должен быть корректно закрыт с помощью $endfor. Отсутствие $endfor вызовет ошибку скрипта.
+</block>
+</dash>

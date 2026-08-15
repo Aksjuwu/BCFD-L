@@ -1,0 +1,27 @@
+<dash>
+name: $getServerInvite
+desc: Bir sunucu için davet bağlantısı oluşturur ve gönderir.
+category: Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $getServerInvite argüman olmadan çağrıldığında geçerli sunucu için bir davet bağlantısı oluşturur. Bir sunucu kimliği ile çağrıldığında, o belirli sunucu için bir davet oluşturur. Bot önce sunucunun bir vanity URL'si olup olmadığını kontrol eder. Yoksa, botun "Davet Oluştur" iznine sahip olduğu bir kanal bulur ve kalıcı bir davet bağlantısı oluşturur.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $getServerInvite
+text: $getServerInvite[(guildID)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: Bot, hedef sunucunun bir üyesi olmalı ve "Davet Oluştur" iznine sahip olmalıdır. Sunucu için bir vanity URL ayarlanmışsa, yeni bir davet oluşturmak yerine o URL döndürülür. Argüman olmadan geçerli sunucu kullanılır.
+</block>
+</dash>
+
+<details>
+syntax: $getServerInvite[(guildID)]
+param: guildID|snowflake|Optional|Davet alınacak farklı bir sunucunun kimliği. Boş bırakılırsa geçerli sunucu kullanılır.
+</details>

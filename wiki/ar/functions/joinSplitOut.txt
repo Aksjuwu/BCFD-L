@@ -1,0 +1,27 @@
+<dash>
+name: $joinSplitOut
+desc: يدمج جميع عناصر نتيجة القسمة الحالية ($splitIn) مرة أخرى في نص واحد.
+category: أدوات النصوص
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يدمج $joinSplitOut كل عنصر مخزّن بواسطة $splitIn في سلسلة واحدة، مع إدراج الفاصل المحدد بينها. تُرسل النتيجة إلى القناة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $joinSplitOut[separator]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $splitIn[apple,banana,cherry; ,]
+$joinSplitOut[ + ]
+</block>
+
+<block type="callout" kind="note">
+text: يجب استدعاء $splitIn قبل $joinSplitOut حتى يتوفر ما يمكن دمجه.
+</block>
+</dash>
+
+<details>
+syntax: $joinSplitOut[separator]
+param: separator|text|مطلوب|النص المُدرج بين كل عنصرين
+</details>

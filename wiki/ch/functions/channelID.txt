@@ -1,0 +1,21 @@
+<dash>
+name: $channelID
+desc: 返回使用命令所在频道的 Discord 频道 ID。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $channelID 时，机器人会检索执行命令所在频道的唯一 Discord 频道 ID，并将其以原始数字字符串的形式直接发送。
+</block>
+
+<block type="code" title="语法">
+text: $channelID
+</block>
+
+<block type="code" title="可复制示例">
+text: This command was used in channel $channelID
+</block>
+
+<block type="callout" kind="note">
+text: 返回的值是一个 snowflake ID（例如 123456789012345678），它唯一标识发送消息所在的频道。
+</block>
+</dash>

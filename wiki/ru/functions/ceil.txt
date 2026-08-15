@@ -1,0 +1,26 @@
+<dash>
+name: $ceil
+desc: Округляет число вверх до ближайшего целого.
+category: Математика и числа
+
+<block type="text" title="Как работает команда?">
+text: $ceil принимает одно числовое значение и округляет его вверх до ближайшего целого числа. Например, 3.1 станет 4, а 5.0 останется 5. Работает как самостоятельная команда, так и встроенно внутри других команд.
+</block>
+
+<block type="code" title="Syntax">
+text: $ceil[number]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Result is $ceil[3.2]]
+</block>
+
+<block type="callout" kind="note">
+text: $ceil[3.1] возвращает 4. $ceil[-2.5] возвращает -2. $ceil[5.0] возвращает 5. Результат всегда является целым числом.
+</block>
+</dash>
+
+<details>
+syntax: $ceil[number]
+param: number|number|Required|Число, которое нужно округлить вверх до ближайшего целого, например 3.1, -2.5, 10
+</details>

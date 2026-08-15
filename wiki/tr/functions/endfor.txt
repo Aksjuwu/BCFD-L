@@ -1,0 +1,23 @@
+<dash>
+name: $endfor
+desc: Bir $for döngü bloğunun sonunu işaretler.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $endfor, bir $for döngüsünün kapanış sınırını belirtir. Her yinelemeden sonra yürütme, döngü gövdesinin başına döner. Her $for için eşleşen bir $endfor olmalıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $endfor
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="warning">
+text: Her $for bloğu $endfor ile düzgün şekilde kapatılmalıdır. Eksik $endfor, script hatasına neden olur.
+</block>
+</dash>

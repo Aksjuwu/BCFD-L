@@ -1,0 +1,28 @@
+<dash>
+name: $removeSplitOutElement
+desc: Удаляет один элемент из текущего результата разделения ($splitIn) по его индексу (с отсчётом от 1).
+category: Строковые утилиты
+
+<block type="text" title="Как работает команда?">
+text: $removeSplitOutElement удаляет элемент в заданной позиции из данных, сохранённых с помощью $splitIn. Оставшиеся элементы сохраняют свой порядок. $splitIn должен вызываться до этой команды.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $removeSplitOutElement[index]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $splitIn[apple,banana,cherry; ,]
+$removeSplitOutElement[2]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: Индекс должен быть положительным целым числом в пределах текущей длины разделения, иначе будет вызвана ошибка.
+</block>
+</dash>
+
+<details>
+syntax: $removeSplitOutElement[index]
+param: index|number|Required|Позиция удаляемого элемента (с отсчётом от 1)
+</details>

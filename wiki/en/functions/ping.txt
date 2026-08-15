@@ -1,0 +1,21 @@
+<dash>
+name: $ping
+desc: Returns the bot's latency (response time) to the Discord gateway in milliseconds.
+category: Utilities
+
+<block type="text" title="How does the command work?">
+text: The command fetches the current connection speed between the bot and the Discord Gateway, then sends the result directly as a raw number representing the time in milliseconds.
+</block>
+
+<block type="code" title="Syntax">
+text: $ping
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $ping pong!
+</block>
+
+<block type="callout" kind="note">
+text: The resulting value represents the responsiveness of the bot's server. The lower the returned number, the faster the bot will respond to commands and interactions.
+</block>
+</dash>

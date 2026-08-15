@@ -1,0 +1,34 @@
+<dash>
+name: $returnGuildRolesID
+desc: 从服务器收集角色 ID，可选择按权限筛选，并存储结果。
+category: 返回命令
+
+<block type="text" title="此命令如何工作？">
+text: $returnGuildRolesID 从指定的服务器收集角色 ID，可选地按所需权限进行筛选。结果存储在变量名下，之后可以使用 $return[variableName] 获取。如果未指定权限筛选，则收集所有角色（@everyone 除外）。
+</block>
+
+<block type="code" title="语法">
+text: $returnGuildRolesID[GuildID; permission; var; separator]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $returnGuildRolesID[$guildID; all; roleIDs; ,]
+$sendMessage[Roles: $return[roleIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: 对于权限参数：留空或使用 "all" 获取所有角色。您还可以指定命名权限（例如 kick_members、manage_messages）或原始的权限整数值。只有具备指定权限（或更高权限）的角色才会被包含。
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须是目标服务器的成员。@everyone 角色始终从结果中排除。
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildRolesID[GuildID; permission; var; separator]
+param: GuildID|snowflake|Required|要收集角色的服务器（guild）的 ID
+param: permission|text|Required|权限筛选：留空或使用 "all" 获取所有角色，指定命名权限（例如 kick_members），或指定原始的权限整数值
+param: var|text|Required|用于存储结果的变量名称（与 $return[] 一起使用）
+param: separator|text|Required|多个 ID 之间的分隔符（例如 , 或 ;）。您可以使用命名分隔符：dot、com、apo、sem、colon
+</details>

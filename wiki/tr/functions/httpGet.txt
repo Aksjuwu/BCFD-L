@@ -1,0 +1,28 @@
+<dash>
+name: $httpGet
+desc: Bir URL'ye HTTP GET isteği gönderir ve durum kodunu ile yanıtı saklar.
+category: HTTP
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $httpGet, 10 saniyelik bir zaman aşımıyla GET isteği gerçekleştirir. Yanıt $httpResult'a (mümkünse JSON, değilse düz metin) ve durum kodu $httpStatus'a kaydedilir. $httpAddHeader ile eklenen başlıklar gönderilir ve ardından temizlenir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $httpGet[URL]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $httpGet[https://api.example.com/users]
+$httpStatus
+$httpResult[0; name]
+</block>
+
+<block type="callout" kind="note">
+text: Hata durumunda durum 500 olarak ayarlanır ve $httpResult hata mesajını içerir.
+</block>
+</dash>
+
+<details>
+syntax: $httpGet[URL]
+param: URL|text|Required|GET isteğinin gönderileceği URL
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $addTimestamp
+desc: 获取当前时间并以 Discord 动态时间戳格式发送。
+category: 计时与延迟
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $addTimestamp 时，机器人会计算当前时间，将其转换为 Discord 的动态时间戳格式（长时间格式），并将结果直接发送到目标频道。
+</block>
+
+<block type="code" title="语法">
+text: $addTimestamp
+</block>
+
+<block type="code" title="可复制示例">
+text: $addTimestamp
+</block>
+
+<block type="callout" kind="note">
+text: 发送的时间戳使用长时间格式，这意味着它会根据每位 Discord 用户设备的本地时区自动调整并显示（例如，下午 6:46:58）。
+</block>
+</dash>

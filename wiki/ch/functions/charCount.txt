@@ -1,0 +1,26 @@
+<dash>
+name: $charCount
+desc: 返回给定文本中字母数字字符的数量。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $charCount 接受一个文本参数，并且只统计字母数字字符（字母和数字），忽略空格、符号和标点。它以数字形式返回计数结果。
+</block>
+
+<block type="code" title="语法">
+text: $charCount[text]
+</block>
+
+<block type="code" title="可复制示例">
+text: $charCount[Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: 只统计字母（任何语言）和数字（0-9）。空格、标点和特殊字符不计入统计。
+</block>
+</dash>
+
+<details>
+syntax: $charCount[text]
+param: text|text|Required|要统计字母数字字符的文本。统计前会先解析变量和占位符。
+</details>

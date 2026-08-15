@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceLeave
+desc: Событие, срабатывающее при выходе участника из голосового канала.
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $onVoiceLeave — это префикс события, который запускает FDScript всякий раз, когда участник покидает голосовой канал. Скрипт получает информацию об участнике и голосовом канале. Вы можете указать ID канала в первой строке, чтобы направить вывод в конкретный текстовый канал.
+</block>
+
+<block type="code" title="Синтаксис">
+text: #PREFIX:$onVoiceLeave
+</block>
+
+<block type="code" title="Пример для копирования">
+text: #PREFIX:$onVoiceLeave
+ sendMessage[$authorName left a voice channel.]
+</block>
+
+<block type="callout" kind="note">
+text: Поместите это в первую строку вашего FDScript-файла. Скрипт будет запускаться автоматически при выходе любого участника из голосового канала.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие работает в папке bot_events, а не bot_commands. Создавайте там свой .fds файл.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceLeave
+</details>

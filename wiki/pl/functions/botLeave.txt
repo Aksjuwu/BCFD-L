@@ -1,0 +1,27 @@
+<dash>
+name: $botLeave
+desc: Powoduje opuszczenie przez bota serwera (gildii).
+category: Serwer
+
+<block type="text" title="Jak działa ta komenda?">
+text: $botLeave powoduje, że bot opuszcza wskazaną gildię. Gdy nie podano identyfikatora gildii, bot opuszcza gildię, w której użyto komendy. Gdy podano identyfikator gildii, opuszczana jest ta gildia (działa to nawet z czatu prywatnego, o ile bot jest członkiem docelowej gildii).
+</block>
+
+<block type="code" title="Składnia">
+text: $botLeave
+text: $botLeave[guildID]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $botLeave
+</block>
+
+<block type="callout" kind="warning">
+text: To natychmiast usuwa bota z gildii. Jeśli nie podano identyfikatora gildii, a komenda zostanie użyta poza serwerem (na czacie prywatnym), zwracany jest błąd. Argument identyfikatora gildii musi być numerycznym identyfikatorem snowflake.
+</block>
+</dash>
+
+<details>
+syntax: $botLeave[(guildID)]
+param: guildID|snowflake|Optional|Identyfikator gildii do opuszczenia. Jeśli pominięty, opuszczana jest bieżąca gildia.
+</details>

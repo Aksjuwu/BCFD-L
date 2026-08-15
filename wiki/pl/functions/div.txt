@@ -1,0 +1,27 @@
+<dash>
+name: $div
+desc: Dzieli pierwszą liczbę przez każdą kolejną i zwraca wynik.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa ta komenda?">
+text: $div przyjmuje dwa lub więcej argumentów liczbowych. Zaczyna od pierwszej wartości i dzieli ją przez każdą kolejną. Działa zarówno jako samodzielna komenda, jak i w tekście.
+</block>
+
+<block type="code" title="Składnia">
+text: $div[a; b; ...]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $sendMessage[$div[10; 2]]
+</block>
+
+<block type="callout" kind="warning">
+text: Dzielenie przez zero zwraca błąd. $div[10; 2; 5] oblicza się jako 10 / 2 / 5 = 1. Wynik jest liczbą całkowitą, jeśli iloraz nie ma części dziesiętnej.
+</block>
+</dash>
+
+<details>
+syntax: $div[a; b; ...]
+param: a|number|Required|Dzielna (liczba do podzielenia)
+param: b|number|Required|Dzielnik (nie może być 0). Kolejne dzielniki są stosowane po kolei.
+</details>

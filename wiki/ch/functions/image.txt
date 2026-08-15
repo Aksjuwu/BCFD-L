@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: 使用 URL 向频道发送一个图片嵌入消息。
+category: 消息发送
+
+<block type="text" title="命令如何工作？">
+text: $image 接受一个图片 URL，创建一个带有该图片的嵌入消息，并将其发送到频道。URL 必须以 http:// 或 https:// 开头。
+</block>
+
+<block type="code" title="语法">
+text: $image[URL]
+</block>
+
+<block type="code" title="可复制示例">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: 图片作为嵌入消息发送，图片被设置为嵌入图片。机器人必须具有在频道中的"嵌入链接"权限。
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|Required|图片文件的直接 URL。必须以 http:// 或 https:// 开头
+</details>

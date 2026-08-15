@@ -1,0 +1,28 @@
+<dash>
+name: $httpGet
+desc: Sendet eine HTTP-GET-Anfrage an eine URL und speichert den Statuscode und die Antwort.
+category: HTTP
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $httpGet führt eine GET-Anfrage mit einem Timeout von 10 Sekunden aus. Die Antwort wird in $httpResult gespeichert (als JSON, wenn möglich, sonst als Klartext) und der Statuscode in $httpStatus. Mit $httpAddHeader hinzugefügte Header werden gesendet und anschließend gelöscht.
+</block>
+
+<block type="code" title="Syntax">
+text: $httpGet[URL]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $httpGet[https://api.example.com/users]
+$httpStatus
+$httpResult[0; name]
+</block>
+
+<block type="callout" kind="note">
+text: Bei einem Fehler wird der Status auf 500 gesetzt und $httpResult enthält die Fehlermeldung.
+</block>
+</dash>
+
+<details>
+syntax: $httpGet[URL]
+param: URL|text|Erforderlich|Die URL, an die die GET-Anfrage gesendet werden soll
+</details>

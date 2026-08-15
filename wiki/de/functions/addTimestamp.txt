@@ -1,0 +1,21 @@
+<dash>
+name: $addTimestamp
+desc: Ruft die aktuelle Zeit ab und sendet sie als dynamisches Discord-Zeitstempelformat.
+category: Timing & Verzögerungen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $addTimestamp aufgerufen wird, berechnet der Bot die aktuelle Zeit, konvertiert sie in das dynamische Zeitstempelformat von Discord (Long-Time-Format) und sendet das Ergebnis direkt an den Zielkanal.
+</block>
+
+<block type="code" title="Syntax">
+text: $addTimestamp
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $addTimestamp
+</block>
+
+<block type="callout" kind="note">
+text: Der gesendete Zeitstempel verwendet das Long-Time-Format, d. h. er wird automatisch angepasst und für jeden Discord-Benutzer gemäß der lokalen Zeitzone seines Geräts angezeigt (z. B. 6:46:58 PM).
+</block>
+</dash>

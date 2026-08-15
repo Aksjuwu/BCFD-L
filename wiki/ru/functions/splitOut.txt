@@ -1,0 +1,27 @@
+<dash>
+name: $splitOut
+desc: Извлекает конкретную часть из ранее разделённого текста (с помощью $splitIn).
+category: Строковые утилиты
+
+<block type="text" title="Как работает команда?">
+text: $splitOut обращается к конкретной части результата разделения из $splitIn. Используйте индекс с отсчётом от 1, < для первой части или > для последней. Полученное значение отправляется в канал.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $splitOut[index]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[2]
+</block>
+
+<block type="callout" kind="note">
+text: Допустимые значения индекса: число (с отсчётом от 1), < (первый элемент), > (последний элемент). $splitIn должен вызываться до $splitOut.
+</block>
+</dash>
+
+<details>
+syntax: $splitOut[index]
+param: index|text|Required|Индекс извлекаемой части: число (с отсчётом от 1), < для первой или > для последней
+</details>

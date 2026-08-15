@@ -1,0 +1,26 @@
+<dash>
+name: $deleteChannels
+desc: Sunucudan bir veya daha fazla kanalı siler.
+category: Kanal Yönetimi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $deleteChannels bir veya daha fazla kanal kimliği (ID) veya etiketi alır ve bunları sunucudan siler. Botun "Kanalları Yönet" iznine sahip olması gerekir. Herhangi bir kanal silinemezse (ör. izinler eksikse), işlem bir hatayla durur.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $deleteChannels[channel ID/mention; ...]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $deleteChannels[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="warning">
+text: Bu komut kanalları kalıcı olarak siler. Botun, silinen her kanal için "Kanalları Yönet" iznine sahip olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $deleteChannels[channel ID/mention; ...]
+param: channels|text|Required|Noktalı virgülle ayrılmış bir veya daha fazla kanal kimliği (ID) veya etiketi.
+</details>

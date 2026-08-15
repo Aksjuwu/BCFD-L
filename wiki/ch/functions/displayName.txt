@@ -1,0 +1,26 @@
+<dash>
+name: $displayName
+desc: 返回用户的显示名称。
+category: 用户
+
+<block type="text" title="命令如何工作？">
+text: $displayName 返回用户的显示名称（服务器昵称或用户名）。如果未提供参数，则返回命令作者的显示名称。当提供用户 ID 或提及（mention）时，则返回该用户的显示名称。
+</block>
+
+<block type="code" title="语法">
+text: $displayName[(user mention/ID)]
+</block>
+
+<block type="code" title="可复制示例">
+text: Hello, $displayName!
+</block>
+
+<block type="callout" kind="note">
+text: 显示名称是服务器专属的昵称（如果已设置），否则为全局用户名。可以内联使用。
+</block>
+</dash>
+
+<details>
+syntax: $displayName[(user mention/ID)]
+param: user|text|Optional|用户提及或数字 ID。如果为空，则使用命令作者。
+</details>

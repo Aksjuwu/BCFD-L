@@ -1,0 +1,39 @@
+<dash>
+name: $if
+desc: Ocenia warunek i wykonuje zawarty blok kodu, jeśli warunek jest prawdziwy.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: $if przyjmuje wyrażenie warunkowe i je ocenia. Jeśli warunek jest prawdziwy, wykonywany jest kod pomiędzy $if a następnym $elif, $else lub $endif. Jeśli fałszywy, wykonanie przechodzi do następnej pasującej gałęzi.
+</block>
+
+<block type="code" title="Składnia">
+text: $if[condition]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="options" title="Operatory porównania">
+option: ==|Równe (porównuje liczbowo, gdy obie strony są liczbami)
+option: !=|Różne od
+option: >|Większe niż
+option: <|Mniejsze niż
+option: >=|Większe lub równe
+option: <=|Mniejsze lub równe
+</block>
+
+<block type="callout" kind="note">
+text: Obsługuje zagnieżdżone bloki $if. Możesz użyć $elif dla dodatkowych warunków i $else dla zapasowego wyboru. Zawsze zamykaj za pomocą $endif.
+</block>
+</dash>
+
+<details>
+syntax: $if[condition]
+param: condition|expression|Required|Warunek do oceny, np. $authorID == 123, $var[score] >= 90, $isNumber[int; $message]. Obsługuje operatory ==, !=, >, <, >=, <=.
+</details>

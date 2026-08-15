@@ -1,0 +1,25 @@
+<dash>
+name: $break
+desc: Natychmiast wychodzi z najbliższej otaczającej pętli $for lub $while.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $break zostanie napotkany wewnątrz pętli ($for lub $while), bot natychmiast przestaje iterować i kontynuuje wykonywanie po odpowiadającym $endfor lub $endwhile. Wszystkie pozostałe iteracje bieżącej pętli są pomijane.
+</block>
+
+<block type="code" title="Składnia">
+text: $break
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $for[10]
+  $if[$message == stop]
+    $break
+  $endif
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: $break opuszcza tylko najgłębszą pętlę, w której aktualnie się znajduje. Jeśli pętle są zagnieżdżone, pętle zewnętrzne kontynuują wykonywanie normalnie.
+</block>
+</dash>

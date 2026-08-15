@@ -1,0 +1,28 @@
+<dash>
+name: $httpGet
+desc: Sends an HTTP GET request to a URL and stores the status code and response.
+category: HTTP
+
+<block type="text" title="How does the command work?">
+text: $httpGet performs a GET request with a 10 second timeout. The response is stored in $httpResult (JSON when possible, otherwise plain text) and the status code in $httpStatus. Any headers added with $httpAddHeader are sent and then cleared.
+</block>
+
+<block type="code" title="Syntax">
+text: $httpGet[URL]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $httpGet[https://api.example.com/users]
+$httpStatus
+$httpResult[0; name]
+</block>
+
+<block type="callout" kind="note">
+text: On failure, the status is set to 500 and $httpResult contains the error message.
+</block>
+</dash>
+
+<details>
+syntax: $httpGet[URL]
+param: URL|text|Required|The URL to send the GET request to
+</details>

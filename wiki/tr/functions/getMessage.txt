@@ -1,0 +1,28 @@
+<dash>
+name: $getMessage
+desc: Herhangi bir kanaldan bir mesajı getirir ve onun hakkında bilgi gönderir.
+category: Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $getMessage, verilen kanaldan bir mesaj getirir ve ondan bir bilgi parçası çıkarır. type argümanı neyin gönderileceğini seçer: content (mesaj metni), name (yazarın görünen adı), id (yazarın kullanıcı kimliği) veya avatar (yazarın avatar URL'si). Çıkarılan değer boşsa, onun yerine sıfır genişlikli bir boşluk gönderilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $getMessage[channelID; messageID; (type)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $getMessage[123456789; 987654321; content]
+</block>
+
+<block type="callout" kind="note">
+text: type argümanı isteğe bağlıdır ve varsayılan olarak content değerini kullanır. Geçerli türler: content, name, id, avatar. Bot kanalı görüntüleyebilmeli ve "Mesaj Geçmişini Oku" iznine sahip olmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $getMessage[channelID; messageID; (type)]
+param: channelID|snowflake|Required|Mesajı içeren kanalın kimliği
+param: messageID|snowflake|Required|Getirilecek mesajın kimliği
+param: type|text|Optional|Ne gönderileceği: content (varsayılan), name, id veya avatar
+</details>

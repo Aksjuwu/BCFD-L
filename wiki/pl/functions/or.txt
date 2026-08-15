@@ -1,0 +1,26 @@
+<dash>
+name: $or
+desc: Ocenia wiele warunków i zwraca prawdę, jeśli DOWOLNY warunek jest prawdziwy.
+category: Kontrola przepływu
+
+<block type="text" title="Jak działa komenda?">
+text: $or przyjmuje wiele argumentów warunków i ocenia każdy z nich. Zwraca „true", jeśli co najmniej jeden warunek jest prawdziwy, oraz „false", jeśli wszystkie warunki są fałszywe. Jest to przydatne do budowania alternatywnych sprawdzeń warunkowych.
+</block>
+
+<block type="code" title="Składnia">
+text: $or[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $or[$authorID == 123; $authorID == 456]
+</block>
+
+<block type="callout" kind="note">
+text: Każdy warunek używa tych samych operatorów porównania co $if (==, !=, >, <, >=, <=). Zwraca ciąg znaków „true" lub „false".
+</block>
+</dash>
+
+<details>
+syntax: $or[condition1; condition2; condition3; ...]
+param: condition|expression|Required|Jeden lub więcej warunków do oceny. Każdy może używać operatorów takich jak ==, !=, >, <, >=, <=. Wystarczy, że tylko jeden będzie prawdziwy, aby wynik brzmiał „true".
+</details>

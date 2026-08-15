@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: Supprime en masse un nombre spécifié de messages du canal actuel.
+category: Modération
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Quand $clear est appelé sans arguments, il supprime le nombre de messages par défaut (10). Quand il est appelé avec un nombre, il supprime ce nombre de messages. Le bot utilise l'API de suppression en masse de Discord pour retirer les messages efficacement.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $clear
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: La limite de suppression en masse de Discord est de 100 messages par requête. Les messages de plus de 14 jours ne peuvent pas être supprimés en masse. Le bot doit avoir la permission « Gérer les messages » dans le canal.
+</block>
+</dash>

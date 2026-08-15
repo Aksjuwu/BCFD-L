@@ -1,0 +1,26 @@
+<dash>
+name: $and
+desc: 对多个条件进行求值，仅当所有条件都为真时返回 true。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $and 接受多个条件参数并逐一求值。如果每个条件都为真则返回“true”，只要有一个条件为假则返回“false”。这对于构建复合条件判断非常有用。
+</block>
+
+<block type="code" title="语法">
+text: $and[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $and[$authorID == 123; $guildName == MyServer]
+</block>
+
+<block type="callout" kind="note">
+text: 每个条件使用与 $if 相同的比较运算符（==、!=、>、<、>=、<=）。返回字符串“true”或“false”。
+</block>
+</dash>
+
+<details>
+syntax: $and[condition1; condition2; condition3; ...]
+param: condition|expression|Required|一个或多个需要求值的条件。每个条件可以使用类似 ==、!=、>、<、>=、<= 的运算符。结果必须全部为真，返回值才是“true”。
+</details>

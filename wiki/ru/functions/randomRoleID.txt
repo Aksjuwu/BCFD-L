@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleID
+desc: Возвращает ID случайной роли с сервера.
+category: Случайность
+
+<block type="text" title="Как работает команда?">
+text: При вызове $randomRoleID бот собирает все роли на текущем сервере (исключая роль по умолчанию @everyone), выбирает одну случайным образом и отправляет её ID как необработанную числовую строку.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $randomRoleID
+</block>
+
+<block type="code" title="Пример для копирования">
+text: Random role ID: $randomRoleID
+</block>
+
+<block type="callout" kind="note">
+text: Эта команда работает только внутри сервера (не в личных сообщениях). Роль @everyone всегда исключается. Если на сервере нет пользовательских ролей, команда завершится ошибкой.
+</block>
+</dash>

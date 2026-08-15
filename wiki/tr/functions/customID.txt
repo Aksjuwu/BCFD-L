@@ -1,0 +1,25 @@
+<dash>
+name: $customID
+desc: Betiği tetikleyen buton veya bileşen etkileşiminin custom_id değerini döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: Bir kullanıcı bir butona tıkladığında veya bir bileşenle etkileşime geçtiğinde, $customID o bileşene atanmış custom_id dizesini döndürür. Bu, bir onInteraction olayında hangi butona basıldığını belirlemek için kullanışlıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $customID
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $if[$customID == btn_confirm]
+  You confirmed!
+$elif[$customID == btn_cancel]
+  You cancelled!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: Bu değişken yalnızca etkileşim tarafından tetiklenen betiklerin (ör. onInteraction) içinde anlamlıdır. Normal bir mesaj bağlamında kullanıldığında boş bir dize döndürür.
+</block>
+</dash>

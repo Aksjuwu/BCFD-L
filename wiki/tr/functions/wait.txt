@@ -1,0 +1,28 @@
+<dash>
+name: $wait
+desc: Betik yürütmesini belirtilen süre kadar duraklatır.
+category: Zamanlama ve Gecikmeler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $wait, tüm betik yürütmesini belirtilen süre kadar dondurur. Bekleme süresi geçene kadar betikteki hiçbir sonraki komut yürütülmez.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $wait[time]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Starting...]
+$wait[5s]
+$sendMessage[Done after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: Zaman biçimi şunları kullanır: s (saniye), m (dakika), h (saat), d (gün). Bekleme sırasında tüm betik dondurulur — diğer kullanıcıların betikleri etkilenmez.
+</block>
+</dash>
+
+<details>
+syntax: $wait[time]
+param: time|text|Required|Beklenecek süre. Biçim: sayı + birim (s/m/h/d), örn. 5s, 10m, 1h, 1d
+</details>

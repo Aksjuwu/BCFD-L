@@ -1,0 +1,29 @@
+<dash>
+name: $replaceText
+desc: Zamienia wystąpienia podciągu w tekście na nowy tekst.
+category: Narzędzia tekstowe
+
+<block type="text" title="Jak działa komenda?">
+text: $replaceText przyjmuje wiadomość, stary tekst do znalezienia oraz nowy tekst, którym ma go zastąpić. Opcjonalnie możesz określić, ile wystąpień ma zostać zamienionych. Zwraca zmodyfikowany tekst.
+</block>
+
+<block type="code" title="Składnia">
+text: $replaceText[message; old; new; (amount)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $replaceText[Hello World; World; FDScript]
+</block>
+
+<block type="callout" kind="note">
+text: Domyślnie zamieniane są wszystkie wystąpienia. Podaj liczbę jako 4. argument, aby ograniczyć liczbę zamian. Użyj -1 lub pomiń, aby zamienić wszystkie.
+</block>
+</dash>
+
+<details>
+syntax: $replaceText[message; old; new; (amount)]
+param: message|text|Required|Oryginalny tekst, w którym mają być wyszukane podciągi
+param: old|text|Required|Podciąg do znalezienia i zamiany
+param: new|text|Required|Tekst zastępczy
+param: amount|number|Optional|Maksymalna liczba zamian. -1 lub pominięcie = zamień wszystkie wystąpienia
+</details>

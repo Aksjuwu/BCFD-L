@@ -1,0 +1,30 @@
+<dash>
+name: $addUserReactions
+desc: Bir veya daha fazla emoji tepkisini, komutu tetikleyen kullanıcının orijinal mesajına ekler.
+category: Bileşenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $addUserReactions bir veya daha fazla emoji bağımsız değişkeni alır, içlerindeki değişkenleri/yer tutucuları çözümler ve elde edilen her emojiyi kullanıcının tetikleyen mesajına tepki olarak ekler. Tepkileri sırayla verir ve hız sınırlamalarından kaçınmak için her birinin arasına kısa bir gecikme ekler.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $addUserReactions[emoji1; emoji2; emoji3; ...]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $addUserReactions[👍; ❤️]
+</block>
+
+<block type="callout" kind="note">
+text: Hız sınırlamaları otomatik olarak yönetilir — Discord bir 429 döndürürse, komut bekler ve devam etmeden önce o belirli emojiyi bir kez yeniden dener.
+</block>
+
+<block type="callout" kind="warning">
+text: Çağrı başına en fazla 20 emoji. Bağımsız değişkenlerde geçerli bir emoji bulunamazsa komut sessizce hiçbir şey yapmaz. Botun kanalda "Tepki Ekle" iznine sahip olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $addUserReactions[emoji1; emoji2; emoji3; ...]
+param: emoji|text|Required|Tepki olarak verilecek bir veya daha fazla emoji değeri. Tüm bağımsız değişkenler çözümlenir (değişkenler/yer tutucular desteklenir) ve birleştirilir, ardından bulunan her emoji sırayla kullanıcının mesajına tepki olarak eklenir.
+</details>

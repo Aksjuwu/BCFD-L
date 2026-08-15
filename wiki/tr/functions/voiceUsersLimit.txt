@@ -1,0 +1,26 @@
+<dash>
+name: $voiceUsersLimit
+desc: Bir ses veya sahne kanalının kullanıcı sınırını döndürür.
+category: Kanal
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $voiceUsersLimit bir ses veya sahne kanalı kimliği alır ve kullanıcı sınırını döndürür. 0 değeri sınır olmadığı anlamına gelir. Kanal bir ses/sahne kanalı değilse bir hata döndürür.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $voiceUsersLimit[voice channel ID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $voiceUsersLimit[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: Kanalda kullanıcı sınırı ayarlanmamışsa 0 döndürür. Koşullu kontroller için satır içinde kullanılabilir.
+</block>
+</dash>
+
+<details>
+syntax: $voiceUsersLimit[voice channel ID]
+param: channelID|text|Required|Bir ses veya sahne kanalının kimliği.
+</details>

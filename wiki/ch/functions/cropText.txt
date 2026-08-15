@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: 将文本截断到最大字符数，可选地在末尾附加如 "..." 的结尾。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $cropText 将文本缩短到最多给定的字符数。如果文本过长，就会被截断并附加可选的结尾（例如 "..." 或 "... [more]"）。如果文本已经足够短，则原样返回。
+</block>
+
+<block type="code" title="语法">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: 最大字符数参数必须是非负整数。未提供结尾时，文本仅在限制处被截断。
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|Required|要截断的文本
+param: max characters|number|Required|要保留的最大字符数（必须是非负整数）
+param: ending|text|Optional|当输入文本长于限制时附加的结尾（例如 "..."）
+</details>

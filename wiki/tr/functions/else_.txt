@@ -1,0 +1,25 @@
+<dash>
+name: $else
+desc: Kendisinden önceki $if koşulu yanlış olduğunda alternatif bir kod bloğu sağlar.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: Bir $if bloğunun içinde kullanıldığında $else bir yedek kod yolu tanımlar. $if koşulu yanlış olarak değerlendirilirse, $else'ten sonraki (ve $endif'ten önceki) kod onun yerine çalıştırılır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $else
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $else, bir $if ile bir $endif arasına yerleştirilmelidir. $else'ün bir $if bloğu dışında kullanılması hataya yol açar.
+</block>
+</dash>

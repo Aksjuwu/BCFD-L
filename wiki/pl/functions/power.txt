@@ -1,0 +1,31 @@
+<dash>
+name: $power
+desc: Podnosi liczbę do potęgi innej liczby.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa komenda?">
+text: $power przyjmuje dwa argumenty liczbowe — podstawę i wykładnik — i podnosi podstawę do potęgi wykładnika. Działa zarówno jako samodzielna komenda, jak i inline wewnątrz innych komend.
+</block>
+
+<block type="code" title="Składnia">
+text: $power[base; exponent]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[$power[2; 10]]
+</block>
+
+<block type="callout" kind="note">
+text: $power[2; 10] zwraca 1024. $power[3; 3] zwraca 27. $power[5; 0] zwraca 1. Wynik jest liczbą całkowitą, jeśli nie ma części dziesiętnej.
+</block>
+
+<block type="callout" kind="warning">
+text: Ujemna podstawa z ułamkowym wykładnikiem daje liczbę zespoloną, co zwraca błąd. Bardzo duże wyniki mogą również wywołać błąd przepełnienia.
+</block>
+</dash>
+
+<details>
+syntax: $power[base; exponent]
+param: base|number|Required|Liczba bazowa do podniesienia do potęgi, np. 2, 10, 3.5
+param: exponent|number|Required|Wykładnik potęgi, np. 3, 10, 0.5
+</details>

@@ -1,0 +1,22 @@
+<dash>
+name: $reply
+desc: Włącza tryb odpowiedzi, dzięki czemu bot odpowiada na oryginalną wiadomość użytkownika zamiast wysyłać nową.
+category: Wiadomości
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy $reply zostanie wywołane, bot włącza tryb odpowiedzi dla bieżącego wykonania skryptu. Wszystkie kolejne wiadomości wysyłane przez bota w tym skrypcie będą wysyłane jako odpowiedzi na oryginalną wiadomość użytkownika, tworząc efekt rozmowy w wątku.
+</block>
+
+<block type="code" title="Składnia">
+text: $reply
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $reply
+$sendMessage[This will be a reply!]
+</block>
+
+<block type="callout" kind="note">
+text: Po włączeniu tryb odpowiedzi utrzymuje się przez całe wykonanie skryptu. Wiadomości bota będą widoczne w interfejsie Discorda jako odpowiedzi w wątku na wiadomość wyzwalającą.
+</block>
+</dash>

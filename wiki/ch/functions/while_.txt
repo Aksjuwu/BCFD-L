@@ -1,0 +1,30 @@
+<dash>
+name: $while
+desc: 只要条件保持为真，就重复执行所包含的代码块。
+category: 流程控制
+
+<block type="text" title="此命令如何工作？">
+text: $while 在每次迭代之前评估条件。如果条件为真，则执行循环体。如此重复，直到条件变为假或遇到 $break。
+</block>
+
+<block type="code" title="语法">
+text: $while[condition]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $setVar[i; 0]
+$while[$getVar[i] < 5]
+  $sendMessage[Count: $getVar[i]]
+  $setVar[i; $math[$getVar[i] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: 确保循环有明确的终止条件，以避免无限循环。无限循环会使脚本无限期挂起。使用 $break 提前退出。
+</block>
+</dash>
+
+<details>
+syntax: $while[condition]
+param: condition|expression|Required|每次迭代之前要评估的条件。只要此条件为真，循环就会继续。使用与 $if 相同的运算符（==、!=、>、<、>=、<=）。
+</details>

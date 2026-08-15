@@ -1,0 +1,21 @@
+<dash>
+name: $guildName
+desc: يعيد اسم السيرفر (guild) الذي استُخدمت فيه الدالة.
+category: معلومات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $guildName، يسترجع البوت اسم السيرفر الذي نُفذت فيه الدالة ويرسله مباشرة إلى القناة كسلسلة نصية عادية. إذا استُخدم في رسالة خاصة، يعيد "DM".
+</block>
+
+<block type="code" title="الصيغة">
+text: $guildName
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: Welcome to $guildName!
+</block>
+
+<block type="callout" kind="note">
+text: عند استخدامه خارج السيرفر (في الرسائل الخاصة)، تعيد الدالة السلسلة "DM" بدلاً من اسم سيرفر.
+</block>
+</dash>

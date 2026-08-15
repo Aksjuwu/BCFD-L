@@ -1,0 +1,26 @@
+<dash>
+name: $isBooster
+desc: 检查用户是否为服务器助力者（拥有有效的 Nitro boost）。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: $isBooster 接受一个用户 ID 或提及，并检查该用户当前是否正在助力该服务器（拥有有效的付费订阅）。返回 "true" 或 "false"。
+</block>
+
+<block type="code" title="语法">
+text: $isBooster[userID]
+</block>
+
+<block type="code" title="可复制示例">
+text: $isBooster[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: 如果用户拥有该服务器的有效 Nitro boost，则返回 "true"，否则返回 "false"。用户必须是服务器的成员。
+</block>
+</dash>
+
+<details>
+syntax: $isBooster[userID]
+param: userID|text|Required|要检查的用户 ID 或 @提及。支持变量和占位符。
+</details>

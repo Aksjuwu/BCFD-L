@@ -1,0 +1,26 @@
+<dash>
+name: $unban
+desc: Снимает бан с ранее забаненного пользователя на сервере.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: $unban принимает ID пользователя, находит его в списке банов сервера и снимает бан. Для использования этой команды пользователь должен быть ранее забанен.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $unban[userID]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $unban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Бот должен иметь разрешение "Ban Members". ID пользователя должен быть необработанным числовым ID (упоминания и символы не поддерживаются). Пользователь должен быть в данный момент забанен.
+</block>
+</dash>
+
+<details>
+syntax: $unban[userID]
+param: userID|snowflake|Required|Числовой ID забаненного пользователя, с которого снимается бан
+</details>

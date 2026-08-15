@@ -1,0 +1,26 @@
+<dash>
+name: $findChannel
+desc: Bir kanalı adına veya kimliğine göre bulur ve kimliğini döndürür.
+category: Kanal
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $findChannel, sunucuda bir kanalı adına veya bahsetmesine göre arar. Bir kanal bahsetmesi verilirse kanalın var olduğunu doğrular ve kimliğini döndürür. Bir kanal adı verilirse tüm sunucu kanallarında büyük/küçük harf duyarsız bir eşleşme arar ve ilk eşleşmenin kimliğini döndürür. Bulunamazsa boş bir dize döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $findChannel[name/mention]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $findChannel[general]
+</block>
+
+<block type="callout" kind="note">
+text: Kanal adı eşleştirmesi büyük/küçük harf duyarsızdır. Kanal adlarını dinamik olarak kimliklere dönüştürmek için satır içinde kullanılabilir.
+</block>
+</dash>
+
+<details>
+syntax: $findChannel[name/mention/ID]
+param: channel|text|Required|Aranacak bir kanal adı veya bahsetmesi.
+</details>

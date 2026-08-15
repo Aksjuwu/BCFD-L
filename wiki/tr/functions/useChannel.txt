@@ -1,0 +1,33 @@
+<dash>
+name: $useChannel
+desc: Bu noktadan itibaren tüm betik çıktısını herhangi bir sunucudaki belirli bir kanala yönlendirir.
+category: Erişim Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $useChannel, betikte satırların göründüğü sıraya göre yerinde yürütülür. Yorumlayıcı ona ulaştığında, sonrasındaki her şeyin çıktısını (tüm $sendMessage, $sendEmbedMessage, $reply, arabelleğe alınmış metin vb.) belirtilen kanala yönlendirir. Öncesindeki satırlar etkilenmez.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $useChannel[guildID; channelID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[This goes to the current channel]
+$useChannel[1234567890; 9876543210]
+$sendMessage[This goes to the specified channel!]
+</block>
+
+<block type="callout" kind="note">
+text: Her iki argüman da kontrol edilmeden önce çözülür, ancak sayısal olmaları gerekir. Bot, belirtilen sunucunun bir üyesi olmalı ve hedef kanalı görebilmelidir. Sunucu veya kanal bulunamazsa ya da argümanlar sayısal değilse komut sessizce yok sayılır ve bir günlük kaydı oluşturulur.
+</block>
+
+<block type="callout" kind="warning">
+text: Bir kez ayarlandığında yönlendirme, betikteki sonraki tüm çıktılar için geçerli olur — orijinal kanal artık kullanılmaz. Bir buton etkileşiminde etkileşim yanıtı ertelenir ve sonraki mesajlar bunun yerine hedef kanala gönderilir.
+</block>
+</dash>
+
+<details>
+syntax: $useChannel[guildID; channelID]
+param: guildID|number|Required|Hedef kanalın bulunduğu sunucunun (guild) kimliği
+param: channelID|number|Required|Tüm çıktının yönlendirileceği kanalın kimliği
+</details>

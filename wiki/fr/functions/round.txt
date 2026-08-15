@@ -1,0 +1,26 @@
+<dash>
+name: $round
+desc: Arrondit un nombre au nombre entier le plus proche.
+category: Mathématiques & Nombres
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $round prend une seule valeur numérique, l'arrondit à l'entier le plus proche et envoie le résultat. Par exemple, 1.7 devient 2 et 1.4 devient 1.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $round[number]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $round[1.7]
+</block>
+
+<block type="callout" kind="note">
+text: $round[1.7] renvoie 2. $round[2.4] renvoie 2. La commande accepte un seul argument ; si la valeur n'est pas un nombre valide, une erreur est renvoyée.
+</block>
+</dash>
+
+<details>
+syntax: $round[number]
+param: nombre|number|Requis|Le nombre à arrondir au nombre entier le plus proche
+</details>

@@ -1,0 +1,29 @@
+<dash>
+name: $httpPatch
+desc: Envoie une requête HTTP PATCH vers une URL avec un corps optionnel.
+category: HTTP
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $httpPatch envoie une requête PATCH avec un délai d'expiration de 10 secondes. Le corps est envoyé en JSON lorsqu'il s'agit de JSON valide, sinon en texte brut. La réponse est stockée dans $httpResult et le code de statut dans $httpStatus. Les en-têtes ajoutés avec $httpAddHeader sont envoyés puis effacés.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $httpPatch[URL; (Body)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPatch[https://api.example.com/users/1; {"name": "FDScript"}]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: Si le corps est du JSON valide, il est envoyé en JSON, sinon il est envoyé en données brutes. En cas d'échec, le statut est défini sur 500 et $httpResult contient le message d'erreur.
+</block>
+</dash>
+
+<details>
+syntax: $httpPatch[URL; (Body)]
+param: URL|text|Requis|L'URL vers laquelle envoyer la requête PATCH
+param: Body|text|Optionnel|Le corps de la requête (JSON ou texte brut)
+</details>

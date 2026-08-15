@@ -1,0 +1,32 @@
+<dash>
+name: $onInteraction
+desc: Événement déclenché lorsqu'une interaction avec un composant (bouton/menu de sélection) se produit.
+category: Événement
+
+<block type="text" title="Comment fonctionne l'événement ?">
+text: $onInteraction est un préfixe d'événement qui déclenche un FDScript lorsqu'un utilisateur interagit avec un composant (clic sur un bouton, menu de sélection, etc.). Vous pouvez éventuellement spécifier un ID personnalisé pour ne déclencher que certains composants. Sans ID, il se déclenche pour TOUTES les interactions avec des composants.
+</block>
+
+<block type="code" title="Syntaxe">
+text: #PREFIX:$onInteraction
+text: #PREFIX:$onInteraction[button_custom_id]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: #PREFIX:$onInteraction[confirm_btn]
+ sendMessage[You clicked the confirm button!]
+</block>
+
+<block type="callout" kind="note">
+text: Utilisez $onInteraction sans crochets pour gérer toutes les interactions, ou avec un custom_id spécifique pour ne gérer que ce composant.
+</block>
+
+<block type="callout" kind="important">
+text: Cet événement s'exécute dans le dossier bot_events, pas bot_commands. Créez votre fichier .fds à cet endroit.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onInteraction[(custom_id)]
+param: customID|text|Optionnel|Le custom_id d'un composant spécifique à écouter. Si vide, se déclenche pour toutes les interactions.
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $sub
+desc: 从第一个值开始依次减去后续数字并返回结果。
+category: 数学与数字
+
+<block type="text" title="此命令如何工作？">
+text: $sub 接受两个或更多数值参数。它从第一个值开始，依次减去每个后续值。既可作为独立命令使用，也可内联使用。
+</block>
+
+<block type="code" title="语法">
+text: $sub[a; b; ...]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $sendMessage[Result is $sub[10; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: $sub[10; 3; 2] 的计算结果为 10 - 3 - 2 = 5。如果提供非数值，将返回错误。
+</block>
+</dash>
+
+<details>
+syntax: $sub[a; b; ...]
+param: a|number|Required|起始值（被减数）
+param: b|number|Required|要减去的值（其他值也会依次被减去）
+</details>

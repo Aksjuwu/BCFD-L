@@ -1,0 +1,26 @@
+<dash>
+name: $description
+desc: Задаёт текст описания создаваемого embed.
+category: Редактор embed
+
+<block type="text" title="Как работает команда?">
+text: $description принимает текстовый аргумент и устанавливает его в качестве основного тела/описания текущего создаваемого embed. Это основная область содержимого embed.
+</block>
+
+<block type="code" title="Syntax">
+text: $description[text]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $description[This is the embed body text]
+</block>
+
+<block type="callout" kind="note">
+text: Описание поддерживает форматирование Discord markdown (жирный, курсив, блоки кода и т.д.). Оно отображается под заголовком в embed.
+</block>
+</dash>
+
+<details>
+syntax: $description[text]
+param: text|text|Required|Текст описания для embed. Поддерживает форматирование Discord markdown.
+</details>

@@ -1,0 +1,31 @@
+<dash>
+name: $messageContains
+desc: Bir mesaj belirtilen kelimelerden HERHANGİ BİRİNİ içerdiğinde tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $messageContains, bir mesaj belirtilen tetikleyici kelimelerden HERHANGİ BİRİNİ içerdiğinde bir FDScript tetikleyen bir olay önekidir. Kelimeler parantezlerin içinde noktalı virgülle ayrılır. Eşleştirme büyük/küçük harfe duyarlı değildir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$messageContains[word1;word2;word3]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: #PREFIX:$messageContains[hello;hi;hey]
+ sendMessage[Hey there! How can I help?]
+</block>
+
+<block type="callout" kind="note">
+text: Betik, mesaj listelenen kelimelerden HERHANGİ BİRİNİ içeriyorsa çalışır. TÜM kelimelerin bulunması için bunun yerine $messageContainsAll kullanın.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$messageContains[word1;word2;...]
+param: words|text|Required|Noktalı virgülle ayrılmış tetikleyici kelime listesi. HERHANGİ bir eşleşme betiği tetikler.
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: Ustawia tytuł budowanego embeda.
+category: Kreator embedów
+
+<block type="text" title="Jak działa komenda?">
+text: $title przyjmuje argument tekstowy i ustawia go jako tytuł budowanego embeda. Tytuł pojawia się na górze embeda większym, pogrubionym tekstem.
+</block>
+
+<block type="code" title="Składnia">
+text: $title[text]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: Tytuł obsługuje formatowanie markdown Discorda. Pojawia się jako główny nagłówek na górze embeda.
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: text|text|Required|Tekst tytułu dla embeda
+</details>

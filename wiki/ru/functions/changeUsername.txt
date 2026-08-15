@@ -1,0 +1,27 @@
+<dash>
+name: $changeUsername
+desc: Изменяет никнейм участника сервера.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: $changeUsername принимает ID/упоминание пользователя и новое имя. Бот находит участника на сервере и меняет его никнейм на указанное имя через Discord API.
+</block>
+
+<block type="code" title="Syntax">
+text: $changeUsername[user ID/mention; new name]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $changeUsername[123456789; NewNickname]
+</block>
+
+<block type="callout" kind="warning">
+text: У бота должно быть разрешение «Manage Nicknames», и его высшая роль должна быть выше высшей роли цели. Бот не может изменить свой собственный никнейм или никнейм владельца сервера.
+</block>
+</dash>
+
+<details>
+syntax: $changeUsername[user ID/mention; new name]
+param: user ID/mention|text|Required|Discord ID пользователя или @упоминание целевого участника
+param: new name|text|Required|Новый никнейм для назначения. Оставьте пустым, чтобы сбросить до значения по умолчанию.
+</details>

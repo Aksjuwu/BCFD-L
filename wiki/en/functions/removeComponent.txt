@@ -1,0 +1,31 @@
+<dash>
+name: $removeComponent
+desc: Removes specific button components from a message by their custom ID or URL.
+category: Components
+
+<block type="text" title="How does the command work?">
+text: $removeComponent takes one or more custom IDs (or URLs) and removes the matching button components from a message. It can target the pending view, the interaction source message, or a specific message by ID.
+</block>
+
+<block type="code" title="Syntax">
+text: $removeComponent[customID1; customID2; ...; (messageID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $removeComponent[btn_cancel; btn_confirm]
+</block>
+
+<block type="callout" kind="note">
+text: When there are at least two arguments and the last one is a numeric snowflake, it's treated as a message ID. Otherwise, all arguments are treated as component IDs to remove.
+</block>
+
+<block type="callout" kind="warning">
+text: If none of the provided IDs are found on the target message, an error is returned. The target message must have been sent by this bot.
+</block>
+</dash>
+
+<details>
+syntax: $removeComponent[customID1; customID2; ...; (messageID)]
+param: customID|text|Required|One or more custom IDs or URLs of the button components to remove
+param: messageID|snowflake|Optional|ID of a specific bot message to remove components from
+</details>

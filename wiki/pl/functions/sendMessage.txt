@@ -1,0 +1,26 @@
+<dash>
+name: $sendMessage
+desc: Wysyła wiadomość tekstową na bieżący kanał.
+category: Wiadomości
+
+<block type="text" title="Jak działa komenda?">
+text: $sendMessage przyjmuje argument tekstowy, rozwiązuje wszystkie zmienne/placeholdery w nim zawarte i wysyła powstałą wiadomość na bieżący kanał. Jeśli oczekuje widok z przyciskami, dołącza je do wiadomości.
+</block>
+
+<block type="code" title="Składnia">
+text: $sendMessage[text]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Hello, $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: Jest to główny sposób wysyłania wiadomości w FDScript. Zmienne i placeholdery w tekście są automatycznie rozwiązywane przed wysłaniem.
+</block>
+</dash>
+
+<details>
+syntax: $sendMessage[text]
+param: text|text|Required|Tekst wiadomości do wysłania. Obsługuje zmienne, placeholdery i markdown Discorda.
+</details>

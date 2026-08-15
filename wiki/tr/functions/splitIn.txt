@@ -1,0 +1,28 @@
+<dash>
+name: $splitIn
+desc: Bir metin dizesini bir ayraç kullanarak parçalara böler ve sonucu saklar.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $splitIn bir metin dizesi ve bir ayraç alır, metni bu ayraca göre böler ve elde edilen parçaları saklar. Bireysel parçalara erişmek için daha sonra $splitOut kullanın.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $splitIn[text; delimiter]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[1]
+</block>
+
+<block type="callout" kind="note">
+text: Bölünen parçalar bağlamda saklanır ve $splitOut ile bir dizin (1 tabanlı), ilk için < veya son için > kullanılarak erişilebilir.
+</block>
+</dash>
+
+<details>
+syntax: $splitIn[text; delimiter]
+param: text|text|Required|Bölünecek metin dizesi
+param: delimiter|text|Required|Bölme işleminin yapılacağı ayraç/ayırıcı (boş olamaz)
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $botLeave
+desc: Заставляет бота покинуть сервер (гильдию).
+category: Сервер
+
+<block type="text" title="Как работает команда?">
+text: $botLeave заставляет бота покинуть указанную гильдию. Если ID гильдии не указан, бот покидает гильдию, в которой была использована команда. Если указан ID гильдии, покидается именно она (это работает даже из личных сообщений, при условии что бот является участником целевой гильдии).
+</block>
+
+<block type="code" title="Syntax">
+text: $botLeave
+text: $botLeave[guildID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $botLeave
+</block>
+
+<block type="callout" kind="warning">
+text: Это немедленно удаляет бота из гильдии. Если ID гильдии не указан и команда используется вне сервера (в личных сообщениях), возвращается ошибка. Аргумент с ID гильдии должен быть числовым snowflake.
+</block>
+</dash>
+
+<details>
+syntax: $botLeave[(guildID)]
+param: guildID|snowflake|Optional|ID гильдии, которую нужно покинуть. Если не указан, покидается текущая гильдия.
+</details>

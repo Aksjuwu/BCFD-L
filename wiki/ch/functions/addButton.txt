@@ -1,0 +1,44 @@
+<dash>
+name: $addButton
+desc: 向正在构建的消息添加一个按钮，或通过 ID 将其添加到之前发送的消息上。
+category: 组件
+
+<block type="text" title="命令如何工作？">
+text: $addButton 每次调用添加一个按钮。你可以控制按钮类型（链接按钮或交互按钮）、样式、状态（启用/禁用）以及位置（同一行或新行）。
+</block>
+
+<block type="code" title="语法">
+text: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $addButton[no; btn_confirm; Confirm; success]
+</block>
+
+<block type="options" title="按钮样式（style）">
+option: primary|蓝色按钮（默认颜色）
+option: secondary|灰色按钮
+option: success|绿色按钮
+option: danger|红色按钮
+option: link|外部链接按钮（无 custom_id，不会触发机器人交互）
+</block>
+
+<block type="callout" kind="note">
+text: 当 style = link 时，第二个参数（ID/URL）必须是以 http:// 或 https:// 开头的完整 URL。
+</block>
+
+<block type="callout" kind="warning">
+text: 每条消息最多 25 个按钮（5 行 × 每行 5 个按钮）。当当前行已满时，按钮会自动移至新行。
+</block>
+</dash>
+
+<details>
+syntax: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+param: newLine|yes/no|Required|按钮是否位于新行？yes = 新行，no = 与上一个按钮同在一行
+param: ID/URL|text|Required|交互按钮的自定义 ID，如果 style = link 则为完整 URL
+param: label|text|Emptiable|按钮上显示的文本
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|yes 表示禁用该按钮（默认：no）
+param: emoji|text|Optional|按钮内显示的表情符号
+param: messageID|snowflake|Optional|之前发送的机器人消息的 ID，将按钮添加到该消息而不是当前消息
+</details>

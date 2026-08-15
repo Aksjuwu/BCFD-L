@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: يضبط عنوان الإيمبد الذي يتم بناؤه.
+category: منشئ الإيمبد
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $title يأخذ وسيطًا نصيًا ويضبطه كعنوان للإيمبد الحالي الذي يتم إنشاؤه. يظهر العنوان أعلى الإيمبد بخط أكبر وعريض.
+</block>
+
+<block type="code" title="الصيغة">
+text: $title[text]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: يدعم العنوان تنسيق ماركداون لديسكورد. يظهر كعنوان رئيسي أعلى الإيمبد.
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: النص|text|مطلوب|نص عنوان الإيمبد
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $ping
+desc: 返回机器人到 Discord 网关的延迟（响应时间），单位为毫秒。
+category: 工具
+
+<block type="text" title="命令如何工作？">
+text: 该命令获取机器人与 Discord 网关之间的当前连接速度，然后将结果作为表示毫秒数的原始数字直接发送。
+</block>
+
+<block type="code" title="语法">
+text: $ping
+</block>
+
+<block type="code" title="可复制示例">
+text: $ping pong!
+</block>
+
+<block type="callout" kind="note">
+text: 结果值表示机器人服务器的响应能力。返回的数字越小，机器人响应命令和交互的速度就越快。
+</block>
+</dash>

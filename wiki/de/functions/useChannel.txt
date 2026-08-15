@@ -1,0 +1,33 @@
+<dash>
+name: $useChannel
+desc: Leitet die gesamte Skriptausgabe ab diesem Punkt an einen bestimmten Kanal in einem beliebigen Server um.
+category: Zugriffskontrolle
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $useChannel wird an Ort und Stelle in der Reihenfolge ausgeführt, in der die Zeilen im Skript erscheinen. Wenn der Interpreter es erreicht, leitet er die Ausgabe von allem, was danach kommt (alle $sendMessage, $sendEmbedMessage, $reply, gepufferte Texte usw.), an den angegebenen Kanal um. Zeilen davor sind nicht betroffen.
+</block>
+
+<block type="code" title="Syntax">
+text: $useChannel[guildID; channelID]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $sendMessage[This goes to the current channel]
+$useChannel[1234567890; 9876543210]
+$sendMessage[This goes to the specified channel!]
+</block>
+
+<block type="callout" kind="note">
+text: Beide Argumente werden vor der Prüfung aufgelöst, müssen aber numerisch sein. Der Bot muss Mitglied des angegebenen Servers sein und den Zielkanal sehen können. Wenn der Server oder Kanal nicht gefunden wird oder die Argumente nicht numerisch sind, wird der Befehl still ignoriert und ein Logeintrag erstellt.
+</block>
+
+<block type="callout" kind="warning">
+text: Einmal gesetzt, gilt die Umleitung für die gesamte nachfolgende Ausgabe im Skript — der ursprüngliche Kanal wird nicht mehr verwendet. Bei einer Button-Interaktion wird die Interaktionsantwort aufgeschoben und spätere Nachrichten werden stattdessen an den Zielkanal gesendet.
+</block>
+</dash>
+
+<details>
+syntax: $useChannel[guildID; channelID]
+param: guildID|number|Erforderlich|Die ID des Servers, in dem sich der Zielkanal befindet
+param: channelID|number|Erforderlich|Die ID des Kanals, an den die gesamte Ausgabe umgeleitet werden soll
+</details>

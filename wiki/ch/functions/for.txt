@@ -1,0 +1,28 @@
+<dash>
+name: $for
+desc: 将包含的代码块重复执行指定次数。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $for 接受一个次数参数，并执行 $for 和 $endfor 之间的代码那么多次。可以使用 $break 提前中断循环。
+</block>
+
+<block type="code" title="语法">
+text: $for[count]
+</block>
+
+<block type="code" title="可复制示例">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: 如果次数为 0 或负数，循环体将被完全跳过。在循环内使用 $break 可提前退出。支持嵌套循环。
+</block>
+</dash>
+
+<details>
+syntax: $for[count]
+param: count|number|Required|重复执行循环体的次数。必须是非负整数。
+</details>

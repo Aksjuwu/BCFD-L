@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: Отправляет в канал эмбед с изображением по URL.
+category: Сообщения
+
+<block type="text" title="Как работает команда?">
+text: $image принимает URL изображения, создаёт эмбед с этим изображением и отправляет его в канал. URL должен начинаться с http:// или https://.
+</block>
+
+<block type="code" title="Syntax">
+text: $image[URL]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: Изображение отправляется в виде эмбеда, где картинка задана как изображение эмбеда. Бот должен иметь право «Встраивать ссылки» (Embed Links) в канале.
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|Required|Прямой URL файла изображения. Должен начинаться с http:// или https://
+</details>

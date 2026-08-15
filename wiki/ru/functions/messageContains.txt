@@ -1,0 +1,31 @@
+<dash>
+name: $messageContains
+desc: Событие, срабатывающее, когда сообщение содержит ЛЮБОЕ из указанных слов.
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $messageContains — это префикс события, который запускает FDScript, когда сообщение содержит ЛЮБОЕ из указанных слов-триггеров. Слова разделяются точкой с запятой внутри скобок. Совпадение не зависит от регистра.
+</block>
+
+<block type="code" title="Синтаксис">
+text: #PREFIX:$messageContains[word1;word2;word3]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: #PREFIX:$messageContains[hello;hi;hey]
+ sendMessage[Hey there! How can I help?]
+</block>
+
+<block type="callout" kind="note">
+text: Скрипт запускается, если сообщение содержит ЛЮБОЕ из перечисленных слов. Чтобы в сообщении присутствовали ВСЕ слова, используйте $messageContainsAll.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие работает в папке bot_events, а не bot_commands. Создавайте там свой .fds файл.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$messageContains[word1;word2;...]
+param: words|text|Required|Список слов-триггеров через точку с запятой. Совпадение с ЛЮБЫМ запускает скрипт.
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $wait
+desc: Met en pause l'exécution du script pendant une durée spécifiée.
+category: Minutage & Délais
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $wait fige toute l'exécution du script pendant la durée spécifiée. Aucune commande suivante du script ne sera exécutée tant que la période d'attente n'est pas écoulée.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $wait[time]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Starting...]
+$wait[5s]
+$sendMessage[Done after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: Le format du temps utilise : s (secondes), m (minutes), h (heures), d (jours). Le script entier est figé pendant l'attente — les autres scripts d'autres utilisateurs ne sont pas affectés.
+</block>
+</dash>
+
+<details>
+syntax: $wait[time]
+param: time|text|Requis|Durée d'attente. Format : nombre + unité (s/m/h/d), ex. 5s, 10m, 1h, 1d
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $color
+desc: Ustawia kolor budowanego embeda.
+category: Konstruktor embedów
+
+<block type="text" title="Jak działa ta komenda?">
+text: $color przyjmuje wartość koloru hex lub kolor nazwany i stosuje go do aktualnie tworzonego embeda. Kolor pojawia się jako pasek akcentujący po lewej stronie embeda.
+</block>
+
+<block type="code" title="Składnia">
+text: $color[hex or name]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $color[#FF5733]
+</block>
+
+<block type="callout" kind="note">
+text: Możesz użyć kodów hex (np. #FF5733, FF5733) lub kolorów nazwanych. Ta komenda wpływa tylko na embedy wysłane po jej wywołaniu.
+</block>
+</dash>
+
+<details>
+syntax: $color[hex or name]
+param: hex or name|text|Required|Kod koloru hex (np. #FF5733) lub kolor nazwany, aby ustawić kolor paska akcentującego embeda
+</details>

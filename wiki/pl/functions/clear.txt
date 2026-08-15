@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: Masowo usuwa określoną liczbę wiadomości z bieżącego kanału.
+category: Moderacja
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $clear jest wywoływany bez argumentów, usuwa domyślną liczbę wiadomości (10). Gdy zostanie wywołany z liczbą, usuwa tyle wiadomości. Bot używa API masowego usuwania Discorda, aby efektywnie usuwać wiadomości.
+</block>
+
+<block type="code" title="Składnia">
+text: $clear
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: Limit masowego usuwania Discorda wynosi 100 wiadomości na żądanie. Wiadomości starsze niż 14 dni nie mogą być usuwane masowo. Bot musi mieć na kanale uprawnienie „Zarządzanie wiadomościami”.
+</block>
+</dash>

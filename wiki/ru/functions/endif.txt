@@ -1,0 +1,23 @@
+<dash>
+name: $endif
+desc: Отмечает конец блока $if или $elif.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $endif обозначает закрывающую границу условного блока $if. Весь код между $if и $endif выполняется только при выполнении условия. Каждый $if должен иметь соответствующий $endif.
+</block>
+
+<block type="code" title="Syntax">
+text: $endif
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$endif
+</block>
+
+<block type="callout" kind="warning">
+text: Каждый блок $if должен быть корректно закрыт с помощью $endif. Отсутствие $endif вызовет ошибку скрипта.
+</block>
+</dash>

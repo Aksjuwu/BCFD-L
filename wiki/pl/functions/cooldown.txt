@@ -1,0 +1,27 @@
+<dash>
+name: $cooldown
+desc: Zapobiega ponownemu uruchomieniu skryptu przez użytkownika przez określony czas.
+category: Kontrola dostępu
+
+<block type="text" title="Jak działa ta komenda?">
+text: $cooldown ustawia ograniczenie czasowe na użytkownika na skrypt. Jeśli użytkownik spróbuje ponownie uruchomić ten sam skrypt przed wygaśnięciem odczekania, wyświetlana jest podana wiadomość błędu (z pozostałym czasem), a wykonanie jest przerywane.
+</block>
+
+<block type="code" title="Składnia">
+text: $cooldown[time; error message]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $cooldown[10s; Please wait {time} before using this again!]
+</block>
+
+<block type="callout" kind="note">
+text: Format czasu używa: s (sekundy), m (minuty), h (godziny), d (dni). Użyj {time} lub %time% w wiadomości błędu, aby pokazać pozostały czas odczekania.
+</block>
+</dash>
+
+<details>
+syntax: $cooldown[time; error message]
+param: time|text|Required|Czas, po którym użytkownik będzie mógł ponownie uruchomić skrypt. Format: liczba + jednostka (s/m/h/d), np. 10s, 5m, 1h, 1d
+param: error message|text|Required|Wiadomość wysyłana do użytkownika, gdy odczekanie jest aktywne. Użyj {time} lub %time%, aby wyświetlić pozostały czas.
+</details>

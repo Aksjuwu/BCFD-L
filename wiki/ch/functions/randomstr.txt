@@ -1,0 +1,26 @@
+<dash>
+name: $randomstr
+desc: 从提供的参数中随机返回一个字符串。
+category: 随机
+
+<block type="text" title="命令如何工作？">
+text: $randomstr 接受一个或多个字符串参数并随机选取一个，然后将其发送到频道。这对于随机回复、语录或消息非常有用。
+</block>
+
+<block type="code" title="语法">
+text: $randomstr[string1; string2; string3; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $randomstr[Hello!; Hi there!; Hey!; What's up?]
+</block>
+
+<block type="callout" kind="note">
+text: 每个参数都是一个可能的输出。其中一个以相等的概率被随机选中。必须至少提供一个字符串。
+</block>
+</dash>
+
+<details>
+syntax: $randomstr[string1; string2; string3; ...]
+param: string|text|Required|要从中选择的一个或多个字符串。随机选中其中一个并发送。
+</details>

@@ -1,0 +1,36 @@
+<dash>
+name: $editMessage
+desc: Редактирует ранее отправленное ботом сообщение в любом канале, при необходимости превращая его в эмбед.
+category: Сообщения
+
+<block type="text" title="Как работает команда?">
+text: $editMessage получает конкретное сообщение бота по ID канала и ID сообщения, затем изменяет его содержимое. При желании можно передать title, description, color и footer, чтобы превратить сообщение в эмбед.
+</block>
+
+<block type="code" title="Syntax">
+text: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $editMessage[$channelID; 123456789; Updated content!]
+</block>
+
+<block type="callout" kind="note">
+text: Целевое сообщение должно быть отправлено этим ботом. Если указаны необязательные параметры эмбеда, сообщение редактируется так, чтобы эмбед отображался вместе с содержимым.
+</block>
+
+<block type="callout" kind="warning">
+text: Бот должен иметь право просматривать и редактировать сообщения в целевом канале.
+</block>
+</dash>
+
+<details>
+syntax: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+param: channelID|snowflake|Required|ID канала, содержащего сообщение
+param: messageID|snowflake|Required|ID сообщения бота для редактирования
+param: content|text|Required|Новый текстовый контент сообщения
+param: title|text|Optional|Заголовок эмбеда, прикрепляемого к сообщению
+param: description|text|Optional|Описание для эмбеда
+param: color|text|Optional|Hex-цвет для эмбеда
+param: footer|text|Optional|Текст footer для эмбеда
+</details>

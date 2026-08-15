@@ -1,0 +1,21 @@
+<dash>
+name: $uptime
+desc: 返回机器人自上次启动以来已在线多长时间。
+category: 实用工具
+
+<block type="text" title="此命令如何工作？">
+text: 调用 $uptime 时，机器人会计算自上次启动（on_ready 事件）以来经过的时间，将其格式化为人类可读的字符串，然后发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $uptime
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: Bot has been up for $uptime
+</block>
+
+<block type="callout" kind="note">
+text: 格式化输出会根据情况包含天、小时、分钟和秒（例如 2d 5h 30m 12s）。要让此命令生效，机器人必须在启动期间调用 set_bot_start_time()。
+</block>
+</dash>

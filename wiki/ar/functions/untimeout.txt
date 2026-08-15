@@ -1,0 +1,30 @@
+<dash>
+name: $untimeout
+desc: يزيل مهلة نشطة من عضو في السيرفر.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $untimeout يأخذ معرّف مستخدم أو منشوره ويزيل أي مهلة نشطة على ذلك العضو، مستعيدًا فورًا صلاحياته في إرسال الرسائل والتفاعل والانضمام إلى القنوات الصوتية.
+</block>
+
+<block type="code" title="الصيغة">
+text: $untimeout[user]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $untimeout[@user]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يكون لدى المستخدم مهلة نشطة حاليًا حتى يكون لهذه الدالة أي تأثير. إذا لم يكن المستخدم موقوفًا مؤقتًا، تكتمل الدالة دون خطأ.
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت صلاحية "إدارة الأعضاء" ويجب أن يكون أعلى دور لديه أعلى من أعلى دور لدى المستهدف.
+</block>
+</dash>
+
+<details>
+syntax: $untimeout[user]
+param: المستخدم|text|مطلوب|معرّف المستخدم أو منشوره (@mention) للعضو الذي سيتم إزالة المهلة منه
+</details>

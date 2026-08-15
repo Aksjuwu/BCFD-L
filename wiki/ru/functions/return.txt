@@ -1,0 +1,27 @@
+<dash>
+name: $return
+desc: Извлекает значение, сохранённое командой $returnXxx, и отправляет его в канал.
+category: Переменные
+
+<block type="text" title="Как работает команда?">
+text: $return принимает имя переменной и ищет её значение в хранилище возвращаемых переменных. Это хранилище заполняется такими командами, как $returnGuildUsersID, $returnGuildChannelsID и т. д. При самостоятельном использовании полученное значение отправляется в канал; при использовании внутри аргументов другой команды значение подставляется непосредственно в текст.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $return[var]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[User IDs: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: Если указанного имени переменной нет в хранилище возвращаемых переменных, возвращается ошибка. Убедитесь, что перед использованием $return вызвана соответствующая команда $returnXxx.
+</block>
+</dash>
+
+<details>
+syntax: $return[var]
+param: var|text|Required|Имя возвращаемой переменной для извлечения (например, userIDs, channelIDs, roleIDs)
+</details>

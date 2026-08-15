@@ -1,0 +1,26 @@
+<dash>
+name: $sendMessage
+desc: Отправляет текстовое сообщение в текущий канал.
+category: Сообщения
+
+<block type="text" title="Как работает команда?">
+text: $sendMessage принимает текстовый аргумент, обрабатывает содержащиеся в нём переменные/плейсхолдеры и отправляет получившееся сообщение в текущий канал. Если ожидает отправки представление с кнопками, оно прикрепляется к сообщению.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $sendMessage[text]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $sendMessage[Hello, $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: Это основной способ отправки сообщений в FDScript. Переменные и плейсхолдеры в тексте автоматически обрабатываются перед отправкой.
+</block>
+</dash>
+
+<details>
+syntax: $sendMessage[text]
+param: text|text|Required|Текст отправляемого сообщения. Поддерживает переменные, плейсхолдеры и Discord-разметку.
+</details>

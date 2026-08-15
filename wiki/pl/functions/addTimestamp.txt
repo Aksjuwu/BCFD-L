@@ -1,0 +1,21 @@
+<dash>
+name: $addTimestamp
+desc: Pobiera bieżący czas i wysyła go w dynamicznym formacie znacznika czasu Discorda.
+category: Czas i opóźnienia
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy wywoływany jest $addTimestamp, bot oblicza bieżący czas, konwertuje go na dynamiczny format znacznika czasu Discorda (format Long Time) i wysyła wynik bezpośrednio do kanału docelowego.
+</block>
+
+<block type="code" title="Składnia">
+text: $addTimestamp
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $addTimestamp
+</block>
+
+<block type="callout" kind="note">
+text: Wysłany znacznik czasu używa formatu Long Time, co oznacza, że automatycznie dostosuje się i wyświetli każdemu użytkownikowi Discorda zgodnie ze strefą czasową jego urządzenia (np. 6:46:58 PM).
+</block>
+</dash>

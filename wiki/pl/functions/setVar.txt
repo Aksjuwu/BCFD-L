@@ -1,0 +1,28 @@
+<dash>
+name: $setVar
+desc: Zapisuje wartość w trwałej zmiennej.
+category: Zmienne
+
+<block type="text" title="Jak działa komenda?">
+text: $setVar zapisuje wartość pod podaną nazwą zmiennej. Z dwoma argumentami zapisuje zmienną globalną. Z trzema argumentami (nazwa, wartość, ID użytkownika) zapisuje zmienną specyficzną dla użytkownika. Wartości są zachowywane między ponownymi uruchomieniami bota.
+</block>
+
+<block type="code" title="Składnia">
+text: $setVar[name; value]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $setVar[greeting; Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: Zmienne są zapisywane na dysku i przetrwają ponowne uruchomienie bota. Użyj $getVar, aby pobrać zapisane wartości. $setVar nie może być użyte w tekście (jako placeholder).
+</block>
+</dash>
+
+<details>
+syntax: $setVar[name; value; (userID)]
+param: name|text|Required|Nazwa zmiennej, pod którą zostanie zapisana wartość
+param: value|text|Required|Wartość do zapisania
+param: userID|snowflake|Optional|Jeśli podany, zapisuje wartość jako specyficzną dla użytkownika zamiast globalnej
+</details>

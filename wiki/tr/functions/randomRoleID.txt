@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleID
+desc: Sunucudan rastgele bir rolün ID'sini döndürür.
+category: Rastgelelik
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $randomRoleID çağrıldığında, bot geçerli sunucudaki tüm rolleri (varsayılan @everyone rolü hariç) toplar, rastgele birini seçer ve rol ID'sini ham bir sayısal dize olarak gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $randomRoleID
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Random role ID: $randomRoleID
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut yalnızca bir sunucu içinde çalışır (özel mesajlarda değil). @everyone rolü her zaman hariç tutulur. Sunucuda özel rol yoksa komut bir hatayla başarısız olur.
+</block>
+</dash>

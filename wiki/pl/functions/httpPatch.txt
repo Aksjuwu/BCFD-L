@@ -1,0 +1,29 @@
+<dash>
+name: $httpPatch
+desc: Wysyła żądanie HTTP PATCH na podany adres URL z opcjonalnym ciałem żądania.
+category: HTTP
+
+<block type="text" title="Jak działa komenda?">
+text: $httpPatch wysyła żądanie PATCH z 10-sekundowym limitem czasu. Ciało jest wysyłane jako JSON, jeśli jest prawidłowym JSON-em, w przeciwnym razie jako surowy tekst. Odpowiedź jest zapisywana w $httpResult, a kod statusu w $httpStatus. Nagłówki dodane za pomocą $httpAddHeader są wysyłane, a następnie czyszczone.
+</block>
+
+<block type="code" title="Składnia">
+text: $httpPatch[URL; (Body)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPatch[https://api.example.com/users/1; {"name": "FDScript"}]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: Jeśli ciało jest prawidłowym JSON-em, zostaje wysłane jako JSON, w przeciwnym razie jako surowe dane. W przypadku błędu status jest ustawiany na 500, a $httpResult zawiera komunikat błędu.
+</block>
+</dash>
+
+<details>
+syntax: $httpPatch[URL; (Body)]
+param: URL|text|Required|Adres URL, na który ma zostać wysłane żądanie PATCH
+param: Body|text|Optional|Ciało żądania (JSON lub surowy tekst)
+</details>

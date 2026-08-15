@@ -1,0 +1,31 @@
+<dash>
+name: $timeout
+desc: Nakłada timeout (wyciszenie) na członka serwera na określony czas.
+category: Moderacja
+
+<block type="text" title="Jak działa komenda?">
+text: $timeout przyjmuje czas oraz ID użytkownika/wzmiankę, a następnie nakłada timeout na tego członka. Członek z timeoutem nie może wysyłać wiadomości, reagować ani dołączać do kanałów głosowych przez określony czas.
+</block>
+
+<block type="code" title="Składnia">
+text: $timeout[time; user]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $timeout[1h; @user]
+</block>
+
+<block type="callout" kind="note">
+text: Format czasu używa: s (sekundy), m (minuty), h (godziny), d (dni). Maksymalny czas trwania timeoutu to 28 dni. Użyj $untimeout, aby wcześniej usunąć timeout.
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie „Moderowanie członków", a jego najwyższa rola musi być wyżej niż najwyższa rola celu.
+</block>
+</dash>
+
+<details>
+syntax: $timeout[time; user]
+param: time|text|Required|Czas trwania timeoutu. Format: liczba + jednostka (s/m/h/d), np. 1h, 30m, 7d
+param: user|text|Required|ID użytkownika lub @wzmianka członka, którego ma objąć timeout
+</details>

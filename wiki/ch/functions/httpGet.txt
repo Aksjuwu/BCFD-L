@@ -1,0 +1,28 @@
+<dash>
+name: $httpGet
+desc: 向 URL 发送 HTTP GET 请求，并存储状态码和响应。
+category: HTTP
+
+<block type="text" title="此命令如何工作？">
+text: $httpGet 执行一个超时时间为 10 秒的 GET 请求。响应存储到 $httpResult（可能时以 JSON 格式，否则为纯文本），状态码存储到 $httpStatus。使用 $httpAddHeader 添加的任何标头都会被发送，随后清除。
+</block>
+
+<block type="code" title="语法">
+text: $httpGet[URL]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $httpGet[https://api.example.com/users]
+$httpStatus
+$httpResult[0; name]
+</block>
+
+<block type="callout" kind="note">
+text: 请求失败时，状态码设为 500，且 $httpResult 包含错误信息。
+</block>
+</dash>
+
+<details>
+syntax: $httpGet[URL]
+param: URL|text|Required|要发送 GET 请求的 URL
+</details>

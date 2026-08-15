@@ -1,0 +1,21 @@
+<dash>
+name: $kick
+desc: 将用户从服务器中踢出。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: 不带参数调用 $kick 时，它会踢出命令的发起者。当传入用户 ID 或提及作为参数时，它会踢出该特定用户。机器人会从提供的参数中提取数字用户 ID，并通过 Discord API 执行踢出操作。
+</block>
+
+<block type="code" title="语法">
+text: $kick
+</block>
+
+<block type="code" title="可复制示例">
+text: $kick[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须拥有“Kick Members”（踢出成员）权限，且其最高角色的位置必须高于目标用户的最高角色。不带方括号使用 $kick 将踢出触发该命令的用户。
+</block>
+</dash>

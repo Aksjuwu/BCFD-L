@@ -1,0 +1,27 @@
+<dash>
+name: $div
+desc: 将第一个数字依次除以后续每个数字并返回结果。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $div 接受两个或更多数字参数。它从第一个值开始，依次除以每个后续值。既可作为独立命令使用，也可内联使用。
+</block>
+
+<block type="code" title="语法">
+text: $div[a; b; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[$div[10; 2]]
+</block>
+
+<block type="callout" kind="warning">
+text: 除以零会返回错误。$div[10; 2; 5] 的结果为 10 / 2 / 5 = 1。如果商没有小数部分，则结果为整数。
+</block>
+</dash>
+
+<details>
+syntax: $div[a; b; ...]
+param: a|number|Required|被除数（要除的数字）
+param: b|number|Required|除数（不能为 0）。其他除数按顺序依次应用。
+</details>

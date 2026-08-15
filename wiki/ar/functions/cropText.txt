@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: يقصّ النص إلى حد أقصى من عدد الأحرف، مع إمكانية إضافة نهاية مثل "...".
+category: أدوات النصوص
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يقصّر $cropText النص إلى عدد الأحرف المحدد كحد أقصى. إذا كان النص أطول، يُقصّ وتُلحق النهاية الاختيارية (مثل "..." أو "... [more]"). إذا كان النص قصيرًا بما يكفي، يُعاد كما هو.
+</block>
+
+<block type="code" title="الصيغة">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن تكون وسيطة الحد الأقصى للأحرف عددًا صحيحًا غير سالب. عند عدم تقديم نهاية، يُقصّ النص ببساطة عند الحد.
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|مطلوب|النص المراد قصّه
+param: max characters|number|مطلوب|أقصى عدد من الأحرف المراد الاحتفاظ به (يجب أن يكون عددًا صحيحًا غير سالب)
+param: ending|text|اختياري|النص الملحق عندما يكون الإدخال أطول من الحد (مثل "...")
+</details>

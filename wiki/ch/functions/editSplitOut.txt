@@ -1,0 +1,29 @@
+<dash>
+name: $editSplitOut
+desc: 将当前拆分结果（$splitIn）中的一个元素替换为新值。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $editSplitOut 修改由 $splitIn 存储的拆分结果。索引从 1 开始。所选元素会被替换为新值，其余部分保持不变。必须先调用 $splitIn 才能使用此命令。
+</block>
+
+<block type="code" title="语法">
+text: $editSplitOut[index; value]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $splitIn[apple,banana,cherry; ,]
+$editSplitOut[2; mango]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: 索引必须是当前拆分长度范围内的正整数（1 到元素总数），否则会报错。
+</block>
+</dash>
+
+<details>
+syntax: $editSplitOut[index; value]
+param: index|number|Required|要替换的元素的位置（从 1 开始）
+param: value|text|Required|该元素的新值
+</details>

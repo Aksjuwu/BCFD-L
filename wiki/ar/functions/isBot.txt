@@ -1,0 +1,26 @@
+<dash>
+name: $isBot
+desc: يفحص ما إذا كان المستخدم حساب بوت.
+category: معلومات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $isBot يأخذ معرف مستخدم أو منشن ويفحص ما إذا كان ذلك المستخدم حساب بوت في ديسكورد. يعيد "true" أو "false".
+</block>
+
+<block type="code" title="الصيغة">
+text: $isBot[userID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $isBot[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: يعيد "true" إذا كان المستخدم حساب بوت، و"false" إذا كان مستخدماً بشرياً. يجب أن يكون المستخدم عضواً في السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $isBot[userID]
+param: userID|text|مطلوب|معرف المستخدم أو @منشن لفحصه. يدعم المتغيرات والحقول البديلة.
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $splitIn
+desc: Разделяет строку текста на части по разделителю и сохраняет результат.
+category: Строковые утилиты
+
+<block type="text" title="Как работает команда?">
+text: $splitIn принимает строку текста и разделитель, разбивает текст по этому разделителю и сохраняет получившиеся части. Затем используйте $splitOut для доступа к отдельным частям.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $splitIn[text; delimiter]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[1]
+</block>
+
+<block type="callout" kind="note">
+text: Разделённые части сохраняются в контексте, и к ним можно обращаться через $splitOut с индексом (с отсчётом от 1), < для первого или > для последнего.
+</block>
+</dash>
+
+<details>
+syntax: $splitIn[text; delimiter]
+param: text|text|Required|Строка текста для разделения
+param: delimiter|text|Required|Разделитель, по которому выполняется разделение (не может быть пустым)
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $httpAddHeader
+desc: 添加一个随下一次 HTTP 请求一起发送的自定义 HTTP 标头。
+category: HTTP
+
+<block type="text" title="此命令如何工作？">
+text: $httpAddHeader 注册一个标头（名称和值），该标头将附加到下一次使用 $httpGet、$httpPost、$httpPut、$httpPatch 或 $httpDelete 发出的 HTTP 请求中。请求完成后标头会自动清除。
+</block>
+
+<block type="code" title="语法">
+text: $httpAddHeader[name; value]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $httpAddHeader[Authorization; Bearer token123]
+$httpGet[https://api.example.com/data]
+</block>
+
+<block type="callout" kind="note">
+text: 重复添加相同的名称会覆盖之前的值。存储的标头会在请求发送后清除。
+</block>
+</dash>
+
+<details>
+syntax: $httpAddHeader[name; value]
+param: name|text|Required|标头名称（例如 Authorization）
+param: value|text|Required|标头值
+</details>

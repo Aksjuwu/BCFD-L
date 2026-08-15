@@ -1,0 +1,23 @@
+<dash>
+name: $endif
+desc: 标记 $if 或 $elif 块的结束。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $endif 标志着条件 $if 块的闭合边界。$if 和 $endif 之间的所有代码仅在条件满足时执行。每个 $if 都必须有一个匹配的 $endif。
+</block>
+
+<block type="code" title="语法">
+text: $endif
+</block>
+
+<block type="code" title="可复制示例">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$endif
+</block>
+
+<block type="callout" kind="warning">
+text: 每个 $if 块都必须用 $endif 正确闭合。缺少 $endif 会导致脚本错误。
+</block>
+</dash>

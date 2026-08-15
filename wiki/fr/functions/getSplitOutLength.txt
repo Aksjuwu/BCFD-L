@@ -1,0 +1,26 @@
+<dash>
+name: $getSplitOutLength
+desc: Renvoie le nombre d'éléments dans le résultat de division de $splitIn.
+category: Utilitaires de texte
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $getSplitOutLength renvoie combien de parties ont été produites par le dernier appel à $splitIn. C'est utile pour vérifier s'il y a suffisamment de données avant d'utiliser $splitOut. La valeur est envoyée dans le canal ou peut être utilisée en ligne.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $getSplitOutLength
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $splitIn[apple,banana,cherry; ,]
+$getSplitOutLength
+</block>
+
+<block type="callout" kind="note">
+text: Renvoie "0" lorsqu'aucune division n'a encore été effectuée. La même valeur peut être utilisée en ligne, par exemple avec $if.
+</block>
+</dash>
+
+<details>
+syntax: $getSplitOutLength
+</details>

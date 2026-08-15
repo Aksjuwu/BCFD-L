@@ -1,0 +1,29 @@
+<dash>
+name: $replaceText
+desc: Заменяет вхождения подстроки в тексте на новый текст.
+category: Строковые утилиты
+
+<block type="text" title="Как работает команда?">
+text: $replaceText принимает текст, старый текст для поиска и новый текст для замены. При желании можно указать, сколько вхождений заменить. Возвращает изменённый текст.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $replaceText[message; old; new; (amount)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $replaceText[Hello World; World; FDScript]
+</block>
+
+<block type="callout" kind="note">
+text: По умолчанию заменяются все вхождения. Укажите число в качестве 4-го аргумента, чтобы ограничить количество замен. Используйте -1 или не указывайте этот аргумент, чтобы заменить все вхождения.
+</block>
+</dash>
+
+<details>
+syntax: $replaceText[message; old; new; (amount)]
+param: message|text|Required|Исходный текст, в котором выполняется поиск
+param: old|text|Required|Подстрока, которую нужно найти и заменить
+param: new|text|Required|Текст замены
+param: amount|number|Optional|Максимальное количество замен. -1 или не указано = заменить все вхождения
+</details>

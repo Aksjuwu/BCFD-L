@@ -1,0 +1,28 @@
+<dash>
+name: $for
+desc: Повторяет заключённый блок кода указанное количество раз.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $for принимает аргумент количества и выполняет код между $for и $endfor это количество раз. Цикл можно прервать досрочно с помощью $break.
+</block>
+
+<block type="code" title="Syntax">
+text: $for[count]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: Если количество равно 0 или отрицательное, тело цикла полностью пропускается. Используйте $break внутри цикла для досрочного выхода. Поддерживаются вложенные циклы.
+</block>
+</dash>
+
+<details>
+syntax: $for[count]
+param: count|number|Required|Количество повторений тела цикла. Должно быть неотрицательным целым числом.
+</details>

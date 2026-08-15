@@ -1,0 +1,21 @@
+<dash>
+name: $addTimestamp
+desc: Получает текущее время и отправляет его в виде динамического формата времени Discord.
+category: Тайминг и задержки
+
+<block type="text" title="Как работает команда?">
+text: При вызове $addTimestamp бот вычисляет текущее время, преобразует его в динамический формат времени Discord (формат Long Time) и отправляет результат напрямую в целевой канал.
+</block>
+
+<block type="code" title="Syntax">
+text: $addTimestamp
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $addTimestamp
+</block>
+
+<block type="callout" kind="note">
+text: Отправленная метка времени использует формат Long Time, а это значит, что она автоматически будет отображаться каждому пользователю Discord с учётом его локального часового пояса (например, 18:46:58).
+</block>
+</dash>

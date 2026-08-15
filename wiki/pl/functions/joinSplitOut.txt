@@ -1,0 +1,27 @@
+<dash>
+name: $joinSplitOut
+desc: Łączy wszystkie elementy bieżącego wyniku podziału ($splitIn) z powrotem w pojedynczy tekst.
+category: Narzędzia tekstowe
+
+<block type="text" title="Jak działa komenda?">
+text: $joinSplitOut łączy każdy element zapisany przez $splitIn w jeden ciąg znaków, wstawiając podany separator między elementami. Wynik jest wysyłany na kanał.
+</block>
+
+<block type="code" title="Składnia">
+text: $joinSplitOut[separator]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $splitIn[apple,banana,cherry; ,]
+$joinSplitOut[ + ]
+</block>
+
+<block type="callout" kind="note">
+text: $splitIn musi zostać wywołane przed $joinSplitOut, aby było co połączyć.
+</block>
+</dash>
+
+<details>
+syntax: $joinSplitOut[separator]
+param: separator|text|Required|Tekst wstawiany między każde dwa elementy
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $sub
+desc: Soustrait des nombres séquentiellement de la première valeur et renvoie le résultat.
+category: Mathématiques & Nombres
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $sub prend deux arguments numériques ou plus. Elle commence par la première valeur et lui soustrait chaque valeur suivante. Fonctionne à la fois comme commande autonome et en ligne.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $sub[a; b; ...]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Result is $sub[10; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: $sub[10; 3; 2] évalue à 10 - 3 - 2 = 5. Si une valeur non numérique est fournie, une erreur est renvoyée.
+</block>
+</dash>
+
+<details>
+syntax: $sub[a; b; ...]
+param: a|number|Requis|La valeur de départ (le diminuende)
+param: b|number|Requis|La valeur à soustraire (les valeurs supplémentaires sont également soustraites séquentiellement)
+</details>

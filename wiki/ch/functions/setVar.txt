@@ -1,0 +1,28 @@
+<dash>
+name: $setVar
+desc: 将值存储到持久化变量中。
+category: 变量
+
+<block type="text" title="此命令如何工作？">
+text: $setVar 将值存储在给定的变量名下。使用两个参数时，它存储全局变量。使用三个参数（名称、值、用户 ID）时，它存储用户专属变量。值会在机器人重启后仍然保留。
+</block>
+
+<block type="code" title="语法">
+text: $setVar[name; value]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $setVar[greeting; Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: 变量存储在磁盘上，在机器人重启后仍然存在。使用 $getVar 获取存储的值。$setVar 不能内联使用（作为占位符）。
+</block>
+</dash>
+
+<details>
+syntax: $setVar[name; value; (userID)]
+param: name|text|Required|要存储值所用的变量名称
+param: value|text|Required|要存储的值
+param: userID|snowflake|Optional|如果提供，则将值存储为用户专属而非全局
+</details>

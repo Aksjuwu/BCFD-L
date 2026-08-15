@@ -1,0 +1,30 @@
+<dash>
+name: $elif
+desc: Предоставляет альтернативное условие внутри блока $if, когда предыдущие условия были ложными.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $elif используется внутри блока $if для добавления дополнительных условий. Когда предыдущее условие $if (или $elif) ложно, проверяется следующее условие $elif. Если оно истинно, выполняется его блок кода.
+</block>
+
+<block type="code" title="Syntax">
+text: $elif[condition]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $if[$message == hello]
+  Hi there!
+$elif[$message == bye]
+  Goodbye!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $elif должен находиться между $if и $endif. Можно соединять несколько блоков $elif подряд. Выполняется только блок кода первого совпавшего условия.
+</block>
+</dash>
+
+<details>
+syntax: $elif[condition]
+param: condition|expression|Required|Условие для проверки (например, $message == hello, $authorID == 123). Использует те же операторы, что и $if.
+</details>

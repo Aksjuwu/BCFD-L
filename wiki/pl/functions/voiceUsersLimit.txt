@@ -1,0 +1,26 @@
+<dash>
+name: $voiceUsersLimit
+desc: Zwraca limit użytkowników kanału głosowego lub scenicznego.
+category: Kanał
+
+<block type="text" title="Jak działa komenda?">
+text: $voiceUsersLimit przyjmuje ID kanału głosowego lub scenicznego i zwraca jego limit użytkowników. Wartość 0 oznacza brak limitu. Zwraca błąd, jeśli kanał nie jest kanałem głosowym/scenicznym.
+</block>
+
+<block type="code" title="Składnia">
+text: $voiceUsersLimit[voice channel ID]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $voiceUsersLimit[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: Zwraca 0, jeśli kanał nie ma ustawionego limitu użytkowników. Może być użyte w tekście do sprawdzeń warunkowych.
+</block>
+</dash>
+
+<details>
+syntax: $voiceUsersLimit[voice channel ID]
+param: channelID|text|Required|ID kanału głosowego lub scenicznego.
+</details>

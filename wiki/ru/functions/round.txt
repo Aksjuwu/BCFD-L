@@ -1,0 +1,26 @@
+<dash>
+name: $round
+desc: Округляет число до ближайшего целого.
+category: Математика и числа
+
+<block type="text" title="Как работает команда?">
+text: $round принимает одно числовое значение, округляет его до ближайшего целого и отправляет результат. Например, 1.7 становится 2, а 1.4 становится 1.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $round[number]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $round[1.7]
+</block>
+
+<block type="callout" kind="note">
+text: $round[1.7] возвращает 2. $round[2.4] возвращает 2. Команда принимает один аргумент; если значение не является допустимым числом, возвращается ошибка.
+</block>
+</dash>
+
+<details>
+syntax: $round[number]
+param: number|number|Required|Число, которое нужно округлить до ближайшего целого
+</details>

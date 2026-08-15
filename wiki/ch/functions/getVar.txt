@@ -1,0 +1,27 @@
+<dash>
+name: $getVar
+desc: 按名称检索持久化变量的值。
+category: 变量
+
+<block type="text" title="命令如何工作？">
+text: $getVar 按名称查找已存储的变量。使用一个参数时，它检索全局变量。使用两个参数（名称和用户 ID）时，它检索用户专属变量。存储的值会发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $getVar[name]
+</block>
+
+<block type="code" title="可复制示例">
+text: $getVar[mySetting]
+</block>
+
+<block type="callout" kind="note">
+text: 变量是持久的——它们在机器人重启后仍然存在。使用 $setVar 存储值。如果变量不存在，则返回空字符串。
+</block>
+</dash>
+
+<details>
+syntax: $getVar[name; (userID)]
+param: name|text|Required|要检索的变量名称
+param: userID|snowflake|Optional|如果提供，则检索该变量针对特定用户的值，而不是全局值
+</details>

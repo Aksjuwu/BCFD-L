@@ -1,0 +1,29 @@
+<dash>
+name: $httpPost
+desc: Sendet eine HTTP-POST-Anfrage an eine URL mit optionalem Body.
+category: HTTP
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $httpPost sendet eine POST-Anfrage mit einem Timeout von 10 Sekunden. Der Body wird als JSON gesendet, wenn er gültiges JSON ist, andernfalls als Rohtext. Die Antwort wird in $httpResult und der Statuscode in $httpStatus gespeichert. Mit $httpAddHeader hinzugefügte Header werden gesendet und anschließend gelöscht.
+</block>
+
+<block type="code" title="Syntax">
+text: $httpPost[URL; (Body)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPost[https://api.example.com/users; {"name": "FDScript"}]
+$httpResult[id]
+</block>
+
+<block type="callout" kind="note">
+text: Ist der Body gültiges JSON, wird er als JSON gesendet, andernfalls als Rohdaten. Bei einem Fehler wird der Status auf 500 gesetzt und $httpResult enthält die Fehlermeldung.
+</block>
+</dash>
+
+<details>
+syntax: $httpPost[URL; (Body)]
+param: URL|text|Erforderlich|Die URL, an die die POST-Anfrage gesendet werden soll
+param: Body|text|Optional|Der Anfrage-Body (JSON oder Rohtext)
+</details>

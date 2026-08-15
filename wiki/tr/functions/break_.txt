@@ -1,0 +1,25 @@
+<dash>
+name: $break
+desc: En yakın kapsayıcı $for veya $while döngüsünden anında çıkar.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: Bir döngünün ($for veya $while) içinde $break ile karşılaşıldığında bot, yinelemeyi hemen durdurur ve eşleşen $endfor veya $endwhile'dan sonra yürütmeye devam eder. Geçerli döngüde kalan tüm yinelemeler atlanır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $break
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $for[10]
+  $if[$message == stop]
+    $break
+  $endif
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: $break yalnızca o anda içinde bulunduğu en içteki döngüden çıkar. Döngüler iç içe yerleştirilmişse, dıştaki döngüler normal şekilde yürütülmeye devam eder.
+</block>
+</dash>

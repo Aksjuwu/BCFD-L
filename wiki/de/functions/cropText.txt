@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: Kürzt einen Text auf eine maximale Anzahl von Zeichen und hängt optional eine Endung wie "..." an.
+category: Textwerkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $cropText kürzt einen Text auf höchstens die angegebene Anzahl von Zeichen. Ist der Text länger, wird er abgeschnitten und die optionale Endung (z. B. "..." oder "... [mehr]") angehängt. Ist der Text bereits kurz genug, wird er unverändert zurückgegeben.
+</block>
+
+<block type="code" title="Syntax">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: Das Argument maximale Zeichen muss eine nicht-negative Ganzzahl sein. Wird keine Endung angegeben, wird der Text einfach an der Grenze abgeschnitten.
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|Erforderlich|Der zu kürzende Text
+param: max characters|number|Erforderlich|Maximale Anzahl der zu behaltenden Zeichen (muss eine nicht-negative Ganzzahl sein)
+param: ending|text|Optional|Text, der angehängt wird, wenn die Eingabe länger als das Limit ist (z. B. "...")
+</details>

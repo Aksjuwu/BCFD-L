@@ -1,0 +1,30 @@
+<dash>
+name: $elif
+desc: Zapewnia alternatywny warunek w bloku $if, gdy poprzednie warunki były fałszywe.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: $elif jest używany wewnątrz bloku $if, aby dodać dodatkowe warunki. Gdy poprzedni warunek $if (lub $elif) jest fałszywy, sprawdzany jest następny warunek $elif. Jeśli jest prawdziwy, jego blok kodu jest wykonywany.
+</block>
+
+<block type="code" title="Składnia">
+text: $elif[condition]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $if[$message == hello]
+  Hi there!
+$elif[$message == bye]
+  Goodbye!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $elif musi znajdować się pomiędzy $if i $endif. Można łączyć wiele bloków $elif. Wykonywany jest tylko blok kodu pierwszego pasującego warunku.
+</block>
+</dash>
+
+<details>
+syntax: $elif[condition]
+param: condition|expression|Required|Warunek do oceny (np. $message == hello, $authorID == 123). Używa tych samych operatorów co $if.
+</details>

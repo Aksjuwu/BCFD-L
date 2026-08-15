@@ -1,0 +1,40 @@
+<dash>
+name: $isNumber
+desc: 检查一个值是否匹配特定的数字公式/类型。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $isNumber 接受一个公式（类型检查）和一个值，然后检查该值是否匹配该类型。返回 "true" 或 "false"。
+</block>
+
+<block type="code" title="语法">
+text: $isNumber[formula; value]
+</block>
+
+<block type="code" title="可复制示例">
+text: $isNumber[int; 42]
+</block>
+
+<block type="options" title="可用的公式">
+option: int|是整数（没有小数点）
+option: nat|是自然数（正整数，>= 1）
+option: pos|是正数（> 0）
+option: neg|是负数（< 0）
+option: zero|是零
+option: even|是偶数
+option: odd|是奇数
+option: dec|是小数（有小数点）
+option: frac|是分数（格式：a/b）
+option: num|是任何有效数字（整数或小数）
+</block>
+
+<block type="callout" kind="note">
+text: 如果值匹配给定的公式，则返回 "true"，否则返回 "false"。无法解析的无效输入始终返回 "false"。
+</block>
+</dash>
+
+<details>
+syntax: $isNumber[formula; value]
+param: formula|text|Required|要执行的类型检查：int、nat、pos、neg、zero、even、odd、dec、frac、num
+param: value|text|Required|要对照公式检查的值
+</details>

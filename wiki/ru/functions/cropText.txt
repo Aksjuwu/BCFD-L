@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: Обрезает текст до максимального количества символов, при желании добавляя окончание, например "...".
+category: Строковые утилиты
+
+<block type="text" title="Как работает команда?">
+text: $cropText сокращает текст максимум до заданного количества символов. Если текст длиннее, он обрезается и добавляется необязательное окончание (например, "..." или "... [more]"). Если текст уже достаточно короткий, он возвращается без изменений.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: Аргумент max characters должен быть неотрицательным целым числом. Если окончание не указано, текст просто обрезается до лимита.
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|Required|Обрезаемый текст
+param: max characters|number|Required|Максимальное количество сохраняемых символов (должно быть неотрицательным целым числом)
+param: ending|text|Optional|Текст, добавляемый, когда ввод длиннее лимита (например, "...")
+</details>

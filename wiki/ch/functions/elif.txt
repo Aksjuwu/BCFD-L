@@ -1,0 +1,30 @@
+<dash>
+name: $elif
+desc: 在前面的条件为 false 时，在 $if 块中提供备选条件。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $elif 在 $if 块内部使用，用于添加额外的条件。当前面的 $if（或 $elif）条件为 false 时，会检查下一个 $elif 条件。如果为 true，则执行其代码块。
+</block>
+
+<block type="code" title="语法">
+text: $elif[condition]
+</block>
+
+<block type="code" title="可复制示例">
+text: $if[$message == hello]
+  Hi there!
+$elif[$message == bye]
+  Goodbye!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $elif 必须放在 $if 和 $endif 之间。可以串联多个 $elif 块。只有第一个匹配条件的代码块会被执行。
+</block>
+</dash>
+
+<details>
+syntax: $elif[condition]
+param: condition|expression|Required|要评估的条件（例如 $message == hello、$authorID == 123）。使用与 $if 相同的运算符。
+</details>

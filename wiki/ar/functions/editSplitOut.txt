@@ -1,0 +1,29 @@
+<dash>
+name: $editSplitOut
+desc: يستبدل عنصرًا واحدًا من نتيجة القسمة الحالية ($splitIn) بقيمة جديدة.
+category: أدوات النصوص
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تعدّل $editSplitOut نتيجة القسمة المخزنة بواسطة $splitIn. الفهرس يبدأ من 1. يُستبدل العنصر المحدد بالقيمة الجديدة، وتبقى بقية العناصر كما هي. يجب استدعاء $splitIn قبل هذا الأمر.
+</block>
+
+<block type="code" title="الصيغة">
+text: $editSplitOut[index; value]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $splitIn[apple,banana,cherry; ,]
+$editSplitOut[2; mango]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يكون الفهرس عددًا صحيحًا موجبًا ضمن طول القسمة الحالي (من 1 إلى إجمالي العناصر)، وإلا سيتم رفع خطأ.
+</block>
+</dash>
+
+<details>
+syntax: $editSplitOut[index; value]
+param: index|number|مطلوب|موضع العنصر المراد استبداله (يبدأ من 1)
+param: value|text|مطلوب|القيمة الجديدة لذلك العنصر
+</details>

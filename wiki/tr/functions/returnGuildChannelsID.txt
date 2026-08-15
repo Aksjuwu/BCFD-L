@@ -1,0 +1,39 @@
+<dash>
+name: $returnGuildChannelsID
+desc: Bir sunucudan türe göre kanal kimliklerini toplar ve daha sonra alınmak üzere saklar.
+category: Dönüş Komutları
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $returnGuildChannelsID, belirli bir sunucudan belirtilen türdeki tüm kanal kimliklerini toplar ve bunları bir değişken adı altında saklar. Sonuç daha sonra $return[variableName] kullanılarak alınabilir. text, voice, category, forum, stage gibi kanal türüne göre filtreleyebilir veya tüm kanalları alabilirsiniz.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $returnGuildChannelsID[$guildID; text; channelIDs; ,]
+$sendMessage[Text channels: $return[channelIDs]]
+</block>
+
+<block type="options" title="Kanal türleri">
+option: all|Tüm kanal türleri
+option: text|Yalnızca metin kanalları
+option: voice|Yalnızca ses kanalları
+option: category|Yalnızca kategori kanalları
+option: forum|Yalnızca forum kanalları
+option: stage|Yalnızca sahne kanalları
+</block>
+
+<block type="callout" kind="note">
+text: Bot, hedef sunucunun bir üyesi olmalıdır. Saklanan kimlikleri almak için yürütmeden sonra $return[variableName] kullanın. Ayraç, birden çok kimliğin nasıl birleştirileceğini belirler (örn. , veya ; veya boşluk).
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+param: GuildID|snowflake|Required|Kanal toplanacak sunucunun (server) kimliği
+param: ChannelType|text|Required|Toplanacak kanal türü: all, text, voice, category, forum veya stage
+param: var|text|Required|Sonucun saklanacağı değişken adı ($return[] ile kullanın)
+param: separator|text|Required|Birden çok kimlik arasındaki ayraç (örn. , veya ;). Adlandırılmış ayraçlar kullanabilirsiniz: dot, com, apo, sem, colon
+</details>

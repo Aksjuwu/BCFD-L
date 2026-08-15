@@ -1,0 +1,35 @@
+<dash>
+name: $editButton
+desc: Редактирует свойства существующей кнопки на сообщении.
+category: Компоненты
+
+<block type="text" title="Как работает команда?">
+text: $editButton находит кнопку по её ID или URL на сообщении и обновляет её label, style, состояние disabled и/или emoji. Кнопку можно искать в ожидающем представлении (pending view), в исходном сообщении взаимодействия или в конкретном сообщении по ID.
+</block>
+
+<block type="code" title="Syntax">
+text: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $editButton[btn_confirm; Confirmed; success]
+</block>
+
+<block type="callout" kind="note">
+text: Если указан messageID, бот получает это конкретное сообщение и редактирует кнопку на нём. В противном случае он ищет кнопку в ожидающем представлении, затем в исходном сообщении взаимодействия, затем в последнем сообщении, отправленном ботом.
+</block>
+
+<block type="callout" kind="warning">
+text: Целевое сообщение должно быть отправлено этим ботом. Кнопка с указанным ID или URL должна уже существовать на сообщении.
+</block>
+</dash>
+
+<details>
+syntax: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+param: ID/URL|text|Required|custom ID или URL кнопки, которую нужно отредактировать
+param: label|text|Required|Новый текст, отображаемый на кнопке
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|yes — отключить кнопку, no — включить её
+param: emoji|text|Optional|Новый emoji для отображения внутри кнопки
+param: messageID|snowflake|Optional|ID конкретного сообщения бота, на котором нужно отредактировать кнопку
+</details>

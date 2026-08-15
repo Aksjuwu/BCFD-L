@@ -1,0 +1,21 @@
+<dash>
+name: $kick
+desc: Wyrzuca użytkownika z serwera.
+category: Moderacja
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy $kick jest wywołany bez argumentów, wyrzuca autora komendy. Gdy jest wywołany z ID użytkownika lub wzmianką, wyrzuca tego konkretnego użytkownika. Bot wyciąga numeryczny ID użytkownika z podanego argumentu i wykonuje wyrzucenie przez API Discorda.
+</block>
+
+<block type="code" title="Składnia">
+text: $kick
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $kick[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie „Kick Members" (wyrzucanie członków), a jego najwyższa rola musi być wyżej niż najwyższa rola celu. Użycie $kick bez nawiasów wyrzuci użytkownika, który wyzwolił komendę.
+</block>
+</dash>

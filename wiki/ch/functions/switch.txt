@@ -1,0 +1,27 @@
+<dash>
+name: $switch
+desc: 根据索引数字从列表中选择并返回一个项目。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $switch 接受一个项目列表和一个索引数字（作为最后一个参数）。它返回该位置的项目（从 1 开始的索引）。这可用于从预定义选项中选择。
+</block>
+
+<block type="code" title="语法">
+text: $switch[item1; item2; ... ; index]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $switch[Red; Green; Blue; $randomint[1; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: 索引是最后一个参数，必须是 1 到项目总数之间的数字。如果索引超出范围，将返回错误。
+</block>
+</dash>
+
+<details>
+syntax: $switch[item1; item2; ... ; index]
+param: item|text|Required|一个或多个可供选择的项目
+param: index|number|Required|要返回项目的从 1 开始的位置（必须是最后一个参数）
+</details>

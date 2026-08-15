@@ -1,0 +1,26 @@
+<dash>
+name: $floor
+desc: Zaokrągla liczbę w dół do najbliższej liczby całkowitej.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa ta komenda?">
+text: $floor przyjmuje pojedynczą wartość liczbową i zaokrągla ją w dół do najbliższej liczby całkowitej (podłoga). Na przykład 3.9 staje się 3, a -2.1 staje się -3. Działa zarówno jako samodzielna komenda, jak i w tekście wewnątrz innych komend.
+</block>
+
+<block type="code" title="Składnia">
+text: $floor[number]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $sendMessage[Result is $floor[3.9]]
+</block>
+
+<block type="callout" kind="note">
+text: $floor[3.9] zwraca 3. $floor[-2.1] zwraca -3. $floor[5.0] zwraca 5. Wynik jest zawsze liczbą całkowitą.
+</block>
+</dash>
+
+<details>
+syntax: $floor[number]
+param: number|number|Required|Liczba do zaokrąglenia w dół do najbliższej liczby całkowitej, np. 3.9, -2.1, 10
+</details>

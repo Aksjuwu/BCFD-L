@@ -1,0 +1,32 @@
+<dash>
+name: $onInteraction
+desc: Zdarzenie wyzwalane, gdy nastąpi interakcja z komponentem (przycisk/lista wyboru).
+category: Zdarzenie
+
+<block type="text" title="Jak działa to zdarzenie?">
+text: $onInteraction to prefiks zdarzenia, który wyzwala skrypt FDScript, gdy użytkownik wchodzi w interakcję z komponentem (kliknięcie przycisku, menu wyboru itp.). Opcjonalnie możesz podać custom ID, aby wyzwalać skrypt tylko dla konkretnych komponentów. Bez ID wyzwala dla WSZYSTKICH interakcji z komponentami.
+</block>
+
+<block type="code" title="Składnia">
+text: #PREFIX:$onInteraction
+text: #PREFIX:$onInteraction[button_custom_id]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: #PREFIX:$onInteraction[confirm_btn]
+ sendMessage[You clicked the confirm button!]
+</block>
+
+<block type="callout" kind="note">
+text: Użyj $onInteraction bez nawiasów, aby obsługiwać wszystkie interakcje, lub z konkretnym custom_id, aby obsługiwać tylko ten komponent.
+</block>
+
+<block type="callout" kind="important">
+text: To zdarzenie działa w folderze bot_events, a nie bot_commands. Utwórz tam swój plik .fds.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onInteraction[(custom_id)]
+param: customID|text|Optional|custom_id konkretnego komponentu, na który ma nasłuchiwać. Jeśli puste, wyzwala dla wszystkich interakcji.
+</details>

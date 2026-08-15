@@ -1,0 +1,23 @@
+<dash>
+name: $endfor
+desc: Oznacza koniec bloku pętli $for.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: $endfor wyznacza zamykającą granicę pętli $for. Po każdej iteracji wykonanie wraca na początek ciała pętli. Każdy $for musi mieć pasujący $endfor.
+</block>
+
+<block type="code" title="Składnia">
+text: $endfor
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="warning">
+text: Każdy blok $for musi być poprawnie zamknięty za pomocą $endfor. Brak $endfor spowoduje błąd skryptu.
+</block>
+</dash>

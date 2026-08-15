@@ -1,0 +1,27 @@
+<dash>
+name: $splitOut
+desc: 从先前拆分（使用 $splitIn）的文本中获取特定部分。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $splitOut 访问 $splitIn 拆分结果中的特定部分。使用从 1 开始的索引，< 表示第一部分，或 > 表示最后一部分。取回的值会发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $splitOut[index]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[2]
+</block>
+
+<block type="callout" kind="note">
+text: 有效的索引值：数字（从 1 开始）、<（第一个元素）、>（最后一个元素）。必须先调用 $splitIn 再调用 $splitOut。
+</block>
+</dash>
+
+<details>
+syntax: $splitOut[index]
+param: index|text|Required|要获取部分的索引：数字（从 1 开始）、< 表示第一个、> 表示最后一个
+</details>

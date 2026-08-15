@@ -1,0 +1,26 @@
+<dash>
+name: $lastUserMessageID
+desc: Geçerli betiği tetikleyen kullanıcı mesajının ID'sini döndürür.
+category: Değişkenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $lastUserMessageID, geçerli betik yürütmesini başlatan mesajın snowflake ID'sine çözümlenir — her zaman orijinal yazarın mesajı, yani $ komutunu içeren mesaj. Betiğin ömrü boyunca değişmez. Yerleşik $messageID belirteciyle aynı şekilde davranır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $lastUserMessageID
+text: $lastUserMessageID[]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Your message ID is $lastUserMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: Bu yalnızca satır içi (inline) kullanılabilen bir komuttur ve bağımsız bir ifade olarak kullanılamaz. Bunu başka bir komutun argüman parantezleri içinde veya çıplak bir satır içi belirteç olarak kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $lastUserMessageID
+</details>

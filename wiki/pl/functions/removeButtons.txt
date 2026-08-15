@@ -1,0 +1,27 @@
+<dash>
+name: $removeButtons
+desc: Usuwa wszystkie przyciski z wiadomości lub z oczekującego widoku.
+category: Komponenty
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy $removeButtons jest wywołany bez argumentów, czyści wszystkie przyciski z oczekującego widoku lub z wiadomości źródłowej interakcji. Gdy jest wywołany z ID wiadomości, usuwa wszystkie przyciski z tej konkretnej wiadomości bota.
+</block>
+
+<block type="code" title="Składnia">
+text: $removeButtons
+text: $removeButtons[(messageID)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $removeButtons[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: ID wiadomości musi wskazywać wiadomość wysłaną przez tego bota. Jeśli wywołano bez argumentów, najpierw sprawdzany jest oczekujący widok, a następnie wiadomość źródłowa interakcji.
+</block>
+</dash>
+
+<details>
+syntax: $removeButtons[(messageID)]
+param: messageID|snowflake|Optional|ID wiadomości bota, z której mają zostać usunięte wszystkie przyciski. Jeśli pominięte, usuwa przyciski z oczekującego widoku lub źródła interakcji.
+</details>

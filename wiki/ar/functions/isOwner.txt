@@ -1,0 +1,26 @@
+<dash>
+name: $isOwner
+desc: يفحص ما إذا كان المستخدم هو مالك السيرفر.
+category: معلومات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $isOwner يأخذ معرف مستخدم أو منشن ويفحص ما إذا كان ذلك المستخدم هو مالك السيرفر الحالي. يعيد "true" أو "false".
+</block>
+
+<block type="code" title="الصيغة">
+text: $isOwner[userID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $isOwner[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: يعيد "true" فقط إذا كان المستخدم هو مالك السيرفر. يعيد "false" إذا كان المستخدم ليس المالك أو لم يتم العثور عليه في السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $isOwner[userID]
+param: userID|text|مطلوب|معرف المستخدم أو @منشن لفحصه. يدعم المتغيرات والحقول البديلة.
+</details>

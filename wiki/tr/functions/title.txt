@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: Oluşturulmakta olan embed'in başlığını ayarlar.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $title bir metin argümanı alır ve bunu oluşturulmakta olan geçerli embed'in başlığı olarak ayarlar. Başlık, embed'in üstünde daha büyük, kalın metin olarak görünür.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $title[text]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: Başlık Discord işaretleme (markdown) biçimini destekler. Embed'in üstünde ana başlık olarak görünür.
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: text|text|Required|Embed için başlık metni
+</details>

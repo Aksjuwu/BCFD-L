@@ -1,0 +1,28 @@
+<dash>
+name: $splitIn
+desc: Dzieli ciąg tekstowy na części przy użyciu separatora i zapisuje wynik.
+category: Narzędzia tekstowe
+
+<block type="text" title="Jak działa komenda?">
+text: $splitIn przyjmuje ciąg tekstowy oraz separator, dzieli tekst według tego separatora i zapisuje powstałe części. Następnie użyj $splitOut, aby uzyskać dostęp do poszczególnych części.
+</block>
+
+<block type="code" title="Składnia">
+text: $splitIn[text; delimiter]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[1]
+</block>
+
+<block type="callout" kind="note">
+text: Podzielone części są zapisywane w kontekście i można uzyskać do nich dostęp za pomocą $splitOut z indeksem (liczonym od 1), < dla pierwszej lub > dla ostatniej.
+</block>
+</dash>
+
+<details>
+syntax: $splitIn[text; delimiter]
+param: text|text|Required|Ciąg tekstowy do podziału
+param: delimiter|text|Required|Separator, według którego ma zostać podzielony tekst (nie może być pusty)
+</details>

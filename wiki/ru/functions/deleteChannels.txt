@@ -1,0 +1,26 @@
+<dash>
+name: $deleteChannels
+desc: Удаляет один или несколько каналов с сервера.
+category: Управление каналами
+
+<block type="text" title="Как работает команда?">
+text: $deleteChannels принимает один или несколько ID каналов или упоминаний и удаляет их с сервера. У бота должно быть разрешение «Manage Channels». Если какой-либо канал не может быть удалён (например, не хватает прав), операция останавливается с ошибкой.
+</block>
+
+<block type="code" title="Syntax">
+text: $deleteChannels[channel ID/mention; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $deleteChannels[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="warning">
+text: Эта команда безвозвратно удаляет каналы. У бота должно быть разрешение «Manage Channels» для каждого удаляемого канала.
+</block>
+</dash>
+
+<details>
+syntax: $deleteChannels[channel ID/mention; ...]
+param: channels|text|Required|Один или несколько ID каналов или упоминаний, разделённых точкой с запятой.
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $getMessage
+desc: Pobiera wiadomość z dowolnego kanału i wysyła informacje o niej.
+category: Narzędzia
+
+<block type="text" title="Jak działa ta komenda?">
+text: $getMessage pobiera wiadomość z podanego kanału i wyodrębnia z niej fragment informacji. Argument type wybiera, co zostanie wysłane: content (treść wiadomości), name (nazwa wyświetlana autora), id (ID użytkownika autora) lub avatar (URL awatara autora). Jeśli wyodrębniona wartość jest pusta, zamiast niej wysyłana jest spacja o zerowej szerokości.
+</block>
+
+<block type="code" title="Składnia">
+text: $getMessage[channelID; messageID; (type)]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $getMessage[123456789; 987654321; content]
+</block>
+
+<block type="callout" kind="note">
+text: Argument type jest opcjonalny i domyślnie wynosi content. Prawidłowe typy: content, name, id, avatar. Bot musi mieć możliwość przeglądania kanału oraz uprawnienie "Czytanie historii wiadomości".
+</block>
+</dash>
+
+<details>
+syntax: $getMessage[channelID; messageID; (type)]
+param: channelID|snowflake|Required|ID kanału zawierającego wiadomość
+param: messageID|snowflake|Required|ID wiadomości do pobrania
+param: type|text|Optional|Co wysłać: content (domyślnie), name, id lub avatar
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $serverOwnerID
+desc: Возвращает Discord-идентификатор пользователя владельца сервера.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: Когда вызывается $serverOwnerID, бот получает уникальный Discord-идентификатор пользователя владельца сервера и отправляет его напрямую в виде необработанной числовой строки.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $serverOwnerID
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: Server owner ID: $serverOwnerID
+</block>
+
+<block type="callout" kind="note">
+text: Эта команда работает только внутри сервера (не в личных сообщениях). Возвращаемое значение — это snowflake-идентификатор аккаунта, владеющего сервером.
+</block>
+</dash>

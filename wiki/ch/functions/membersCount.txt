@@ -1,0 +1,28 @@
+<dash>
+name: $membersCount
+desc: 返回服务器中的成员数量。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 不带参数调用 $membersCount 时，机器人会统计当前服务器中所有非机器人的人类成员并发送数量。当传入公会 ID 和是/否标志时，它会统计该特定服务器中的成员，并可选择是否计入机器人。
+</block>
+
+<block type="code" title="语法">
+text: $membersCount
+text: $membersCount[guildID; includeBots]
+</block>
+
+<block type="code" title="可复制示例">
+text: We have $membersCount members!
+</block>
+
+<block type="callout" kind="note">
+text: 默认情况下，机器人被排除在统计之外。要计入机器人，请使用 $membersCount[guildID; yes]。不带参数时，此命令仅在服务器内有效。提供公会 ID 时，机器人必须是该公会的成员。
+</block>
+</dash>
+
+<details>
+syntax: $membersCount[(guildID; includeBots)]
+param: guildID|snowflake|Optional|要统计成员的不同服务器的 ID。如果省略，则使用当前服务器。
+param: includeBots|yes/no|Optional|设置为 "yes" 以在统计中计入机器人账户。如果省略，仅统计人类成员。
+</details>

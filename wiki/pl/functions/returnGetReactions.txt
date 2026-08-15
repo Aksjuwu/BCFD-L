@@ -1,0 +1,31 @@
+<dash>
+name: $returnGetReactions
+desc: Pobiera użytkowników, którzy zareagowali na wiadomość konkretnym emoji, i zapisuje wynik.
+category: Komendy zwrotne
+
+<block type="text" title="Jak działa komenda?">
+text: $returnGetReactions pobiera konkretną wiadomość, znajduje użytkowników, którzy zareagowali podanym emoji, i zapisuje wynik. Możesz zapisać ID reagujących użytkowników lub łączną liczbę reakcji. Boty są zawsze wykluczane — brane są pod uwagę tylko ludzcy użytkownicy.
+</block>
+
+<block type="code" title="Składnia">
+text: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $returnGetReactions[$channelID; 123456789; usersID; reactors; ,; 👍]
+</block>
+
+<block type="callout" kind="note">
+text: Parametr type przyjmuje „usersID" (aby zapisać ID reagujących użytkowników, połączone separatorem) lub „tr" (aby zapisać łączną liczbę reakcji wyłącznie od ludzkich użytkowników). Jeśli emoji nie zostanie znalezione na wiadomości: „tr" po cichu zapisuje „0", natomiast „usersID" zgłasza błąd. W trybie „usersID" błąd jest również zgłaszany, jeśli żaden ludzki użytkownik nie zareagował tym emoji. Wynik jest zapisywany w zmiennej i pobierany później za pomocą $return[var].
+</block>
+</dash>
+
+<details>
+syntax: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+param: channelID|snowflake|Required|ID kanału zawierającego wiadomość
+param: messageID|snowflake|Required|ID wiadomości, na której mają być sprawdzone reakcje
+param: type|text|Required|usersID, aby zapisać ID reagujących użytkowników, lub tr, aby zapisać łączną liczbę reakcji (tylko ludzcy użytkownicy)
+param: var|text|Required|Nazwa zmiennej, w której zostanie zapisany wynik
+param: separator|text|Required|Separator między wieloma ID użytkowników (np. , lub ;). Możesz użyć separatorów nazwanych: dot, com, apo, sem, colon
+param: emoji|text|Required|Emoji, pod którym mają być szukane reakcje (dopasowane po formie tekstowej lub nazwie)
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $lastUserMessageID
+desc: Возвращает ID сообщения пользователя, которое запустило текущий скрипт.
+category: Переменные
+
+<block type="text" title="Как работает команда?">
+text: $lastUserMessageID возвращает snowflake ID сообщения, с которого началось текущее выполнение скрипта — всегда исходное сообщение автора, то самое, которое содержало команду $. Значение не меняется в течение всего времени работы скрипта. Команда ведёт себя так же, как встроенный токен $messageID.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $lastUserMessageID
+text: $lastUserMessageID[]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $sendMessage[Your message ID is $lastUserMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: Это inline-команда, и её нельзя использовать как самостоятельное выражение. Используйте её в скобках аргументов другой команды или как одиночный inline-токен.
+</block>
+</dash>
+
+<details>
+syntax: $lastUserMessageID
+</details>

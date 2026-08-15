@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: Возвращает случайное целое число между минимальным и максимальным значениями.
+category: Случайность
+
+<block type="text" title="Как работает команда?">
+text: $randomint принимает два числа (min и max) и генерирует случайное целое число в этом диапазоне с включёнными границами, а затем отправляет его в канал.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: Обе границы (min и max) включены. Если min больше max, значения автоматически меняются местами. Результат — целое число между двумя границами.
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Required|Минимальное значение (включительно)
+param: max|number|Required|Максимальное значение (включительно)
+</details>

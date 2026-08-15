@@ -1,0 +1,30 @@
+<dash>
+name: $onLeave
+desc: Событие, срабатывающее при выходе участника с сервера.
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $onLeave — это префикс события, который запускает FDScript всякий раз, когда участник покидает сервер или удаляется с него. Скрипт получает информацию о покидающем участнике. Вы можете указать ID канала в первой строке, чтобы направить вывод в конкретный канал.
+</block>
+
+<block type="code" title="Синтаксис">
+text: #PREFIX:$onLeave
+</block>
+
+<block type="code" title="Пример для копирования">
+text: #PREFIX:$onLeave
+ sendMessage[Goodbye $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: Поместите это в первую строку вашего FDScript-файла. Скрипт будет запускаться автоматически при выходе любого участника.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие работает в папке bot_events, а не bot_commands. Создавайте там свой .fds файл.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onLeave
+</details>

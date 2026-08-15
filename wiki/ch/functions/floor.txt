@@ -1,0 +1,26 @@
+<dash>
+name: $floor
+desc: 将一个数字向下取整到最接近的整数。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $floor 接受单个数值并将其向下取整到最接近的整数（向下取整）。例如，3.9 变成 3，-2.1 变成 -3。既可作为独立命令使用，也可在其他命令中内联使用。
+</block>
+
+<block type="code" title="语法">
+text: $floor[number]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[Result is $floor[3.9]]
+</block>
+
+<block type="callout" kind="note">
+text: $floor[3.9] 返回 3。$floor[-2.1] 返回 -3。$floor[5.0] 返回 5。结果始终是整数。
+</block>
+</dash>
+
+<details>
+syntax: $floor[number]
+param: number|number|Required|要向下取整到最接近整数的数字，例如 3.9、-2.1、10
+</details>

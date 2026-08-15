@@ -1,0 +1,21 @@
+<dash>
+name: $ban
+desc: Banuje użytkownika z serwera.
+category: Moderacja
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $ban jest wywoływany bez argumentów, banuje autora komendy. Gdy zostanie wywołany z identyfikatorem użytkownika lub wzmianką, banuje tego konkretnego użytkownika. Bot wyodrębnia numeryczny identyfikator użytkownika z podanego argumentu i nakłada bana za pośrednictwem API Discorda.
+</block>
+
+<block type="code" title="Składnia">
+text: $ban
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $ban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie „Banowanie członków”, a jego najwyższa rola musi być wyżej niż najwyższa rola celu. Użycie $ban bez nawiasów zbanuje użytkownika, który wyzwolił komendę.
+</block>
+</dash>

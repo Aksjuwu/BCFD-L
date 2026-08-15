@@ -1,0 +1,30 @@
+<dash>
+name: $onLeave
+desc: Bir üye sunucudan ayrıldığında tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $onLeave, bir üye sunucudan ayrıldığında veya sunucudan çıkarıldığında bir FDScript tetikleyen bir olay önekidir. Betik, ayrılan üyenin bilgilerini alır. Çıktıyı belirli bir kanala yönlendirmek için ilk satırda isteğe bağlı olarak bir kanal ID'si belirtebilirsiniz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$onLeave
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: #PREFIX:$onLeave
+ sendMessage[Goodbye $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: Bunu FDScript dosyanızın ilk satırına yerleştirin. Betik, herhangi bir üye ayrıldığında otomatik olarak çalışır.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onLeave
+</details>

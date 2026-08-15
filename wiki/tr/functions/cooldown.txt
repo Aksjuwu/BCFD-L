@@ -1,0 +1,27 @@
+<dash>
+name: $cooldown
+desc: Bir kullanıcının betiği belirtilen süre boyunca yeniden çalıştırmasını engeller.
+category: Erişim Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $cooldown, kullanıcı başına ve betik başına zamana dayalı bir kısıtlama ayarlar. Kullanıcı, cooldown süresi dolmadan aynı betiği yeniden çalıştırmayı denerse, sağlanan hata mesajı görüntülenir (kalan süreyle birlikte) ve yürütme iptal edilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $cooldown[time; error message]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $cooldown[10s; Please wait {time} before using this again!]
+</block>
+
+<block type="callout" kind="note">
+text: Süre biçimi şunları kullanır: s (saniye), m (dakika), h (saat), d (gün). Kalan cooldown süresini göstermek için hata mesajında {time} veya %time% kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $cooldown[time; error message]
+param: time|text|Required|Kullanıcının betiği yeniden çalıştırabilmesinden önceki süre. Biçim: sayı + birim (s/m/h/d), ör. 10s, 5m, 1h, 1d
+param: error message|text|Required|Cooldown etkinken kullanıcıya gönderilen mesaj. Kalan süreyi görüntülemek için {time} veya %time% kullanın.
+</details>

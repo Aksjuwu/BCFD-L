@@ -1,0 +1,28 @@
+<dash>
+name: $editIn
+desc: Edytuje ostatnią wiadomość wysłaną przez bota po określonym opóźnieniu.
+category: Czas i opóźnienia
+
+<block type="text" title="Jak działa ta komenda?">
+text: $editIn czeka przez określony czas, a następnie edytuje treść ostatnio wysłanej wiadomości bota na podany nowy tekst. Oryginalna wiadomość musi zostać wysłana wcześniej w tym samym wykonaniu skryptu.
+</block>
+
+<block type="code" title="Składnia">
+text: $editIn[time; newMessage]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $sendMessage[Loading...]
+$editIn[5s; Done!]
+</block>
+
+<block type="callout" kind="note">
+text: Format czasu używa: s (sekundy), m (minuty), h (godziny), d (dni). Zastępowana jest tylko treść tekstowa — embedy i komponenty nie są zmieniane.
+</block>
+</dash>
+
+<details>
+syntax: $editIn[time; newMessage]
+param: time|text|Required|Czas oczekiwania przed edycją. Format: liczba + jednostka (s/m/h/d), np. 5s, 10m
+param: newMessage|text|Required|Nowa treść tekstowa zastępująca starą wiadomość
+</details>

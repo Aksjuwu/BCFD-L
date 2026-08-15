@@ -1,0 +1,28 @@
+<dash>
+name: $editIn
+desc: Botun son gönderdiği mesajı belirtilen bir süre sonra düzenler.
+category: Zamanlama ve Gecikmeler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $editIn belirtilen süreyi bekler ve ardından botun en son gönderdiği mesajın içeriğini verilen yeni metinle düzenler. Orijinal mesaj, aynı script çalıştırması içinde daha önce gönderilmiş olmalıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $editIn[time; newMessage]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Loading...]
+$editIn[5s; Done!]
+</block>
+
+<block type="callout" kind="note">
+text: Zaman biçimi şunları kullanır: s (saniye), m (dakika), h (saat), d (gün). Yalnızca metin içeriği değiştirilir — embed'ler ve bileşenler etkilenmez.
+</block>
+</dash>
+
+<details>
+syntax: $editIn[time; newMessage]
+param: time|text|Required|Düzenlemeden önce beklenecek süre. Biçim: sayı + birim (s/m/h/d), ör. 5s, 10m
+param: newMessage|text|Required|Eski mesajın yerine geçecek yeni metin içeriği
+</details>

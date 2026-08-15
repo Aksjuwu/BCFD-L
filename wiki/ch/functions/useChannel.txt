@@ -1,0 +1,33 @@
+<dash>
+name: $useChannel
+desc: 从此位置开始，将脚本的所有输出重定向到任何服务器中的特定频道。
+category: 访问控制
+
+<block type="text" title="此命令如何工作？">
+text: $useChannel 在脚本中按行出现顺序就地执行。当解释器执行到它时，会将之后所有内容的输出（所有 $sendMessage、$sendEmbedMessage、$reply、缓冲文本等）重定向到指定频道。它之前的行不受影响。
+</block>
+
+<block type="code" title="语法">
+text: $useChannel[guildID; channelID]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $sendMessage[This goes to the current channel]
+$useChannel[1234567890; 9876543210]
+$sendMessage[This goes to the specified channel!]
+</block>
+
+<block type="callout" kind="note">
+text: 两个参数在检查前都会被解析，但它们必须是数字。机器人必须是指定服务器的成员，并且能够看到目标频道。如果找不到服务器或频道，或者参数不是数字，命令会被静默忽略并创建一条日志记录。
+</block>
+
+<block type="callout" kind="warning">
+text: 一旦设置，重定向将应用于脚本中的所有后续输出——不再使用原始频道。在按钮交互中，交互响应会被延迟，后续消息将改为发送到目标频道。
+</block>
+</dash>
+
+<details>
+syntax: $useChannel[guildID; channelID]
+param: guildID|number|Required|目标频道所在服务器（guild）的 ID
+param: channelID|number|Required|要重定向所有输出的频道的 ID
+</details>

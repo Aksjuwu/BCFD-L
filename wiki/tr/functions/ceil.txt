@@ -1,0 +1,26 @@
+<dash>
+name: $ceil
+desc: Bir sayıyı en yakın tam sayıya yukarı yuvarlar.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $ceil tek bir sayısal değer alır ve onu en yakın tam sayıya yukarı yuvarlar (tavan değeri). Örneğin, 3.1, 4 olur; 5.0 ise 5 kalır. Hem bağımsız bir komut olarak hem de diğer komutların içinde satır içi olarak çalışır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $ceil[number]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $sendMessage[Result is $ceil[3.2]]
+</block>
+
+<block type="callout" kind="note">
+text: $ceil[3.1] 4 döndürür. $ceil[-2.5] -2 döndürür. $ceil[5.0] 5 döndürür. Sonuç her zaman bir tam sayıdır.
+</block>
+</dash>
+
+<details>
+syntax: $ceil[number]
+param: number|number|Required|En yakın tam sayıya yukarı yuvarlanacak sayı, ör. 3.1, -2.5, 10
+</details>

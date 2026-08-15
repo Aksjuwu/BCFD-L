@@ -1,0 +1,32 @@
+<dash>
+name: $editChannelPerms
+desc: 编辑频道上角色或成员的权限覆盖。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: $editChannelPerms 修改频道上特定角色或成员的权限覆盖。使用 +perm 允许权限，-perm 拒绝权限，或 /perm 重置权限。机器人必须具有"管理频道"权限。
+</block>
+
+<block type="code" title="语法">
+text: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $editChannelPerms[123456789; 987654321; +send_messages; -connect]
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须具有"管理频道"或"管理权限"权限。目标可以是角色或成员的 ID/提及。
+</block>
+
+<block type="callout" kind="note">
+text: 权限名称使用 Discord 的 snake_case 格式：send_messages、view_channel、connect、manage_roles 等。使用 + 允许，- 拒绝，/ 或 ~ 重置。
+</block>
+</dash>
+
+<details>
+syntax: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+param: channelID|text|Required|要在其上编辑权限的频道 ID 或提及。
+param: targetID|text|Required|要为其设置权限的角色或成员 ID/提及。
+param: permissions|text|Required|一个或多个带 +/- 前缀的权限（例如 +send_messages、-connect）。
+</details>

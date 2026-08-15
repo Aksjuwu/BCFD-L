@@ -1,0 +1,31 @@
+<dash>
+name: $onBotMessage
+desc: Zdarzenie wyzwalane przy każdej wiadomości wysłanej przez bota (w tym przez inne boty).
+category: Zdarzenie
+
+<block type="text" title="Jak działa to zdarzenie?">
+text: $onBotMessage to prefiks zdarzenia, który wyzwala skrypt FDScript za każdym razem, gdy bot wyśle wiadomość. Domyślnie skrypt ignoruje wiadomości wysłane przez samego bota i reaguje tylko na inne boty. Ustaw argument na yes, aby skrypt działał także na wiadomościach samego bota, lub na no, aby pomijać jego własne wiadomości (jest to również domyślne zachowanie, gdy argument jest pusty).
+</block>
+
+<block type="code" title="Składnia">
+text: #PREFIX:$onBotMessage[yes/no]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: #PREFIX:$onBotMessage[no]
+$sendMessage[Another bot said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: Użyj yes, aby śledzić wiadomości samego bota, lub no, aby reagować tylko na inne boty. Powyższy przykład używa $message do odczytania treści wiadomości bota.
+</block>
+
+<block type="callout" kind="important">
+text: To zdarzenie działa w folderze bot_events, a nie bot_commands. Utwórz tam swój plik .fds.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotMessage[(yes/no)]
+param: yes/no|text|Optional|yes, aby działało również na wiadomościach samego bota, no (domyślne), aby reagować tylko na inne boty
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $and
+desc: Вычисляет несколько условий и возвращает true только в том случае, если ВСЕ условия истинны.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $and принимает несколько аргументов-условий и вычисляет каждое из них. Возвращает "true", если каждое условие истинно, и "false", если хотя бы одно условие ложно. Это полезно для создания составных условных проверок.
+</block>
+
+<block type="code" title="Syntax">
+text: $and[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $and[$authorID == 123; $guildName == MyServer]
+</block>
+
+<block type="callout" kind="note">
+text: Каждое условие использует те же операторы сравнения, что и $if (==, !=, >, <, >=, <=). Возвращает строку "true" или "false".
+</block>
+</dash>
+
+<details>
+syntax: $and[condition1; condition2; condition3; ...]
+param: condition|expression|Required|Одно или несколько условий для вычисления. Каждое может использовать операторы ==, !=, >, <, >=, <=. Все они должны быть истинными, чтобы результат был "true".
+</details>

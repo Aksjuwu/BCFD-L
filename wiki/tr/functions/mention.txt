@@ -1,0 +1,21 @@
+<dash>
+name: $mention
+desc: Komutu tetikleyen kullanıcının bir etiketini (mention) döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $mention çağrıldığında, bot komutu çalıştıran kullanıcının Discord etiket (mention) formatını alır ve doğrudan kanala gönderir. Bu, kullanıcıyı bildiren tıklanabilir bir etiket oluşturur.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $mention
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Hello $mention!
+</block>
+
+<block type="callout" kind="note">
+text: Döndürülen değer, sohbette kullanıcıyı bildiren tıklanabilir mavi bir etiket olarak görünen bir Discord etiket formatıdır (örn. <@123456789>).
+</block>
+</dash>

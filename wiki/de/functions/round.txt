@@ -1,0 +1,26 @@
+<dash>
+name: $round
+desc: Rundet eine Zahl auf die nächste ganze Zahl.
+category: Mathematik & Zahlen
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $round nimmt einen einzelnen numerischen Wert, rundet ihn auf die nächste ganze Zahl und sendet das Ergebnis. Zum Beispiel wird 1.7 zu 2 und 1.4 zu 1.
+</block>
+
+<block type="code" title="Syntax">
+text: $round[number]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $round[1.7]
+</block>
+
+<block type="callout" kind="note">
+text: $round[1.7] gibt 2 zurück. $round[2.4] gibt 2 zurück. Der Befehl akzeptiert ein einzelnes Argument; wenn der Wert keine gültige Zahl ist, wird ein Fehler zurückgegeben.
+</block>
+</dash>
+
+<details>
+syntax: $round[number]
+param: Zahl|number|Erforderlich|Die Zahl, die auf die nächste ganze Zahl gerundet werden soll
+</details>

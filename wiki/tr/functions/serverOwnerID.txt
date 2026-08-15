@@ -1,0 +1,21 @@
+<dash>
+name: $serverOwnerID
+desc: Sunucu sahibinin Discord kullanıcı kimliğini döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $serverOwnerID çağrıldığında bot, sunucu sahibinin benzersiz Discord kullanıcı kimliğini alır ve bunu doğrudan ham bir sayısal dize olarak gönderir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $serverOwnerID
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Server owner ID: $serverOwnerID
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut yalnızca bir sunucu içinde çalışır (DM'lerde değil). Döndürülen değer, sunucuya sahip olan hesabın snowflake kullanıcı kimliğidir.
+</block>
+</dash>

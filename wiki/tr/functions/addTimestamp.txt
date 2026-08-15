@@ -1,0 +1,21 @@
+<dash>
+name: $addTimestamp
+desc: Geçerli saati alır ve bunu dinamik bir Discord zaman damgası biçiminde gönderir.
+category: Zamanlama ve Gecikmeler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $addTimestamp çağrıldığında bot, geçerli saati hesaplar, Discord'un dinamik zaman damgası biçimine (Uzun Saat biçimi) dönüştürür ve sonucu doğrudan hedef kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $addTimestamp
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $addTimestamp
+</block>
+
+<block type="callout" kind="note">
+text: Gönderilen zaman damgası Uzun Saat biçimini kullanır; yani her Discord kullanıcısına cihazının yerel saat dilimine göre otomatik olarak uyarlanıp görüntülenir (ör. 6:46:58 PM).
+</block>
+</dash>

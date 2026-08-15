@@ -1,0 +1,27 @@
+<dash>
+name: $replyIn
+desc: 延迟机器人的下一次回复指定时长。
+category: 计时与延迟
+
+<block type="text" title="此命令如何工作？">
+text: $replyIn 会暂停脚本执行指定的时长。延迟结束后，脚本继续执行下一条命令。这可用于创建定时响应。
+</block>
+
+<block type="code" title="语法">
+text: $replyIn[time]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $replyIn[5s]
+$sendMessage[This appears after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: 时间格式使用：s（秒）、m（分钟）、h（小时）、d（天）。在延迟期间脚本会被冻结——脚本中的其他命令在延迟完成前不会执行。
+</block>
+</dash>
+
+<details>
+syntax: $replyIn[time]
+param: time|text|Required|要等待的时长。格式：数字 + 单位（s/m/h/d），例如 5s、10m、1h
+</details>

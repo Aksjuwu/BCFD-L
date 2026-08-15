@@ -1,0 +1,31 @@
+<dash>
+name: $power
+desc: Возводит число в степень другого числа.
+category: Математика и числа
+
+<block type="text" title="Как работает команда?">
+text: $power принимает два числовых аргумента — основание и показатель степени — и возводит основание в степень показателя. Работает и как самостоятельная команда, и inline внутри других команд.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $power[base; exponent]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $sendMessage[$power[2; 10]]
+</block>
+
+<block type="callout" kind="note">
+text: $power[2; 10] возвращает 1024. $power[3; 3] возвращает 27. $power[5; 0] возвращает 1. Если у результата нет дробной части, он возвращается целым числом.
+</block>
+
+<block type="callout" kind="warning">
+text: Отрицательное основание с дробным показателем степени даёт комплексное число, что возвращает ошибку. Очень большие результаты также могут вызвать ошибку переполнения.
+</block>
+</dash>
+
+<details>
+syntax: $power[base; exponent]
+param: base|number|Required|Возводимое основание, например 2, 10, 3.5
+param: exponent|number|Required|Показатель степени, например 3, 10, 0.5
+</details>

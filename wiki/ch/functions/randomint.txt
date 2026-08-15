@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: 返回最小值和最大值之间的随机整数。
+category: 随机
+
+<block type="text" title="命令如何工作？">
+text: $randomint 接受两个数字（最小值和最大值），在该闭区间内生成一个随机整数，然后将其发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="可复制示例">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: 最小值和最大值都包含在内。如果最小值大于最大值，两个值会自动交换。结果是两个边界之间的整数。
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Required|最小值（包含）
+param: max|number|Required|最大值（包含）
+</details>

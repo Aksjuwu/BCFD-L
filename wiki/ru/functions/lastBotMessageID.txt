@@ -1,0 +1,27 @@
+<dash>
+name: $lastBotMessageID
+desc: Возвращает ID последнего сообщения, которое бот отправил во время текущего скрипта.
+category: Переменные
+
+<block type="text" title="Как работает команда?">
+text: $lastBotMessageID возвращает snowflake ID последнего сообщения, отправленного ботом во время текущего выполнения скрипта. Значение автоматически обновляется командами вывода, такими как $sendMessage, $reply и $sendEmbedMessage. Если бот ещё не отправлял сообщений, возвращается пустая строка.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $lastBotMessageID
+text: $lastBotMessageID[]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $sendMessage[Look at this!]
+$editIn[10s; The last message ID was $lastBotMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: Это inline-команда, и её нельзя использовать как самостоятельное выражение. Используйте её в скобках аргументов другой команды или как одиночный inline-токен.
+</block>
+</dash>
+
+<details>
+syntax: $lastBotMessageID
+</details>

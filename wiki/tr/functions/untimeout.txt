@@ -1,0 +1,30 @@
+<dash>
+name: $untimeout
+desc: Bir sunucu üyesinden etkin bir zaman aşımını kaldırır.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $untimeout bir kullanıcı kimliği veya etiketi alır ve o üyeye uygulanmış etkin zaman aşımını kaldırır; üyenin mesaj gönderme, tepki verme ve ses kanallarına katılma izinlerini anında geri yükler.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $untimeout[user]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $untimeout[@user]
+</block>
+
+<block type="callout" kind="note">
+text: Bu komutun bir etkisinin olması için kullanıcının şu anda etkin bir zaman aşımına sahip olması gerekir. Kullanıcı zaman aşımına uğramamışsa komut hatasız tamamlanır.
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Moderate Members" (Üyeleri Denetle) iznine sahip olması ve en yüksek rolünün hedefin en yüksek rolünün üzerinde olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $untimeout[user]
+param: user|text|Required|Zaman aşımı kaldırılacak üyenin kullanıcı kimliği veya @etiketi
+</details>

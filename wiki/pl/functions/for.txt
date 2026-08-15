@@ -1,0 +1,28 @@
+<dash>
+name: $for
+desc: Powtarza zawarty blok kodu określoną liczbę razy.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: $for przyjmuje argument liczby i wykonuje kod pomiędzy $for i $endfor tyle razy. Pętlę można przerwać wcześniej za pomocą $break.
+</block>
+
+<block type="code" title="Składnia">
+text: $for[count]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: Jeśli liczba wynosi 0 lub jest ujemna, ciało pętli jest całkowicie pomijane. Użyj $break wewnątrz pętli, aby wyjść wcześniej. Obsługiwane są pętle zagnieżdżone.
+</block>
+</dash>
+
+<details>
+syntax: $for[count]
+param: count|number|Required|Liczba powtórzeń ciała pętli. Musi być nieujemną liczbą całkowitą.
+</details>

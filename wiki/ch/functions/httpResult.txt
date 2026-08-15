@@ -1,0 +1,27 @@
+<dash>
+name: $httpResult
+desc: 返回上一次 HTTP 请求的响应，可选地提取嵌套的 JSON 值。
+category: HTTP
+
+<block type="text" title="此命令如何工作？">
+text: $httpResult 返回上一次 HTTP 请求（$httpGet、$httpPost、$httpPut、$httpPatch 或 $httpDelete）存储的结果。不带参数时返回完整响应（当它是对象或数组时以 JSON 文本形式返回）。带参数时逐步深入结果，支持对象键和数字数组索引。当某个键不存在时返回空文本。
+</block>
+
+<block type="code" title="语法">
+text: $httpResult[(key1; key2; ...)]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $httpGet[https://api.example.com/users]
+$httpResult[0; username]
+</block>
+
+<block type="callout" kind="note">
+text: 使用数字来选择列表元素。如果任何键缺失，则返回空文本。
+</block>
+</dash>
+
+<details>
+syntax: $httpResult[(key1; key2; ...)]
+param: key|text|Optional|用于深入 JSON 结果的键或数字索引（可重复以访问嵌套值）
+</details>

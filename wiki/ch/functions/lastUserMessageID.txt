@@ -1,0 +1,26 @@
+<dash>
+name: $lastUserMessageID
+desc: 返回触发当前脚本的用户消息的 ID。
+category: 变量
+
+<block type="text" title="命令如何工作？">
+text: $lastUserMessageID 解析为触发当前脚本执行的消息的 snowflake ID —— 始终是原始发起者的消息，即包含 $ 命令的那条消息。它在脚本的整个生命周期内不会改变。其行为与内置的 $messageID 标记相同。
+</block>
+
+<block type="code" title="语法">
+text: $lastUserMessageID
+text: $lastUserMessageID[]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[Your message ID is $lastUserMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: 这是一个仅限内联的命令，不能作为独立语句使用。请在另一个命令的参数方括号内使用它，或将其作为裸内联标记使用。
+</block>
+</dash>
+
+<details>
+syntax: $lastUserMessageID
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $httpResult
+desc: Returns the response of the last HTTP request, optionally extracting nested JSON values.
+category: HTTP
+
+<block type="text" title="How does the command work?">
+text: $httpResult returns the result stored by the last HTTP request ($httpGet, $httpPost, $httpPut, $httpPatch or $httpDelete). With no arguments it returns the whole response (as JSON text when it is an object or array). With arguments it navigates into the result step by step, supporting object keys and numeric array indexes. Returns an empty text when a key does not exist.
+</block>
+
+<block type="code" title="Syntax">
+text: $httpResult[(key1; key2; ...)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $httpGet[https://api.example.com/users]
+$httpResult[0; username]
+</block>
+
+<block type="callout" kind="note">
+text: Use a number to pick a list element. If any key is missing, an empty text is returned.
+</block>
+</dash>
+
+<details>
+syntax: $httpResult[(key1; key2; ...)]
+param: key|text|Optional|Key or numeric index to navigate into the JSON result (repeat for nested values)
+</details>

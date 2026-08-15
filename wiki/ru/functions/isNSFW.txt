@@ -1,0 +1,26 @@
+<dash>
+name: $isNSFW
+desc: Проверяет, помечен ли канал как NSFW.
+category: Каналы
+
+<block type="text" title="Как работает команда?">
+text: $isNSFW принимает упоминание канала или ID и проверяет, помечен ли канал как NSFW (Not Safe For Work). Возвращает "true", если канал NSFW, в противном случае — "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isNSFW[channel mention/ID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isNSFW[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Полезно для условной логики, чтобы ограничивать контент в зависимости от возрастного рейтинга канала.
+</block>
+</dash>
+
+<details>
+syntax: $isNSFW[channel mention/ID]
+param: channel|text|Required|Упоминание канала или числовой ID для проверки.
+</details>

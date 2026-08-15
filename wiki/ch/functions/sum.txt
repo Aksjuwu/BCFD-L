@@ -1,0 +1,27 @@
+<dash>
+name: $sum
+desc: 将两个或更多数字相加并返回结果。
+category: 数学与数字
+
+<block type="text" title="此命令如何工作？">
+text: $sum 接受两个或更多数值参数并返回它们的总和。既可作为独立命令使用，也可内联在其他命令中使用。
+</block>
+
+<block type="code" title="语法">
+text: $sum[a; b; ...]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $sendMessage[$sum[8; 2]]
+</block>
+
+<block type="callout" kind="note">
+text: 支持任意数量的参数。所有值都被视为数字。如果提供非数值，将返回错误。如果总和没有小数部分，则结果为整数。
+</block>
+</dash>
+
+<details>
+syntax: $sum[a; b; ...]
+param: a|number|Required|要相加的第一个数字
+param: b|number|Required|要相加的第二个数字（也接受更多数字）
+</details>

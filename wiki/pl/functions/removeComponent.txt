@@ -1,0 +1,31 @@
+<dash>
+name: $removeComponent
+desc: Usuwa konkretne komponenty przycisków z wiadomości po ich custom ID lub URL.
+category: Komponenty
+
+<block type="text" title="Jak działa komenda?">
+text: $removeComponent przyjmuje jeden lub więcej custom ID (lub URL) i usuwa pasujące komponenty przycisków z wiadomości. Może celować w oczekujący widok, wiadomość źródłową interakcji lub konkretną wiadomość po ID.
+</block>
+
+<block type="code" title="Składnia">
+text: $removeComponent[customID1; customID2; ...; (messageID)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $removeComponent[btn_cancel; btn_confirm]
+</block>
+
+<block type="callout" kind="note">
+text: Gdy są co najmniej dwa argumenty, a ostatni jest numerycznym ID typu snowflake, jest traktowany jako ID wiadomości. W przeciwnym razie wszystkie argumenty są traktowane jako ID komponentów do usunięcia.
+</block>
+
+<block type="callout" kind="warning">
+text: Jeśli żaden z podanych ID nie zostanie znaleziony na docelowej wiadomości, zwracany jest błąd. Wiadomość docelowa musi zostać wysłana przez tego bota.
+</block>
+</dash>
+
+<details>
+syntax: $removeComponent[customID1; customID2; ...; (messageID)]
+param: customID|text|Required|Jeden lub więcej custom ID lub URL komponentów przycisków do usunięcia
+param: messageID|snowflake|Optional|ID konkretnej wiadomości bota, z której mają zostać usunięte komponenty
+</details>

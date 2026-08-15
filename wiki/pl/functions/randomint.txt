@@ -1,0 +1,27 @@
+<dash>
+name: $randomint
+desc: Zwraca losową liczbę całkowitą z zakresu między wartością minimalną a maksymalną.
+category: Losowość
+
+<block type="text" title="Jak działa komenda?">
+text: $randomint przyjmuje dwie liczby (min i max) i generuje losową liczbę całkowitą z tego zakresu (włącznie z obiema granicami), a następnie wysyła ją na kanał.
+</block>
+
+<block type="code" title="Składnia">
+text: $randomint[min; max]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $randomint[1; 100]
+</block>
+
+<block type="callout" kind="note">
+text: Zarówno min, jak i max są włączające. Jeśli min jest większe niż max, wartości są automatycznie zamieniane miejscami. Wynikiem jest liczba całkowita między tymi dwiema granicami.
+</block>
+</dash>
+
+<details>
+syntax: $randomint[min; max]
+param: min|number|Required|Wartość minimalna (włącznie)
+param: max|number|Required|Wartość maksymalna (włącznie)
+</details>

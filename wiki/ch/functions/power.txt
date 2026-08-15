@@ -1,0 +1,31 @@
+<dash>
+name: $power
+desc: 计算一个数字的另一个数字次幂。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $power 接受两个数字参数 —— 底数和指数 —— 并计算底数的指数次幂。既可作为独立命令使用，也可内联在其他命令中使用。
+</block>
+
+<block type="code" title="语法">
+text: $power[base; exponent]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[$power[2; 10]]
+</block>
+
+<block type="callout" kind="note">
+text: $power[2; 10] 返回 1024。$power[3; 3] 返回 27。$power[5; 0] 返回 1。如果结果没有小数部分，则返回整数。
+</block>
+
+<block type="callout" kind="warning">
+text: 负底数与分数指数会产生复数，这会返回错误。非常大的结果也可能触发溢出错误。
+</block>
+</dash>
+
+<details>
+syntax: $power[base; exponent]
+param: base|number|Required|要计算的底数，例如 2、10、3.5
+param: exponent|number|Required|指数（幂次），例如 3、10、0.5
+</details>

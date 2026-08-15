@@ -1,0 +1,23 @@
+<dash>
+name: $endif
+desc: Bir $if veya $elif bloğunun sonunu işaretler.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $endif, koşullu bir $if bloğunun kapanış sınırını belirtir. $if ile $endif arasındaki tüm kod yalnızca koşul sağlandığında çalıştırılır. Her $if için eşleşen bir $endif olmalıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $endif
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$endif
+</block>
+
+<block type="callout" kind="warning">
+text: Her $if bloğu $endif ile düzgün şekilde kapatılmalıdır. Eksik $endif, script hatasına neden olur.
+</block>
+</dash>

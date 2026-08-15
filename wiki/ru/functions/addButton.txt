@@ -1,0 +1,44 @@
+<dash>
+name: $addButton
+desc: Добавляет кнопку (Button) к создаваемому сообщению или к ранее отправленному сообщению по его ID.
+category: Компоненты
+
+<block type="text" title="Как работает команда?">
+text: $addButton добавляет по одной кнопке за вызов. Вы можете управлять типом кнопки (link или интерактивной), стилем, состоянием (включена/отключена) и положением (в той же строке или на новой).
+</block>
+
+<block type="code" title="Syntax">
+text: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $addButton[no; btn_confirm; Confirm; success]
+</block>
+
+<block type="options" title="Стили кнопок (style)">
+option: primary|Синяя кнопка (цвет по умолчанию)
+option: secondary|Серая кнопка
+option: success|Зелёная кнопка
+option: danger|Красная кнопка
+option: link|Кнопка-внешняя ссылка (без custom_id, не запускает взаимодействие с ботом)
+</block>
+
+<block type="callout" kind="note">
+text: Когда style = link, второй аргумент (ID/URL) должен быть полным URL-адресом, начинающимся с http:// или https://.
+</block>
+
+<block type="callout" kind="warning">
+text: Максимум 25 кнопок в одном сообщении (5 строк × 5 кнопок в строке). Когда текущая строка заполнена, кнопка автоматически переносится на новую строку.
+</block>
+</dash>
+
+<details>
+syntax: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+param: newLine|yes/no|Required|Начинает ли кнопка новую строку? yes = новая строка, no = та же строка рядом с последней кнопкой
+param: ID/URL|text|Required|Пользовательский ID для интерактивной кнопки или полный URL-адрес, если style = link
+param: label|text|Emptiable|Текст, отображаемый на кнопке
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|yes, чтобы отключить кнопку (по умолчанию: no)
+param: emoji|text|Optional|Emoji для отображения внутри кнопки
+param: messageID|snowflake|Optional|ID ранее отправленного сообщения бота, к которому нужно добавить кнопку, вместо текущего сообщения
+</details>

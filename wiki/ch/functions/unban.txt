@@ -1,0 +1,26 @@
+<dash>
+name: $unban
+desc: 解除服务器中先前被封禁用户的封禁。
+category: 管理
+
+<block type="text" title="此命令如何工作？">
+text: $unban 接受一个用户 ID，在服务器的封禁列表中查找该用户，并移除封禁。要使用此命令，该用户必须先前已被封禁。
+</block>
+
+<block type="code" title="语法">
+text: $unban[userID]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $unban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须拥有 "封禁成员" 权限。用户 ID 必须是原始的数字 ID（不支持提及和符号）。该用户当前必须处于封禁状态。
+</block>
+</dash>
+
+<details>
+syntax: $unban[userID]
+param: userID|snowflake|Required|要解除封禁的被封禁用户的数字用户 ID
+</details>

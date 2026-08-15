@@ -1,0 +1,31 @@
+<dash>
+name: $removeComponent
+desc: Bir mesajdan belirli buton bileşenlerini özel ID'leri veya URL'leri aracılığıyla kaldırır.
+category: Bileşenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $removeComponent bir veya daha fazla özel ID (veya URL) alır ve bir mesajdan eşleşen buton bileşenlerini kaldırır. Bekleyen görünümü, etkileşim kaynak mesajını veya ID ile belirli bir mesajı hedefleyebilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $removeComponent[customID1; customID2; ...; (messageID)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $removeComponent[btn_cancel; btn_confirm]
+</block>
+
+<block type="callout" kind="note">
+text: En az iki argüman olduğunda ve sonuncusu sayısal bir snowflake ise, bu bir mesaj ID'si olarak işlenir. Aksi takdirde, tüm argümanlar kaldırılacak bileşen ID'leri olarak işlenir.
+</block>
+
+<block type="callout" kind="warning">
+text: Sağlanan ID'lerden hiçbiri hedef mesajda bulunmazsa bir hata döndürülür. Hedef mesaj bu bot tarafından gönderilmiş olmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $removeComponent[customID1; customID2; ...; (messageID)]
+param: customID|text|Required|Kaldırılacak buton bileşenlerinin bir veya daha fazla özel ID'si veya URL'si
+param: messageID|snowflake|Optional|Bileşenlerin kaldırılacağı belirli bir bot mesajının ID'si
+</details>

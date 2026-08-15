@@ -1,0 +1,26 @@
+<dash>
+name: $deleteChannels
+desc: 从服务器中删除一个或多个频道。
+category: 频道管理
+
+<block type="text" title="命令如何工作？">
+text: $deleteChannels 接受一个或多个频道 ID 或提及，并将其从服务器中删除。机器人必须拥有“Manage Channels”（管理频道）权限。如果任何频道无法删除（例如缺少权限），操作会报错停止。
+</block>
+
+<block type="code" title="语法">
+text: $deleteChannels[channel ID/mention; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $deleteChannels[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="warning">
+text: 此命令会永久删除频道。机器人必须对每个要删除的频道拥有“Manage Channels”（管理频道）权限。
+</block>
+</dash>
+
+<details>
+syntax: $deleteChannels[channel ID/mention; ...]
+param: channels|text|Required|一个或多个以分号分隔的频道 ID 或提及。
+</details>

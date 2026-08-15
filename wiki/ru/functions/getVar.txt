@@ -1,0 +1,27 @@
+<dash>
+name: $getVar
+desc: Извлекает значение постоянной переменной по имени.
+category: Переменные
+
+<block type="text" title="Как работает команда?">
+text: $getVar ищет сохранённую переменную по её имени. С одним аргументом извлекается глобальная переменная. С двумя аргументами (имя и ID пользователя) извлекается переменная, специфичная для пользователя. Сохранённое значение отправляется в канал.
+</block>
+
+<block type="code" title="Syntax">
+text: $getVar[name]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $getVar[mySetting]
+</block>
+
+<block type="callout" kind="note">
+text: Переменные являются постоянными — они сохраняются после перезапуска бота. Используйте $setVar для сохранения значений. Если переменная не существует, возвращается пустая строка.
+</block>
+</dash>
+
+<details>
+syntax: $getVar[name; (userID)]
+param: name|text|Required|Имя переменной для извлечения
+param: userID|snowflake|Optional|Если указано, извлекает значение этой переменной, специфичное для пользователя, вместо глобального значения
+</details>

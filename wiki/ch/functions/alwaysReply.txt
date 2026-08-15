@@ -1,0 +1,30 @@
+<dash>
+name: $alwaysReply
+desc: 在每条非机器人消息上触发的事件。
+category: 事件
+
+<block type="text" title="事件如何工作？">
+text: $alwaysReply 是一个事件前缀，每当非机器人用户发送消息时都会触发 FDScript。该脚本作为对原始消息的回复运行。这对于自动回复或消息处理非常有用。
+</block>
+
+<block type="code" title="语法">
+text: #PREFIX:$alwaysReply
+</block>
+
+<block type="code" title="可复制示例">
+text: #PREFIX:$alwaysReply
+ sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="warning">
+text: 这会在每条消息上触发。请谨慎使用，以免导致机器人活动过于频繁或触发速率限制。
+</block>
+
+<block type="callout" kind="important">
+text: 此事件在 bot_events 文件夹中运行，而非 bot_commands。请在那里创建你的 .fds 文件。
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$alwaysReply
+</details>

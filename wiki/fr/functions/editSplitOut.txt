@@ -1,0 +1,29 @@
+<dash>
+name: $editSplitOut
+desc: Remplace un élément du résultat de division actuel ($splitIn) par une nouvelle valeur.
+category: Utilitaires de texte
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $editSplitOut modifie le résultat de division stocké par $splitIn. L'index est basé sur 1. L'élément sélectionné est remplacé par la nouvelle valeur, et tout le reste reste inchangé. $splitIn doit être appelé avant cette commande.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $editSplitOut[index; value]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $splitIn[apple,banana,cherry; ,]
+$editSplitOut[2; mango]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: L'index doit être un entier positif compris dans la longueur actuelle de la division (de 1 au nombre total d'éléments), sinon une erreur est levée.
+</block>
+</dash>
+
+<details>
+syntax: $editSplitOut[index; value]
+param: index|number|Requis|Position basée sur 1 de l'élément à remplacer
+param: value|text|Requis|La nouvelle valeur pour cet élément
+</details>

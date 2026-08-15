@@ -1,0 +1,26 @@
+<dash>
+name: $ceil
+desc: Arrondit un nombre au nombre entier supérieur.
+category: Mathématiques & Nombres
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $ceil prend une seule valeur numérique et l'arrondit au nombre entier supérieur le plus proche (plafond). Par exemple, 3.1 devient 4, et 5.0 reste 5. Fonctionne à la fois en tant que commande autonome et en ligne à l'intérieur d'autres commandes.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $ceil[number]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Result is $ceil[3.2]]
+</block>
+
+<block type="callout" kind="note">
+text: $ceil[3.1] renvoie 4. $ceil[-2.5] renvoie -2. $ceil[5.0] renvoie 5. Le résultat est toujours un nombre entier.
+</block>
+</dash>
+
+<details>
+syntax: $ceil[number]
+param: number|number|Requis|Le nombre à arrondir au nombre entier supérieur le plus proche, par ex., 3.1, -2.5, 10
+</details>

@@ -1,0 +1,25 @@
+<dash>
+name: $else
+desc: Zapewnia alternatywny blok kodu, gdy poprzedni warunek $if jest fałszywy.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: Używany wewnątrz bloku $if, $else definiuje zapasową ścieżkę kodu. Jeśli warunek $if jest fałszywy, zamiast niego wykonywany jest kod po $else (i przed $endif).
+</block>
+
+<block type="code" title="Składnia">
+text: $else
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $else musi znajdować się pomiędzy $if i $endif. Użycie $else poza blokiem $if spowoduje błąd.
+</block>
+</dash>

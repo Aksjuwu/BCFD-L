@@ -1,0 +1,29 @@
+<dash>
+name: $editSplitOut
+desc: Replaces one element of the current split result ($splitIn) with a new value.
+category: String Utilities
+
+<block type="text" title="How does the command work?">
+text: $editSplitOut modifies the split result stored by $splitIn. The index is 1-based. The selected element is replaced by the new value, and everything else stays unchanged. $splitIn must be called before this command.
+</block>
+
+<block type="code" title="Syntax">
+text: $editSplitOut[index; value]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $splitIn[apple,banana,cherry; ,]
+$editSplitOut[2; mango]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: The index must be a positive integer within the current split length (1 to total elements), otherwise an error is raised.
+</block>
+</dash>
+
+<details>
+syntax: $editSplitOut[index; value]
+param: index|number|Required|1-based position of the element to replace
+param: value|text|Required|The new value for that element
+</details>

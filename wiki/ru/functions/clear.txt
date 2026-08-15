@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: Массово удаляет указанное количество сообщений из текущего канала.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $clear без аргументов удаляется количество сообщений по умолчанию (10). При вызове с числом удаляется именно столько сообщений. Бот использует API массового удаления Discord для эффективного удаления сообщений.
+</block>
+
+<block type="code" title="Syntax">
+text: $clear
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: Лимит массового удаления Discord — 100 сообщений за один запрос. Сообщения старше 14 дней не могут быть удалены массово. У бота должно быть разрешение «Manage Messages» в канале.
+</block>
+</dash>

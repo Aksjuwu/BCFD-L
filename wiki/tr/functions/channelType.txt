@@ -1,0 +1,26 @@
+<dash>
+name: $channelType
+desc: Bir kanalın türünü döndürür (text, voice, category, forum, stage).
+category: Kanal
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $channelType bir kanal etiketi veya kimliği (ID) alır ve kanalın tür adını bir dize olarak döndürür. Geçerli türler şunlardır: text, voice, category, forum, stage. Bağımsız değişken sağlanmazsa geçerli kanalın türünü döndürür. Kanal bulunamazsa "unknown" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $channelType[channel mention/ID]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $channelType[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Kanal türünü, $createChannel veya $voiceUsersLimit gibi türe özel işlemler yürütmeden önce doğrulamak için kullanışlıdır.
+</block>
+</dash>
+
+<details>
+syntax: $channelType[channel mention/ID]
+param: channel|text|Optional|Kanal etiketi veya sayısal kimliği (ID). Boşsa geçerli kanal kullanılır.
+</details>

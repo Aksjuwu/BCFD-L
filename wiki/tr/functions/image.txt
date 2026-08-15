@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: Bir URL kullanarak kanala bir görsel embed'i gönderir.
+category: Mesajlaşma
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $image bir görsel URL'si alır, o görselle bir embed oluşturur ve kanala gönderir. URL, http:// veya https:// ile başlamalıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $image[URL]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: Görsel, embed görseli olarak ayarlanmış bir embed olarak gönderilir. Botun kanalda "Bağlantıları Göm" (Embed Links) iznine sahip olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|Required|Bir görsel dosyasının doğrudan URL'si. http:// veya https:// ile başlamalıdır
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $getVar
+desc: Kalıcı bir değişkenin değerini adına göre alır.
+category: Değişkenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $getVar, saklanan bir değişkeni adına göre arar. Tek argümanla genel bir değişken alır. İki argümanla (ad ve kullanıcı kimliği) kullanıcıya özel bir değişken alır. Saklanan değer kanala gönderilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $getVar[name]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $getVar[mySetting]
+</block>
+
+<block type="callout" kind="note">
+text: Değişkenler kalıcıdır — bot yeniden başlatılsa bile korunurlar. Değerleri saklamak için $setVar kullanın. Değişken yoksa boş bir dize döndürülür.
+</block>
+</dash>
+
+<details>
+syntax: $getVar[name; (userID)]
+param: name|text|Required|Alınacak değişkenin adı
+param: userID|snowflake|Optional|Belirtilirse, bu değişken için genel değer yerine kullanıcıya özel değer alınır
+</details>

@@ -1,0 +1,31 @@
+<dash>
+name: $removeComponent
+desc: 通过自定义 ID 或 URL 从消息中移除特定的按钮组件。
+category: 组件
+
+<block type="text" title="命令如何工作？">
+text: $removeComponent 接受一个或多个自定义 ID（或 URL），并从消息中移除匹配的按钮组件。它可以针对待发送视图、交互来源消息，或通过 ID 指定的特定消息。
+</block>
+
+<block type="code" title="语法">
+text: $removeComponent[customID1; customID2; ...; (messageID)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $removeComponent[btn_cancel; btn_confirm]
+</block>
+
+<block type="callout" kind="note">
+text: 当至少有两个参数且最后一个参数是数字 snowflake 时，它会被视为消息 ID。否则，所有参数都会被当作要移除的组件 ID。
+</block>
+
+<block type="callout" kind="warning">
+text: 如果在目标消息上找不到任何提供的 ID，则返回错误。目标消息必须是由此机器人发送的。
+</block>
+</dash>
+
+<details>
+syntax: $removeComponent[customID1; customID2; ...; (messageID)]
+param: customID|text|Required|要移除的按钮组件的一个或多个自定义 ID 或 URL
+param: messageID|snowflake|Optional|要从其中移除组件的特定机器人消息的 ID
+</details>

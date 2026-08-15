@@ -1,0 +1,21 @@
+<dash>
+name: $guildID
+desc: Возвращает ID сервера Discord (guild), на котором была использована команда.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $guildID бот получает уникальный ID сервера Discord (guild), на котором была выполнена команда, и отправляет его напрямую в виде числовой строки. Если используется в личных сообщениях, возвращается "DM".
+</block>
+
+<block type="code" title="Syntax">
+text: $guildID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Server ID: $guildID
+</block>
+
+<block type="callout" kind="note">
+text: Возвращаемое значение — это ID в формате snowflake (например, 123456789012345678). При использовании вне сервера (в личных сообщениях) команда вместо этого возвращает строку "DM".
+</block>
+</dash>

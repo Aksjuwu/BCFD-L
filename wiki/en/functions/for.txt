@@ -1,0 +1,28 @@
+<dash>
+name: $for
+desc: Repeats the enclosed code block a specified number of times.
+category: Flow Control
+
+<block type="text" title="How does the command work?">
+text: $for takes a count argument and executes the code between $for and $endfor that many times. The loop can be broken early using $break.
+</block>
+
+<block type="code" title="Syntax">
+text: $for[count]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: If the count is 0 or negative, the loop body is skipped entirely. Use $break inside the loop to exit early. Nested loops are supported.
+</block>
+</dash>
+
+<details>
+syntax: $for[count]
+param: count|number|Required|The number of times to repeat the loop body. Must be a non-negative integer.
+</details>

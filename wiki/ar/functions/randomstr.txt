@@ -1,0 +1,26 @@
+<dash>
+name: $randomstr
+desc: إرجاع سلسلة نصية مختارة عشوائيًا من الوسائط المقدمة.
+category: العشوائية
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $randomstr يأخذ وسيطة نصية واحدة أو أكثر ويختار واحدة عشوائيًا، ثم يرسلها إلى القناة. هذا مفيد للردود العشوائية أو الاقتباسات أو الرسائل.
+</block>
+
+<block type="code" title="الصيغة">
+text: $randomstr[string1; string2; string3; ...]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $randomstr[Hello!; Hi there!; Hey!; What's up?]
+</block>
+
+<block type="callout" kind="note">
+text: كل وسيطة هي مخرج محتمل. يتم اختيار واحدة عشوائيًا باحتمال متساوٍ. يجب تقديم سلسلة واحدة على الأقل.
+</block>
+</dash>
+
+<details>
+syntax: $randomstr[string1; string2; string3; ...]
+param: string|text|مطلوب|سلسلة نصية واحدة أو أكثر للاختيار منها. يتم اختيار واحدة عشوائيًا وإرسالها.
+</details>

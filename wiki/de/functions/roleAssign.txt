@@ -1,0 +1,37 @@
+<dash>
+name: $roleAssign
+desc: Weist einem Servermitglied eine oder mehrere Rollen zu oder entfernt sie.
+category: Moderation
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $roleAssign nimmt als erstes Argument einen Benutzer entgegen, gefolgt von einer oder mehreren Rollenoperationen. Jede Rollenoperation beginnt mit +, um die Rolle hinzuzufügen, oder mit -, um sie zu entfernen, gefolgt von der Rollen-ID oder Erwähnung. In einem einzigen Aufruf können mehrere Rollen zugewiesen oder entfernt werden.
+</block>
+
+<block type="code" title="Syntax">
+text: $roleAssign[user; +role1; -role2; ...]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $roleAssign[$authorID; +&123456789; -&987654321]
+</block>
+
+<block type="options" title="Rollenpräfixe">
+option: +|Fügt dem Benutzer die Rolle hinzu (z. B. +&123456789 oder +@RoleName)
+option: -|Entfernt die Rolle vom Benutzer (z. B. -&123456789 oder -@RoleName)
+</block>
+
+<block type="callout" kind="note">
+text: Du kannst in einem einzigen Aufruf mehrere Rollen zuweisen und entfernen. Der Benutzer ist immer das erste Argument. Der Bot muss die Berechtigung "Manage Roles" besitzen, und seine höchste Rolle muss über den zugewiesenen Rollen stehen.
+</block>
+
+<block type="callout" kind="warning">
+text: Der Zielbenutzer muss Mitglied des Servers sein. Wenn eine Rollen-ID ungültig ist, wird diese Rollenoperation übersprungen. Wenn dem Bot die Berechtigungen fehlen oder die Rollenhierarchie ein Problem darstellt, wird ein Fehler zurückgegeben.
+</block>
+</dash>
+
+<details>
+syntax: $roleAssign[user; +role1; -role2; ...]
+param: Benutzer|text|Erforderlich|Die Benutzer-ID oder @Erwähnung des Mitglieds, dessen Rollen geändert werden sollen
+param: +role1|text|Erforderlich|Eine HINZUFÜGENDE Rolle: Präfix + gefolgt von Rollen-ID oder @Erwähnung (z. B. +&123456789)
+param: -role2|text|Optional|Eine zu ENTFERNENDE Rolle: Präfix - gefolgt von Rollen-ID oder @Erwähnung. Du kannst mehrere +/- Rollenoperationen einfügen.
+</details>

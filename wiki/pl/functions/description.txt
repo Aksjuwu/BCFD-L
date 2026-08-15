@@ -1,0 +1,26 @@
+<dash>
+name: $description
+desc: Ustawia tekst opisu budowanego embeda.
+category: Konstruktor embedów
+
+<block type="text" title="Jak działa ta komenda?">
+text: $description przyjmuje argument tekstowy i ustawia go jako główną treść/opis aktualnie tworzonego embeda. Jest to główny obszar zawartości embeda.
+</block>
+
+<block type="code" title="Składnia">
+text: $description[text]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $description[This is the embed body text]
+</block>
+
+<block type="callout" kind="note">
+text: Opis obsługuje formatowanie markdown Discorda (pogrubienie, kursywa, bloki kodu itd.). Pojawia się pod tytułem w embedzie.
+</block>
+</dash>
+
+<details>
+syntax: $description[text]
+param: text|text|Required|Tekst opisu embeda. Obsługuje formatowanie markdown Discorda.
+</details>

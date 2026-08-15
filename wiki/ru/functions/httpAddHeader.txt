@@ -1,0 +1,28 @@
+<dash>
+name: $httpAddHeader
+desc: Добавляет пользовательский HTTP-заголовок, который будет отправлен со следующим HTTP-запросом.
+category: HTTP
+
+<block type="text" title="Как работает команда?">
+text: $httpAddHeader регистрирует заголовок (имя и значение), который будет прикреплён к следующему HTTP-запросу, выполненному с помощью $httpGet, $httpPost, $httpPut, $httpPatch или $httpDelete. Заголовки автоматически очищаются после запроса.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $httpAddHeader[name; value]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $httpAddHeader[Authorization; Bearer token123]
+$httpGet[https://api.example.com/data]
+</block>
+
+<block type="callout" kind="note">
+text: Добавление одного и того же имени дважды перезаписывает предыдущее значение. Сохранённые заголовки очищаются после отправки запроса.
+</block>
+</dash>
+
+<details>
+syntax: $httpAddHeader[name; value]
+param: name|text|Required|Имя заголовка (например, Authorization)
+param: value|text|Required|Значение заголовка
+</details>

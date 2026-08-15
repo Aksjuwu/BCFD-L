@@ -1,0 +1,26 @@
+<dash>
+name: $deleteRole
+desc: Sunucudan bir rolü siler.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $deleteRole bir rol kimliği (ID) veya @mention alır, sunucuda bulur ve kalıcı olarak siler. Bu işlem geri alınamaz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $deleteRole[role ID or @mention]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $deleteRole[&123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Rolleri Yönet" iznine sahip olması ve en yüksek rolünün hedef rolün üzerinde olması gerekir. Bir rolü silmek kalıcıdır ve geri alınamaz.
+</block>
+</dash>
+
+<details>
+syntax: $deleteRole[role ID or @mention]
+param: role ID or @mention|text|Required|Silinecek rolün kimliği (ID) veya @mention etiketi
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $suppressErrors
+desc: Betik için tüm hata mesajlarını bastırır ve isteğe bağlı olarak bunun yerine özel bir mesaj gönderir.
+category: Erişim Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $suppressErrors betikte herhangi bir yerde göründüğünde tüm hata mesajları (sözdizimi, mantık, çalışma zamanı, ortam) bastırılır. Gerçek hatayı göstermek yerine betik sessizce sonlandırılır veya bir özel mesaj sağlandıysa bu mesaj gönderilir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $suppressErrors[custom message]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $suppressErrors[Something went wrong! Please try again.]
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut ayrıştırma sırasında algılanır — betikte herhangi bir yerde görünmelidir (tek başına bir satırda bile). Etkin olduğunda tüm hatalar dahili olarak kaydedilir ancak kullanıcılara gösterilmez. Özel bir mesaj sağlanırsa hata yerine bu mesaj gönderilir.
+</block>
+
+<block type="callout" kind="warning">
+text: Dikkatli kullanın — hataları bastırmak hata ayıklamayı zorlaştırabilir. Betik hatada yine de sonlandırılır, ancak sessizce.
+</block>
+</dash>
+
+<details>
+syntax: $suppressErrors[(custom message)]
+param: custom message|text|Optional|Herhangi bir hata oluştuğunda varsayılan hata mesajı yerine kullanıcıya gönderilecek bir mesaj. Atlanırsa hatalar sessizce bastırılır.
+</details>

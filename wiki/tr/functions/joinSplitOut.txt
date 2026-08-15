@@ -1,0 +1,27 @@
+<dash>
+name: $joinSplitOut
+desc: Geçerli bölme sonucunun ($splitIn) tüm öğelerini tek bir metinde birleştirir.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $joinSplitOut, $splitIn tarafından saklanan her öğeyi, aralarına verilen ayracı yerleştirerek tek bir dizede birleştirir. Sonuç kanala gönderilir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $joinSplitOut[separator]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $splitIn[apple,banana,cherry; ,]
+$joinSplitOut[ + ]
+</block>
+
+<block type="callout" kind="note">
+text: Birleştirilecek veri olması için $joinSplitOut'tan önce $splitIn çağrılmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $joinSplitOut[separator]
+param: separator|text|Required|Her iki öğe arasına eklenen metin
+</details>

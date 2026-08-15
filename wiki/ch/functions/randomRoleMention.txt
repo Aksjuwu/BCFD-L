@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleMention
+desc: 返回服务器中随机一个角色的提及。
+category: 随机
+
+<block type="text" title="命令如何工作？">
+text: 调用 $randomRoleMention 时，机器人会收集当前服务器中的所有角色（排除默认的 @everyone 角色），随机选取一个，并将其提及格式发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $randomRoleMention
+</block>
+
+<block type="code" title="可复制示例">
+text: Congrats $randomRoleMention!
+</block>
+
+<block type="callout" kind="note">
+text: 返回的值是 Discord 角色提及（例如 <@&123456789>），在聊天中会渲染为可点击的彩色提及。@everyone 角色始终被排除。
+</block>
+</dash>

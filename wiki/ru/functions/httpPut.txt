@@ -1,0 +1,29 @@
+<dash>
+name: $httpPut
+desc: Отправляет HTTP PUT-запрос на URL с необязательным телом запроса.
+category: HTTP
+
+<block type="text" title="Как работает команда?">
+text: $httpPut отправляет PUT-запрос с таймаутом 10 секунд. Тело отправляется в формате JSON, если оно является корректным JSON, в противном случае — как обычный текст. Ответ сохраняется в $httpResult, а код состояния — в $httpStatus. Заголовки, добавленные с помощью $httpAddHeader, отправляются и затем очищаются.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $httpPut[URL; (Body)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPut[https://api.example.com/users/1; {"name": "FDScript"}]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: Если тело является корректным JSON, оно отправляется в формате JSON, в противном случае — как необработанные данные. При сбое код состояния устанавливается в 500, а $httpResult содержит сообщение об ошибке.
+</block>
+</dash>
+
+<details>
+syntax: $httpPut[URL; (Body)]
+param: URL|text|Required|URL, на который отправляется PUT-запрос
+param: Body|text|Optional|Тело запроса (JSON или обычный текст)
+</details>

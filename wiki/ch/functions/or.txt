@@ -1,0 +1,26 @@
+<dash>
+name: $or
+desc: 计算多个条件，如果任意一个条件为真则返回 true。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $or 接受多个条件参数并逐一计算它们。如果至少有一个条件为真，则返回 "true"，如果所有条件都为假，则返回 "false"。这对于构建备选的条件检查非常有用。
+</block>
+
+<block type="code" title="语法">
+text: $or[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $or[$authorID == 123; $authorID == 456]
+</block>
+
+<block type="callout" kind="note">
+text: 每个条件都使用与 $if 相同的比较运算符（==、!=、>、<、>=、<=）。返回字符串 "true" 或 "false"。
+</block>
+</dash>
+
+<details>
+syntax: $or[condition1; condition2; condition3; ...]
+param: condition|expression|Required|要计算的一个或多个条件。每个都可以使用诸如 ==、!=、>、<、>=、<= 之类的运算符。只需有一个为真，结果即为 "true"。
+</details>

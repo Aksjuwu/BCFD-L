@@ -1,0 +1,26 @@
+<dash>
+name: $findChannel
+desc: Находит канал по имени или ID и возвращает его ID.
+category: Каналы
+
+<block type="text" title="Как работает команда?">
+text: $findChannel ищет канал на сервере по имени или упоминанию. Если указано упоминание канала, проверяется, что канал существует, и возвращается его ID. Если указано имя канала, поиск идёт по всем каналам сервера без учёта регистра и возвращается ID первого совпадения. Возвращает пустую строку, если канал не найден.
+</block>
+
+<block type="code" title="Syntax">
+text: $findChannel[name/mention]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $findChannel[general]
+</block>
+
+<block type="callout" kind="note">
+text: Сравнение имён каналов не учитывает регистр. Можно использовать встроенно для динамического преобразования имён каналов в ID.
+</block>
+</dash>
+
+<details>
+syntax: $findChannel[name/mention/ID]
+param: channel|text|Required|Имя канала или упоминание для поиска.
+</details>

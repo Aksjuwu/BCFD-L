@@ -1,0 +1,26 @@
+<dash>
+name: $channelExists
+desc: Sunucuda bir kanalın var olup olmadığını kontrol eder.
+category: Kanal
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $channelExists bir kanal etiketi veya kimliği (ID) alır ve botun o kanalı sunucuda bulup bulamadığını kontrol eder. Kanal varsa "true", yoksa "false" döndürür. Bağımsız değişken sağlanmazsa varsayılan olarak "true" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $channelExists[channel mention/ID]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $channelExists[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut, o kanalda başka işlemler gerçekleştirmeden önce kanalın var olup olmadığını kontrol etmek için satır içi olarak kullanılabilir.
+</block>
+</dash>
+
+<details>
+syntax: $channelExists[channel mention/ID]
+param: channel|text|Optional|Kontrol edilecek kanal etiketi veya sayısal kimliği (ID). Boşsa "true" döndürür.
+</details>

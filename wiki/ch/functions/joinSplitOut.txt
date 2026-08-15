@@ -1,0 +1,27 @@
+<dash>
+name: $joinSplitOut
+desc: 将当前拆分结果（$splitIn）中的所有元素重新合并为单个文本。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $joinSplitOut 将 $splitIn 存储的每个元素合并为一个字符串，并在它们之间插入给定的分隔符。结果会发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $joinSplitOut[separator]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $splitIn[apple,banana,cherry; ,]
+$joinSplitOut[ + ]
+</block>
+
+<block type="callout" kind="note">
+text: 必须先调用 $splitIn 再调用 $joinSplitOut，这样才能有要合并的数据。
+</block>
+</dash>
+
+<details>
+syntax: $joinSplitOut[separator]
+param: separator|text|Required|插入在每两个元素之间的文本
+</details>

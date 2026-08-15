@@ -1,0 +1,28 @@
+<dash>
+name: $httpStatus
+desc: 返回上一次请求的 HTTP 状态码。
+category: HTTP
+
+<block type="text" title="此命令如何工作？">
+text: $httpStatus 返回上一次 HTTP 请求存储的状态码。尚未发出任何请求时返回 "0"。
+</block>
+
+<block type="code" title="语法">
+text: $httpStatus
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $httpGet[https://api.example.com/data]
+$if[$httpStatus == 200] {
+  $reply[Request succeeded]
+}
+</block>
+
+<block type="callout" kind="note">
+text: 请求失败时，状态码被设为 500。
+</block>
+</dash>
+
+<details>
+syntax: $httpStatus
+</details>

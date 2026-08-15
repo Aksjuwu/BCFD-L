@@ -1,0 +1,27 @@
+<dash>
+name: $cooldown
+desc: Предотвращает повторный запуск скрипта пользователем в течение указанного периода времени.
+category: Контроль доступа
+
+<block type="text" title="Как работает команда?">
+text: $cooldown устанавливает временное ограничение для каждого пользователя и каждого скрипта. Если пользователь попытается снова запустить тот же скрипт до истечения кулдауна, будет показано указанное сообщение об ошибке (с оставшимся временем), и выполнение будет прервано.
+</block>
+
+<block type="code" title="Syntax">
+text: $cooldown[time; error message]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $cooldown[10s; Please wait {time} before using this again!]
+</block>
+
+<block type="callout" kind="note">
+text: Формат времени использует: s (секунды), m (минуты), h (часы), d (дни). Используйте {time} или %time% в сообщении об ошибке, чтобы показать оставшееся время кулдауна.
+</block>
+</dash>
+
+<details>
+syntax: $cooldown[time; error message]
+param: time|text|Required|Длительность, в течение которой пользователь не может снова запустить скрипт. Формат: число + единица (s/m/h/d), например 10s, 5m, 1h, 1d
+param: error message|text|Required|Сообщение, отправляемое пользователю, когда действует кулдаун. Используйте {time} или %time% для отображения оставшегося времени.
+</details>

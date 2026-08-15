@@ -1,0 +1,26 @@
+<dash>
+name: $description
+desc: Legt den Beschreibungstext des erstellten Embeds fest.
+category: Embed-Ersteller
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $description akzeptiert ein Textargument und legt es als Hauptkörper/Beschreibung des aktuell erstellten Embeds fest. Dies ist der primäre Inhaltsbereich des Embeds.
+</block>
+
+<block type="code" title="Syntax">
+text: $description[text]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $description[This is the embed body text]
+</block>
+
+<block type="callout" kind="note">
+text: Die Beschreibung unterstützt die Discord-Markdown-Formatierung (fett, kursiv, Codeblöcke usw.). Sie erscheint im Embed unterhalb des Titels.
+</block>
+</dash>
+
+<details>
+syntax: $description[text]
+param: text|text|Erforderlich|Der Beschreibungstext für das Embed. Unterstützt die Discord-Markdown-Formatierung.
+</details>

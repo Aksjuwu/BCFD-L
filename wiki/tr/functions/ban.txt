@@ -1,0 +1,21 @@
+<dash>
+name: $ban
+desc: Sunucudan bir kullanıcıyı yasaklar.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $ban bağımsız değişken olmadan çağrıldığında komut yazarını yasaklar. Bir kullanıcı kimliği (ID) veya etiketiyle çağrıldığında o belirli kullanıcıyı yasaklar. Bot, verilen bağımsız değişkenden sayısal kullanıcı kimliğini çıkarır ve Discord API üzerinden bir yasaklama uygular.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $ban
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $ban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Üyeleri Yasakla" iznine sahip olması ve en yüksek rolünün hedefin en yüksek rolünün üzerinde olması gerekir. $ban'ı köşeli parantezler olmadan kullanmak, komutu tetikleyen kullanıcıyı yasaklar.
+</block>
+</dash>

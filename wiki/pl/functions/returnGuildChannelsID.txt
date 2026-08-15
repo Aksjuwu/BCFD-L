@@ -1,0 +1,39 @@
+<dash>
+name: $returnGuildChannelsID
+desc: Zbiera ID kanałów z serwera według typu i zapisuje je do późniejszego pobrania.
+category: Komendy zwrotne
+
+<block type="text" title="Jak działa komenda?">
+text: $returnGuildChannelsID zbiera wszystkie ID kanałów określonego typu z danego serwera i zapisuje je pod nazwą zmiennej. Wynik można pobrać później za pomocą $return[variableName]. Możesz filtrować według typu kanału, takiego jak text, voice, category, forum, stage, lub pobrać wszystkie kanały.
+</block>
+
+<block type="code" title="Składnia">
+text: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $returnGuildChannelsID[$guildID; text; channelIDs; ,]
+$sendMessage[Text channels: $return[channelIDs]]
+</block>
+
+<block type="options" title="Typy kanałów">
+option: all|Wszystkie typy kanałów
+option: text|Tylko kanały tekstowe
+option: voice|Tylko kanały głosowe
+option: category|Tylko kanały kategorii
+option: forum|Tylko kanały forum
+option: stage|Tylko kanały sceniczne
+</block>
+
+<block type="callout" kind="note">
+text: Bot musi być członkiem docelowego serwera. Użyj $return[variableName], aby pobrać zapisane ID po wykonaniu. Separator określa, jak łączone są wielokrotne ID (np. , lub ; lub spacja).
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+param: GuildID|snowflake|Required|ID serwera, z którego mają być zebrane kanały
+param: ChannelType|text|Required|Typ kanałów do zebrania: all, text, voice, category, forum lub stage
+param: var|text|Required|Nazwa zmiennej, w której zostanie zapisany wynik (użyj z $return[])
+param: separator|text|Required|Separator między wieloma ID (np. , lub ;). Możesz użyć separatorów nazwanych: dot, com, apo, sem, colon
+</details>

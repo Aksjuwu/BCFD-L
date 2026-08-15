@@ -1,0 +1,28 @@
+<dash>
+name: $membersCount
+desc: Zwraca liczbę członków na serwerze.
+category: Informacje
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy $membersCount jest wywołany bez argumentów, bot zlicza wszystkich ludzkich członków (nie botów) na bieżącym serwerze i wysyła liczbę. Gdy jest wywołany z ID serwera i flagą tak/nie, zlicza członków na tym konkretnym serwerze i opcjonalnie uwzględnia boty.
+</block>
+
+<block type="code" title="Składnia">
+text: $membersCount
+text: $membersCount[guildID; includeBots]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: We have $membersCount members!
+</block>
+
+<block type="callout" kind="note">
+text: Domyślnie boty są wykluczane z liczenia. Aby uwzględnić boty, użyj $membersCount[guildID; yes]. Bez argumentów komenda działa tylko na serwerze. Podając ID serwera, bot musi być członkiem tego serwera.
+</block>
+</dash>
+
+<details>
+syntax: $membersCount[(guildID; includeBots)]
+param: guildID|snowflake|Optional|ID innego serwera, z którego mają zostać zliczeni członkowie. Jeśli pominięte, używany jest bieżący serwer.
+param: includeBots|yes/no|Optional|Ustaw na "yes", aby uwzględnić konta botów w zliczaniu. Jeśli pominięte, liczeni są tylko ludzcy członkowie.
+</details>

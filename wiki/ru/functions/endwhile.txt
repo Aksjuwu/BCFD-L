@@ -1,0 +1,25 @@
+<dash>
+name: $endwhile
+desc: Отмечает конец блока цикла $while.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $endwhile обозначает закрывающую границу цикла $while. После каждой итерации выполнение возвращается к условию $while для его повторной проверки. Каждый $while должен иметь соответствующий $endwhile.
+</block>
+
+<block type="code" title="Syntax">
+text: $endwhile
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $setVar[count; 0]
+$while[$getVar[count] < 5]
+  $sendMessage[Count: $getVar[count]]
+  $setVar[count; $math[$getVar[count] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: Каждый блок $while должен быть корректно закрыт с помощью $endwhile. Отсутствие $endwhile вызовет ошибку скрипта. Убедитесь, что в вашем цикле есть условие завершения, чтобы избежать бесконечных циклов.
+</block>
+</dash>

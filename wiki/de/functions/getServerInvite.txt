@@ -1,0 +1,27 @@
+<dash>
+name: $getServerInvite
+desc: Erstellt und sendet einen Einladungslink für einen Server.
+category: Werkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $getServerInvite ohne Argumente aufgerufen wird, wird ein Einladungslink für den aktuellen Server erstellt. Wird es mit einer Server-ID aufgerufen, wird eine Einladung für genau diesen Server erstellt. Der Bot prüft zuerst, ob der Server eine benutzerdefinierte Vanity-URL hat. Wenn nicht, sucht er einen Kanal, in dem der Bot die Berechtigung „Einladung erstellen“ besitzt, und erstellt einen permanenten Einladungslink.
+</block>
+
+<block type="code" title="Syntax">
+text: $getServerInvite
+text: $getServerInvite[(guildID)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: Der Bot muss Mitglied des Zielservers sein und die Berechtigung „Einladung erstellen“ besitzen. Wenn für den Server eine Vanity-URL festgelegt ist, wird diese zurückgegeben, statt eine neue Einladung zu erstellen. Ohne Argumente wird der aktuelle Server verwendet.
+</block>
+</dash>
+
+<details>
+syntax: $getServerInvite[(guildID)]
+param: guildID|snowflake|Optional|Die ID eines anderen Servers, für den eine Einladung abgerufen werden soll. Wenn nicht angegeben, wird der aktuelle Server verwendet.
+</details>

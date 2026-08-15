@@ -1,0 +1,26 @@
+<dash>
+name: $unban
+desc: Daha önce yasaklanmış bir kullanıcının yasağını sunucudan kaldırır.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $unban bir kullanıcı kimliği alır, kullanıcıyı sunucunun yasak listesinde arar ve yasağı kaldırır. Bu komutu kullanmak için kullanıcının daha önce yasaklanmış olması gerekir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $unban[userID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $unban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Ban Members" (Üyeleri Yasakla) iznine sahip olması gerekir. Kullanıcı kimliği ham sayısal bir kimlik olmalıdır (etiketler ve semboller desteklenmez). Kullanıcı şu anda yasaklı olmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $unban[userID]
+param: userID|snowflake|Required|Yasağı kaldırılacak yasaklı kullanıcının sayısal kullanıcı kimliği
+</details>

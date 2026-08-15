@@ -1,0 +1,26 @@
+<dash>
+name: $isBooster
+desc: Проверяет, является ли пользователь бустером сервера (имеет активный буст Nitro).
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: $isBooster принимает ID пользователя или упоминание и проверяет, бустит ли этот пользователь сервер в данный момент (имеет активную премиум-подписку). Возвращает "true" или "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isBooster[userID]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isBooster[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает "true", если у пользователя есть активный буст Nitro для сервера, в противном случае — "false". Пользователь должен быть участником сервера.
+</block>
+</dash>
+
+<details>
+syntax: $isBooster[userID]
+param: userID|text|Required|ID пользователя или @упоминание для проверки. Поддерживаются переменные и плейсхолдеры.
+</details>

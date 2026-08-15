@@ -1,0 +1,27 @@
+<dash>
+name: $changeUsername
+desc: Bir sunucu üyesinin takma adını (nickname) değiştirir.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $changeUsername bir kullanıcı kimliği/etiketi ve yeni bir ad alır. Bot, üyeyi sunucuda bulur ve Discord API kullanarak takma adını verilen adla değiştirir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $changeUsername[user ID/mention; new name]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $changeUsername[123456789; NewNickname]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Takma Adları Yönet" iznine sahip olması ve en yüksek rolünün hedefin en yüksek rolünün üzerinde olması gerekir. Bot, kendi takma adını veya sunucu sahibinin takma adını değiştiremez.
+</block>
+</dash>
+
+<details>
+syntax: $changeUsername[user ID/mention; new name]
+param: user ID/mention|text|Required|Hedef üyenin Discord kullanıcı kimliği (user ID) veya @mention etiketi
+param: new name|text|Required|Atanacak yeni takma ad. Varsayılana sıfırlamak için boş bırakın.
+</details>

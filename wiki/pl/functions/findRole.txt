@@ -1,0 +1,28 @@
+<dash>
+name: $findRole
+desc: Znajduje rolę po nazwie, ID lub wzmiance i zwraca jej ID.
+category: Narzędzia
+
+<block type="text" title="Jak działa ta komenda?">
+text: $findRole wyszukuje rolę na bieżącym serwerze, używając wzmianki o roli, numerycznego ID roli lub nazwy roli (dopasowanie nazwy nie uwzględnia wielkości liter). Zwraca ID roli. Użyta samodzielnie, ID jest wysyłane na kanał; użyta w tekście, ID jest podstawiane bezpośrednio do otaczającego tekstu.
+</block>
+
+<block type="code" title="Składnia">
+text: $findRole[name]
+text: $findRole[roleID]
+text: $findRole[@role]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $findRole[Moderators]
+</block>
+
+<block type="callout" kind="note">
+text: Ta komenda może być używana tylko na serwerze. Jeśli nie znaleziono roli, zwracany jest błąd.
+</block>
+</dash>
+
+<details>
+syntax: $findRole[query]
+param: query|text|Required|Wzmianka o roli, ID roli lub nazwa roli do wyszukania (bez uwzględniania wielkości liter)
+</details>

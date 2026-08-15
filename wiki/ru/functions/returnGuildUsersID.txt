@@ -1,0 +1,35 @@
+<dash>
+name: $returnGuildUsersID
+desc: Собирает ID участников-людей (не ботов) с сервера и сохраняет их.
+category: Возвращаемые команды
+
+<block type="text" title="Как работает команда?">
+text: $returnGuildUsersID собирает все ID участников-людей (не ботов) с указанного сервера и сохраняет их под именем переменной. Можно выбрать режим "cache" (использует уже закэшированных участников) или режим "chunk" (сначала принудительно загружает всех участников сервера для получения полных данных). Результат можно позже получить с помощью $return[variableName].
+</block>
+
+<block type="code" title="Синтаксис">
+text: $returnGuildUsersID[guildID; cache/chunk; var; separator]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[Users: $return[userIDs]]
+</block>
+
+<block type="options" title="Режимы загрузки">
+option: cache|Использует кэшированный список участников бота (быстро, но может быть неполным для больших серверов)
+option: chunk|Сначала принудительно загружает полный список участников из Discord (медленнее, но полный)
+</block>
+
+<block type="callout" kind="note">
+text: Включаются только участники-люди (не боты). Бот должен быть участником целевого сервера. Используйте режим "chunk" для больших серверов, где кэшированный список участников может быть неполным.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildUsersID[guildID; cache/chunk; var; separator]
+param: guildID|snowflake|Required|ID сервера, у которого собираются ID участников
+param: cache/chunk|text|Required|Режим загрузки: "cache" для кэшированных участников (быстро), "chunk" для полной загрузки (полные данные)
+param: var|text|Required|Имя переменной, в которую сохраняется результат (используется с $return[])
+param: separator|text|Required|Разделитель между несколькими ID (например, , или ;). Можно использовать именованные разделители: dot, com, apo, sem, colon
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $getUserStatus
+desc: Zwraca status online użytkownika na serwerze.
+category: Informacje
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $getUserStatus zostanie wywołane bez argumentów, zwraca status online autora komendy. Gdy zostanie wywołane z ID użytkownika lub wzmianką, zwraca status tego użytkownika. Zwraca "offline", jeśli użytkownik nie został znaleziony lub nie jest członkiem serwera.
+</block>
+
+<block type="code" title="Składnia">
+text: $getUserStatus
+text: $getUserStatus[(userID/mention)]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: Your status is: $getUserStatus
+</block>
+
+<block type="callout" kind="note">
+text: Możliwe wartości zwracane to: online, idle, dnd, offline. Ta komenda działa tylko na serwerze (nie w DM), ponieważ Discord udostępnia informacje o statusie tylko dla członków serwera.
+</block>
+</dash>
+
+<details>
+syntax: $getUserStatus[(userID/mention)]
+param: userID/mention|text|Optional|ID użytkownika lub wzmianka @mention do sprawdzenia. Jeśli pominięte, sprawdzany jest autor komendy.
+</details>

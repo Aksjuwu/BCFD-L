@@ -1,0 +1,26 @@
+<dash>
+name: $isAdmin
+desc: Bir kullanıcının sunucuda yönetici izinlerine sahip olup olmadığını kontrol eder.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $isAdmin bir kullanıcı kimliği veya bahsetmesi alır ve o kullanıcının yönetici iznine sahip olup olmadığını, sunucu sahibi olup olmadığını veya bir bot hesabı olup olmadığını kontrol eder. "true" veya "false" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $isAdmin[userID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $isAdmin[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Kullanıcı sunucu sahibiyse, bir bot veya Yönetici (Administrator) iznine sahipse "true" döndürür. Aksi halde veya kullanıcı sunucuda bulunamazsa "false" döndürür.
+</block>
+</dash>
+
+<details>
+syntax: $isAdmin[userID]
+param: userID|text|Required|Kontrol edilecek kullanıcı kimliği veya @bahsetmesi. Değişkenleri ve yer tutucuları destekler.
+</details>

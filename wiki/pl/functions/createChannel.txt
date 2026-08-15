@@ -1,0 +1,32 @@
+<dash>
+name: $createChannel
+desc: Tworzy nowy kanał na serwerze.
+category: Zarządzanie kanałami
+
+<block type="text" title="Jak działa ta komenda?">
+text: $createChannel tworzy nowy kanał na serwerze z podaną nazwą i typem. Obsługuje typy kanałów: text, voice, category, forum oraz stage. Można podać opcjonalny identyfikator kategorii, aby umieścić kanał w określonej kategorii. Bot musi mieć uprawnienie „Zarządzanie kanałami”.
+</block>
+
+<block type="code" title="Składnia">
+text: $createChannel[name; type; (category ID)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $createChannel[my-channel; text]
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie „Zarządzanie kanałami”. Obsługiwane typy: text, voice, category, forum, stage.
+</block>
+
+<block type="callout" kind="note">
+text: Identyfikator kategorii jest opcjonalny. Jeśli zostanie podany, nowy kanał zostanie utworzony w tej kategorii.
+</block>
+</dash>
+
+<details>
+syntax: $createChannel[name; type; (category ID)]
+param: name|text|Required|Nazwa nowego kanału.
+param: type|text|Required|Typ kanału: text, voice, category, forum lub stage.
+param: categoryID|text|Optional|Identyfikator kategorii, w której należy umieścić kanał.
+</details>

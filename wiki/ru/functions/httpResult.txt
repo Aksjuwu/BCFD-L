@@ -1,0 +1,27 @@
+<dash>
+name: $httpResult
+desc: Возвращает ответ последнего HTTP-запроса, при желании извлекая вложенные значения JSON.
+category: HTTP
+
+<block type="text" title="Как работает команда?">
+text: $httpResult возвращает результат, сохранённый последним HTTP-запросом ($httpGet, $httpPost, $httpPut, $httpPatch или $httpDelete). Без аргументов возвращается весь ответ (в виде текста JSON, если это объект или массив). С аргументами выполняется переход в результат шаг за шагом с поддержкой ключей объектов и числовых индексов массивов. Возвращается пустой текст, если ключ не существует.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $httpResult[(key1; key2; ...)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $httpGet[https://api.example.com/users]
+$httpResult[0; username]
+</block>
+
+<block type="callout" kind="note">
+text: Используйте число, чтобы выбрать элемент списка. Если какой-либо ключ отсутствует, возвращается пустой текст.
+</block>
+</dash>
+
+<details>
+syntax: $httpResult[(key1; key2; ...)]
+param: key|text|Optional|Ключ или числовой индекс для перехода внутри JSON-результата (повторите для вложенных значений)
+</details>

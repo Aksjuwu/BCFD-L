@@ -1,0 +1,23 @@
+<dash>
+name: $endif
+desc: يحدد نهاية كتلة $if أو $elif.
+category: التحكم في التدفق
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $endif يشير إلى الحدود الختامية لكتلة $if الشرطية. يتم تنفيذ جميع الأكواد بين $if و $endif فقط عند تحقق الشرط. يجب أن يكون لكل $if $endif مطابق.
+</block>
+
+<block type="code" title="الصيغة">
+text: $endif
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$endif
+</block>
+
+<block type="callout" kind="warning">
+text: يجب إغلاق كل كتلة $if بشكل صحيح باستخدام $endif. نقص $endif سيسبب خطأً في السكربت.
+</block>
+</dash>

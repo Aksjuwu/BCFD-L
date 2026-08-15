@@ -1,0 +1,30 @@
+<dash>
+name: $addUserReactions
+desc: 向触发命令的用户原始消息添加一个或多个表情符号反应。
+category: 组件
+
+<block type="text" title="命令如何工作？">
+text: $addUserReactions 接受一个或多个表情符号参数，解析其中的变量/占位符，并将每个解析出的表情符号作为反应添加到用户触发命令的消息上。它会按顺序添加反应，每次反应之间会有短暂的延迟，以避免触发速率限制。
+</block>
+
+<block type="code" title="语法">
+text: $addUserReactions[emoji1; emoji2; emoji3; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $addUserReactions[👍; ❤️]
+</block>
+
+<block type="callout" kind="note">
+text: 速率限制会自动处理——如果 Discord 返回 429，命令会等待并针对该特定表情符号重试一次，然后再继续。
+</block>
+
+<block type="callout" kind="warning">
+text: 每次调用最多 20 个表情符号。如果参数中没有找到有效的表情符号，命令会静默地不执行任何操作。机器人必须拥有在频道中添加反应的权限（“Add Reactions”权限）。
+</block>
+</dash>
+
+<details>
+syntax: $addUserReactions[emoji1; emoji2; emoji3; ...]
+param: emoji|text|Required|一个或多个用于添加反应的表情符号值。所有参数都会被解析（支持变量/占位符）并合并，然后按顺序将发现的每个表情符号添加为用户消息上的反应。
+</details>

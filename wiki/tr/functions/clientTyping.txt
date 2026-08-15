@@ -1,0 +1,23 @@
+<dash>
+name: $clientTyping
+desc: Botun geçerli kanalda "yazıyor..." göstergesini görüntüler.
+category: Yardımcı Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $clientTyping çağrıldığında bot, geçerli kanalda "Bot yazıyor..." göstergesini görüntüler ve kullanıcılara botun bir yanıtı işlediğini veya hazırladığını bildirir. Bu gösterge, bot bir mesaj gönderene veya betik sona erene kadar sürer.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $clientTyping
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $clientTyping
+$wait[3s]
+$sendMessage[Done!]
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut, daha doğal bir sohbet akışı simüle etmek için kullanışlıdır. Botun bir sonraki mesajını göndermeden önce bilinçli bir gecikme oluşturmak için onu $wait ile birleştirin.
+</block>
+</dash>

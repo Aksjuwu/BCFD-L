@@ -1,0 +1,28 @@
+<dash>
+name: $getMessage
+desc: Получает сообщение из любого канала и отправляет информацию о нём.
+category: Утилиты
+
+<block type="text" title="Как работает команда?">
+text: $getMessage получает сообщение из указанного канала и извлекает из него фрагмент информации. Аргумент type определяет, что будет отправлено: content (текст сообщения), name (отображаемое имя автора), id (ID пользователя автора) или avatar (URL аватара автора). Если извлечённое значение пустое, вместо него отправляется пробел нулевой ширины.
+</block>
+
+<block type="code" title="Syntax">
+text: $getMessage[channelID; messageID; (type)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $getMessage[123456789; 987654321; content]
+</block>
+
+<block type="callout" kind="note">
+text: Аргумент type необязателен и по умолчанию равен content. Допустимые значения: content, name, id, avatar. Бот должен иметь доступ к каналу и право «Чтение истории сообщений» (Read Message History).
+</block>
+</dash>
+
+<details>
+syntax: $getMessage[channelID; messageID; (type)]
+param: channelID|snowflake|Required|ID канала, содержащего сообщение
+param: messageID|snowflake|Required|ID сообщения для получения
+param: type|text|Optional|Что отправить: content (по умолчанию), name, id или avatar
+</details>

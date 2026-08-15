@@ -1,0 +1,25 @@
+<dash>
+name: $break
+desc: Quitte immédiatement la boucle $for ou $while englobante la plus proche.
+category: Contrôle de flux
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Quand $break est rencontré à l'intérieur d'une boucle ($for ou $while), le bot arrête immédiatement d'itérer et continue l'exécution après le $endfor ou $endwhile correspondant. Toutes les itérations restantes de la boucle actuelle sont ignorées.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $break
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $for[10]
+  $if[$message == stop]
+    $break
+  $endif
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: $break ne quitte que la boucle la plus interne dans laquelle il se trouve actuellement. Si les boucles sont imbriquées, les boucles externes continuent de s'exécuter normalement.
+</block>
+</dash>

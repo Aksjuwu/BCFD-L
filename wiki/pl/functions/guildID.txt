@@ -1,0 +1,21 @@
+<dash>
+name: $guildID
+desc: Zwraca ID serwera Discord (guild), na którym użyto komendy.
+category: Informacje
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $guildID zostanie wywołane, bot pobiera unikalne ID serwera Discord, na którym wykonano komendę, i wysyła je bezpośrednio jako surowy ciąg numeryczny. Jeśli użyte w DM, zwraca "DM".
+</block>
+
+<block type="code" title="Składnia">
+text: $guildID
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: Server ID: $guildID
+</block>
+
+<block type="callout" kind="note">
+text: Zwracana wartość to ID w formacie snowflake (np. 123456789012345678). Gdy użyte poza serwerem (w DM), komenda zwraca ciąg "DM".
+</block>
+</dash>

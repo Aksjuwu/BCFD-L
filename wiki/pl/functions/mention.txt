@@ -1,0 +1,21 @@
+<dash>
+name: $mention
+desc: Zwraca wzmiankę o użytkowniku, który wyzwolił komendę.
+category: Informacje
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy wywoływany jest $mention, bot pobiera format wzmianki Discord użytkownika, który wykonał komendę, i wysyła go bezpośrednio na kanał. Tworzy to klikalną wzmiankę, która pinguje użytkownika.
+</block>
+
+<block type="code" title="Składnia">
+text: $mention
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: Hello $mention!
+</block>
+
+<block type="callout" kind="note">
+text: Zwracana wartość to format wzmianki Discord (np. <@123456789>), który renderuje się w czacie jako klikalna niebieska wzmianka powiadamiająca użytkownika.
+</block>
+</dash>

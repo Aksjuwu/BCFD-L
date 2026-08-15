@@ -1,0 +1,40 @@
+<dash>
+name: $isNumber
+desc: Проверяет, соответствует ли значение определённой числовой формуле/типу.
+category: Математика и числа
+
+<block type="text" title="Как работает команда?">
+text: $isNumber принимает формулу (проверку типа) и значение, затем проверяет, соответствует ли значение этому типу. Возвращает "true" или "false".
+</block>
+
+<block type="code" title="Syntax">
+text: $isNumber[formula; value]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $isNumber[int; 42]
+</block>
+
+<block type="options" title="Доступные формулы">
+option: int|Является целым числом (без десятичной точки)
+option: nat|Является натуральным числом (целое положительное, >= 1)
+option: pos|Является положительным числом (> 0)
+option: neg|Является отрицательным числом (< 0)
+option: zero|Является нулём
+option: even|Является чётным целым числом
+option: odd|Является нечётным целым числом
+option: dec|Является десятичным числом (имеет десятичную точку)
+option: frac|Является дробью (формат: a/b)
+option: num|Является любым допустимым числом (целым или десятичным)
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает "true", если значение соответствует указанной формуле, в противном случае — "false". Некорректные входные данные, которые невозможно разобрать, всегда возвращают "false".
+</block>
+</dash>
+
+<details>
+syntax: $isNumber[formula; value]
+param: formula|text|Required|Проверка типа для выполнения: int, nat, pos, neg, zero, even, odd, dec, frac, num
+param: value|text|Required|Значение для проверки на соответствие формуле
+</details>

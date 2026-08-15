@@ -1,0 +1,26 @@
+<dash>
+name: $color
+desc: Oluşturulmakta olan embed'in rengini ayarlar.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $color bir hex renk değeri veya adlandırılmış bir renk alır ve onu oluşturulmakta olan geçerli embed'e uygular. Renk, embed'in sol tarafındaki vurgu çubuğu olarak görünür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $color[hex or name]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $color[#FF5733]
+</block>
+
+<block type="callout" kind="note">
+text: Hex kodları (ör. #FF5733, FF5733) veya adlandırılmış renkler kullanabilirsiniz. Bu komut yalnızca çağrıldıktan sonra gönderilen embed'leri etkiler.
+</block>
+</dash>
+
+<details>
+syntax: $color[hex or name]
+param: hex or name|text|Required|Embed'in vurgu çubuğu rengini ayarlamak için bir hex renk kodu (ör. #FF5733) veya adlandırılmış bir renk
+</details>

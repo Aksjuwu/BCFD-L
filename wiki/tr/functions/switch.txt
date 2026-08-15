@@ -1,0 +1,27 @@
+<dash>
+name: $switch
+desc: Bir dizin numarasına göre listeden bir öğeyi seçer ve döndürür.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $switch bir öğe listesi ve bir dizin numarası alır (son argüman olarak). O konumdaki öğeyi döndürür (1 tabanlı dizin). Önceden tanımlı seçeneklerden seçim yapmak için kullanışlıdır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $switch[item1; item2; ... ; index]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $switch[Red; Green; Blue; $randomint[1; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: Dizin SON argümandır ve 1 ile toplam öğe sayısı arasında bir sayı olmalıdır. Dizin sınırların dışındaysa bir hata döndürülür.
+</block>
+</dash>
+
+<details>
+syntax: $switch[item1; item2; ... ; index]
+param: item|text|Required|Seçim yapılacak bir veya daha fazla öğe
+param: index|number|Required|Döndürülecek öğenin 1 tabanlı konumu (son argüman olmalıdır)
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceJoined
+desc: 成员加入语音频道时触发的事件。
+category: 事件
+
+<block type="text" title="事件如何工作？">
+text: $onVoiceJoined 是一个事件前缀，每当成员加入语音频道时都会触发一个 FDScript。脚本会收到成员和语音频道的信息。你可以在第一行选择指定一个频道 ID，以将输出发送到特定文本频道。
+</block>
+
+<block type="code" title="语法">
+text: #PREFIX:$onVoiceJoined
+</block>
+
+<block type="code" title="可复制示例">
+text: #PREFIX:$onVoiceJoined
+ sendMessage[$mention joined a voice channel!]
+</block>
+
+<block type="callout" kind="note">
+text: 请将此命令放在 FDScript 文件的第一行。当任何成员加入语音频道时，脚本都会自动运行。
+</block>
+
+<block type="callout" kind="important">
+text: 此事件在 bot_events 文件夹中运行，而不是 bot_commands。请在其中创建你的 .fds 文件。
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceJoined
+</details>

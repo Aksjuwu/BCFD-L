@@ -1,0 +1,28 @@
+<dash>
+name: $removeSplitOutElement
+desc: Entfernt ein Element aus dem aktuellen Split-Ergebnis ($splitIn) anhand seines 1-basierten Index.
+category: Textwerkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $removeSplitOutElement löscht das Element an der angegebenen Position aus den von $splitIn gespeicherten Daten. Die übrigen Elemente behalten ihre Reihenfolge. $splitIn muss vor diesem Befehl aufgerufen werden.
+</block>
+
+<block type="code" title="Syntax">
+text: $removeSplitOutElement[index]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $splitIn[apple,banana,cherry; ,]
+$removeSplitOutElement[2]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: Der Index muss eine positive Ganzzahl innerhalb der aktuellen Split-Länge sein, sonst wird ein Fehler ausgelöst.
+</block>
+</dash>
+
+<details>
+syntax: $removeSplitOutElement[index]
+param: index|number|Erforderlich|1-basierte Position des zu entfernenden Elements
+</details>

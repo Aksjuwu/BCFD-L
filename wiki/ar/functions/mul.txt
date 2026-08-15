@@ -1,0 +1,27 @@
+<dash>
+name: $mul
+desc: يضرب عددين أو أكثر معًا ويعيد النتيجة.
+category: الرياضيات والأرقام
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $mul يأخذ وسيطتين رقميتين أو أكثر ويعيد حاصل ضربهما. يعمل كأمر مستقل وكأمر مضمّن داخل أوامر أخرى.
+</block>
+
+<block type="code" title="الصيغة">
+text: $mul[a; b; ...]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[$mul[3; 4]]
+</block>
+
+<block type="callout" kind="note">
+text: يدعم أي عدد من الوسائط. $mul[2; 3; 4] يُقيَّم إلى 24. تكون النتيجة عددًا صحيحًا إذا لم يحتوِ الحاصل على جزء عشري.
+</block>
+</dash>
+
+<details>
+syntax: $mul[a; b; ...]
+param: a|number|مطلوب|الرقم الأول للضرب
+param: b|number|مطلوب|الرقم الثاني للضرب (الأرقام الإضافية مقبولة أيضًا)
+</details>

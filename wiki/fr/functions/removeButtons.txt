@@ -1,0 +1,27 @@
+<dash>
+name: $removeButtons
+desc: Supprime tous les boutons d'un message ou de la vue en attente.
+category: Composants
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Lorsque $removeButtons est appelé sans arguments, il efface tous les boutons de la vue en attente ou du message source de l'interaction. Lorsqu'il est appelé avec un ID de message, il supprime tous les boutons de ce message de bot spécifique.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $removeButtons
+text: $removeButtons[(messageID)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $removeButtons[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: L'ID du message doit pointer vers un message envoyé par ce bot. S'il est appelé sans arguments, il vérifie d'abord la vue en attente, puis revient au message source de l'interaction.
+</block>
+</dash>
+
+<details>
+syntax: $removeButtons[(messageID)]
+param: messageID|snowflake|Optionnel|L'ID d'un message du bot dont tous les boutons doivent être supprimés. Si omis, efface les boutons de la vue en attente ou du message source de l'interaction.
+</details>

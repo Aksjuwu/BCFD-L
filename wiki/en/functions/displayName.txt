@@ -1,0 +1,26 @@
+<dash>
+name: $displayName
+desc: Returns the display name of a user.
+category: User
+
+<block type="text" title="How does the command work?">
+text: $displayName returns the display name (server nickname or username) of a user. If no argument is provided, it returns the display name of the command author. When a user ID or mention is provided, it returns that user's display name.
+</block>
+
+<block type="code" title="Syntax">
+text: $displayName[(user mention/ID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Hello, $displayName!
+</block>
+
+<block type="callout" kind="note">
+text: The display name is the server-specific nickname if set, otherwise the global username. Can be used inline.
+</block>
+</dash>
+
+<details>
+syntax: $displayName[(user mention/ID)]
+param: user|text|Optional|A user mention or numeric ID. If empty, uses the command author.
+</details>

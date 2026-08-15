@@ -1,0 +1,37 @@
+<dash>
+name: $roleAssign
+desc: Dodaje lub usuwa jedną lub więcej ról członkowi serwera.
+category: Moderacja
+
+<block type="text" title="Jak działa komenda?">
+text: $roleAssign przyjmuje użytkownika jako pierwszy argument, a następnie jedną lub więcej operacji na rolach. Każda operacja na roli zaczyna się od +, aby dodać rolę, lub od -, aby ją usunąć, po czym następuje ID roli lub wzmianka. W jednym wywołaniu można przypisać lub usunąć wiele ról.
+</block>
+
+<block type="code" title="Składnia">
+text: $roleAssign[user; +role1; -role2; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $roleAssign[$authorID; +&123456789; -&987654321]
+</block>
+
+<block type="options" title="Prefiksy ról">
+option: +|Dodaje rolę użytkownikowi (np. +&123456789 lub +@RoleName)
+option: -|Usuwa rolę użytkownikowi (np. -&123456789 lub -@RoleName)
+</block>
+
+<block type="callout" kind="note">
+text: Możesz przypisać i usunąć wiele ról w jednym wywołaniu. Użytkownik jest zawsze pierwszym argumentem. Bot musi mieć uprawnienie „Zarządzanie rolami", a jego najwyższa rola musi być wyżej niż przypisywane role.
+</block>
+
+<block type="callout" kind="warning">
+text: Docelowy użytkownik musi być członkiem serwera. Jeśli ID roli jest nieprawidłowe, ta operacja na roli jest pomijana. Jeśli bot nie ma wymaganych uprawnień lub hierarchia ról stanowi problem, zwracany jest błąd.
+</block>
+</dash>
+
+<details>
+syntax: $roleAssign[user; +role1; -role2; ...]
+param: user|text|Required|ID użytkownika lub @wzmianka członka, któremu mają zostać zmienione role
+param: +role1|text|Required|Rola do DODANIA: prefiks + i ID roli lub @wzmianka (np. +&123456789)
+param: -role2|text|Optional|Rola do USUNIĘCIA: prefiks - i ID roli lub @wzmianka. Możesz dodać wiele operacji +/- na rolach.
+</details>

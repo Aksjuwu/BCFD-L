@@ -1,0 +1,26 @@
+<dash>
+name: $round
+desc: 将数字四舍五入到最接近的整数。
+category: 数学与数字
+
+<block type="text" title="此命令如何工作？">
+text: $round 接受一个数值，将其四舍五入到最接近的整数，并发送结果。例如，1.7 变为 2，1.4 变为 1。
+</block>
+
+<block type="code" title="语法">
+text: $round[number]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $round[1.7]
+</block>
+
+<block type="callout" kind="note">
+text: $round[1.7] 返回 2。$round[2.4] 返回 2。该命令只接受一个参数；如果值不是有效数字，将返回错误。
+</block>
+</dash>
+
+<details>
+syntax: $round[number]
+param: number|number|Required|要四舍五入到最接近整数的数字
+</details>

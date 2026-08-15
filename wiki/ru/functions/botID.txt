@@ -1,0 +1,21 @@
+<dash>
+name: $botID
+desc: Возвращает Discord ID пользователя бота.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $botID бот получает свой собственный уникальный Discord ID и отправляет его в канал в виде простой числовой строки.
+</block>
+
+<block type="code" title="Syntax">
+text: $botID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: My bot ID is $botID
+</block>
+
+<block type="callout" kind="note">
+text: Возвращаемое значение — это snowflake ID (например, 123456789012345678), уникальный числовой идентификатор учётной записи бота в Discord.
+</block>
+</dash>

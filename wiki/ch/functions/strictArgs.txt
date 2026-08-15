@@ -1,0 +1,34 @@
+<dash>
+name: $strictArgs
+desc: 对用户的命令参数强制实施特定的单词数量约束。
+category: 访问控制
+
+<block type="text" title="此命令如何工作？">
+text: $strictArgs 检查用户提供的单词数量是否符合指定的约束。如果检查失败，则显示错误消息并中止脚本。
+</block>
+
+<block type="code" title="语法">
+text: $strictArgs[comparison; error_message]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $strictArgs[>2; Please provide more than 2 words!]
+</block>
+
+<block type="options" title="比较运算符">
+option: >|大于——用户必须提供多于 N 个单词
+option: <|小于——用户必须提供少于 N 个单词
+option: (none)|等于（例如仅 2）——用户必须恰好提供 N 个单词
+option: !|不等于——用户提供的单词数量不能恰好为 N 个
+</block>
+
+<block type="callout" kind="note">
+text: 单词数量不包括命令名称本身。例如，如果用户输入 "!cmd hello world"，单词数量为 2。
+</block>
+</dash>
+
+<details>
+syntax: $strictArgs[comparison; error_message]
+param: comparison|text|Required|一个约束，例如 >2、<2、2 或 !2，其中数字是所需的单词数量（单独的 2 表示恰好 2 个）
+param: error_message|text|Required|当单词数量与约束不匹配时显示的消息
+</details>

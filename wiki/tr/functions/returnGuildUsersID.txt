@@ -1,0 +1,35 @@
+<dash>
+name: $returnGuildUsersID
+desc: Bir sunucudan gerçek (bot olmayan) üye kimliklerini toplar ve saklar.
+category: Dönüş Komutları
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $returnGuildUsersID, belirtilen sunucudan tüm gerçek (bot olmayan) üye kimliklerini toplar ve bunları bir değişken adı altında saklar. "cache" modu (önbelleğe alınmış üyeleri kullanır) ile "chunk" modu (eksiksiz veriler için önce sunucunun tüm üye listesini zorla getirir) arasında seçim yapabilirsiniz. Sonuç daha sonra $return[variableName] kullanılarak alınabilir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $returnGuildUsersID[guildID; cache/chunk; var; separator]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[Users: $return[userIDs]]
+</block>
+
+<block type="options" title="Getirme modları">
+option: cache|Botun önbelleğe alınmış üye listesini kullanır (hızlı, ancak büyük sunucularda eksik olabilir)
+option: chunk|Önce Discord'dan üye listesini tamamen getirmeyi zorlar (daha yavaş, ancak eksiksiz)
+</block>
+
+<block type="callout" kind="note">
+text: Yalnızca gerçek (bot olmayan) üyeler dahil edilir. Bot, hedef sunucunun bir üyesi olmalıdır. Önbelleğe alınmış üye listesinin eksik olabileceği büyük sunucular için "chunk" modunu kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildUsersID[guildID; cache/chunk; var; separator]
+param: guildID|snowflake|Required|Üye kimliklerinin toplanacağı sunucunun (server) kimliği
+param: cache/chunk|text|Required|Getirme modu: önbelleğe alınmış üyeler için "cache" (hızlı), tam getirme için "chunk" (eksiksiz)
+param: var|text|Required|Sonucun saklanacağı değişken adı ($return[] ile kullanın)
+param: separator|text|Required|Birden çok kimlik arasındaki ayraç (örn. , veya ;). Adlandırılmış ayraçlar kullanabilirsiniz: dot, com, apo, sem, colon
+</details>

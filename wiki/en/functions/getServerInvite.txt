@@ -1,0 +1,27 @@
+<dash>
+name: $getServerInvite
+desc: Generates and sends an invite link for a server.
+category: Utilities
+
+<block type="text" title="How does the command work?">
+text: When $getServerInvite is called without arguments, it generates an invite link for the current server. When called with a guild ID, it generates an invite for that specific server. The bot first checks if the server has a vanity URL. If not, it finds a channel where the bot has "Create Invite" permissions and generates a permanent invite link.
+</block>
+
+<block type="code" title="Syntax">
+text: $getServerInvite
+text: $getServerInvite[(guildID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: The bot must be a member of the target server and have "Create Invite" permissions. If a vanity URL is set for the server, it will be returned instead of creating a new invite. Without arguments, uses the current server.
+</block>
+</dash>
+
+<details>
+syntax: $getServerInvite[(guildID)]
+param: guildID|snowflake|Optional|The ID of a different server to get an invite for. If omitted, uses the current server.
+</details>

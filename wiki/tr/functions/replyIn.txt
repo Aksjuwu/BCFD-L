@@ -1,0 +1,27 @@
+<dash>
+name: $replyIn
+desc: Botun bir sonraki yanıtını belirtilen süre kadar geciktirir.
+category: Zamanlama ve Gecikmeler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $replyIn, betik yürütmesini belirtilen süre kadar duraklatır. Gecikmenin ardından betik bir sonraki komutla devam eder. Bu, zamanlanmış yanıtlar oluşturmak için kullanışlıdır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $replyIn[time]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $replyIn[5s]
+$sendMessage[This appears after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: Zaman biçimi şunları kullanır: s (saniye), m (dakika), h (saat), d (gün). Betik gecikme sırasında dondurulur — bu betikteki başka hiçbir komut gecikme tamamlanana kadar yürütülmez.
+</block>
+</dash>
+
+<details>
+syntax: $replyIn[time]
+param: time|text|Required|Beklenecek süre. Biçim: sayı + birim (s/m/h/d), örn. 5s, 10m, 1h
+</details>

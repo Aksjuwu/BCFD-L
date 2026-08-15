@@ -1,0 +1,26 @@
+<dash>
+name: $isAdmin
+desc: Sprawdza, czy użytkownik ma uprawnienia administratora na serwerze.
+category: Informacje
+
+<block type="text" title="Jak działa ta komenda?">
+text: $isAdmin przyjmuje ID użytkownika lub wzmiankę i sprawdza, czy ten użytkownik ma uprawnienia administratora, jest właścicielem serwera lub jest kontem bota. Zwraca "true" lub "false".
+</block>
+
+<block type="code" title="Składnia">
+text: $isAdmin[userID]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $isAdmin[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Zwraca "true", jeśli użytkownik jest właścicielem serwera, botem lub ma uprawnienie Administrator. Zwraca "false" w przeciwnym razie lub jeśli użytkownik nie został znaleziony na serwerze.
+</block>
+</dash>
+
+<details>
+syntax: $isAdmin[userID]
+param: userID|text|Required|ID użytkownika lub wzmianka @mention do sprawdzenia. Obsługuje zmienne i znaczniki miejsc.
+</details>

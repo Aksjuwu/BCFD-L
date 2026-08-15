@@ -1,0 +1,26 @@
+<dash>
+name: $image
+desc: Wysyła embed obrazu na kanał, używając URL.
+category: Wiadomości
+
+<block type="text" title="Jak działa ta komenda?">
+text: $image przyjmuje URL obrazu, tworzy embed z tym obrazem i wysyła go na kanał. URL musi zaczynać się od http:// lub https://.
+</block>
+
+<block type="code" title="Składnia">
+text: $image[URL]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $image[https://example.com/photo.png]
+</block>
+
+<block type="callout" kind="note">
+text: Obraz jest wysyłany jako embed z obrazem ustawionym jako obraz embedu. Bot musi mieć uprawnienie "Linki do embedów" na kanale.
+</block>
+</dash>
+
+<details>
+syntax: $image[URL]
+param: URL|text|Required|Bezpośredni URL do pliku obrazu. Musi zaczynać się od http:// lub https://
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $findChannel
+desc: Znajduje kanał po nazwie lub ID i zwraca jego ID.
+category: Kanał
+
+<block type="text" title="Jak działa ta komenda?">
+text: $findChannel przeszukuje serwer w poszukiwaniu kanału po nazwie lub wzmiance. Jeśli podano wzmiankę o kanale, sprawdza, czy kanał istnieje, i zwraca jego ID. Jeśli podano nazwę kanału, przeszukuje wszystkie kanały serwera pod kątem dopasowania bez uwzględniania wielkości liter i zwraca ID pierwszego dopasowania. Zwraca pusty ciąg, jeśli nie znaleziono.
+</block>
+
+<block type="code" title="Składnia">
+text: $findChannel[name/mention]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $findChannel[general]
+</block>
+
+<block type="callout" kind="note">
+text: Dopasowanie nazwy kanału nie uwzględnia wielkości liter. Może być używane w tekście do dynamicznego zamieniania nazw kanałów na ID.
+</block>
+</dash>
+
+<details>
+syntax: $findChannel[name/mention/ID]
+param: channel|text|Required|Nazwa kanału lub wzmianka do wyszukania.
+</details>

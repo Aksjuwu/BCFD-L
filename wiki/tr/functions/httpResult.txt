@@ -1,0 +1,27 @@
+<dash>
+name: $httpResult
+desc: Son HTTP isteğinin yanıtını döndürür, isteğe bağlı olarak iç içe geçmiş JSON değerlerini çıkarır.
+category: HTTP
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $httpResult, son HTTP isteğinin ($httpGet, $httpPost, $httpPut, $httpPatch veya $httpDelete) sakladığı sonucu döndürür. Argüman verilmediğinde yanıtın tamamını (bir nesne veya dizi olduğunda JSON metni olarak) döndürür. Argümanlarla sonuca adım adım inerek nesne anahtarlarını ve sayısal dizi dizinlerini destekler. Bir anahtar mevcut olmadığında boş metin döndürür.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $httpResult[(key1; key2; ...)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $httpGet[https://api.example.com/users]
+$httpResult[0; username]
+</block>
+
+<block type="callout" kind="note">
+text: Liste öğesi seçmek için bir sayı kullanın. Herhangi bir anahtar eksikse boş metin döndürülür.
+</block>
+</dash>
+
+<details>
+syntax: $httpResult[(key1; key2; ...)]
+param: key|text|Optional|JSON sonucunda gezinmek için anahtar veya sayısal dizin (iç içe değerler için tekrarlayın)
+</details>

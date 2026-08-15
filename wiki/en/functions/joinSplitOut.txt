@@ -1,0 +1,27 @@
+<dash>
+name: $joinSplitOut
+desc: Joins all elements of the current split result ($splitIn) back into a single text.
+category: String Utilities
+
+<block type="text" title="How does the command work?">
+text: $joinSplitOut combines every element stored by $splitIn into one string, inserting the given separator between them. The result is sent to the channel.
+</block>
+
+<block type="code" title="Syntax">
+text: $joinSplitOut[separator]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $splitIn[apple,banana,cherry; ,]
+$joinSplitOut[ + ]
+</block>
+
+<block type="callout" kind="note">
+text: $splitIn must be called before $joinSplitOut so there is data to join.
+</block>
+</dash>
+
+<details>
+syntax: $joinSplitOut[separator]
+param: separator|text|Required|The text inserted between every two elements
+</details>

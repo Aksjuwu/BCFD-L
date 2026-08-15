@@ -1,0 +1,30 @@
+<dash>
+name: $while
+desc: Bir koşul doğru kaldığı sürece çevreleyen kod bloğunu tekrarlar.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $while her yinelemeden önce bir koşulu değerlendirir. Koşul doğruysa döngü gövdesi yürütülür. Bu, koşul yanlış olana veya $break ile karşılaşılana kadar tekrarlanır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $while[condition]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $setVar[i; 0]
+$while[$getVar[i] < 5]
+  $sendMessage[Count: $getVar[i]]
+  $setVar[i; $math[$getVar[i] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: Sonsuz döngülerden kaçınmak için döngünüzün net bir sonlandırma koşuluna sahip olduğundan emin olun. Sonsuz bir döngü betiği süresiz olarak askıda bırakır. Erken çıkmak için $break kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $while[condition]
+param: condition|expression|Required|Her yinelemeden önce değerlendirilecek koşul. Bu doğruyken döngü devam eder. $if ile aynı operatörleri kullanır (==, !=, >, <, >=, <=).
+</details>

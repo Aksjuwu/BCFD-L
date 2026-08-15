@@ -1,0 +1,23 @@
+<dash>
+name: $clientTyping
+desc: Показывает индикатор «печатает...» бота в текущем канале.
+category: Утилиты
+
+<block type="text" title="Как работает команда?">
+text: При вызове $clientTyping бот отображает индикатор «Bot is typing...» в текущем канале, сообщая пользователям, что бот обрабатывает или готовит ответ. Индикатор сохраняется до тех пор, пока бот не отправит сообщение или скрипт не завершится.
+</block>
+
+<block type="code" title="Syntax">
+text: $clientTyping
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $clientTyping
+$wait[3s]
+$sendMessage[Done!]
+</block>
+
+<block type="callout" kind="note">
+text: Эта команда полезна для имитации более естественного потока беседы. Объедините её с $wait, чтобы создать намеренную задержку перед тем, как бот отправит следующее сообщение.
+</block>
+</dash>

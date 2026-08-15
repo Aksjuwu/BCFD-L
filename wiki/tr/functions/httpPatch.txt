@@ -1,0 +1,29 @@
+<dash>
+name: $httpPatch
+desc: İsteğe bağlı bir gövdeyle bir URL'ye HTTP PATCH isteği gönderir.
+category: HTTP
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $httpPatch, 10 saniyelik bir zaman aşımıyla PATCH isteği gönderir. Gövde geçerli JSON ise JSON olarak, değilse ham metin olarak gönderilir. Yanıt $httpResult'a ve durum kodu $httpStatus'a kaydedilir. $httpAddHeader ile eklenen başlıklar gönderilir ve ardından temizlenir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $httpPatch[URL; (Body)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPatch[https://api.example.com/users/1; {"name": "FDScript"}]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: Gövde geçerli JSON ise JSON olarak gönderilir, değilse ham veri olarak gönderilir. Hata durumunda durum 500 olarak ayarlanır ve $httpResult hata mesajını içerir.
+</block>
+</dash>
+
+<details>
+syntax: $httpPatch[URL; (Body)]
+param: URL|text|Required|PATCH isteğinin gönderileceği URL
+param: Body|text|Optional|İstek gövdesi (JSON veya ham metin)
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $channelName
+desc: Komutun kullanıldığı kanalın adını döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $channelName çağrıldığında bot, geçerli kanalın adını alır ve düz metin dizesi olarak doğrudan kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $channelName
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: You are chatting in #$channelName
+</block>
+
+<block type="callout" kind="note">
+text: Bu, kanalın adını # öneki olmadan döndürür. Kanal yeniden adlandırılırsa, bir sonraki çağrı güncellenen adı yansıtır.
+</block>
+</dash>

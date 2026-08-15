@@ -1,0 +1,21 @@
+<dash>
+name: $randomUserID
+desc: Returns the user ID of a random human member from the server.
+category: Randomness
+
+<block type="text" title="How does the command work?">
+text: When $randomUserID is called, the bot collects all non-bot members in the current server, picks one at random, and sends their user ID as a raw numeric string.
+</block>
+
+<block type="code" title="Syntax">
+text: $randomUserID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Random user ID: $randomUserID
+</block>
+
+<block type="callout" kind="note">
+text: This command only works inside a server (not in DMs). Bot accounts are excluded from the selection pool. If there are no human members, the command will fail with an error.
+</block>
+</dash>

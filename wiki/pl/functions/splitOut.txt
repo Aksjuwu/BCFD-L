@@ -1,0 +1,27 @@
+<dash>
+name: $splitOut
+desc: Pobiera konkretną część z wcześniej podzielonego tekstu (przy użyciu $splitIn).
+category: Narzędzia tekstowe
+
+<block type="text" title="Jak działa komenda?">
+text: $splitOut uzyskuje dostęp do konkretnej części wyniku podziału z $splitIn. Użyj indeksu liczonego od 1, < dla pierwszej części lub > dla ostatniej. Pobrana wartość jest wysyłana na kanał.
+</block>
+
+<block type="code" title="Składnia">
+text: $splitOut[index]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[2]
+</block>
+
+<block type="callout" kind="note">
+text: Prawidłowe wartości indeksu: liczba (liczona od 1), < (pierwszy element), > (ostatni element). $splitIn musi zostać wywołane przed $splitOut.
+</block>
+</dash>
+
+<details>
+syntax: $splitOut[index]
+param: index|text|Required|Indeks części do pobrania: liczba (liczona od 1), < dla pierwszej lub > dla ostatniej
+</details>

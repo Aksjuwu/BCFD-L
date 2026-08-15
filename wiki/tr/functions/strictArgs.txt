@@ -1,0 +1,34 @@
+<dash>
+name: $strictArgs
+desc: Kullanıcının komut argümanları üzerinde belirli bir sözcük sayısı kısıtlaması uygular.
+category: Erişim Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $strictArgs, kullanıcının sağladığı sözcük sayısının belirtilen kısıtlamayla eşleşip eşleşmediğini kontrol eder. Kontrol başarısız olursa hata mesajı görüntülenir ve betik sonlandırılır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $strictArgs[comparison; error_message]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $strictArgs[>2; Please provide more than 2 words!]
+</block>
+
+<block type="options" title="Karşılaştırma operatörleri">
+option: >|Büyüktür — kullanıcı N'den fazla sözcük sağlamalıdır
+option: <|Küçüktür — kullanıcı N'den az sözcük sağlamalıdır
+option: (none)|Eşittir (örn. sadece 2) — kullanıcı tam olarak N sözcük sağlamalıdır
+option: !|Eşit değildir — kullanıcı tam olarak N sözcük sağlamamalıdır
+</block>
+
+<block type="callout" kind="note">
+text: Sözcük sayısı komut adının kendisini hariç tutar. Örneğin, kullanıcı "!cmd hello world" yazarsa sözcük sayısı 2'dir.
+</block>
+</dash>
+
+<details>
+syntax: $strictArgs[comparison; error_message]
+param: comparison|text|Required|>2, <2, 2 veya !2 gibi bir kısıtlama; burada sayı gerekli sözcük sayısıdır (yalın 2, tam olarak 2 anlamına gelir)
+param: error_message|text|Required|Sözcük sayısı kısıtlamayla eşleşmezse görüntülenen mesaj
+</details>

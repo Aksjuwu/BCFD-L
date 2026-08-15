@@ -1,0 +1,29 @@
+<dash>
+name: $httpPost
+desc: Отправляет HTTP POST-запрос на URL с необязательным телом запроса.
+category: HTTP
+
+<block type="text" title="Как работает команда?">
+text: $httpPost отправляет POST-запрос с таймаутом 10 секунд. Тело отправляется в формате JSON, если оно является корректным JSON, в противном случае — как обычный текст. Ответ сохраняется в $httpResult, а код состояния — в $httpStatus. Заголовки, добавленные с помощью $httpAddHeader, отправляются и затем очищаются.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $httpPost[URL; (Body)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPost[https://api.example.com/users; {"name": "FDScript"}]
+$httpResult[id]
+</block>
+
+<block type="callout" kind="note">
+text: Если тело является корректным JSON, оно отправляется в формате JSON, в противном случае — как необработанные данные. При сбое код состояния устанавливается в 500, а $httpResult содержит сообщение об ошибке.
+</block>
+</dash>
+
+<details>
+syntax: $httpPost[URL; (Body)]
+param: URL|text|Required|URL, на который отправляется POST-запрос
+param: Body|text|Optional|Тело запроса (JSON или обычный текст)
+</details>

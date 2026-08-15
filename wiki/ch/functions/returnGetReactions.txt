@@ -1,0 +1,31 @@
+<dash>
+name: $returnGetReactions
+desc: 获取对某条消息使用特定表情符号做出反应的用户并存储结果。
+category: 返回命令
+
+<block type="text" title="此命令如何工作？">
+text: $returnGetReactions 获取一条特定消息，找出使用给定表情符号做出反应的用户，并存储结果。您可以存储做出反应的用户 ID，也可以存储反应总数。机器人始终被排除在外——只考虑人类用户。
+</block>
+
+<block type="code" title="语法">
+text: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $returnGetReactions[$channelID; 123456789; usersID; reactors; ,; 👍]
+</block>
+
+<block type="callout" kind="note">
+text: type 参数接受 "usersID"（存储做出反应的用户 ID，用分隔符连接）或 "tr"（仅存储来自人类用户的反应总数）。如果消息上找不到该表情符号："tr" 会静默存储 "0"，而 "usersID" 会引发错误。在 "usersID" 模式下，如果没有任何人类用户对该表情符号做出反应，也会引发错误。结果存储在变量中，之后用 $return[var] 获取。
+</block>
+</dash>
+
+<details>
+syntax: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+param: channelID|snowflake|Required|包含该消息的频道的 ID
+param: messageID|snowflake|Required|要检查反应的该消息的 ID
+param: type|text|Required|usersID 用于存储做出反应的用户 ID，或 tr 用于存储反应总数（仅人类用户）
+param: var|text|Required|用于存储结果的变量名称
+param: separator|text|Required|多个用户 ID 之间的分隔符（例如 , 或 ;）。您可以使用命名分隔符：dot、com、apo、sem、colon
+param: emoji|text|Required|要查找反应的 emoji（按其字符串形式或名称匹配）
+</details>

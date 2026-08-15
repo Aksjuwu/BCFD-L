@@ -1,0 +1,27 @@
+<dash>
+name: $return
+desc: Bir $returnXxx komutu tarafından saklanan bir değeri alır ve kanala gönderir.
+category: Değişkenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $return bir değişken adı alır ve dönüş değişkenleri deposundaki değerini arar. Bu depo, $returnGuildUsersID, $returnGuildChannelsID vb. komutlar tarafından doldurulur. Tek başına kullanıldığında alınan değer kanala gönderilir; başka bir komutun argümanlarının içinde kullanıldığında değer doğrudan metnin içine yerleştirilir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $return[var]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[User IDs: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: Dönüş deposunda değişken adı yoksa bir hata döndürülür. $return kullanmadan önce uygun $returnXxx komutunu çağırdığınızdan emin olun.
+</block>
+</dash>
+
+<details>
+syntax: $return[var]
+param: var|text|Required|Alınacak dönüş değişkeninin adı (örn. userIDs, channelIDs, roleIDs)
+</details>

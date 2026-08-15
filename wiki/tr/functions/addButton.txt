@@ -1,0 +1,44 @@
+<dash>
+name: $addButton
+desc: Oluşturulan mesaja veya kimliği (ID) aracılığıyla daha önce gönderilmiş bir mesaja buton (Button) ekler.
+category: Bileşenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $addButton her çağrıda bir buton ekler. Buton türünü (link veya etkileşimli), stilini, durumunu (etkin/devre dışı) ve konumunu (aynı satır veya yeni satır) kontrol edebilirsiniz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $addButton[no; btn_confirm; Confirm; success]
+</block>
+
+<block type="options" title="Buton stilleri (style)">
+option: primary|Mavi buton (varsayılan renk)
+option: secondary|Gri buton
+option: success|Yeşil buton
+option: danger|Kırmızı buton
+option: link|Harici bağlantı butonu (custom_id yoktur, bot etkileşimi tetiklemez)
+</block>
+
+<block type="callout" kind="note">
+text: style = link olduğunda ikinci bağımsız değişken (ID/URL), http:// veya https:// ile başlayan tam bir URL olmalıdır.
+</block>
+
+<block type="callout" kind="warning">
+text: Mesaj başına en fazla 25 buton (5 satır × her satırda 5 buton). Geçerli satır dolduğunda buton otomatik olarak yeni bir satıra geçer.
+</block>
+</dash>
+
+<details>
+syntax: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+param: newLine|yes/no|Required|Buton yeni bir satırda mı başlar? yes = yeni satır, no = son butonun yanında aynı satır
+param: ID/URL|text|Required|Etkileşimli buton için özel kimlik (custom ID) veya style = link ise tam bir URL
+param: label|text|Emptiable|Butonda görüntülenen metin
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|Butonu devre dışı bırakmak için yes (varsayılan: no)
+param: emoji|text|Optional|Butonun içinde görüntülenecek bir emoji
+param: messageID|snowflake|Optional|Butonun geçerli mesaj yerine ekleneceği, daha önce gönderilmiş bot mesajının kimliği (ID)
+</details>

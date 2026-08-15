@@ -1,0 +1,27 @@
+<dash>
+name: $getUserStatus
+desc: Bir kullanıcının sunucudaki çevrimiçi durumunu döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $getUserStatus argüman olmadan çağrıldığında komut yazarının çevrimiçi durumunu döndürür. Bir kullanıcı kimliği veya bahsetmesi ile çağrıldığında, o kullanıcının durumunu döndürür. Kullanıcı bulunamazsa veya sunucunun bir üyesi değilse "offline" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $getUserStatus
+text: $getUserStatus[(userID/mention)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Your status is: $getUserStatus
+</block>
+
+<block type="callout" kind="note">
+text: Olası dönüş değerleri şunlardır: online, idle, dnd, offline. Bu komut yalnızca bir sunucu içinde çalışır (DM'lerde değil) çünkü Discord durum bilgisini yalnızca sunucu üyeleri için sağlar.
+</block>
+</dash>
+
+<details>
+syntax: $getUserStatus[(userID/mention)]
+param: userID/mention|text|Optional|Kontrol edilecek kullanıcı kimliği veya @bahsetmesi. Boş bırakılırsa komut yazarı kontrol edilir.
+</details>

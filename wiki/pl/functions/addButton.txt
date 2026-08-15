@@ -1,0 +1,44 @@
+<dash>
+name: $addButton
+desc: Dodaje przycisk (Button) do budowanej wiadomości lub do wcześniej wysłanej wiadomości za pomocą jej ID.
+category: Komponenty
+
+<block type="text" title="Jak działa ta komenda?">
+text: $addButton dodaje jeden przycisk na wywołanie. Możesz kontrolować typ przycisku (link lub interaktywny), styl, stan (włączony/wyłączony) oraz położenie (ten sam wiersz lub nowy wiersz).
+</block>
+
+<block type="code" title="Składnia">
+text: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $addButton[no; btn_confirm; Confirm; success]
+</block>
+
+<block type="options" title="Style przycisków (style)">
+option: primary|Niebieski przycisk (domyślny kolor)
+option: secondary|Szary przycisk
+option: success|Zielony przycisk
+option: danger|Czerwony przycisk
+option: link|Przycisk zewnętrznego linku (bez custom_id, nie wyzwala interakcji bota)
+</block>
+
+<block type="callout" kind="note">
+text: Gdy style = link, drugi argument (ID/URL) musi być pełnym adresem URL zaczynającym się od http:// lub https://.
+</block>
+
+<block type="callout" kind="warning">
+text: Maksymalnie 25 przycisków na wiadomość (5 wierszy × 5 przycisków na wiersz). Gdy bieżący wiersz jest pełny, przycisk automatycznie przechodzi do nowego wiersza.
+</block>
+</dash>
+
+<details>
+syntax: $addButton[newLine; ID/URL; label; style; (disabled; emoji; messageID)]
+param: newLine|yes/no|Required|Czy przycisk zaczyna nowy wiersz? yes = nowy wiersz, no = ten sam wiersz obok ostatniego przycisku
+param: ID/URL|text|Required|Custom ID przycisku interaktywnego lub pełny adres URL, jeśli style = link
+param: label|text|Emptiable|Tekst wyświetlany na przycisku
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|yes, aby wyłączyć przycisk (domyślnie: no)
+param: emoji|text|Optional|Emoji do wyświetlenia wewnątrz przycisku
+param: messageID|snowflake|Optional|ID wcześniej wysłanej wiadomości bota, do której przycisk ma zostać dodany zamiast do bieżącej wiadomości
+</details>

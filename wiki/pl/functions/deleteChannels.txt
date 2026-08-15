@@ -1,0 +1,26 @@
+<dash>
+name: $deleteChannels
+desc: Usuwa jeden lub więcej kanałów z serwera.
+category: Zarządzanie kanałami
+
+<block type="text" title="Jak działa ta komenda?">
+text: $deleteChannels przyjmuje jeden lub więcej identyfikatorów lub wzmianek kanałów i usuwa je z serwera. Bot musi mieć uprawnienie „Zarządzanie kanałami”. Jeśli jakikolwiek kanał nie może zostać usunięty (np. brak uprawnień), operacja zatrzymuje się z błędem.
+</block>
+
+<block type="code" title="Składnia">
+text: $deleteChannels[channel ID/mention; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $deleteChannels[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="warning">
+text: Ta komenda trwale usuwa kanały. Bot musi mieć uprawnienie „Zarządzanie kanałami” dla każdego usuwanego kanału.
+</block>
+</dash>
+
+<details>
+syntax: $deleteChannels[channel ID/mention; ...]
+param: channels|text|Required|Jeden lub więcej identyfikatorów lub wzmianek kanałów oddzielonych średnikami.
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $membersCount
+desc: إرجاع عدد الأعضاء في السيرفر.
+category: معلومات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $membersCount بدون وسائط، يقوم البوت بعدّ جميع الأعضاء البشر غير البوتات في السيرفر الحالي ويرسل العدد. عند استدعائه بمعرّف سيرفر وعلامة نعم/لا، يقوم بعدّ الأعضاء في ذلك السيرفر المحدد ويتضمن البوتات اختياريًا.
+</block>
+
+<block type="code" title="الصيغة">
+text: $membersCount
+text: $membersCount[guildID; includeBots]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: We have $membersCount members!
+</block>
+
+<block type="callout" kind="note">
+text: افتراضيًا، يتم استبعاد البوتات من العد. لتضمين البوتات، استخدم $membersCount[guildID; yes]. بدون وسائط، يعمل هذا الأمر داخل السيرفر فقط. عند تقديم معرّف سيرفر، يجب أن يكون البوت عضوًا في ذلك السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $membersCount[(guildID; includeBots)]
+param: guildID|snowflake|اختياري|معرّف سيرفر مختلف لعدّ أعضائه. إذا تم حذفه، يستخدم السيرفر الحالي.
+param: includeBots|yes/no|اختياري|اضبطه على "yes" لتضمين حسابات البوتات في العد. إذا تم حذفه، يتم عدّ الأعضاء البشر فقط.
+</details>

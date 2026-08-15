@@ -1,0 +1,26 @@
+<dash>
+name: $findChannel
+desc: 按名称或 ID 查找频道并返回其 ID。
+category: 频道
+
+<block type="text" title="命令如何工作？">
+text: $findChannel 在服务器中按名称或提及搜索频道。如果提供了频道提及，它会验证频道存在并返回其 ID。如果提供了频道名称，它会搜索所有服务器频道以进行不区分大小写的匹配，并返回第一个匹配项的 ID。如果未找到，则返回空字符串。
+</block>
+
+<block type="code" title="语法">
+text: $findChannel[name/mention]
+</block>
+
+<block type="code" title="可复制示例">
+text: $findChannel[general]
+</block>
+
+<block type="callout" kind="note">
+text: 频道名称匹配不区分大小写。可以内联使用，以动态地将频道名称解析为 ID。
+</block>
+</dash>
+
+<details>
+syntax: $findChannel[name/mention/ID]
+param: channel|text|Required|要搜索的频道名称或提及。
+</details>

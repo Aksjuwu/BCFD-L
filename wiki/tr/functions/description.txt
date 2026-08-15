@@ -1,0 +1,26 @@
+<dash>
+name: $description
+desc: Oluşturulmakta olan embed'in açıklama metnini ayarlar.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $description bir metin bağımsız değişkeni alır ve onu oluşturulmakta olan geçerli embed'in ana gövdesi/açıklaması olarak ayarlar. Bu, embed'in ana içerik alanıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $description[text]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $description[This is the embed body text]
+</block>
+
+<block type="callout" kind="note">
+text: Açıklama, Discord markdown biçimlendirmesini destekler (kalın, italik, kod blokları vb.). Embed'de başlığın altında görünür.
+</block>
+</dash>
+
+<details>
+syntax: $description[text]
+param: text|text|Required|Embed için açıklama metni. Discord markdown biçimlendirmesini destekler.
+</details>

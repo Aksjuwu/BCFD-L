@@ -1,0 +1,32 @@
+<dash>
+name: $onInteraction
+desc: 发生组件交互（按钮/选择菜单）时触发的事件。
+category: 事件
+
+<block type="text" title="事件如何工作？">
+text: $onInteraction 是一个事件前缀，当用户与组件（按钮点击、选择菜单等）交互时触发一个 FDScript。你可以选择指定一个自定义 ID，以便仅对特定组件触发。不带 ID 时，它会对所有组件交互触发。
+</block>
+
+<block type="code" title="语法">
+text: #PREFIX:$onInteraction
+text: #PREFIX:$onInteraction[button_custom_id]
+</block>
+
+<block type="code" title="可复制示例">
+text: #PREFIX:$onInteraction[confirm_btn]
+ sendMessage[You clicked the confirm button!]
+</block>
+
+<block type="callout" kind="note">
+text: 使用不带方括号的 $onInteraction 来处理所有交互，或使用特定的 custom_id 来仅处理该组件。
+</block>
+
+<block type="callout" kind="important">
+text: 此事件在 bot_events 文件夹中运行，而不是 bot_commands。请在其中创建你的 .fds 文件。
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onInteraction[(custom_id)]
+param: customID|text|Optional|要监听的特定组件的 custom_id。如果为空，则对所有交互触发。
+</details>

@@ -1,0 +1,31 @@
+<dash>
+name: $messageContains
+desc: Event triggered when a message contains ANY of the specified words.
+category: Event
+
+<block type="text" title="How does the event work?">
+text: $messageContains is an event prefix that triggers an FDScript when a message contains ANY of the specified trigger words. Words are separated by semicolons inside the brackets. The match is case-insensitive.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$messageContains[word1;word2;word3]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$messageContains[hello;hi;hey]
+ sendMessage[Hey there! How can I help?]
+</block>
+
+<block type="callout" kind="note">
+text: The script runs if the message contains ANY one of the listed words. For ALL words to be present, use $messageContainsAll instead.
+</block>
+
+<block type="callout" kind="important">
+text: This event runs in the bot_events folder, not bot_commands. Create your .fds file there.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$messageContains[word1;word2;...]
+param: words|text|Required|Semicolon-separated list of trigger words. ANY match triggers the script.
+</details>

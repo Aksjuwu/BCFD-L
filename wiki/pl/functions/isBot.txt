@@ -1,0 +1,26 @@
+<dash>
+name: $isBot
+desc: Sprawdza, czy użytkownik jest kontem bota.
+category: Informacje
+
+<block type="text" title="Jak działa ta komenda?">
+text: $isBot przyjmuje ID użytkownika lub wzmiankę i sprawdza, czy ten użytkownik jest kontem bota Discord. Zwraca "true" lub "false".
+</block>
+
+<block type="code" title="Składnia">
+text: $isBot[userID]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $isBot[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Zwraca "true", jeśli użytkownik jest kontem bota, "false", jeśli jest człowiekiem. Użytkownik musi być członkiem serwera.
+</block>
+</dash>
+
+<details>
+syntax: $isBot[userID]
+param: userID|text|Required|ID użytkownika lub wzmianka @mention do sprawdzenia. Obsługuje zmienne i znaczniki miejsc.
+</details>

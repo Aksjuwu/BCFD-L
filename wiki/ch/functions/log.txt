@@ -1,0 +1,27 @@
+<dash>
+name: $log
+desc: 截取当前脚本所有事件日志的快照，并将其发送到指定频道。
+category: 工具
+
+<block type="text" title="命令如何工作？">
+text: $log 捕获当前脚本执行到目前为止生成的所有事件日志，并将其发送到指定频道。可以提供一个可选的名称代码来为日志条目命名。
+</block>
+
+<block type="code" title="语法">
+text: $log[channelID; name_code]
+</block>
+
+<block type="code" title="可复制示例">
+text: $log[123456789; myCommand]
+</block>
+
+<block type="callout" kind="note">
+text: 日志以消息的形式发送到指定频道。name_code 参数是可选的，有助于区分不同的日志条目。
+</block>
+</dash>
+
+<details>
+syntax: $log[channelID; name_code]
+param: channelID|snowflake|Required|要将日志发送到的频道的 ID
+param: name_code|text|Optional|此日志条目的标签/名称
+</details>

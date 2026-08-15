@@ -1,0 +1,31 @@
+<dash>
+name: $messageContains
+desc: 当消息包含任意一个指定单词时触发的事件。
+category: 事件
+
+<block type="text" title="事件如何工作？">
+text: $messageContains 是一个事件前缀，当消息包含任意一个指定的触发词时，它会触发一个 FDScript。方括号内的单词使用分号分隔。匹配不区分大小写。
+</block>
+
+<block type="code" title="语法">
+text: #PREFIX:$messageContains[word1;word2;word3]
+</block>
+
+<block type="code" title="可复制示例">
+text: #PREFIX:$messageContains[hello;hi;hey]
+ sendMessage[Hey there! How can I help?]
+</block>
+
+<block type="callout" kind="note">
+text: 只要消息包含列表中任意一个单词，脚本就会运行。若要求所有单词都必须出现，请改用 $messageContainsAll。
+</block>
+
+<block type="callout" kind="important">
+text: 此事件在 bot_events 文件夹中运行，而不是 bot_commands。请在其中创建你的 .fds 文件。
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$messageContains[word1;word2;...]
+param: words|text|Required|以分号分隔的触发词列表。任意一个匹配即可触发脚本。
+</details>

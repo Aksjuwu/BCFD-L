@@ -1,0 +1,28 @@
+<dash>
+name: $membersCount
+desc: Возвращает количество участников на сервере.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $membersCount без аргументов бот подсчитывает всех участников-людей (не ботов) на текущем сервере и отправляет число. При вызове с ID сервера и флагом yes/no бот подсчитывает участников на указанном сервере и при необходимости включает ботов.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $membersCount
+text: $membersCount[guildID; includeBots]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: We have $membersCount members!
+</block>
+
+<block type="callout" kind="note">
+text: По умолчанию боты исключаются из подсчёта. Чтобы включить ботов, используйте $membersCount[guildID; yes]. Без аргументов эта команда работает только внутри сервера. При указании ID сервера бот должен быть участником этого сервера.
+</block>
+</dash>
+
+<details>
+syntax: $membersCount[(guildID; includeBots)]
+param: guildID|snowflake|Optional|ID другого сервера, участников которого нужно подсчитать. Если не указано, используется текущий сервер.
+param: includeBots|yes/no|Optional|Установите "yes", чтобы включить учётные записи ботов в подсчёт. Если не указано, учитываются только участники-люди.
+</details>

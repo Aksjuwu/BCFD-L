@@ -1,0 +1,27 @@
+<dash>
+name: $getUserStatus
+desc: 返回用户在服务器中的在线状态。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当 $getUserStatus 无参数调用时，它返回命令作者的在线状态。当使用用户 ID 或提及调用时，它返回该用户的状态。如果找不到用户或该用户不是服务器成员，则返回 "offline"。
+</block>
+
+<block type="code" title="语法">
+text: $getUserStatus
+text: $getUserStatus[(userID/mention)]
+</block>
+
+<block type="code" title="可复制示例">
+text: Your status is: $getUserStatus
+</block>
+
+<block type="callout" kind="note">
+text: 可能的返回值是：online、idle、dnd、offline。此命令仅在服务器内有效（在私信中无效），因为 Discord 只提供服务器成员的状态信息。
+</block>
+</dash>
+
+<details>
+syntax: $getUserStatus[(userID/mention)]
+param: userID/mention|text|Optional|要检查的用户 ID 或 @提及。如果省略，则检查命令作者。
+</details>

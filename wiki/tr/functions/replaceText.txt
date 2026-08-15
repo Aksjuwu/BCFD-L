@@ -1,0 +1,29 @@
+<dash>
+name: $replaceText
+desc: Bir metin içindeki bir alt dizinin geçtiği yerleri yeni bir metinle değiştirir.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $replaceText bir mesaj, bulunacak eski bir metin ve onun yerine geçecek yeni bir metin alır. İsteğe bağlı olarak kaç geçişin değiştirileceğini belirtebilirsiniz. Değiştirilmiş metni döndürür.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $replaceText[message; old; new; (amount)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $replaceText[Hello World; World; FDScript]
+</block>
+
+<block type="callout" kind="note">
+text: Varsayılan olarak tüm geçişler değiştirilir. Değiştirme sayısını sınırlamak için 4. argüman olarak bir sayı verin. Tümünü değiştirmek için -1 kullanın veya boş bırakın.
+</block>
+</dash>
+
+<details>
+syntax: $replaceText[message; old; new; (amount)]
+param: message|text|Required|Aranacak orijinal metin
+param: old|text|Required|Bulunup değiştirilecek alt dize
+param: new|text|Required|Değiştirme metni
+param: amount|number|Optional|Maksimum değiştirme sayısı. -1 veya boş bırakılırsa tüm geçişler değiştirilir
+</details>

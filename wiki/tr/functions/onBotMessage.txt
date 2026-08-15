@@ -1,0 +1,31 @@
+<dash>
+name: $onBotMessage
+desc: Bir bot tarafından (diğer botlar dahil) gönderilen her mesajda tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $onBotMessage, bir bot mesaj gönderdiğinde bir FDScript tetikleyen bir olay önekidir. Varsayılan olarak betik, botun kendi gönderdiği mesajları yok sayar ve yalnızca diğer botlara tepki verir. Betiğin botun kendi mesajlarında da çalışması için argümanı yes yapın veya kendi mesajlarını atlamak için no yapın (argüman boşken de varsayılan budur).
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$onBotMessage[yes/no]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: #PREFIX:$onBotMessage[no]
+$sendMessage[Another bot said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: Botun kendi mesajlarını takip etmek için yes, yalnızca diğer botlara tepki vermek için no kullanın. Yukarıdaki örnek, bot mesajının içeriğini okumak için $message kullanır.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotMessage[(yes/no)]
+param: yes/no|text|Optional|Botun kendi mesajlarında da çalışması için yes, yalnızca diğer botlara tepki vermek için no (varsayılan)
+</details>

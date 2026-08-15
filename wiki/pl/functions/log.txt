@@ -1,0 +1,27 @@
+<dash>
+name: $log
+desc: Wykonuje migawkę wszystkich zdarzeń skryptu i wysyła je do wskazanego kanału.
+category: Narzędzia
+
+<block type="text" title="Jak działa komenda?">
+text: $log przechwytuje wszystkie logi zdarzeń wygenerowane podczas bieżącego wykonania skryptu do tej pory i wysyła je do wskazanego kanału. Opcjonalnie można podać kod nazwy, aby oznaczyć wpis logu.
+</block>
+
+<block type="code" title="Składnia">
+text: $log[channelID; name_code]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $log[123456789; myCommand]
+</block>
+
+<block type="callout" kind="note">
+text: Log jest wysyłany jako wiadomość do wskazanego kanału. Parametr name_code jest opcjonalny i pomaga oznaczyć różne wpisy logu.
+</block>
+</dash>
+
+<details>
+syntax: $log[channelID; name_code]
+param: channelID|snowflake|Required|ID kanału, na który ma zostać wysłany log
+param: name_code|text|Optional|Etykieta/nazwa dla tego wpisu logu
+</details>

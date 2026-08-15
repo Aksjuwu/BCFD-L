@@ -1,0 +1,21 @@
+<dash>
+name: $authorName
+desc: 返回触发命令的用户的用户名。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $authorName 时，机器人会检索命令作者的用户名，并将其以纯文本字符串的形式直接发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $authorName
+</block>
+
+<block type="code" title="可复制示例">
+text: Hello, $authorName!
+</block>
+
+<block type="callout" kind="note">
+text: 这将返回用户当前的用户名（不是其显示名称/昵称）。如果用户更改了用户名，下次调用时将反映更新后的名称。
+</block>
+</dash>

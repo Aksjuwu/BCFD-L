@@ -1,0 +1,31 @@
+<dash>
+name: $messageContainsAll
+desc: Zdarzenie wyzwalane, gdy wiadomość zawiera WSZYSTKIE podane słowa.
+category: Zdarzenie
+
+<block type="text" title="Jak działa to zdarzenie?">
+text: $messageContainsAll to prefiks zdarzenia, który wyzwala skrypt FDScript tylko wtedy, gdy wiadomość zawiera WSZYSTKIE podane słowa wyzwalające. Słowa są oddzielane średnikami wewnątrz nawiasów. Dopasowanie nie rozróżnia wielkości liter.
+</block>
+
+<block type="code" title="Składnia">
+text: #PREFIX:$messageContainsAll[word1;word2;word3]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: #PREFIX:$messageContainsAll[bot;help]
+ sendMessage[Need help with the bot? Here's how...]
+</block>
+
+<block type="callout" kind="note">
+text: W przeciwieństwie do $messageContains, ten wymaga obecności WSZYSTKICH podanych słów w wiadomości. Jeśli brakuje jakiegokolwiek słowa, skrypt nie zostanie uruchomiony.
+</block>
+
+<block type="callout" kind="important">
+text: To zdarzenie działa w folderze bot_events, a nie bot_commands. Utwórz tam swój plik .fds.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$messageContainsAll[word1;word2;...]
+param: words|text|Required|Lista słów wyzwalających oddzielona średnikami. WSZYSTKIE muszą pasować, aby wyzwolić skrypt.
+</details>

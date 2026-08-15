@@ -1,0 +1,26 @@
+<dash>
+name: $unban
+desc: Usuwa bana wcześniej zbanowanego użytkownika z serwera.
+category: Moderacja
+
+<block type="text" title="Jak działa komenda?">
+text: $unban przyjmuje ID użytkownika, wyszukuje użytkownika na liście banów serwera i usuwa ban. Aby użyć tej komendy, użytkownik musiał być wcześniej zbanowany.
+</block>
+
+<block type="code" title="Składnia">
+text: $unban[userID]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $unban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie „Banowanie członków". ID użytkownika musi być surowym numerycznym ID (wzmianki i symbole nie są obsługiwane). Użytkownik musi być aktualnie zbanowany.
+</block>
+</dash>
+
+<details>
+syntax: $unban[userID]
+param: userID|snowflake|Required|Numeryczne ID użytkownika, którego ban ma zostać usunięty
+</details>

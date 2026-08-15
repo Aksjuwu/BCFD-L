@@ -1,0 +1,27 @@
+<dash>
+name: $cloneRole
+desc: Erstellt ein Duplikat einer vorhandenen Rolle mit denselben Berechtigungen und Einstellungen.
+category: Moderation
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $cloneRole akzeptiert eine Rollen-ID/Erwähnung und optional einen neuen Namen. Der Bot ruft die Eigenschaften der ursprünglichen Rolle ab (Berechtigungen, Farbe, hoist, mentionable) und erstellt eine neue Rolle mit denselben Einstellungen.
+</block>
+
+<block type="code" title="Syntax">
+text: $cloneRole[role ID or @mention; (optional new name)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $cloneRole[&123456789; Cloned Role]
+</block>
+
+<block type="callout" kind="note">
+text: Wenn kein neuer Name angegeben wird, behält die geklonte Rolle den Namen der ursprünglichen Rolle. Der Bot muss über die Berechtigung "Rollen verwalten" verfügen.
+</block>
+</dash>
+
+<details>
+syntax: $cloneRole[role ID or @mention; (optional new name)]
+param: role ID or @mention|text|Erforderlich|Die ID oder @Erwähnung der zu klonenden Rolle
+param: optional new name|text|Optional|Ein benutzerdefinierter Name für die geklonte Rolle. Wenn er weggelassen wird, wird der ursprüngliche Name verwendet.
+</details>

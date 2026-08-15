@@ -1,0 +1,26 @@
+<dash>
+name: $floor
+desc: Arrondit un nombre vers le bas à l'entier le plus proche.
+category: Mathématiques & Nombres
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $floor prend une seule valeur numérique et l'arrondit vers le bas à l'entier le plus proche (floor). Par exemple, 3.9 devient 3 et -2.1 devient -3. Fonctionne à la fois comme commande autonome et en ligne dans d'autres commandes.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $floor[number]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Result is $floor[3.9]]
+</block>
+
+<block type="callout" kind="note">
+text: $floor[3.9] renvoie 3. $floor[-2.1] renvoie -3. $floor[5.0] renvoie 5. Le résultat est toujours un entier.
+</block>
+</dash>
+
+<details>
+syntax: $floor[number]
+param: nombre|number|Requis|Le nombre à arrondir vers le bas à l'entier le plus proche, par exemple, 3.9, -2.1, 10
+</details>

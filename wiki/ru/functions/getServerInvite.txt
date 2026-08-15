@@ -1,0 +1,27 @@
+<dash>
+name: $getServerInvite
+desc: Генерирует и отправляет ссылку-приглашение на сервер.
+category: Утилиты
+
+<block type="text" title="Как работает команда?">
+text: При вызове $getServerInvite без аргументов генерируется ссылка-приглашение на текущий сервер. При вызове с ID сервера (guild ID) генерируется приглашение на этот конкретный сервер. Бот сначала проверяет, есть ли у сервера vanity URL. Если его нет, бот находит канал, где у него есть право «Создать приглашение» (Create Invite), и генерирует бессрочную ссылку-приглашение.
+</block>
+
+<block type="code" title="Syntax">
+text: $getServerInvite
+text: $getServerInvite[(guildID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: Бот должен быть участником целевого сервера и иметь право «Создать приглашение» (Create Invite). Если для сервера задан vanity URL, будет возвращён он, а не создано новое приглашение. Без аргументов используется текущий сервер.
+</block>
+</dash>
+
+<details>
+syntax: $getServerInvite[(guildID)]
+param: guildID|snowflake|Optional|ID другого сервера, для которого нужно получить приглашение. Если не указано, используется текущий сервер.
+</details>

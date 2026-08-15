@@ -1,0 +1,21 @@
+<dash>
+name: $guildName
+desc: Gibt den Namen des Servers (der Guild) zurück, auf dem der Befehl verwendet wurde.
+category: Info
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Wenn $guildName aufgerufen wird, ruft der Bot den Namen des Servers ab, auf dem der Befehl ausgeführt wurde, und sendet ihn als einfachen Text direkt in den Kanal. Bei Verwendung in einer DM wird "DM" zurückgegeben.
+</block>
+
+<block type="code" title="Syntax">
+text: $guildName
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: Welcome to $guildName!
+</block>
+
+<block type="callout" kind="note">
+text: Bei Verwendung außerhalb eines Servers (in DMs) gibt der Befehl die Zeichenfolge "DM" zurück, statt eines Servernamens.
+</block>
+</dash>

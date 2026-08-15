@@ -1,0 +1,28 @@
+<dash>
+name: $findRole
+desc: Bir rolü adına, kimliğine veya bahsetmesine göre bulur ve rol kimliğini döndürür.
+category: Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $findRole, geçerli sunucudaki bir rolü rol bahsetmesi, sayısal bir rol kimliği veya bir rol adı (ad eşleştirmesi büyük/küçük harf duyarsızdır) kullanarak arar. Rolün kimliğini döndürür. Tek başına kullanıldığında kimlik kanala gönderilir; satır içinde kullanıldığında kimlik doğrudan çevresindeki metne yerleştirilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $findRole[name]
+text: $findRole[roleID]
+text: $findRole[@role]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $findRole[Moderators]
+</block>
+
+<block type="callout" kind="note">
+text: Bu komut yalnızca bir sunucu içinde kullanılabilir. Rol bulunamazsa bir hata döndürülür.
+</block>
+</dash>
+
+<details>
+syntax: $findRole[query]
+param: query|text|Required|Aranacak bir rol bahsetmesi, bir rol kimliği veya bir rol adı (büyük/küçük harf duyarsız)
+</details>

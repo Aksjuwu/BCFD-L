@@ -1,0 +1,27 @@
+<dash>
+name: $lastBotMessageID
+desc: 返回当前脚本执行过程中机器人发送的最后一条消息的 ID。
+category: 变量
+
+<block type="text" title="命令如何工作？">
+text: $lastBotMessageID 解析为当前脚本执行过程中机器人发送的最近一条消息的 snowflake ID。它会由诸如 $sendMessage、$reply 和 $sendEmbedMessage 等输出命令自动更新。如果机器人尚未发送任何消息，则返回空字符串。
+</block>
+
+<block type="code" title="语法">
+text: $lastBotMessageID
+text: $lastBotMessageID[]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[Look at this!]
+$editIn[10s; The last message ID was $lastBotMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: 这是一个仅限内联的命令，不能作为独立语句使用。请在另一个命令的参数方括号内使用它，或将其作为裸内联标记使用。
+</block>
+</dash>
+
+<details>
+syntax: $lastBotMessageID
+</details>

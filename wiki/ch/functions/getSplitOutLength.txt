@@ -1,0 +1,26 @@
+<dash>
+name: $getSplitOutLength
+desc: 返回 $splitIn 拆分结果中的元素数量。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $getSplitOutLength 返回上次 $splitIn 调用所产生的部分数量。它可用于检查数据是否足够，然后再使用 $splitOut。该值会发送到频道，也可以内联使用。
+</block>
+
+<block type="code" title="语法">
+text: $getSplitOutLength
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $splitIn[apple,banana,cherry; ,]
+$getSplitOutLength
+</block>
+
+<block type="callout" kind="note">
+text: 当尚未执行拆分时返回 "0"。相同的值可以内联使用，例如与 $if 一起使用。
+</block>
+</dash>
+
+<details>
+syntax: $getSplitOutLength
+</details>

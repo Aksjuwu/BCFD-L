@@ -1,0 +1,27 @@
+<dash>
+name: $mul
+desc: İki veya daha fazla sayıyı birbiriyle çarpar ve sonucu döndürür.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $mul iki veya daha fazla sayısal argüman alır ve çarpımlarını döndürür. Hem bağımsız bir komut olarak hem de diğer komutların içinde satır içi olarak çalışır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $mul[a; b; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[$mul[3; 4]]
+</block>
+
+<block type="callout" kind="note">
+text: Herhangi bir sayıda argümanı destekler. $mul[2; 3; 4] 24 olarak hesaplanır. Çarpımın ondalık kısmı yoksa sonuç bir tam sayıdır.
+</block>
+</dash>
+
+<details>
+syntax: $mul[a; b; ...]
+param: a|number|Required|Çarpılacak ilk sayı
+param: b|number|Required|Çarpılacak ikinci sayı (ek sayılar da kabul edilir)
+</details>

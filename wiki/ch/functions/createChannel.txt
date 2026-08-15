@@ -1,0 +1,32 @@
+<dash>
+name: $createChannel
+desc: 在服务器中创建新频道。
+category: 频道管理
+
+<block type="text" title="命令如何工作？">
+text: $createChannel 以指定的名称和类型在服务器中创建一个新频道。支持文本、语音、分类、论坛和直播频道类型。可以提供一个可选的分类 ID，以便将频道放置在特定分类下。机器人必须拥有“Manage Channels”（管理频道）权限。
+</block>
+
+<block type="code" title="语法">
+text: $createChannel[name; type; (category ID)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $createChannel[my-channel; text]
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须拥有“Manage Channels”（管理频道）权限。支持的类型：text、voice、category、forum、stage。
+</block>
+
+<block type="callout" kind="note">
+text: 分类 ID 是可选的。如果提供，新频道将在该分类下创建。
+</block>
+</dash>
+
+<details>
+syntax: $createChannel[name; type; (category ID)]
+param: name|text|Required|新频道的名称。
+param: type|text|Required|频道类型：text、voice、category、forum 或 stage。
+param: categoryID|text|Optional|要将频道放置其下的分类 ID。
+</details>

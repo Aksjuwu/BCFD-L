@@ -1,0 +1,40 @@
+<dash>
+name: $addBotReactions
+desc: Dodaje jedną lub więcej reakcji emoji do ostatniej wiadomości wysłanej przez bota podczas wykonywania tego skryptu.
+category: Komponenty
+
+<block type="text" title="Jak działa ta komenda?">
+text: $addBotReactions przyjmuje jeden lub więcej argumentów emoji, rozwiązuje zawarte w nich zmienne/placeholdery i dodaje każdy powstały emoji jako reakcję do ostatniej wiadomości wysłanej przez bota w bieżącym przebiegu skryptu. Reaguje na argumenty w kolejności, z krótkim opóźnieniem między poszczególnymi reakcjami, aby uniknąć limitów szybkości.
+</block>
+
+<block type="code" title="Składnia">
+text: $addBotReactions[emoji1; emoji2; emoji3; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $addBotReactions[✅; ❌; 🎉]
+</block>
+
+<block type="list" title="Wymagania">
+item: Wiadomość bota musi zostać wysłana wcześniej w tym samym przebiegu skryptu.
+item: Z podanych argumentów musi zostać wyodrębniony co najmniej jeden prawidłowy emoji.
+item: Bot musi mieć na kanale uprawnienie „Dodawanie reakcji”.
+</block>
+
+<block type="callout" kind="note">
+text: Limity szybkości są obsługiwane automatycznie — jeśli Discord zwróci błąd 429 (Too Many Requests), komenda czeka i ponawia próbę dla tego konkretnego emoji jeden raz, zanim przejdzie dalej.
+</block>
+
+<block type="callout" kind="warning">
+text: Maksymalna liczba dozwolonych emoji w jednym wywołaniu to 20. Przekroczenie tego limitu spowoduje, że komenda zakończy się błędem zamiast dodania jakichkolwiek reakcji.
+</block>
+
+<block type="callout" kind="important">
+text: Jeśli żadna wiadomość bota nie została jeszcze wysłana lub żaden z podanych argumentów nie rozwiązuje się do prawidłowych emoji, komenda natychmiast kończy się błędem i żadne reakcje nie są dodawane.
+</block>
+</dash>
+
+<details>
+syntax: $addBotReactions[emoji1; emoji2; emoji3; ...]
+param: emoji|text|Required|Jedna lub więcej wartości emoji, którymi należy zareagować. Wszystkie argumenty są rozwiązane (obsługiwane są zmienne/placeholdery) i scalane, a następnie każdy emoji znaleziony w powstałym tekście jest dodawany jako reakcja, w kolejności.
+</details>

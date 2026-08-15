@@ -1,0 +1,25 @@
+<dash>
+name: $break
+desc: 立即退出最近的外层 $for 或 $while 循环。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: 当在循环（$for 或 $while）内遇到 $break 时，机器人会立即停止迭代，并继续执行匹配的 $endfor 或 $endwhile 之后的代码。当前循环中剩余的所有迭代都会被跳过。
+</block>
+
+<block type="code" title="语法">
+text: $break
+</block>
+
+<block type="code" title="可复制示例">
+text: $for[10]
+  $if[$message == stop]
+    $break
+  $endif
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: $break 只退出当前所在的最内层循环。如果循环是嵌套的，外层循环会继续正常执行。
+</block>
+</dash>

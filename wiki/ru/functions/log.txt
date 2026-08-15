@@ -1,0 +1,27 @@
+<dash>
+name: $log
+desc: Сохраняет снимок всех событий скрипта и отправляет его в указанный канал.
+category: Утилиты
+
+<block type="text" title="Как работает команда?">
+text: $log собирает все журналы событий, созданные во время текущего выполнения скрипта, и отправляет их в указанный канал. Для подписи записи журнала можно указать необязательное имя-код.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $log[channelID; name_code]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $log[123456789; myCommand]
+</block>
+
+<block type="callout" kind="note">
+text: Журнал отправляется в указанный канал в виде сообщения. Параметр name_code необязателен и помогает помечать разные записи журнала.
+</block>
+</dash>
+
+<details>
+syntax: $log[channelID; name_code]
+param: channelID|snowflake|Required|ID канала, в который нужно отправить журнал
+param: name_code|text|Optional|Метка/название для этой записи журнала
+</details>

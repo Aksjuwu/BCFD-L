@@ -1,0 +1,21 @@
+<dash>
+name: $ping
+desc: Botun Discord ağ geçidine (gateway) olan gecikmesini (yanıt süresi) milisaniye cinsinden döndürür.
+category: Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: Komut, bot ile Discord Ağ Geçidi arasındaki geçerli bağlantı hızını alır ve sonucu milisaniye cinsinden süreyi temsil eden ham bir sayı olarak doğrudan gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $ping
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $ping pong!
+</block>
+
+<block type="callout" kind="note">
+text: Ortaya çıkan değer, botun sunucusunun yanıt verebilirliğini temsil eder. Döndürülen sayı ne kadar düşükse, bot komutlara ve etkileşimlere o kadar hızlı yanıt verir.
+</block>
+</dash>

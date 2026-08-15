@@ -1,0 +1,32 @@
+<dash>
+name: $editChannelPerms
+desc: Edytuje nadpisania uprawnień dla roli lub członka na kanale.
+category: Moderacja
+
+<block type="text" title="Jak działa ta komenda?">
+text: $editChannelPerms modyfikuje nadpisania uprawnień dla konkretnej roli lub członka na kanale. Użyj +perm, aby zezwolić, -perm, aby zabronić, lub /perm, aby zresetować uprawnienie. Bot musi mieć uprawnienie "Zarządzanie kanałami".
+</block>
+
+<block type="code" title="Składnia">
+text: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $editChannelPerms[123456789; 987654321; +send_messages; -connect]
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie "Zarządzanie kanałami" lub "Zarządzanie uprawnieniami". Celem może być ID roli lub członka/wzmianka.
+</block>
+
+<block type="callout" kind="note">
+text: Nazwy uprawnień używają formatu snake_case Discorda: send_messages, view_channel, connect, manage_roles itd. Użyj +, aby zezwolić, -, aby zabronić, / lub ~, aby zresetować.
+</block>
+</dash>
+
+<details>
+syntax: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+param: channelID|text|Required|ID kanału lub wzmianka, na którym edytować uprawnienia.
+param: targetID|text|Required|ID roli lub członka/wzmianka, dla których ustawić uprawnienia.
+param: permissions|text|Required|Jedno lub więcej uprawnień z prefiksem +/- (np. +send_messages, -connect).
+</details>

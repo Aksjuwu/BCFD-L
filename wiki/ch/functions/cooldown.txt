@@ -1,0 +1,27 @@
+<dash>
+name: $cooldown
+desc: 在指定时间内阻止用户重新运行该脚本。
+category: 访问控制
+
+<block type="text" title="命令如何工作？">
+text: $cooldown 为每个用户对每个脚本设置基于时间的限制。如果用户在冷却时间到期前尝试再次运行同一脚本，将显示提供的错误消息（并附带剩余时间），且执行会被中止。
+</block>
+
+<block type="code" title="语法">
+text: $cooldown[time; error message]
+</block>
+
+<block type="code" title="可复制示例">
+text: $cooldown[10s; Please wait {time} before using this again!]
+</block>
+
+<block type="callout" kind="note">
+text: 时间格式使用：s（秒）、m（分钟）、h（小时）、d（天）。在错误消息中使用 {time} 或 %time% 来显示剩余的冷却时间。
+</block>
+</dash>
+
+<details>
+syntax: $cooldown[time; error message]
+param: time|text|Required|用户再次运行脚本前需要等待的时长。格式：数字 + 单位（s/m/h/d），例如 10s、5m、1h、1d
+param: error message|text|Required|冷却时间生效时发送给用户的消息。使用 {time} 或 %time% 来显示剩余时间。
+</details>

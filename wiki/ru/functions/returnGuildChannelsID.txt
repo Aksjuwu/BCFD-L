@@ -1,0 +1,39 @@
+<dash>
+name: $returnGuildChannelsID
+desc: Собирает ID каналов сервера по типу и сохраняет их для последующего извлечения.
+category: Возвращаемые команды
+
+<block type="text" title="Как работает команда?">
+text: $returnGuildChannelsID собирает все ID каналов указанного типа с заданного сервера и сохраняет их под именем переменной. Результат можно позже получить с помощью $return[variableName]. Можно фильтровать по типу канала: text, voice, category, forum, stage — или получить все каналы.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $returnGuildChannelsID[$guildID; text; channelIDs; ,]
+$sendMessage[Text channels: $return[channelIDs]]
+</block>
+
+<block type="options" title="Типы каналов">
+option: all|Все типы каналов
+option: text|Только текстовые каналы
+option: voice|Только голосовые каналы
+option: category|Только каналы-категории
+option: forum|Только форум-каналы
+option: stage|Только каналы-сцены
+</block>
+
+<block type="callout" kind="note">
+text: Бот должен быть участником целевого сервера. Используйте $return[variableName] для извлечения сохранённых ID после выполнения. Разделитель определяет, как объединяются несколько ID (например, , или ; или пробел).
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildChannelsID[GuildID; ChannelType; var; separator]
+param: GuildID|snowflake|Required|ID сервера, с которого собираются каналы
+param: ChannelType|text|Required|Тип собираемых каналов: all, text, voice, category, forum или stage
+param: var|text|Required|Имя переменной, в которую сохраняется результат (используется с $return[])
+param: separator|text|Required|Разделитель между несколькими ID (например, , или ;). Можно использовать именованные разделители: dot, com, apo, sem, colon
+</details>

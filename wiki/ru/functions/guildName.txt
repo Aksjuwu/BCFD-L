@@ -1,0 +1,21 @@
+<dash>
+name: $guildName
+desc: Возвращает название сервера (guild), на котором была использована команда.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $guildName бот получает название сервера, на котором была выполнена команда, и отправляет его напрямую в канал в виде обычной текстовой строки. Если используется в личных сообщениях, возвращается "DM".
+</block>
+
+<block type="code" title="Syntax">
+text: $guildName
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Welcome to $guildName!
+</block>
+
+<block type="callout" kind="note">
+text: При использовании вне сервера (в личных сообщениях) команда возвращает строку "DM" вместо названия сервера.
+</block>
+</dash>

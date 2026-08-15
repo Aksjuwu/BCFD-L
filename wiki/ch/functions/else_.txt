@@ -1,0 +1,25 @@
+<dash>
+name: $else
+desc: 在前面的 $if 条件为 false 时提供备选代码块。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: 在 $if 块内部使用时，$else 定义一个备选代码路径。如果 $if 条件的评估结果为 false，则执行 $else 之后（以及 $endif 之前）的代码。
+</block>
+
+<block type="code" title="语法">
+text: $else
+</block>
+
+<block type="code" title="可复制示例">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $else 必须放在 $if 和 $endif 之间。在 $if 块之外使用 $else 将导致错误。
+</block>
+</dash>

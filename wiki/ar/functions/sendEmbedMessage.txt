@@ -1,0 +1,30 @@
+<dash>
+name: $sendEmbedMessage
+desc: يرسل رسالة إيمبد إلى قناة محددة مع عنوان ووصف ولون وتذييل.
+category: الرسائل
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $sendEmbedMessage يُنشئ إيمبدًا بالعنوان والوصف واللون والتذييل المقدمين، ثم يرسله إلى القناة المحددة. جميع الوسائط الخمسة مطلوبة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $sendEmbedMessage[channelID; title; description; color; footer]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendEmbedMessage[$channelID; Welcome!; Thanks for joining; #00FF00; Enjoy your stay]
+</block>
+
+<block type="callout" kind="note">
+text: يقبل معامل اللون قيمًا سداسية عشرية (مثال: #FF5733). يجب أن يمتلك البوت صلاحيتي "إرسال الرسائل" و"روابط الإيمبد" في القناة المستهدفة.
+</block>
+</dash>
+
+<details>
+syntax: $sendEmbedMessage[channelID; title; description; color; footer]
+param: channelID|snowflake|مطلوب|معرّف القناة التي سيتم إرسال الإيمبد إليها
+param: العنوان|text|مطلوب|عنوان الإيمبد
+param: الوصف|text|مطلوب|نص الوصف/المحتوى الرئيسي للإيمبد
+param: اللون|text|مطلوب|رمز اللون السداسي العشري لشريط تلوين الإيمبد (مثال: #FF5733)
+param: التذييل|text|مطلوب|نص التذييل المعروض أسفل الإيمبد
+</details>

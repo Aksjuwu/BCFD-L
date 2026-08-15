@@ -1,0 +1,26 @@
+<dash>
+name: $sendMessage
+desc: 向当前频道发送一条文本消息。
+category: 消息发送
+
+<block type="text" title="此命令如何工作？">
+text: $sendMessage 接受一个文本参数，解析其中的变量/占位符，并将生成的消息发送到当前频道。如果有带按钮的视图待处理，则将其附加到消息上。
+</block>
+
+<block type="code" title="语法">
+text: $sendMessage[text]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $sendMessage[Hello, $authorName!]
+</block>
+
+<block type="callout" kind="note">
+text: 这是在 FDScript 中发送消息的主要方式。文本中的变量和占位符会在发送前自动解析。
+</block>
+</dash>
+
+<details>
+syntax: $sendMessage[text]
+param: text|text|Required|要发送的消息文本。支持变量、占位符和 Discord 标记语法。
+</details>

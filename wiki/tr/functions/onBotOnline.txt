@@ -1,0 +1,30 @@
+<dash>
+name: $onBotOnline
+desc: Bot çevrimiçi olduğunda bir kez tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $onBotOnline, bot başarıyla giriş yaptıktan hemen sonra bir FDScript'i tek bir kez tetikleyen bir olay önekidir. Herhangi bir kullanıcı mesajı olmadan çalışır, bu nedenle kullanılabilir bir yazar, mesaj içeriği veya kanal bağlamı yoktur. Değişkenleri saklama veya botun başladığını kaydetme gibi tek seferlik kurulumlar için kullanın.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$onBotOnline
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: #PREFIX:$onBotOnline
+$setVar[botStartupTime; $addTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: Tetikleyici bir mesaj olmadığından, $sendMessage gibi komutlarla çıktı göndermek, önce hedef kanalı seçmek için $useChannel gerektirir; $channelID veya $message gibi yazar/kanal tabanlı belirteçler kullanılamaz.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotOnline
+</details>

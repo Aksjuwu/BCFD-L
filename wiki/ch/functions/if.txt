@@ -1,0 +1,39 @@
+<dash>
+name: $if
+desc: 评估一个条件，如果条件为 true，则执行包含的代码块。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $if 接受一个条件表达式并对其进行评估。如果条件为 true，则执行 $if 到下一个 $elif、$else 或 $endif 之间的代码。如果为 false，则执行跳到下一个匹配的分支。
+</block>
+
+<block type="code" title="语法">
+text: $if[condition]
+</block>
+
+<block type="code" title="可复制示例">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="options" title="比较运算符">
+option: ==|等于（当两侧都是数字时按数值比较）
+option: !=|不等于
+option: >|大于
+option: <|小于
+option: >=|大于或等于
+option: <=|小于或等于
+</block>
+
+<block type="callout" kind="note">
+text: 支持嵌套的 $if 块。你可以使用 $elif 添加额外条件，使用 $else 作为备用。始终以 $endif 结束。
+</block>
+</dash>
+
+<details>
+syntax: $if[condition]
+param: condition|expression|Required|要评估的条件，例如 $authorID == 123、$var[score] >= 90、$isNumber[int; $message]。支持 ==、!=、>、<、>=、<= 运算符。
+</details>

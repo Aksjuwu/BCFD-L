@@ -1,0 +1,26 @@
+<dash>
+name: $or
+desc: Оценивает несколько условий и возвращает true, если истинно хотя бы одно условие.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $or принимает несколько аргументов-условий и оценивает каждое из них. Она возвращает "true", если истинно хотя бы одно условие, и "false", если все условия ложны. Это удобно для построения альтернативных условных проверок.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $or[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $or[$authorID == 123; $authorID == 456]
+</block>
+
+<block type="callout" kind="note">
+text: Каждое условие использует те же операторы сравнения, что и $if (==, !=, >, <, >=, <=). Возвращает строку "true" или "false".
+</block>
+</dash>
+
+<details>
+syntax: $or[condition1; condition2; condition3; ...]
+param: condition|expression|Required|Одно или несколько условий для оценки. Каждое может использовать операторы ==, !=, >, <, >=, <=. Для результата "true" достаточно, чтобы истинным было только одно.
+</details>

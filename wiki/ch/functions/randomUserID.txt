@@ -1,0 +1,21 @@
+<dash>
+name: $randomUserID
+desc: 返回服务器中随机一个人类成员的用户 ID。
+category: 随机
+
+<block type="text" title="命令如何工作？">
+text: 调用 $randomUserID 时，机器人会收集当前服务器中的所有非机器人成员，随机选取一个，并将其用户 ID 作为原始数字字符串发送。
+</block>
+
+<block type="code" title="语法">
+text: $randomUserID
+</block>
+
+<block type="code" title="可复制示例">
+text: Random user ID: $randomUserID
+</block>
+
+<block type="callout" kind="note">
+text: 此命令仅在服务器内有效（在私信中无效）。机器人账户会被排除在选取范围之外。如果没有人类成员，命令将失败并返回错误。
+</block>
+</dash>

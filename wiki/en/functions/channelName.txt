@@ -1,0 +1,21 @@
+<dash>
+name: $channelName
+desc: Returns the name of the channel where the command was used.
+category: Info
+
+<block type="text" title="How does the command work?">
+text: When $channelName is called, the bot retrieves the name of the current channel and sends it directly to the channel as a plain text string.
+</block>
+
+<block type="code" title="Syntax">
+text: $channelName
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: You are chatting in #$channelName
+</block>
+
+<block type="callout" kind="note">
+text: This returns the channel's current name without the # prefix. If the channel is renamed, the next call will reflect the updated name.
+</block>
+</dash>

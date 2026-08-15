@@ -1,0 +1,21 @@
+<dash>
+name: $kick
+desc: Sunucudan bir kullanıcıyı atar.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $kick komutu argüman olmadan çağrıldığında komutu yazan kullanıcıyı atar. Bir kullanıcı ID'si veya etiketiyle çağrıldığında o belirli kullanıcıyı atar. Bot, verilen argümandan sayısal kullanıcı ID'sini çıkarır ve Discord API üzerinden bir atma (kick) işlemi gerçekleştirir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $kick
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $kick[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Kick Members" iznine sahip olması ve en yüksek rolünün hedef kullanıcının en yüksek rolünün üzerinde olması gerekir. $kick komutunu köşeli parantez olmadan kullanmak, komutu tetikleyen kullanıcıyı atar.
+</block>
+</dash>

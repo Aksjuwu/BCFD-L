@@ -1,0 +1,28 @@
+<dash>
+name: $httpGet
+desc: Envoie une requête HTTP GET vers une URL et stocke le code de statut et la réponse.
+category: HTTP
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $httpGet effectue une requête GET avec un délai d'expiration de 10 secondes. La réponse est stockée dans $httpResult (en JSON lorsque c'est possible, sinon en texte brut) et le code de statut dans $httpStatus. Les en-têtes ajoutés avec $httpAddHeader sont envoyés puis effacés.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $httpGet[URL]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $httpGet[https://api.example.com/users]
+$httpStatus
+$httpResult[0; name]
+</block>
+
+<block type="callout" kind="note">
+text: En cas d'échec, le statut est défini sur 500 et $httpResult contient le message d'erreur.
+</block>
+</dash>
+
+<details>
+syntax: $httpGet[URL]
+param: URL|text|Requis|L'URL vers laquelle envoyer la requête GET
+</details>

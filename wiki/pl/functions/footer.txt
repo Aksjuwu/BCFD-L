@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: Ustawia tekst stopki budowanego embedu.
+category: Kreator embedów
+
+<block type="text" title="Jak działa ta komenda?">
+text: $footer przyjmuje argument tekstowy i ustawia go jako stopkę budowanego obecnie embedu. Stopka pojawia się na samym dole embedu w mniejszym, jaśniejszym tekście.
+</block>
+
+<block type="code" title="Składnia">
+text: $footer[text]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: Stopka jest przydatna do przypisania autorstwa, znaczników czasu lub dodatkowego kontekstu. Pojawia się jako mniejszy szary tekst na dole embedu.
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: text|text|Required|Tekst stopki embedu
+</details>

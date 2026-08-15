@@ -1,0 +1,26 @@
+<dash>
+name: $deleteRole
+desc: 从服务器中删除一个角色。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: $deleteRole 接受一个角色 ID 或 @提及，在服务器中查找该角色，并将其永久删除。此操作无法撤销。
+</block>
+
+<block type="code" title="语法">
+text: $deleteRole[role ID or @mention]
+</block>
+
+<block type="code" title="可复制示例">
+text: $deleteRole[&123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: 机器人必须拥有“Manage Roles”（管理角色）权限，且其最高角色的位置必须高于目标角色。删除角色是永久性的，无法撤销。
+</block>
+</dash>
+
+<details>
+syntax: $deleteRole[role ID or @mention]
+param: role ID or @mention|text|Required|要删除的角色的 ID 或 @提及
+</details>

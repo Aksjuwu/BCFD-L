@@ -1,0 +1,28 @@
+<dash>
+name: $removeSplitOutElement
+desc: Supprime un élément du résultat de division actuel ($splitIn) selon son index basé sur 1.
+category: Utilitaires de texte
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $removeSplitOutElement supprime l'élément situé à la position donnée dans les données stockées par $splitIn. Les éléments restants conservent leur ordre. $splitIn doit être appelé avant cette commande.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $removeSplitOutElement[index]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $splitIn[apple,banana,cherry; ,]
+$removeSplitOutElement[2]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: L'index doit être un entier positif compris dans la longueur actuelle de la division, sinon une erreur est levée.
+</block>
+</dash>
+
+<details>
+syntax: $removeSplitOutElement[index]
+param: index|number|Requis|Position basée sur 1 de l'élément à supprimer
+</details>

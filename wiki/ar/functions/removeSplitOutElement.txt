@@ -1,0 +1,28 @@
+<dash>
+name: $removeSplitOutElement
+desc: يزيل عنصرًا واحدًا من نتيجة القسمة الحالية ($splitIn) وفقًا لفهرسه الذي يبدأ من 1.
+category: أدوات النصوص
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يحذف $removeSplitOutElement العنصر الموجود في الموضع المحدد من البيانات المخزنة بواسطة $splitIn. تحتفظ العناصر المتبقية بترتيبها. يجب استدعاء $splitIn قبل هذا الأمر.
+</block>
+
+<block type="code" title="الصيغة">
+text: $removeSplitOutElement[index]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $splitIn[apple,banana,cherry; ,]
+$removeSplitOutElement[2]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يكون الفهرس عددًا صحيحًا موجبًا ضمن طول القسمة الحالي، وإلا سيتم رفع خطأ.
+</block>
+</dash>
+
+<details>
+syntax: $removeSplitOutElement[index]
+param: index|number|مطلوب|موضع العنصر المراد إزالته (يبدأ من 1)
+</details>

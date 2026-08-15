@@ -1,0 +1,23 @@
+<dash>
+name: $endif
+desc: Oznacza koniec bloku $if lub $elif.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: $endif wyznacza zamykającą granicę warunkowego bloku $if. Cały kod pomiędzy $if i $endif jest wykonywany tylko wtedy, gdy warunek jest spełniony. Każdy $if musi mieć pasujący $endif.
+</block>
+
+<block type="code" title="Składnia">
+text: $endif
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$endif
+</block>
+
+<block type="callout" kind="warning">
+text: Każdy blok $if musi być poprawnie zamknięty za pomocą $endif. Brak $endif spowoduje błąd skryptu.
+</block>
+</dash>

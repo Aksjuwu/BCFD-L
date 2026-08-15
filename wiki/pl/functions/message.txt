@@ -1,0 +1,21 @@
+<dash>
+name: $message
+desc: Zwraca argumenty/słowa z wiadomości komendy użytkownika.
+category: Informacje
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy $message jest wywołany bez argumentów, zwraca wszystko, co użytkownik wpisał po nazwie komendy (pełny ciąg argumentów). Gdy jest wywołany z numerem indeksu, zwraca konkretne słowo na tej pozycji.
+</block>
+
+<block type="code" title="Składnia">
+text: $message
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: Bez argumentów zwraca cały tekst po komendzie. Z $message[1] zwraca pierwsze słowo, $message[2] drugie i tak dalej. Zwraca pusty ciąg znaków, jeśli indeks jest poza zakresem.
+</block>
+</dash>

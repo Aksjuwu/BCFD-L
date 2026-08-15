@@ -1,0 +1,27 @@
+<dash>
+name: $httpResult
+desc: Gibt die Antwort der letzten HTTP-Anfrage zurück und extrahiert optional verschachtelte JSON-Werte.
+category: HTTP
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $httpResult gibt das von der letzten HTTP-Anfrage ($httpGet, $httpPost, $httpPut, $httpPatch oder $httpDelete) gespeicherte Ergebnis zurück. Ohne Argumente wird die gesamte Antwort zurückgegeben (als JSON-Text, wenn sie ein Objekt oder eine Liste ist). Mit Argumenten navigiert der Befehl Schritt für Schritt in das Ergebnis und unterstützt Objektschlüssel sowie numerische Listenindizes. Gibt einen leeren Text zurück, wenn ein Schlüssel nicht existiert.
+</block>
+
+<block type="code" title="Syntax">
+text: $httpResult[(key1; key2; ...)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $httpGet[https://api.example.com/users]
+$httpResult[0; username]
+</block>
+
+<block type="callout" kind="note">
+text: Verwende eine Zahl, um ein Listenelement auszuwählen. Fehlt ein Schlüssel, wird ein leerer Text zurückgegeben.
+</block>
+</dash>
+
+<details>
+syntax: $httpResult[(key1; key2; ...)]
+param: key|text|Optional|Schlüssel oder numerischer Index, um in das JSON-Ergebnis zu navigieren (für verschachtelte Werte wiederholen)
+</details>

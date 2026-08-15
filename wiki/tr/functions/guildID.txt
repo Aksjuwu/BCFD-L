@@ -1,0 +1,21 @@
+<dash>
+name: $guildID
+desc: Komutun kullanıldığı Discord sunucusunun (guild) kimliğini döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $guildID çağrıldığında bot, komutun çalıştırıldığı sunucunun benzersiz Discord guild kimliğini alır ve bunu ham bir sayısal dize olarak doğrudan gönderir. Bir DM'de kullanılırsa "DM" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $guildID
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Server ID: $guildID
+</block>
+
+<block type="callout" kind="note">
+text: Döndürülen değer bir snowflake kimliğidir (ör. 123456789012345678). Bir sunucu dışında (DM'lerde) kullanıldığında komut, "DM" dizesini döndürür.
+</block>
+</dash>

@@ -1,0 +1,25 @@
+<dash>
+name: $endwhile
+desc: Bir $while döngü bloğunun sonunu işaretler.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $endwhile, bir $while döngüsünün kapanış sınırını belirtir. Her yinelemeden sonra yürütme, koşulu yeniden değerlendirmek için $while koşuluna döner. Her $while için eşleşen bir $endwhile olmalıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $endwhile
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $setVar[count; 0]
+$while[$getVar[count] < 5]
+  $sendMessage[Count: $getVar[count]]
+  $setVar[count; $math[$getVar[count] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: Her $while bloğu $endwhile ile düzgün şekilde kapatılmalıdır. Eksik $endwhile, script hatasına neden olur. Sonsuz döngüleri önlemek için döngünüzün bir sonlandırma koşuluna sahip olduğundan emin olun.
+</block>
+</dash>

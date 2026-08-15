@@ -1,0 +1,28 @@
+<dash>
+name: $httpStatus
+desc: يعيد رمز حالة HTTP لآخر طلب.
+category: HTTP
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يعيد $httpStatus رمز الحالة المخزَّن بواسطة آخر طلب HTTP. يعيد "0" عندما لم يُنفَّذ أي طلب بعد.
+</block>
+
+<block type="code" title="الصيغة">
+text: $httpStatus
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $httpGet[https://api.example.com/data]
+$if[$httpStatus == 200] {
+  $reply[Request succeeded]
+}
+</block>
+
+<block type="callout" kind="note">
+text: عند فشل الطلب يُضبط رمز الحالة على 500.
+</block>
+</dash>
+
+<details>
+syntax: $httpStatus
+</details>

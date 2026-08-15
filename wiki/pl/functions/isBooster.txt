@@ -1,0 +1,26 @@
+<dash>
+name: $isBooster
+desc: Sprawdza, czy użytkownik wzmacnia serwer (ma aktywne wzmocnienie Nitro).
+category: Informacje
+
+<block type="text" title="Jak działa ta komenda?">
+text: $isBooster przyjmuje ID użytkownika lub wzmiankę i sprawdza, czy ten użytkownik aktualnie wzmacnia serwer (ma aktywną subskrypcję premium). Zwraca "true" lub "false".
+</block>
+
+<block type="code" title="Składnia">
+text: $isBooster[userID]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $isBooster[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Zwraca "true", jeśli użytkownik ma aktywne wzmocnienie Nitro dla serwera, w przeciwnym razie "false". Użytkownik musi być członkiem serwera.
+</block>
+</dash>
+
+<details>
+syntax: $isBooster[userID]
+param: userID|text|Required|ID użytkownika lub wzmianka @mention do sprawdzenia. Obsługuje zmienne i znaczniki miejsc.
+</details>

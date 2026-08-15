@@ -1,0 +1,27 @@
+<dash>
+name: $sub
+desc: Sayıları ilk değerden sırayla çıkarır ve sonucu döndürür.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $sub iki veya daha fazla sayısal argüman alır. İlk değerle başlar ve her sonraki değeri ondan çıkarır. Hem bağımsız bir komut olarak hem de satır içinde çalışır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $sub[a; b; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Result is $sub[10; 3]]
+</block>
+
+<block type="callout" kind="note">
+text: $sub[10; 3; 2] ifadesi 10 - 3 - 2 = 5 olarak hesaplanır. Sayısal olmayan bir değer sağlanırsa bir hata döndürülür.
+</block>
+</dash>
+
+<details>
+syntax: $sub[a; b; ...]
+param: a|number|Required|Başlangıç değeri (çıkan)
+param: b|number|Required|Çıkarılacak değer (ek değerler de sırayla çıkarılır)
+</details>

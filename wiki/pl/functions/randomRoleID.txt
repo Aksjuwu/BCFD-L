@@ -1,0 +1,21 @@
+<dash>
+name: $randomRoleID
+desc: Zwraca ID losowej roli z serwera.
+category: Losowość
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy wywoływany jest $randomRoleID, bot zbiera wszystkie role na bieżącym serwerze (z wyłączeniem domyślnej roli @everyone), wybiera jedną losowo i wysyła jej ID jako surowy ciąg numeryczny.
+</block>
+
+<block type="code" title="Składnia">
+text: $randomRoleID
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: Random role ID: $randomRoleID
+</block>
+
+<block type="callout" kind="note">
+text: Ta komenda działa tylko na serwerze (nie w wiadomościach prywatnych). Rola @everyone jest zawsze wykluczona. Jeśli serwer nie ma żadnych własnych ról, komenda zakończy się błędem.
+</block>
+</dash>

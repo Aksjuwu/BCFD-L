@@ -1,0 +1,27 @@
+<dash>
+name: $botLeave
+desc: 让机器人离开一个服务器（公会）。
+category: 服务器
+
+<block type="text" title="命令如何工作？">
+text: $botLeave 让机器人离开指定的公会。当未提供公会 ID 时，机器人会离开使用该命令的公会。当提供了公会 ID 时，则离开该公会（只要机器人是目标公会的成员，即使从私信中也能生效）。
+</block>
+
+<block type="code" title="语法">
+text: $botLeave
+text: $botLeave[guildID]
+</block>
+
+<block type="code" title="可复制示例">
+text: $botLeave
+</block>
+
+<block type="callout" kind="warning">
+text: 这会立即将机器人从公会中移除。如果未提供公会 ID 且在服务器之外（私信中）使用该命令，将返回错误。公会 ID 参数必须是数字 snowflake。
+</block>
+</dash>
+
+<details>
+syntax: $botLeave[(guildID)]
+param: guildID|snowflake|Optional|要离开的公会 ID。如果省略，则离开当前公会。
+</details>

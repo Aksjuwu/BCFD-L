@@ -1,0 +1,32 @@
+<dash>
+name: $editChannelPerms
+desc: Modifie les écrasements de permissions pour un rôle ou un membre sur un canal.
+category: Modération
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $editChannelPerms modifie les écrasements de permissions pour un rôle ou un membre spécifique sur un canal. Utilisez +perm pour autoriser, -perm pour refuser, ou /perm pour réinitialiser une permission. Le bot doit disposer de la permission « Gérer les canaux ».
+</block>
+
+<block type="code" title="Syntaxe">
+text: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $editChannelPerms[123456789; 987654321; +send_messages; -connect]
+</block>
+
+<block type="callout" kind="warning">
+text: Le bot doit disposer de la permission « Gérer les canaux » ou « Gérer les permissions ». La cible peut être un rôle ou un ID/mention de membre.
+</block>
+
+<block type="callout" kind="note">
+text: Les noms de permissions utilisent le format snake_case de Discord : send_messages, view_channel, connect, manage_roles, etc. Utilisez + pour autoriser, - pour refuser, / ou ~ pour réinitialiser.
+</block>
+</dash>
+
+<details>
+syntax: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+param: channelID|text|Requis|L'ID du canal ou la mention sur lequel modifier les permissions.
+param: targetID|text|Requis|L'ID/mention du rôle ou du membre pour lequel définir les permissions.
+param: permissions|text|Requis|Une ou plusieurs permissions avec le préfixe +/- (par exemple, +send_messages, -connect).
+</details>

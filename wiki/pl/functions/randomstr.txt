@@ -1,0 +1,26 @@
+<dash>
+name: $randomstr
+desc: Zwraca losowo wybrany ciąg znaków z podanych argumentów.
+category: Losowość
+
+<block type="text" title="Jak działa komenda?">
+text: $randomstr przyjmuje jeden lub więcej argumentów tekstowych i losowo wybiera jeden z nich, a następnie wysyła go na kanał. Jest to przydatne do losowych odpowiedzi, cytatów lub wiadomości.
+</block>
+
+<block type="code" title="Składnia">
+text: $randomstr[string1; string2; string3; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $randomstr[Hello!; Hi there!; Hey!; What's up?]
+</block>
+
+<block type="callout" kind="note">
+text: Każdy argument to możliwe wyjście. Jeden z nich jest wybierany losowo z równym prawdopodobieństwem. Należy podać co najmniej jeden ciąg znaków.
+</block>
+</dash>
+
+<details>
+syntax: $randomstr[string1; string2; string3; ...]
+param: string|text|Required|Jeden lub więcej ciągów znaków do wyboru. Jeden z nich jest losowo wybierany i wysyłany.
+</details>

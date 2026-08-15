@@ -1,0 +1,21 @@
+<dash>
+name: $clear
+desc: Geçerli kanaldan belirtilen sayıda mesajı toplu olarak siler.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $clear bağımsız değişken olmadan çağrıldığında varsayılan sayıdaki mesajı (10) siler. Bir sayıyla çağrıldığında o kadar mesajı siler. Bot, mesajları verimli bir şekilde kaldırmak için Discord'un toplu silme API'sini kullanır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $clear
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $clear[50]
+</block>
+
+<block type="callout" kind="warning">
+text: Discord'un toplu silme sınırı, istek başına 100 mesajdır. 14 günden eski mesajlar toplu olarak silinemez. Botun kanalda "Mesajları Yönet" iznine sahip olması gerekir.
+</block>
+</dash>

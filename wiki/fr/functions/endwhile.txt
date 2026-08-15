@@ -1,0 +1,25 @@
+<dash>
+name: $endwhile
+desc: Marque la fin d'un bloc de boucle $while.
+category: Contrôle de flux
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $endwhile signale la limite de fermeture d'une boucle $while. Après chaque itération, l'exécution revient à la condition $while pour la réévaluer. Chaque $while doit avoir un $endwhile correspondant.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $endwhile
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $setVar[count; 0]
+$while[$getVar[count] < 5]
+  $sendMessage[Count: $getVar[count]]
+  $setVar[count; $math[$getVar[count] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: Chaque bloc $while doit être correctement fermé avec $endwhile. Un $endwhile manquant provoquera une erreur de script. Assurez-vous que votre boucle possède une condition de terminaison pour éviter les boucles infinies.
+</block>
+</dash>

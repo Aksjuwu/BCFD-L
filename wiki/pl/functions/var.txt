@@ -1,0 +1,28 @@
+<dash>
+name: $var
+desc: Odczytuje lub zapisuje zmienną tymczasową, która istnieje tylko podczas bieżącego wykonania skryptu.
+category: Zmienne
+
+<block type="text" title="Jak działa komenda?">
+text: $var z jednym argumentem odczytuje wartość zmiennej. $var z dwoma argumentami zapisuje wartość do zmiennej. Zmienne tymczasowe są usuwane po zakończeniu skryptu.
+</block>
+
+<block type="code" title="Składnia">
+text: $var[name; value]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $var[score; 10]
+$sendMessage[Your score is $var[score]]
+</block>
+
+<block type="callout" kind="note">
+text: W przeciwieństwie do $setVar/$getVar (trwałych), $var jest dostępne tylko podczas bieżącego wykonania skryptu. Może być użyte w tekście wewnątrz argumentów innych komend.
+</block>
+</dash>
+
+<details>
+syntax: $var[name; (value)]
+param: name|text|Required|Nazwa zmiennej do odczytu lub zapisu
+param: value|text|Optional|Jeśli podany, zapisuje tę wartość do zmiennej (tryb 2-argumentowy). Jeśli pominięty, odczytuje i zwraca bieżącą wartość (tryb 1-argumentowy).
+</details>

@@ -1,0 +1,25 @@
+<dash>
+name: $customID
+desc: Возвращает custom_id кнопки или взаимодействия с компонентом, которое запустило скрипт.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: Когда пользователь нажимает кнопку или взаимодействует с компонентом, $customID возвращает строку custom_id, назначенную этому компоненту. Это полезно для определения того, какая кнопка была нажата в событии onInteraction.
+</block>
+
+<block type="code" title="Syntax">
+text: $customID
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $if[$customID == btn_confirm]
+  You confirmed!
+$elif[$customID == btn_cancel]
+  You cancelled!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: Эта переменная значима только внутри скриптов, запускаемых взаимодействием (например, onInteraction). При использовании в обычном контексте сообщения она возвращает пустую строку.
+</block>
+</dash>

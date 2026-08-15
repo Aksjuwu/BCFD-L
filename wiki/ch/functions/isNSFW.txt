@@ -1,0 +1,26 @@
+<dash>
+name: $isNSFW
+desc: 检查频道是否被标记为 NSFW。
+category: 频道
+
+<block type="text" title="命令如何工作？">
+text: $isNSFW 接受一个频道提及或 ID，并检查该频道是否被标记为 NSFW（不适合工作场所）。如果频道是 NSFW，则返回 "true"，否则返回 "false"。
+</block>
+
+<block type="code" title="语法">
+text: $isNSFW[channel mention/ID]
+</block>
+
+<block type="code" title="可复制示例">
+text: $isNSFW[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: 可用于条件逻辑，根据频道的年龄分级来限制内容。
+</block>
+</dash>
+
+<details>
+syntax: $isNSFW[channel mention/ID]
+param: channel|text|Required|要检查的频道提及或数字 ID。
+</details>

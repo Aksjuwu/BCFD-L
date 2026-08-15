@@ -1,0 +1,30 @@
+<dash>
+name: $onJoined
+desc: Bir üye sunucuya katıldığında tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $onJoined, sunucuya yeni bir üye katıldığında bir FDScript tetikleyen bir olay önekidir. Betik, katılan üyenin bilgilerini alır. Çıktıyı belirli bir kanala yönlendirmek için ilk satırda isteğe bağlı olarak bir kanal ID'si belirtebilirsiniz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$onJoined
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: #PREFIX:$onJoined
+ sendMessage[Welcome $mention to the server!]
+</block>
+
+<block type="callout" kind="note">
+text: Bunu FDScript dosyanızın ilk satırına yerleştirin. Betik, herhangi bir üye katıldığında otomatik olarak çalışır. Yeni üyeyi etiketlemek için $mention kullanın.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onJoined
+</details>

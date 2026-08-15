@@ -1,0 +1,28 @@
+<dash>
+name: $editIn
+desc: Редактирует последнее отправленное ботом сообщение через указанную задержку.
+category: Время и задержки
+
+<block type="text" title="Как работает команда?">
+text: $editIn ждёт указанную длительность, затем заменяет содержимое самого последнего отправленного ботом сообщения на новый переданный текст. Исходное сообщение должно было быть отправлено ранее в том же выполнении скрипта.
+</block>
+
+<block type="code" title="Syntax">
+text: $editIn[time; newMessage]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Loading...]
+$editIn[5s; Done!]
+</block>
+
+<block type="callout" kind="note">
+text: Формат времени использует: s (секунды), m (минуты), h (часы), d (дни). Заменяется только текстовое содержимое — эмбеды и компоненты не затрагиваются.
+</block>
+</dash>
+
+<details>
+syntax: $editIn[time; newMessage]
+param: time|text|Required|Длительность ожидания перед редактированием. Формат: число + единица (s/m/h/d), например, 5s, 10m
+param: newMessage|text|Required|Новый текстовый контент, который заменит старое сообщение
+</details>

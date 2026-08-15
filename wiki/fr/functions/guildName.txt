@@ -1,0 +1,21 @@
+<dash>
+name: $guildName
+desc: Renvoie le nom du serveur (guild) où la commande a été utilisée.
+category: Info
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Lorsque $guildName est appelé, le bot récupère le nom du serveur où la commande a été exécutée et l'envoie directement dans le canal sous forme de chaîne de texte brut. S'il est utilisé dans un DM, il renvoie "DM".
+</block>
+
+<block type="code" title="Syntaxe">
+text: $guildName
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: Welcome to $guildName!
+</block>
+
+<block type="callout" kind="note">
+text: Lorsqu'il est utilisé en dehors d'un serveur (dans les DM), la commande renvoie la chaîne "DM" au lieu d'un nom de serveur.
+</block>
+</dash>

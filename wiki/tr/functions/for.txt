@@ -1,0 +1,28 @@
+<dash>
+name: $for
+desc: İçindeki kod bloğunu belirtilen sayıda tekrarlar.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $for bir sayı (count) argümanı alır ve $for ile $endfor arasındaki kodu o sayı kadar çalıştırır. Döngü $break kullanılarak erken sonlandırılabilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $for[count]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: Sayı 0 veya negatifse döngü gövdesi tamamen atlanır. Erken çıkmak için döngü içinde $break kullanın. İç içe döngüler desteklenir.
+</block>
+</dash>
+
+<details>
+syntax: $for[count]
+param: count|number|Required|Döngü gövdesinin tekrarlanacağı sayı. Negatif olmayan bir tam sayı olmalıdır.
+</details>

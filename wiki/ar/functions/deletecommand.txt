@@ -1,0 +1,22 @@
+<dash>
+name: $deletecommand
+desc: يحذف الرسالة التي شغّلت الدالة.
+category: الإشراف
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $deletecommand، يحاول البوت حذف رسالة المستخدم التي شغّلت تنفيذ السكربت. يُستخدم هذا عادةً للحفاظ على نظافة القنوات بإزالة استدعاء الدالة الأصلي.
+</block>
+
+<block type="code" title="الصيغة">
+text: $deletecommand
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $deletecommand
+$sendMessage[Command received!]
+</block>
+
+<block type="callout" kind="warning">
+text: يجب أن يمتلك البوت صلاحية "إدارة الرسائل" في القناة لحذف رسائل المستخدمين. إذا كانت الصلاحية مفقودة، يُعاد خطأ.
+</block>
+</dash>

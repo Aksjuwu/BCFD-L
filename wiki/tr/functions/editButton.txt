@@ -1,0 +1,35 @@
+<dash>
+name: $editButton
+desc: Bir mesajdaki mevcut bir butonun özelliklerini düzenler.
+category: Bileşenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $editButton, bir mesajdaki butonu kimliğine veya URL'sine göre bulur ve etiketini (label), stilini, devre dışı durumunu ve/veya emojisini günceller. Bekleyen bir görünümdeki, bir etkileşim kaynak mesajındaki veya kimliğiyle belirtilen belirli bir mesajdaki butonları hedefleyebilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $editButton[btn_confirm; Confirmed; success]
+</block>
+
+<block type="callout" kind="note">
+text: messageID verilirse bot o belirli mesajı getirir ve üzerindeki butonu düzenler. Aksi halde sırasıyla bekleyen görünümü, etkileşim kaynak mesajını ve botun gönderdiği son mesajı arar.
+</block>
+
+<block type="callout" kind="warning">
+text: Hedef mesaj bu bot tarafından gönderilmiş olmalıdır. Buton, verilen kimlik veya URL ile mesajda zaten mevcut olmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $editButton[ID/URL; label; style; (disabled; emoji; messageID)]
+param: ID/URL|text|Required|Düzenlenecek butonun özel kimliği (custom ID) veya URL'si
+param: label|text|Required|Butonda görüntülenecek yeni metin
+param: style|text|Required|primary / secondary / success / danger / link
+param: disabled|yes/no|Optional|Butonu devre dışı bırakmak için yes, etkinleştirmek için no
+param: emoji|text|Optional|Butonun içinde görüntülenecek yeni emoji
+param: messageID|snowflake|Optional|Butonun düzenleneceği belirli bir bot mesajının kimliği
+</details>

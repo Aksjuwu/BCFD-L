@@ -1,0 +1,26 @@
+<dash>
+name: $channelType
+desc: 返回频道的类型（文本、语音、分类、论坛、直播）。
+category: 频道
+
+<block type="text" title="命令如何工作？">
+text: $channelType 接受一个频道提及或 ID，并以字符串形式返回频道类型名称。有效类型包括：text、voice、category、forum、stage。如果未提供参数，则返回当前频道的类型。如果找不到频道，则返回“unknown”。
+</block>
+
+<block type="code" title="语法">
+text: $channelType[channel mention/ID]
+</block>
+
+<block type="code" title="可复制示例">
+text: $channelType[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: 可用于在执行特定类型的操作（如 $createChannel 或 $voiceUsersLimit）之前验证频道类型。
+</block>
+</dash>
+
+<details>
+syntax: $channelType[channel mention/ID]
+param: channel|text|Optional|频道提及或数字 ID。如果为空，则使用当前频道。
+</details>

@@ -1,0 +1,27 @@
+<dash>
+name: $cloneRole
+desc: 创建具有相同权限和设置的现有角色的副本。
+category: 管理
+
+<block type="text" title="命令如何工作？">
+text: $cloneRole 接受一个角色 ID/提及，并可选择接受一个新名称。机器人会获取原始角色的属性（权限、颜色、是否单独显示、是否可提及），并使用相同的设置创建新角色。
+</block>
+
+<block type="code" title="语法">
+text: $cloneRole[role ID or @mention; (optional new name)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $cloneRole[&123456789; Cloned Role]
+</block>
+
+<block type="callout" kind="note">
+text: 如果未提供新名称，克隆的角色将保留原始角色的名称。机器人必须拥有“Manage Roles”（管理角色）权限。
+</block>
+</dash>
+
+<details>
+syntax: $cloneRole[role ID or @mention; (optional new name)]
+param: role ID or @mention|text|Required|要克隆的角色的 ID 或 @提及
+param: optional new name|text|Optional|克隆角色的自定义名称。如果省略，则使用原始名称。
+</details>

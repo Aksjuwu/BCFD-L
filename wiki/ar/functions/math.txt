@@ -1,0 +1,46 @@
+<dash>
+name: $math
+desc: يقيّم تعبيرًا رياضيًا ويعيد النتيجة.
+category: الرياضيات والأرقام
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $math يأخذ تعبيرًا رياضيًا، ويقيمه بأمان باستخدام محلل AST الخاص بـ Python، ثم يرسل النتيجة. يدعم العمليات الحسابية الأساسية والأسس والدوال الرياضية الشائعة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $math[expression]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $math[2 + 2 * 3]
+</block>
+
+<block type="options" title="العوامل المدعومة">
+option: +|الجمع
+option: -|الطرح
+option: *|الضرب
+option: /|القسمة
+option: //|القسمة الصحيحة
+option: %|المودولو (الباقي)
+option: **|الأس
+</block>
+
+<block type="options" title="الدوال المدعومة">
+option: sqrt|الجذر التربيعي
+option: abs|القيمة المطلقة
+option: ceil|التقريب لأعلى
+option: floor|التقريب لأسفل
+option: round|التقريب لأقرب عدد
+option: log/log2/log10|اللوغاريتم
+option: sin/cos/tan|الدوال المثلثية
+</block>
+
+<block type="callout" kind="note">
+text: الثوابت pi وe وinf متاحة. يتم تقييم التعبير بأمان — لا يمكن تنفيذ كود عشوائي. القسمة على صفر تُرجع خطأ.
+</block>
+</dash>
+
+<details>
+syntax: $math[expression]
+param: expression|text|مطلوب|تعبير رياضي للتقييم، مثل 2 + 2 أو sqrt(16) أو pi * 2
+</details>

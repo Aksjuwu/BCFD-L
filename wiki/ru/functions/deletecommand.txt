@@ -1,0 +1,22 @@
+<dash>
+name: $deletecommand
+desc: Удаляет сообщение, которое запустило команду.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $deletecommand бот пытается удалить сообщение пользователя, которое запустило выполнение скрипта. Это часто используется для поддержания порядка в каналах путём удаления исходного вызова команды.
+</block>
+
+<block type="code" title="Syntax">
+text: $deletecommand
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $deletecommand
+$sendMessage[Command received!]
+</block>
+
+<block type="callout" kind="warning">
+text: У бота должно быть разрешение «Manage Messages» в канале для удаления сообщений пользователей. Если разрешения нет, возвращается ошибка.
+</block>
+</dash>

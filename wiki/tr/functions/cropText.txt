@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: Bir metni en fazla belirli bir karakter sayısına kısaltır, isteğe bağlı olarak sonuna "..." gibi bir ifade ekler.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $cropText bir metni en fazla verilen karakter sayısına kısaltır. Metin daha uzunsa kesilir ve isteğe bağlı son (örneğin "..." veya "... [devamı]") eklenir. Metin zaten yeterince kısaysa değiştirilmeden döndürülür.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: "max characters" argümanı negatif olmayan bir tam sayı olmalıdır. Son verilmediğinde metin sınırda olduğu gibi kesilir.
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|Required|Kısaltılacak metin
+param: max characters|number|Required|Korunacak en fazla karakter sayısı (negatif olmayan bir tam sayı olmalıdır)
+param: ending|text|Optional|Girdi sınırdan uzun olduğunda sona eklenen metin (örn. "...")
+</details>

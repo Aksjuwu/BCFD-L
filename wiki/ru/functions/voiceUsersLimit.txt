@@ -1,0 +1,26 @@
+<dash>
+name: $voiceUsersLimit
+desc: Возвращает лимит пользователей голосового канала или канала-сцены.
+category: Каналы
+
+<block type="text" title="Как работает команда?">
+text: $voiceUsersLimit принимает ID голосового канала или канала-сцены и возвращает его лимит пользователей. Значение 0 означает, что лимита нет. Возвращает ошибку, если канал не является голосовым или каналом-сценой.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $voiceUsersLimit[voice channel ID]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $voiceUsersLimit[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает 0, если для канала не установлен лимит пользователей. Можно использовать внутри текста для проверки условий.
+</block>
+</dash>
+
+<details>
+syntax: $voiceUsersLimit[voice channel ID]
+param: channelID|text|Required|ID голосового канала или канала-сцены.
+</details>

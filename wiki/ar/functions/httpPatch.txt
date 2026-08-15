@@ -1,0 +1,29 @@
+<dash>
+name: $httpPatch
+desc: يرسل طلب HTTP من نوع PATCH إلى عنوان URL مع نص جسم اختياري.
+category: HTTP
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يرسل $httpPatch طلب PATCH بمهلة 10 ثوانٍ. يُرسل الجسم بصيغة JSON عندما يكون JSON صالحًا، وإلا كنص خام. تُخزَّن الاستجابة في $httpResult ويُخزَّن رمز الحالة في $httpStatus. تُرسل الترويسات المضافة بواسطة $httpAddHeader ثم تُمسح.
+</block>
+
+<block type="code" title="الصيغة">
+text: $httpPatch[URL; (Body)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPatch[https://api.example.com/users/1; {"name": "FDScript"}]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: إذا كان الجسم JSON صالحًا يُرسل بصيغة JSON، وإلا يُرسل كبيانات خام. عند الفشل يُضبط رمز الحالة على 500 ويحتوي $httpResult على رسالة الخطأ.
+</block>
+</dash>
+
+<details>
+syntax: $httpPatch[URL; (Body)]
+param: URL|text|مطلوب|عنوان URL الذي سيُرسل إليه طلب PATCH
+param: Body|text|اختياري|نص جسم الطلب (JSON أو نص خام)
+</details>

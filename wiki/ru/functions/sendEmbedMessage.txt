@@ -1,0 +1,30 @@
+<dash>
+name: $sendEmbedMessage
+desc: Отправляет embed-сообщение в указанный канал с заголовком, описанием, цветом и нижним колонтитулом.
+category: Сообщения
+
+<block type="text" title="Как работает команда?">
+text: $sendEmbedMessage создаёт embed с указанными заголовком, описанием, цветом и нижним колонтитулом, а затем отправляет его в указанный канал. Все пять аргументов обязательны.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $sendEmbedMessage[channelID; title; description; color; footer]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $sendEmbedMessage[$channelID; Welcome!; Thanks for joining; #00FF00; Enjoy your stay]
+</block>
+
+<block type="callout" kind="note">
+text: Аргумент color принимает hex-значения (например, #FF5733). Бот должен иметь разрешения "Send Messages" и "Embed Links" в целевом канале.
+</block>
+</dash>
+
+<details>
+syntax: $sendEmbedMessage[channelID; title; description; color; footer]
+param: channelID|snowflake|Required|ID канала, в который отправляется embed
+param: title|text|Required|Заголовок embed
+param: description|text|Required|Текст описания/основного содержимого embed
+param: color|text|Required|Hex-код цвета для цветной полосы embed (например, #FF5733)
+param: footer|text|Required|Текст нижнего колонтитула, отображаемый внизу embed
+</details>

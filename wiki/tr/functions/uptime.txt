@@ -1,0 +1,21 @@
+<dash>
+name: $uptime
+desc: Botun son başlatılışından bu yana ne kadar süredir çevrimiçi olduğunu döndürür.
+category: Yardımcı Araçlar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $uptime çağrıldığında bot, son başlatılışından (on_ready olayı) bu yana geçen süreyi hesaplar, bunu insan tarafından okunabilir bir dizeye biçimlendirir ve kanala gönderir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $uptime
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Bot has been up for $uptime
+</block>
+
+<block type="callout" kind="note">
+text: Biçimlendirilmiş çıktı, geçerli oldukça gün, saat, dakika ve saniyeleri içerir (örn. 2d 5h 30m 12s). Bunun çalışması için botun başlangıç sırasında set_bot_start_time() çağrısını yapması gerekir.
+</block>
+</dash>

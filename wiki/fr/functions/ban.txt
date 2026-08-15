@@ -1,0 +1,21 @@
+<dash>
+name: $ban
+desc: Bannit un utilisateur du serveur.
+category: Modération
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: Quand $ban est appelé sans arguments, il bannit l'auteur de la commande. Quand il est appelé avec un ID utilisateur ou une mention, il bannit cet utilisateur spécifique. Le bot extrait l'ID utilisateur numérique de l'argument fourni et exécute un bannissement via l'API Discord.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $ban
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $ban[123456789]
+</block>
+
+<block type="callout" kind="warning">
+text: Le bot doit avoir la permission « Bannir des membres » et son rôle le plus élevé doit être au-dessus du rôle le plus élevé de la cible. Utiliser $ban sans crochets bannira l'utilisateur qui a déclenché la commande.
+</block>
+</dash>

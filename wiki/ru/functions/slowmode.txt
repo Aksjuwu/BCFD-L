@@ -1,0 +1,31 @@
+<dash>
+name: $slowmode
+desc: Устанавливает задержку медленного режима для указанного канала.
+category: Модерация
+
+<block type="text" title="Как работает команда?">
+text: $slowmode принимает ID канала и длительность времени, затем устанавливает задержку медленного режима для этого канала. Медленный режим ограничивает, как часто пользователи могут отправлять сообщения.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $slowmode[channelID; time]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $slowmode[$channelID; 10s]
+</block>
+
+<block type="callout" kind="note">
+text: Формат времени: s (секунды), m (минуты), h (часы). Максимальная длительность медленного режима — 6 часов (21600 секунд). Используйте 0s для отключения медленного режима.
+</block>
+
+<block type="callout" kind="warning">
+text: Бот должен иметь разрешение "Manage Channels" в целевом канале.
+</block>
+</dash>
+
+<details>
+syntax: $slowmode[channelID; time]
+param: channelID|snowflake|Required|ID канала, для которого устанавливается медленный режим
+param: time|text|Required|Длительность медленного режима. Формат: число + единица измерения (s/m/h), например, 10s, 5m, 0s для отключения
+</details>

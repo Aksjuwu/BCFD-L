@@ -1,0 +1,21 @@
+<dash>
+name: $authorName
+desc: Komutu tetikleyen kişinin kullanıcı adını döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $authorName çağrıldığında bot, komut yazarının kullanıcı adını alır ve düz metin dizesi olarak doğrudan kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $authorName
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: Hello, $authorName!
+</block>
+
+<block type="callout" kind="note">
+text: Bu, kullanıcının geçerli kullanıcı adını döndürür (görünen adını/takma adını değil). Kullanıcı kullanıcı adını değiştirirse, bir sonraki çağrı güncellenen adı yansıtır.
+</block>
+</dash>

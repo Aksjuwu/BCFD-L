@@ -1,0 +1,21 @@
+<dash>
+name: $channelName
+desc: Возвращает название канала, в котором была использована команда.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $channelName бот получает название текущего канала и отправляет его в канал в виде обычной текстовой строки.
+</block>
+
+<block type="code" title="Syntax">
+text: $channelName
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: You are chatting in #$channelName
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает текущее название канала без префикса #. Если канал будет переименован, следующий вызов отразит обновлённое название.
+</block>
+</dash>

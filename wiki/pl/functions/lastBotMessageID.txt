@@ -1,0 +1,27 @@
+<dash>
+name: $lastBotMessageID
+desc: Zwraca ID ostatniej wiadomości wysłanej przez bota podczas bieżącego skryptu.
+category: Zmienne
+
+<block type="text" title="Jak działa komenda?">
+text: $lastBotMessageID rozwiązuje się do ID (snowflake) najnowszej wiadomości, którą bot wysłał podczas bieżącego wykonania skryptu. Jest aktualizowany automatycznie przez komendy wyjściowe, takie jak $sendMessage, $reply i $sendEmbedMessage. Jeśli bot nie wysłał jeszcze żadnej wiadomości, zwracany jest pusty ciąg znaków.
+</block>
+
+<block type="code" title="Składnia">
+text: $lastBotMessageID
+text: $lastBotMessageID[]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Look at this!]
+$editIn[10s; The last message ID was $lastBotMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: Jest to komenda tylko inline i nie może być używana jako samodzielna instrukcja. Użyj jej wewnątrz nawiasów argumentów innej komendy lub jako zwykłego tokenu inline.
+</block>
+</dash>
+
+<details>
+syntax: $lastBotMessageID
+</details>

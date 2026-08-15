@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: Skraca tekst do maksymalnej liczby znaków, opcjonalnie dodając zakończenie takie jak "...".
+category: Narzędzia tekstowe
+
+<block type="text" title="Jak działa komenda?">
+text: $cropText skraca tekst do co najwyżej podanej liczby znaków. Jeśli tekst jest dłuższy, zostaje przycięty, a na jego końcu dodawane jest opcjonalne zakończenie (na przykład "..." lub "... [więcej]"). Jeśli tekst jest wystarczająco krótki, zostaje zwrócony bez zmian.
+</block>
+
+<block type="code" title="Składnia">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: Argument maksymalnej liczby znaków musi być nieujemną liczbą całkowitą. Gdy zakończenie nie jest podane, tekst jest po prostu przycinany do limitu.
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|Required|Tekst do skrócenia
+param: max characters|number|Required|Maksymalna liczba znaków do zachowania (musi być nieujemną liczbą całkowitą)
+param: ending|text|Optional|Tekst dodawany, gdy tekst wejściowy jest dłuższy niż limit (np. "...")
+</details>

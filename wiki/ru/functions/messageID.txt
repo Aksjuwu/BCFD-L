@@ -1,0 +1,21 @@
+<dash>
+name: $messageID
+desc: Возвращает Discord ID сообщения, которое запустило команду.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $messageID бот получает уникальный Discord ID сообщения-триггера и отправляет его как необработанную числовую строку.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $messageID
+</block>
+
+<block type="code" title="Пример для копирования">
+text: Your message ID is $messageID
+</block>
+
+<block type="callout" kind="note">
+text: Возвращаемое значение — это snowflake ID (например, 123456789012345678), который однозначно идентифицирует сообщение, запустившее скрипт.
+</block>
+</dash>

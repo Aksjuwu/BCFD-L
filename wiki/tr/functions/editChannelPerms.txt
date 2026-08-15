@@ -1,0 +1,32 @@
+<dash>
+name: $editChannelPerms
+desc: Bir kanaldaki rol veya üye için izin değişikliklerini (overwrite) düzenler.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $editChannelPerms, bir kanaldaki belirli bir rol veya üye için izin değişikliklerini değiştirir. Bir izni vermek için +perm, yasaklamak için -perm veya sıfırlamak için /perm kullanın. Botun "Kanalları Yönet" iznine sahip olması gerekir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $editChannelPerms[123456789; 987654321; +send_messages; -connect]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun "Kanalları Yönet" veya "İzinleri Yönet" iznine sahip olması gerekir. Hedef bir rol veya üye kimliği/bahsetmesi olabilir.
+</block>
+
+<block type="callout" kind="note">
+text: İzin adları Discord'un snake_case biçimini kullanır: send_messages, view_channel, connect, manage_roles vb. İzin vermek için +, yasaklamak için -, sıfırlamak için / veya ~ kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $editChannelPerms[channel ID; target ID; perm1; perm2; ...]
+param: channelID|text|Required|İzinlerin düzenleneceği kanal kimliği veya bahsetmesi.
+param: targetID|text|Required|İzinlerin ayarlanacağı rol veya üye kimliği/bahsetmesi.
+param: permissions|text|Required|+/- önekine sahip bir veya daha fazla izin (ör. +send_messages, -connect).
+</details>

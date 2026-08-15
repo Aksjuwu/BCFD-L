@@ -1,0 +1,30 @@
+<dash>
+name: $sendEmbedMessage
+desc: Wysyła wiadomość embed na określony kanał z tytułem, opisem, kolorem i stopką.
+category: Wiadomości
+
+<block type="text" title="Jak działa komenda?">
+text: $sendEmbedMessage tworzy embed z podanym tytułem, opisem, kolorem i stopką, a następnie wysyła go na określony kanał. Wszystkie pięć argumentów jest wymaganych.
+</block>
+
+<block type="code" title="Składnia">
+text: $sendEmbedMessage[channelID; title; description; color; footer]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendEmbedMessage[$channelID; Welcome!; Thanks for joining; #00FF00; Enjoy your stay]
+</block>
+
+<block type="callout" kind="note">
+text: Argument koloru przyjmuje wartości szesnastkowe (np. #FF5733). Bot musi mieć uprawnienia „Wysyłanie wiadomości" i „Osadzanie linków" na docelowym kanale.
+</block>
+</dash>
+
+<details>
+syntax: $sendEmbedMessage[channelID; title; description; color; footer]
+param: channelID|snowflake|Required|ID kanału, na który ma zostać wysłany embed
+param: title|text|Required|Tytuł embeda
+param: description|text|Required|Opis/tekst główny embeda
+param: color|text|Required|Kod koloru hex dla paska akcentu embeda (np. #FF5733)
+param: footer|text|Required|Tekst stopki wyświetlany na dole embeda
+</details>

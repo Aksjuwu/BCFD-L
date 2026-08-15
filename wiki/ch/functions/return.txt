@@ -1,0 +1,27 @@
+<dash>
+name: $return
+desc: 获取由某个 $returnXxx 命令存储的值并将其发送到频道。
+category: 变量
+
+<block type="text" title="此命令如何工作？">
+text: $return 接受一个变量名，并在返回值存储中查找其值。该存储由 $returnGuildUsersID、$returnGuildChannelsID 等命令填充。单独使用时，取回的值会发送到频道；内联用在其他命令的参数中时，该值会被直接替换到文本里。
+</block>
+
+<block type="code" title="语法">
+text: $return[var]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[User IDs: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: 如果变量名在返回存储中不存在，将返回错误。请确保在使用 $return 之前先调用相应的 $returnXxx 命令。
+</block>
+</dash>
+
+<details>
+syntax: $return[var]
+param: var|text|Required|要获取的返回变量的名称（例如 userIDs、channelIDs、roleIDs）
+</details>

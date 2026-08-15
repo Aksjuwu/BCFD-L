@@ -1,0 +1,46 @@
+<dash>
+name: $math
+desc: Вычисляет математическое выражение и возвращает результат.
+category: Математика и числа
+
+<block type="text" title="Как работает команда?">
+text: $math принимает математическое выражение, безопасно вычисляет его с помощью AST-парсера Python и отправляет результат. Поддерживает базовую арифметику, степени и распространённые математические функции.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $math[expression]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $math[2 + 2 * 3]
+</block>
+
+<block type="options" title="Поддерживаемые операторы">
+option: +|Сложение
+option: -|Вычитание
+option: *|Умножение
+option: /|Деление
+option: //|Целочисленное деление
+option: %|Остаток от деления (modulo)
+option: **|Возведение в степень
+</block>
+
+<block type="options" title="Поддерживаемые функции">
+option: sqrt|Квадратный корень
+option: abs|Абсолютное значение
+option: ceil|Округление вверх
+option: floor|Округление вниз
+option: round|Округление до ближайшего
+option: log/log2/log10|Логарифм
+option: sin/cos/tan|Тригонометрические функции
+</block>
+
+<block type="callout" kind="note">
+text: Доступны константы pi, e и inf. Выражение вычисляется безопасно — произвольное выполнение кода невозможно. Деление на ноль возвращает ошибку.
+</block>
+</dash>
+
+<details>
+syntax: $math[expression]
+param: expression|text|Required|Математическое выражение для вычисления, например 2 + 2, sqrt(16), pi * 2
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: 设置正在构建的嵌入消息的标题。
+category: 嵌入消息构建
+
+<block type="text" title="此命令如何工作？">
+text: $title 接受一个文本参数，并将其设置为当前正在构建的嵌入消息的标题。该标题以较大、加粗的文本显示在嵌入消息顶部。
+</block>
+
+<block type="code" title="语法">
+text: $title[text]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: 标题支持 Discord 标记格式。它会作为主标题显示在嵌入消息的顶部。
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: text|text|Required|嵌入消息的标题文本
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $getBotInvent
+desc: Генерирует и отправляет OAuth2-ссылку приглашения бота.
+category: Утилиты
+
+<block type="text" title="Как работает команда?">
+text: При вызове $getBotInvent бот создаёт URL авторизации OAuth2, используя свой ID приложения, с полными правами (8) и scope bot, затем отправляет ссылку в канал.
+</block>
+
+<block type="code" title="Syntax">
+text: $getBotInvent
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Invite me: $getBotInvent
+</block>
+
+<block type="callout" kind="note">
+text: Сгенерированная ссылка включает все права (permissions=8). Формат ссылки: https://discord.com/oauth2/authorize?client_id={id}&permissions=8&scope=bot
+</block>
+</dash>

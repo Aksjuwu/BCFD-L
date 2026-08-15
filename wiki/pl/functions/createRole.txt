@@ -1,0 +1,37 @@
+<dash>
+name: $createRole
+desc: Tworzy nową rolę na serwerze z podaną nazwą, kolorem i uprawnieniami.
+category: Moderacja
+
+<block type="text" title="Jak działa ta komenda?">
+text: $createRole tworzy nową rolę z podaną nazwą, kolorem i uprawnieniami. Uprawnienia można określić jako gotowy zestaw (cosmetic, member, mod, manager) lub jako surową liczbę uprawnień. Opcjonalnie możesz kontrolować, czy rola jest wyświetlana osobno i czy można ją wzmiankować.
+</block>
+
+<block type="code" title="Składnia">
+text: $createRole[role name; color; permissions; (display role; mention role)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $createRole[VIP; #FFD700; member; yes; no]
+</block>
+
+<block type="options" title="Gotowe zestawy uprawnień">
+option: cosmetic|Brak specjalnych uprawnień (rola tylko do wyświetlania)
+option: member|Podstawowe uprawnienia członka (wysyłanie wiadomości, reakcje, łączenie się itd.)
+option: mod / moderator|Uprawnienia moderatorskie (kick, ban, zarządzanie wiadomościami, timeout itd.)
+option: manager / admin|Pełne uprawnienia zarządcze (zarządzanie kanałami, rolami, webhookami itd.)
+</block>
+
+<block type="callout" kind="note">
+text: Identyfikator utworzonej roli jest zapisywany w $return[createdRoleID] do późniejszego użycia. Bot musi mieć uprawnienie „Zarządzanie rolami”.
+</block>
+</dash>
+
+<details>
+syntax: $createRole[role name; color; permissions; (display role; mention role)]
+param: role name|text|Required|Nazwa nowej roli (maksymalnie 100 znaków)
+param: color|text|Required|Kod koloru hex (np. #FF5733) lub puste, aby użyć domyślnego
+param: permissions|text|Required|Gotowy zestaw (cosmetic, member, mod/moderator, manager/admin) lub surowa liczba uprawnień
+param: display role|yes/no|Optional|yes, aby wyświetlić rolę osobno na liście członków (domyślnie: no)
+param: mention role|yes/no|Optional|yes, aby rola była wzmiankowalna przez wszystkich (domyślnie: no)
+</details>

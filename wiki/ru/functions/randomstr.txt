@@ -1,0 +1,26 @@
+<dash>
+name: $randomstr
+desc: Возвращает случайно выбранную строку из переданных аргументов.
+category: Случайность
+
+<block type="text" title="Как работает команда?">
+text: $randomstr принимает один или несколько строковых аргументов, случайным образом выбирает один из них и отправляет его в канал. Это удобно для случайных ответов, цитат или сообщений.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $randomstr[string1; string2; string3; ...]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $randomstr[Hello!; Hi there!; Hey!; What's up?]
+</block>
+
+<block type="callout" kind="note">
+text: Каждый аргумент — это возможный вариант вывода. Один из них выбирается случайным образом с равной вероятностью. Должен быть передан как минимум один аргумент.
+</block>
+</dash>
+
+<details>
+syntax: $randomstr[string1; string2; string3; ...]
+param: string|text|Required|Одна или несколько строк на выбор. Одна выбирается случайным образом и отправляется.
+</details>

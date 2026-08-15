@@ -1,0 +1,28 @@
+<dash>
+name: $removeSplitOutElement
+desc: Removes one element from the current split result ($splitIn) by its 1-based index.
+category: String Utilities
+
+<block type="text" title="How does the command work?">
+text: $removeSplitOutElement deletes the element at the given position from the data stored by $splitIn. The remaining elements keep their order. $splitIn must be called before this command.
+</block>
+
+<block type="code" title="Syntax">
+text: $removeSplitOutElement[index]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $splitIn[apple,banana,cherry; ,]
+$removeSplitOutElement[2]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: The index must be a positive integer within the current split length, otherwise an error is raised.
+</block>
+</dash>
+
+<details>
+syntax: $removeSplitOutElement[index]
+param: index|number|Required|1-based position of the element to remove
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $channelName
+desc: 返回使用命令所在频道的名称。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $channelName 时，机器人会检索当前频道的名称，并将其以纯文本字符串的形式直接发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $channelName
+</block>
+
+<block type="code" title="可复制示例">
+text: You are chatting in #$channelName
+</block>
+
+<block type="callout" kind="note">
+text: 这将返回频道当前的名称（不含 # 前缀）。如果频道被重命名，下次调用时将反映更新后的名称。
+</block>
+</dash>

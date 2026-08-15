@@ -1,0 +1,31 @@
+<dash>
+name: $onBotMessage
+desc: Событие, срабатывающее на каждое сообщение, отправленное ботом (включая других ботов).
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $onBotMessage — это префикс события, который запускает FDScript всякий раз, когда бот отправляет сообщение. По умолчанию скрипт игнорирует сообщения, отправленные самим ботом, и реагирует только на других ботов. Установите аргумент в значение yes, чтобы скрипт также запускался на собственные сообщения бота, или в значение no, чтобы пропускать собственные сообщения (это также поведение по умолчанию, когда аргумент пуст).
+</block>
+
+<block type="code" title="Синтаксис">
+text: #PREFIX:$onBotMessage[yes/no]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: #PREFIX:$onBotMessage[no]
+$sendMessage[Another bot said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: Используйте yes, чтобы отслеживать собственные сообщения бота, или no, чтобы реагировать только на других ботов. В примере выше $message используется для чтения содержимого сообщения бота.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие работает в папке bot_events, а не bot_commands. Создавайте там свой .fds файл.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotMessage[(yes/no)]
+param: yes/no|text|Optional|yes — также запускать на собственные сообщения бота, no (по умолчанию) — реагировать только на других ботов
+</details>

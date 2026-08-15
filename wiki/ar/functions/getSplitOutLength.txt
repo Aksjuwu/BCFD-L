@@ -1,0 +1,26 @@
+<dash>
+name: $getSplitOutLength
+desc: يعيد عدد العناصر في نتيجة القسمة من $splitIn.
+category: أدوات النصوص
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $getSplitOutLength يعيد عدد الأجزاء التي أُنتجت بواسطة آخر استدعاء لـ $splitIn. من المفيد التحقق من وجود بيانات كافية قبل استخدام $splitOut. تُرسل القيمة إلى القناة أو يمكن استخدامها داخل النص.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getSplitOutLength
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $splitIn[apple,banana,cherry; ,]
+$getSplitOutLength
+</block>
+
+<block type="callout" kind="note">
+text: يعيد "0" عندما لا يتم تنفيذ أي قسمة بعد. يمكن استخدام نفس القيمة داخل النص، على سبيل المثال مع $if.
+</block>
+</dash>
+
+<details>
+syntax: $getSplitOutLength
+</details>

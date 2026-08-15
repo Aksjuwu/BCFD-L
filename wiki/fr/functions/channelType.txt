@@ -1,0 +1,26 @@
+<dash>
+name: $channelType
+desc: Renvoie le type d'un canal (text, voice, category, forum, stage).
+category: Canal
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $channelType prend une mention ou un ID de canal et renvoie le nom du type du canal sous forme de chaîne. Les types valides incluent : text, voice, category, forum, stage. Si aucun argument n'est fourni, il renvoie le type du canal actuel. Renvoie « unknown » si le canal ne peut pas être trouvé.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $channelType[channel mention/ID]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $channelType[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Utile pour valider les types de canaux avant d'exécuter des opérations spécifiques au type comme $createChannel ou $voiceUsersLimit.
+</block>
+</dash>
+
+<details>
+syntax: $channelType[channel mention/ID]
+param: channel|text|Optionnel|La mention ou l'ID numérique du canal. S'il est vide, utilise le canal actuel.
+</details>

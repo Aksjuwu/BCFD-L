@@ -1,0 +1,30 @@
+<dash>
+name: $onJoined
+desc: Событие, срабатывающее при вступлении участника на сервер.
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $onJoined — это префикс события, который запускает FDScript всякий раз, когда на сервер вступает новый участник. Скрипт получает информацию о вступившем участнике. Вы можете указать ID канала в первой строке, чтобы направить вывод в конкретный канал.
+</block>
+
+<block type="code" title="Синтаксис">
+text: #PREFIX:$onJoined
+</block>
+
+<block type="code" title="Пример для копирования">
+text: #PREFIX:$onJoined
+ sendMessage[Welcome $mention to the server!]
+</block>
+
+<block type="callout" kind="note">
+text: Поместите это в первую строку вашего FDScript-файла. Скрипт будет запускаться автоматически при вступлении любого участника. Используйте $mention, чтобы упомянуть нового участника.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие работает в папке bot_events, а не bot_commands. Создавайте там свой .fds файл.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onJoined
+</details>

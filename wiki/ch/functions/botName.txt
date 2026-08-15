@@ -1,0 +1,21 @@
+<dash>
+name: $botName
+desc: 返回机器人的用户名。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $botName 时，机器人会检索自己的用户名，并将其以纯文本字符串的形式直接发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $botName
+</block>
+
+<block type="code" title="可复制示例">
+text: I am $botName!
+</block>
+
+<block type="callout" kind="note">
+text: 这将返回机器人当前的用户名。如果通过开发者门户更改了机器人的用户名，下次调用时将反映更新后的名称。
+</block>
+</dash>

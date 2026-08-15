@@ -1,0 +1,39 @@
+<dash>
+name: $if
+desc: Вычисляет условие и выполняет заключённый блок кода, если условие истинно.
+category: Управление потоком
+
+<block type="text" title="Как работает команда?">
+text: $if принимает выражение условия и вычисляет его. Если условие истинно, выполняется код между $if и следующим $elif, $else или $endif. Если ложно, выполнение переходит к следующей подходящей ветке.
+</block>
+
+<block type="code" title="Syntax">
+text: $if[condition]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="options" title="Операторы сравнения">
+option: ==|Равно (сравнивает численно, когда обе стороны — числа)
+option: !=|Не равно
+option: >|Больше
+option: <|Меньше
+option: >=|Больше или равно
+option: <=|Меньше или равно
+</block>
+
+<block type="callout" kind="note">
+text: Поддерживает вложенные блоки $if. Для дополнительных условий можно использовать $elif, а для запасного варианта — $else. Всегда закрывайте с помощью $endif.
+</block>
+</dash>
+
+<details>
+syntax: $if[condition]
+param: condition|expression|Required|Условие для вычисления, например, $authorID == 123, $var[score] >= 90, $isNumber[int; $message]. Поддерживаются операторы ==, !=, >, <, >=, <=.
+</details>

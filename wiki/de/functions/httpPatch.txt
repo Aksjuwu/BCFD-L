@@ -1,0 +1,29 @@
+<dash>
+name: $httpPatch
+desc: Sendet eine HTTP-PATCH-Anfrage an eine URL mit optionalem Body.
+category: HTTP
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $httpPatch sendet eine PATCH-Anfrage mit einem Timeout von 10 Sekunden. Der Body wird als JSON gesendet, wenn er gültiges JSON ist, andernfalls als Rohtext. Die Antwort wird in $httpResult und der Statuscode in $httpStatus gespeichert. Mit $httpAddHeader hinzugefügte Header werden gesendet und anschließend gelöscht.
+</block>
+
+<block type="code" title="Syntax">
+text: $httpPatch[URL; (Body)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $httpAddHeader[Content-Type; application/json]
+$httpPatch[https://api.example.com/users/1; {"name": "FDScript"}]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: Ist der Body gültiges JSON, wird er als JSON gesendet, andernfalls als Rohdaten. Bei einem Fehler wird der Status auf 500 gesetzt und $httpResult enthält die Fehlermeldung.
+</block>
+</dash>
+
+<details>
+syntax: $httpPatch[URL; (Body)]
+param: URL|text|Erforderlich|Die URL, an die die PATCH-Anfrage gesendet werden soll
+param: Body|text|Optional|Der Anfrage-Body (JSON oder Rohtext)
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $channelExists
+desc: Sprawdza, czy kanał istnieje na serwerze.
+category: Kanał
+
+<block type="text" title="Jak działa ta komenda?">
+text: $channelExists przyjmuje wzmiankę lub identyfikator kanału i sprawdza, czy bot może znaleźć ten kanał na serwerze. Zwraca „true”, jeśli kanał istnieje, w przeciwnym razie „false”. Jeśli nie podano argumentu, domyślnie zwraca „true”.
+</block>
+
+<block type="code" title="Składnia">
+text: $channelExists[channel mention/ID]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $channelExists[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Tę komendę można użyć bezpośrednio w tekście, aby sprawdzić istnienie kanału przed wykonaniem innych działań na tym kanale.
+</block>
+</dash>
+
+<details>
+syntax: $channelExists[channel mention/ID]
+param: channel|text|Optional|Wzmianka lub numeryczny identyfikator kanału do sprawdzenia. Jeśli puste, zwraca „true”.
+</details>

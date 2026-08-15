@@ -1,0 +1,30 @@
+<dash>
+name: $onBotOnline
+desc: 机器人上线时触发一次的事件。
+category: 事件
+
+<block type="text" title="事件如何工作？">
+text: $onBotOnline 是一个事件前缀，会在机器人成功登录后立即触发一个 FDScript 一次。它运行时没有任何用户消息，因此没有作者、消息内容或频道上下文可用。请将其用于一次性设置，例如存储变量或记录机器人已启动。
+</block>
+
+<block type="code" title="语法">
+text: #PREFIX:$onBotOnline
+</block>
+
+<block type="code" title="可复制示例">
+text: #PREFIX:$onBotOnline
+$setVar[botStartupTime; $addTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: 由于没有触发消息，使用诸如 $sendMessage 之类的命令发送输出时，需要先用 $useChannel 选择目标频道；基于作者/频道的标记（例如 $channelID 或 $message）不可用。
+</block>
+
+<block type="callout" kind="important">
+text: 此事件在 bot_events 文件夹中运行，而不是 bot_commands。请在其中创建你的 .fds 文件。
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotOnline
+</details>

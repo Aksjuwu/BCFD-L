@@ -1,0 +1,25 @@
+<dash>
+name: $customID
+desc: 返回触发脚本的按钮或组件交互的 custom_id。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当用户点击按钮或与组件交互时，$customID 会返回分配给该组件的 custom_id 字符串。这对于在 onInteraction 事件中识别按下了哪个按钮非常有用。
+</block>
+
+<block type="code" title="语法">
+text: $customID
+</block>
+
+<block type="code" title="可复制示例">
+text: $if[$customID == btn_confirm]
+  You confirmed!
+$elif[$customID == btn_cancel]
+  You cancelled!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: 此变量只在由交互触发的脚本（例如 onInteraction）中有意义。在普通消息上下文中使用时，它会返回空字符串。
+</block>
+</dash>

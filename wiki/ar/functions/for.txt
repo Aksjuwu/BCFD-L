@@ -1,0 +1,28 @@
+<dash>
+name: $for
+desc: يكرر كتلة الكود المحاطة عدد مرات محدد.
+category: التحكم في التدفق
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $for يأخذ وسيط عدد مرات وينفذ الكود بين $for و $endfor هذا العدد من المرات. يمكن كسر الحلقة مبكراً باستخدام $break.
+</block>
+
+<block type="code" title="الصيغة">
+text: $for[count]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="note">
+text: إذا كان عدد المرات 0 أو سلبياً، يتم تخطي جسم الحلقة بالكامل. استخدم $break داخل الحلقة للخروج مبكراً. الحلقات المتداخلة مدعومة.
+</block>
+</dash>
+
+<details>
+syntax: $for[count]
+param: count|number|مطلوب|عدد مرات تكرار جسم الحلقة. يجب أن يكون عدداً صحيحاً غير سالب.
+</details>

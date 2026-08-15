@@ -1,0 +1,31 @@
+<dash>
+name: $power
+desc: Bir sayıyı başka bir sayının kuvvetine yükseltir.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $power iki sayısal argüman alır — bir taban ve bir üs — ve tabanı üssün kuvvetine yükseltir. Hem bağımsız bir komut olarak hem de diğer komutların içinde satır içi olarak çalışır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $power[base; exponent]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[$power[2; 10]]
+</block>
+
+<block type="callout" kind="note">
+text: $power[2; 10] 1024 döndürür. $power[3; 3] 27 döndürür. $power[5; 0] 1 döndürür. Sonucun ondalık kısmı yoksa sonuç bir tam sayıdır.
+</block>
+
+<block type="callout" kind="warning">
+text: Kesirli bir üsle negatif bir taban, karmaşık bir sayıyla sonuçlanır ve bu da hata döndürür. Çok büyük sonuçlar da taşma (overflow) hatasına neden olabilir.
+</block>
+</dash>
+
+<details>
+syntax: $power[base; exponent]
+param: base|number|Required|Kuvveti alınacak taban sayı, örn. 2, 10, 3.5
+param: exponent|number|Required|Üs (kuvvet), örn. 3, 10, 0.5
+</details>

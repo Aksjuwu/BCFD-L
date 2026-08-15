@@ -1,0 +1,36 @@
+<dash>
+name: $editMessage
+desc: Daha önce gönderilmiş bir bot mesajını herhangi bir kanalda düzenler, isteğe bağlı olarak embed'e dönüştürür.
+category: Mesajlaşma
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $editMessage, kanal kimliği ve mesaj kimliğine göre belirli bir bot mesajını getirir ve ardından içeriğini düzenler. İsteğe bağlı olarak mesajı bir embed'e dönüştürmek için başlık, açıklama, renk ve alt bilgi sağlayabilirsiniz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $editMessage[$channelID; 123456789; Updated content!]
+</block>
+
+<block type="callout" kind="note">
+text: Hedef mesaj bu bot tarafından gönderilmiş olmalıdır. İsteğe bağlı embed parametreleri sağlanırsa mesaj, içeriğin yanında bir embed içerecek şekilde düzenlenir.
+</block>
+
+<block type="callout" kind="warning">
+text: Botun hedef kanaldaki mesajları görüntüleme ve düzenleme iznine sahip olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+param: channelID|snowflake|Required|Mesajı içeren kanalın kimliği
+param: messageID|snowflake|Required|Düzenlenecek bot mesajının kimliği
+param: content|text|Required|Mesaj için yeni metin içeriği
+param: title|text|Optional|Mesaja eklenecek embed için başlık
+param: description|text|Optional|Embed için açıklama
+param: color|text|Optional|Embed için onaltılı (hex) renk
+param: footer|text|Optional|Embed için alt bilgi metni
+</details>

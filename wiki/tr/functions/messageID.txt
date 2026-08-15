@@ -1,0 +1,21 @@
+<dash>
+name: $messageID
+desc: Komutu tetikleyen mesajın Discord mesaj ID'sini döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $messageID çağrıldığında, bot tetikleyici mesajın benzersiz Discord mesaj ID'sini alır ve doğrudan ham bir sayısal dize olarak gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $messageID
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: Your message ID is $messageID
+</block>
+
+<block type="callout" kind="note">
+text: Döndürülen değer, betiği tetikleyen mesajı benzersiz şekilde tanımlayan bir snowflake ID'dir (örn. 123456789012345678).
+</block>
+</dash>

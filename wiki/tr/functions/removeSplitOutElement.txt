@@ -1,0 +1,28 @@
+<dash>
+name: $removeSplitOutElement
+desc: Geçerli bölme sonucundan ($splitIn) 1 tabanlı dizinine göre bir öğe kaldırır.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $removeSplitOutElement, $splitIn tarafından saklanan verilerden verilen konumdaki öğeyi siler. Kalan öğeler sıralarını korur. Bu komuttan önce $splitIn çağrılmalıdır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $removeSplitOutElement[index]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $splitIn[apple,banana,cherry; ,]
+$removeSplitOutElement[2]
+$joinSplitOut[; ]
+</block>
+
+<block type="callout" kind="note">
+text: Dizin, geçerli bölme uzunluğu içinde pozitif bir tam sayı olmalıdır, aksi halde hata oluşur.
+</block>
+</dash>
+
+<details>
+syntax: $removeSplitOutElement[index]
+param: index|number|Required|Kaldırılacak öğenin 1 tabanlı konumu
+</details>

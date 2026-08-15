@@ -1,0 +1,21 @@
+<dash>
+name: $authorName
+desc: Возвращает имя пользователя, который запустил команду.
+category: Информация
+
+<block type="text" title="Как работает команда?">
+text: При вызове $authorName бот получает имя пользователя, запустившего команду, и отправляет его в канал в виде обычной текстовой строки.
+</block>
+
+<block type="code" title="Syntax">
+text: $authorName
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Hello, $authorName!
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает текущее имя пользователя (не отображаемое имя/никнейм). Если пользователь изменит своё имя, следующий вызов отразит обновлённое имя.
+</block>
+</dash>

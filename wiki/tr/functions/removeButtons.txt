@@ -1,0 +1,27 @@
+<dash>
+name: $removeButtons
+desc: Bir mesajdan veya bekleyen görünümden tüm butonları kaldırır.
+category: Bileşenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $removeButtons argüman olmadan çağrıldığında, bekleyen görünümden veya etkileşim kaynak mesajından tüm butonları temizler. Bir mesaj ID'siyle çağrıldığında, o belirli bot mesajından tüm butonları kaldırır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $removeButtons
+text: $removeButtons[(messageID)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $removeButtons[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: Mesaj ID'si, bu bot tarafından gönderilen bir mesaja işaret etmelidir. Argüman olmadan çağrılırsa, önce bekleyen görünümü kontrol eder, ardından etkileşim kaynak mesajına geri döner.
+</block>
+</dash>
+
+<details>
+syntax: $removeButtons[(messageID)]
+param: messageID|snowflake|Optional|Tüm butonların kaldırılacağı bot mesajının ID'si. Atlandığında, bekleyen görünümden veya etkileşim kaynağından butonları temizler.
+</details>

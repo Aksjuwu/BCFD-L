@@ -1,0 +1,21 @@
+<dash>
+name: $botID
+desc: Botun Discord kullanıcı kimliğini (user ID) döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $botID çağrıldığında bot, kendi benzersiz Discord kullanıcı kimliğini alır ve ham sayısal bir dize olarak doğrudan kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $botID
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: My bot ID is $botID
+</block>
+
+<block type="callout" kind="note">
+text: Döndürülen değer, botun Discord kullanıcı hesabı için benzersiz sayısal tanımlayıcı olan bir snowflake kimliğidir (ör. 123456789012345678).
+</block>
+</dash>

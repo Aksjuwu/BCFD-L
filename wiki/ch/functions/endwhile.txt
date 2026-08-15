@@ -1,0 +1,25 @@
+<dash>
+name: $endwhile
+desc: 标记 $while 循环块的结束。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $endwhile 标志着 $while 循环的闭合边界。每次迭代之后，执行会返回到 $while 条件以重新评估它。每个 $while 都必须有一个匹配的 $endwhile。
+</block>
+
+<block type="code" title="语法">
+text: $endwhile
+</block>
+
+<block type="code" title="可复制示例">
+text: $setVar[count; 0]
+$while[$getVar[count] < 5]
+  $sendMessage[Count: $getVar[count]]
+  $setVar[count; $math[$getVar[count] + 1]]
+$endwhile
+</block>
+
+<block type="callout" kind="warning">
+text: 每个 $while 块都必须用 $endwhile 正确闭合。缺少 $endwhile 会导致脚本错误。确保你的循环具有终止条件，以避免无限循环。
+</block>
+</dash>

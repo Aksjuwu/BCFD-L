@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: Définit le texte du pied de page de l'embed en cours de construction.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $footer prend un argument textuel et le définit comme pied de page de l'embed actuellement en cours de construction. Le pied de page apparaît tout en bas de l'embed en texte plus petit et plus clair.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $footer[text]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: Le pied de page est utile pour l'attribution, les horodatages ou un contexte supplémentaire. Il apparaît en petit texte gris en bas de l'embed.
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: texte|text|Requis|Le texte du pied de page de l'embed
+</details>

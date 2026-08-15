@@ -1,0 +1,23 @@
+<dash>
+name: $endfor
+desc: 标记 $for 循环块的结束。
+category: 流程控制
+
+<block type="text" title="命令如何工作？">
+text: $endfor 标志着 $for 循环的闭合边界。每次迭代之后，执行会返回到循环体的顶部。每个 $for 都必须有一个匹配的 $endfor。
+</block>
+
+<block type="code" title="语法">
+text: $endfor
+</block>
+
+<block type="code" title="可复制示例">
+text: $for[5]
+  $sendMessage[Iteration!]
+$endfor
+</block>
+
+<block type="callout" kind="warning">
+text: 每个 $for 块都必须用 $endfor 正确闭合。缺少 $endfor 会导致脚本错误。
+</block>
+</dash>

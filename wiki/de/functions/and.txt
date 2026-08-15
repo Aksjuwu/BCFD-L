@@ -1,0 +1,26 @@
+<dash>
+name: $and
+desc: Wertet mehrere Bedingungen aus und gibt nur dann "true" zurück, wenn ALLE Bedingungen wahr sind.
+category: Flusssteuerung
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $and akzeptiert mehrere Bedingungsargumente und wertet jedes einzelne aus. Es gibt "true" zurück, wenn jede einzelne Bedingung wahr ist, und "false", wenn irgendeine Bedingung falsch ist. Dies ist nützlich, um zusammengesetzte Bedingungsprüfungen zu erstellen.
+</block>
+
+<block type="code" title="Syntax">
+text: $and[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $and[$authorID == 123; $guildName == MyServer]
+</block>
+
+<block type="callout" kind="note">
+text: Jede Bedingung verwendet dieselben Vergleichsoperatoren wie $if (==, !=, >, <, >=, <=). Gibt die Zeichenfolge "true" oder "false" zurück.
+</block>
+</dash>
+
+<details>
+syntax: $and[condition1; condition2; condition3; ...]
+param: condition|expression|Erforderlich|Eine oder mehrere auszuwertende Bedingungen. Jede kann Operatoren wie ==, !=, >, <, >=, <= verwenden. Alle müssen wahr sein, damit das Ergebnis "true" ist.
+</details>

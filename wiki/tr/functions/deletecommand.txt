@@ -1,0 +1,22 @@
+<dash>
+name: $deletecommand
+desc: Komutu tetikleyen mesajı siler.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $deletecommand çağrıldığında bot, betik yürütmesini tetikleyen kullanıcı mesajını silmeye çalışır. Bu, orijinal komut çağrısını kaldırarak kanalları temiz tutmak için yaygın olarak kullanılır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $deletecommand
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $deletecommand
+$sendMessage[Command received!]
+</block>
+
+<block type="callout" kind="warning">
+text: Botun, kullanıcı mesajlarını silmek için kanalda "Mesajları Yönet" iznine sahip olması gerekir. İzin yoksa bir hata döndürülür.
+</block>
+</dash>

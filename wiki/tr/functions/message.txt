@@ -1,0 +1,21 @@
+<dash>
+name: $message
+desc: Kullanıcının komut mesajındaki argümanları/kelimeleri döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $message argüman olmadan çağrıldığında, kullanıcının komut adından sonra yazdığı her şeyi (tam argüman dizesini) döndürür. Bir dizin numarasıyla çağrıldığında, o konumdaki belirli kelimeyi döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $message
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: Argüman olmadan, komuttan sonraki tüm metni döndürür. $message[1] ile ilk kelimeyi, $message[2] ile ikinci kelimeyi döndürür ve böyle devam eder. Dizin aralık dışındaysa boş bir dize döndürür.
+</block>
+</dash>

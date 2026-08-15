@@ -1,0 +1,28 @@
+<dash>
+name: $httpDelete
+desc: 向 URL 发送带有可选请求体的 HTTP DELETE 请求。
+category: HTTP
+
+<block type="text" title="此命令如何工作？">
+text: $httpDelete 发送一个超时时间为 10 秒的 DELETE 请求。当请求体是有效的 JSON 时以 JSON 形式发送，否则以原始文本形式发送。响应存储到 $httpResult，状态码存储到 $httpStatus。使用 $httpAddHeader 添加的标头会被发送，随后清除。
+</block>
+
+<block type="code" title="语法">
+text: $httpDelete[URL; (Body)]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $httpDelete[https://api.example.com/users/1]
+$httpStatus
+</block>
+
+<block type="callout" kind="note">
+text: 如果请求体是有效的 JSON，则作为 JSON 发送，否则作为原始数据发送。请求失败时，状态码设为 500，且 $httpResult 包含错误信息。
+</block>
+</dash>
+
+<details>
+syntax: $httpDelete[URL; (Body)]
+param: URL|text|Required|要发送 DELETE 请求的 URL
+param: Body|text|Optional|请求体（JSON 或原始文本）
+</details>

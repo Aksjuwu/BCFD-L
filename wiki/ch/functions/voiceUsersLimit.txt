@@ -1,0 +1,26 @@
+<dash>
+name: $voiceUsersLimit
+desc: 返回语音或舞台频道的人数上限。
+category: 频道
+
+<block type="text" title="此命令如何工作？">
+text: $voiceUsersLimit 接受一个语音或舞台频道 ID，并返回其人数上限。值为 0 表示没有上限。如果频道不是语音/舞台频道，将返回错误。
+</block>
+
+<block type="code" title="语法">
+text: $voiceUsersLimit[voice channel ID]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $voiceUsersLimit[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: 如果频道未设置人数上限，则返回 0。可用于内联条件检查。
+</block>
+</dash>
+
+<details>
+syntax: $voiceUsersLimit[voice channel ID]
+param: channelID|text|Required|语音或舞台频道的 ID。
+</details>

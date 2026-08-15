@@ -1,0 +1,28 @@
+<dash>
+name: $getMessage
+desc: 从任何频道获取消息并发送有关它的信息。
+category: 工具
+
+<block type="text" title="命令如何工作？">
+text: $getMessage 从给定频道获取一条消息，并从其中提取一段信息。类型参数决定发送的内容：content（消息文本）、name（作者的显示名称）、id（作者的用户 ID）或 avatar（作者的头像 URL）。如果提取的值为空，则发送一个零宽空格。
+</block>
+
+<block type="code" title="语法">
+text: $getMessage[channelID; messageID; (type)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $getMessage[123456789; 987654321; content]
+</block>
+
+<block type="callout" kind="note">
+text: 类型参数是可选的，默认为 content。有效类型：content、name、id、avatar。机器人必须能够查看该频道并具有"读取消息历史"权限。
+</block>
+</dash>
+
+<details>
+syntax: $getMessage[channelID; messageID; (type)]
+param: channelID|snowflake|Required|包含该消息的频道 ID
+param: messageID|snowflake|Required|要获取的消息的 ID
+param: type|text|Optional|要发送的内容：content（默认）、name、id 或 avatar
+</details>

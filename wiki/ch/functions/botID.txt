@@ -1,0 +1,21 @@
+<dash>
+name: $botID
+desc: 返回机器人的 Discord 用户 ID。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $botID 时，机器人会检索自己的唯一 Discord 用户 ID，并将其以原始数字字符串的形式直接发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $botID
+</block>
+
+<block type="code" title="可复制示例">
+text: My bot ID is $botID
+</block>
+
+<block type="callout" kind="note">
+text: 返回的值是一个 snowflake ID（例如 123456789012345678），它是机器人 Discord 用户账户的唯一数字标识符。
+</block>
+</dash>

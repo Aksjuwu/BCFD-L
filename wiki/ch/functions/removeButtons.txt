@@ -1,0 +1,27 @@
+<dash>
+name: $removeButtons
+desc: 从消息或待发送视图中移除所有按钮。
+category: 组件
+
+<block type="text" title="命令如何工作？">
+text: 不带参数调用 $removeButtons 时，它会清除待发送视图或交互来源消息中的所有按钮。传入消息 ID 时，它会从该特定机器人消息中移除所有按钮。
+</block>
+
+<block type="code" title="语法">
+text: $removeButtons
+text: $removeButtons[(messageID)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $removeButtons[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: 消息 ID 必须指向此机器人发送的消息。不带参数调用时，它会先检查待发送视图，然后回退到交互来源消息。
+</block>
+</dash>
+
+<details>
+syntax: $removeButtons[(messageID)]
+param: messageID|snowflake|Optional|要移除其中所有按钮的机器人消息的 ID。如果省略，则从待发送视图或交互来源中清除按钮。
+</details>

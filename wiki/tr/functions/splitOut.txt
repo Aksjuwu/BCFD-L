@@ -1,0 +1,27 @@
+<dash>
+name: $splitOut
+desc: Daha önce bölünmüş bir metinden ($splitIn kullanılarak) belirli bir parçayı alır.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $splitOut, $splitIn sonucunun belirli bir parçasına erişir. 1 tabanlı bir dizin, ilk parça için < veya son parça için > kullanın. Alınan değer kanala gönderilir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $splitOut[index]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $splitIn[apple,banana,cherry; ,]
+$splitOut[2]
+</block>
+
+<block type="callout" kind="note">
+text: Geçerli dizin değerleri: bir sayı (1 tabanlı), < (ilk öğe), > (son öğe). $splitOut'tan önce $splitIn çağrılmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $splitOut[index]
+param: index|text|Required|Alınacak parçanın dizini: bir sayı (1 tabanlı), ilk için < veya son için >
+</details>

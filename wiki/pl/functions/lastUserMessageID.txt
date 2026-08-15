@@ -1,0 +1,26 @@
+<dash>
+name: $lastUserMessageID
+desc: Zwraca ID wiadomości użytkownika, która wyzwoliła bieżący skrypt.
+category: Zmienne
+
+<block type="text" title="Jak działa komenda?">
+text: $lastUserMessageID rozwiązuje się do ID (snowflake) wiadomości, która rozpoczęła bieżące wykonanie skryptu — zawsze jest to wiadomość oryginalnego autora, ta, która zawierała komendę $. Nie zmienia się przez cały czas życia skryptu. Działa tak samo jak wbudowany token $messageID.
+</block>
+
+<block type="code" title="Składnia">
+text: $lastUserMessageID
+text: $lastUserMessageID[]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Your message ID is $lastUserMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: Jest to komenda tylko inline i nie może być używana jako samodzielna instrukcja. Użyj jej wewnątrz nawiasów argumentów innej komendy lub jako zwykłego tokenu inline.
+</block>
+</dash>
+
+<details>
+syntax: $lastUserMessageID
+</details>

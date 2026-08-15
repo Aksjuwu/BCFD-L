@@ -1,0 +1,26 @@
+<dash>
+name: $round
+desc: Zaokrągla liczbę do najbliższej liczby całkowitej.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa komenda?">
+text: $round przyjmuje pojedynczą wartość liczbową, zaokrągla ją do najbliższej liczby całkowitej i wysyła wynik. Na przykład 1.7 staje się 2, a 1.4 staje się 1.
+</block>
+
+<block type="code" title="Składnia">
+text: $round[number]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $round[1.7]
+</block>
+
+<block type="callout" kind="note">
+text: $round[1.7] zwraca 2. $round[2.4] zwraca 2. Komenda przyjmuje pojedynczy argument; jeśli wartość nie jest prawidłową liczbą, zwracany jest błąd.
+</block>
+</dash>
+
+<details>
+syntax: $round[number]
+param: number|number|Required|Liczba do zaokrąglenia do najbliższej liczby całkowitej
+</details>

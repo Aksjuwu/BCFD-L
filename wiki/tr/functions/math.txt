@@ -1,0 +1,46 @@
+<dash>
+name: $math
+desc: Bir matematiksel ifadeyi hesaplar ve sonucu döndürür.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $math bir matematiksel ifadeyi alır, Python'un AST ayrıştırıcısını kullanarak güvenli bir şekilde hesaplar ve sonucu gönderir. Temel aritmetik, üs alma ve yaygın matematik fonksiyonlarını destekler.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $math[expression]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $math[2 + 2 * 3]
+</block>
+
+<block type="options" title="Desteklenen operatörler">
+option: +|Toplama
+option: -|Çıkarma
+option: *|Çarpma
+option: /|Bölme
+option: //|Tam bölme
+option: %|Mod alma
+option: **|Üs alma
+</block>
+
+<block type="options" title="Desteklenen fonksiyonlar">
+option: sqrt|Karekök
+option: abs|Mutlak değer
+option: ceil|Yukarı yuvarla
+option: floor|Aşağı yuvarla
+option: round|En yakına yuvarla
+option: log/log2/log10|Logaritma
+option: sin/cos/tan|Trigonometrik fonksiyonlar
+</block>
+
+<block type="callout" kind="note">
+text: pi, e ve inf sabitleri mevcuttur. İfade güvenli bir şekilde hesaplanır — rastgele kod çalıştırması mümkün değildir. Sıfıra bölme hata döndürür.
+</block>
+</dash>
+
+<details>
+syntax: $math[expression]
+param: expression|text|Required|Hesaplanacak matematiksel ifade, örn. 2 + 2, sqrt(16), pi * 2
+</details>

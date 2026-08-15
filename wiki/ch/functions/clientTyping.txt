@@ -1,0 +1,23 @@
+<dash>
+name: $clientTyping
+desc: 在当前频道中显示机器人的“正在输入……”指示器。
+category: 工具
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $clientTyping 时，机器人会在当前频道显示“Bot is typing...”指示器，向用户表明机器人正在处理或准备回复。该指示器会一直显示，直到机器人发送消息或脚本结束。
+</block>
+
+<block type="code" title="语法">
+text: $clientTyping
+</block>
+
+<block type="code" title="可复制示例">
+text: $clientTyping
+$wait[3s]
+$sendMessage[Done!]
+</block>
+
+<block type="callout" kind="note">
+text: 此命令可用于模拟更自然的对话流程。将其与 $wait 结合使用，可在机器人发送下一条消息之前制造一段刻意的延迟。
+</block>
+</dash>

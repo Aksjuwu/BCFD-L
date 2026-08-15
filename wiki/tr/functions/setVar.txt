@@ -1,0 +1,28 @@
+<dash>
+name: $setVar
+desc: Bir değeri kalıcı bir değişkende saklar.
+category: Değişkenler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $setVar, verilen değişken adı altında bir değer saklar. İki argümanla genel bir değişken saklar. Üç argümanla (ad, değer, kullanıcı kimliği) kullanıcıya özel bir değişken saklar. Değerler bot yeniden başlatmalarında korunur.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $setVar[name; value]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $setVar[greeting; Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: Değişkenler diskte saklanır ve bot yeniden başlatmalarına dayanır. Saklanan değerleri almak için $getVar kullanın. $setVar satır içinde (yer tutucu olarak) kullanılamaz.
+</block>
+</dash>
+
+<details>
+syntax: $setVar[name; value; (userID)]
+param: name|text|Required|Değerin saklanacağı değişken adı
+param: value|text|Required|Saklanacak değer
+param: userID|snowflake|Optional|Belirtilirse, değeri genel yerine kullanıcıya özel olarak saklar
+</details>

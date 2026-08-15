@@ -1,0 +1,31 @@
+<dash>
+name: $removeComponent
+desc: Удаляет определённые кнопочные компоненты из сообщения по их custom_id или URL.
+category: Компоненты
+
+<block type="text" title="Как работает команда?">
+text: $removeComponent принимает один или несколько custom_id (или URL) и удаляет соответствующие кнопочные компоненты из сообщения. Она может нацеливаться на ожидающее представление, исходное сообщение взаимодействия или конкретное сообщение по ID.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $removeComponent[customID1; customID2; ...; (messageID)]
+</block>
+
+<block type="code" title="Пример для копирования">
+text: $removeComponent[btn_cancel; btn_confirm]
+</block>
+
+<block type="callout" kind="note">
+text: Если аргументов не меньше двух и последний из них является числовым snowflake, он считается ID сообщения. В противном случае все аргументы считаются ID компонентов, которые нужно удалить.
+</block>
+
+<block type="callout" kind="warning">
+text: Если на целевом сообщении не найден ни один из указанных ID, возвращается ошибка. Целевое сообщение должно быть отправлено этим ботом.
+</block>
+</dash>
+
+<details>
+syntax: $removeComponent[customID1; customID2; ...; (messageID)]
+param: customID|text|Required|Один или несколько custom_id или URL кнопочных компонентов, которые нужно удалить
+param: messageID|snowflake|Optional|ID конкретного сообщения бота, из которого нужно удалить компоненты
+</details>

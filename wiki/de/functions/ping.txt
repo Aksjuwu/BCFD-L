@@ -1,0 +1,21 @@
+<dash>
+name: $ping
+desc: Gibt die Latenz (Antwortzeit) des Bots zum Discord-Gateway in Millisekunden zurück.
+category: Werkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: Der Befehl ruft die aktuelle Verbindungsgeschwindigkeit zwischen dem Bot und dem Discord-Gateway ab und sendet das Ergebnis direkt als rohe Zahl, die die Zeit in Millisekunden darstellt.
+</block>
+
+<block type="code" title="Syntax">
+text: $ping
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $ping pong!
+</block>
+
+<block type="callout" kind="note">
+text: Der resultierende Wert stellt die Reaktionsfähigkeit des Bot-Servers dar. Je niedriger die zurückgegebene Zahl, desto schneller antwortet der Bot auf Befehle und Interaktionen.
+</block>
+</dash>

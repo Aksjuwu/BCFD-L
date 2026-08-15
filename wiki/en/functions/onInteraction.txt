@@ -1,0 +1,32 @@
+<dash>
+name: $onInteraction
+desc: Event triggered when a component interaction (button/select) occurs.
+category: Event
+
+<block type="text" title="How does the event work?">
+text: $onInteraction is an event prefix that triggers an FDScript when a user interacts with a component (button click, select menu, etc.). You can optionally specify a custom ID to only trigger for specific components. Without an ID, it triggers for ALL component interactions.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onInteraction
+text: #PREFIX:$onInteraction[button_custom_id]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onInteraction[confirm_btn]
+ sendMessage[You clicked the confirm button!]
+</block>
+
+<block type="callout" kind="note">
+text: Use $onInteraction without brackets to handle all interactions, or with a specific custom_id to handle only that component.
+</block>
+
+<block type="callout" kind="important">
+text: This event runs in the bot_events folder, not bot_commands. Create your .fds file there.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onInteraction[(custom_id)]
+param: customID|text|Optional|The custom_id of a specific component to listen for. If empty, triggers for all interactions.
+</details>

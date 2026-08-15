@@ -1,0 +1,21 @@
+<dash>
+name: $randomUserID
+desc: Zwraca ID użytkownika losowego członka z serwera.
+category: Losowość
+
+<block type="text" title="Jak działa komenda?">
+text: Gdy wywoływany jest $randomUserID, bot zbiera wszystkich członków, którzy nie są botami, na bieżącym serwerze, wybiera jednego losowo i wysyła jego ID użytkownika jako surowy ciąg numeryczny.
+</block>
+
+<block type="code" title="Składnia">
+text: $randomUserID
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: Random user ID: $randomUserID
+</block>
+
+<block type="callout" kind="note">
+text: Ta komenda działa tylko na serwerze (nie w wiadomościach prywatnych). Konta botów są wykluczone z puli losowania. Jeśli nie ma żadnych ludzkich członków, komenda zakończy się błędem.
+</block>
+</dash>

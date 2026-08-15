@@ -1,0 +1,26 @@
+<dash>
+name: $and
+desc: Ocenia wiele warunków i zwraca wartość true tylko wtedy, gdy WSZYSTKIE warunki są prawdziwe.
+category: Sterowanie przepływem
+
+<block type="text" title="Jak działa ta komenda?">
+text: $and przyjmuje wiele argumentów warunków i ocenia każdy z nich. Zwraca „true”, jeśli każdy pojedynczy warunek jest prawdziwy, oraz „false”, jeśli jakikolwiek warunek jest fałszywy. Jest to przydatne do tworzenia złożonych sprawdzeń warunkowych.
+</block>
+
+<block type="code" title="Składnia">
+text: $and[condition1; condition2; condition3; ...]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $and[$authorID == 123; $guildName == MyServer]
+</block>
+
+<block type="callout" kind="note">
+text: Każdy warunek używa tych samych operatorów porównania co $if (==, !=, >, <, >=, <=). Zwraca ciąg „true” lub „false”.
+</block>
+</dash>
+
+<details>
+syntax: $and[condition1; condition2; condition3; ...]
+param: condition|expression|Required|Jeden lub więcej warunków do oceny. Każdy może używać operatorów takich jak ==, !=, >, <, >=, <=. Wszystkie muszą być prawdziwe, aby wynikiem było „true”.
+</details>

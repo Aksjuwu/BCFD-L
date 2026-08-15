@@ -1,0 +1,26 @@
+<dash>
+name: $lastUserMessageID
+desc: Renvoie l'ID du message utilisateur qui a déclenché le script en cours.
+category: Variables
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $lastUserMessageID renvoie l'ID (snowflake) du message qui a démarré l'exécution du script en cours — toujours le message d'origine de l'auteur, celui qui contenait la commande $. Il ne change pas pendant toute la durée de vie du script. Il se comporte comme le jeton intégré $messageID.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $lastUserMessageID
+text: $lastUserMessageID[]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Your message ID is $lastUserMessageID]
+</block>
+
+<block type="callout" kind="note">
+text: Il s'agit d'une commande réservée à l'utilisation en ligne et elle ne peut pas être utilisée comme instruction autonome. Utilisez-la dans les crochets d'arguments d'une autre commande ou comme jeton en ligne simple.
+</block>
+</dash>
+
+<details>
+syntax: $lastUserMessageID
+</details>

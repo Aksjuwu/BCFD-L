@@ -1,0 +1,21 @@
+<dash>
+name: $authorID
+desc: 返回触发命令的用户的 Discord 用户 ID。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 当调用 $authorID 时，机器人会检索命令作者的唯一 Discord 用户 ID，并将其以原始数字字符串的形式直接发送到频道。
+</block>
+
+<block type="code" title="语法">
+text: $authorID
+</block>
+
+<block type="code" title="可复制示例">
+text: Your ID is $authorID
+</block>
+
+<block type="callout" kind="note">
+text: 返回的值是一个 snowflake ID（例如 123456789012345678），它是每位 Discord 用户的唯一数字标识符。
+</block>
+</dash>

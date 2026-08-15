@@ -1,0 +1,22 @@
+<dash>
+name: $reply
+desc: Yanıt modunu etkinleştirir ve botun yeni bir mesaj göndermek yerine kullanıcının orijinal mesajına yanıt vermesini sağlar.
+category: Mesajlaşma
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $reply çağrıldığında bot, geçerli betik yürütmesi için yanıt modunu etkinleştirir. Bu betikte bot tarafından gönderilen sonraki tüm mesajlar, kullanıcının orijinal mesajına yanıt olarak gönderilir ve konuşma başlığı etkisi oluşturur.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $reply
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $reply
+$sendMessage[This will be a reply!]
+</block>
+
+<block type="callout" kind="note">
+text: Etkinleştirildikten sonra yanıt modu tüm betik yürütmesi boyunca devam eder. Botun mesajları Discord arayüzünde tetikleyici mesaja yanıt başlıkları olarak görünür.
+</block>
+</dash>

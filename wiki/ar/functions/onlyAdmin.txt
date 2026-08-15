@@ -1,0 +1,21 @@
+<dash>
+name: $onlyAdmin
+desc: يقيّد تنفيذ السكربت على مشرفي السيرفر ومالك السيرفر فقط.
+category: التحكم في الوصول
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $onlyAdmin، يتحقق البوت مما إذا كان مؤلف الأمر مشرفًا على السيرفر أو مالك السيرفر. إذا فشل التحقق، يتم إيقاف تنفيذ السكربت فورًا. اختياريًا، يمكن عرض رسالة خطأ مخصصة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $onlyAdmin
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $onlyAdmin[You need admin permissions!]
+</block>
+
+<block type="callout" kind="note">
+text: يعمل هذا الأمر داخل السيرفر فقط (وليس في الرسائل الخاصة). يجتاز المستخدم التحقق إذا كان يمتلك صلاحية Administrator أو كان مالك السيرفر. إذا لم يتم تقديم رسالة خطأ، يتوقف السكربت بصمت.
+</block>
+</dash>

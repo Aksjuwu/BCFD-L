@@ -1,0 +1,21 @@
+<dash>
+name: $getBotInvent
+desc: Generuje i wysyła link zapraszający OAuth2 bota.
+category: Narzędzia
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $getBotInvent zostanie wywołane, bot konstruuje URL autoryzacji OAuth2, używając swojego ID aplikacji z pełnymi uprawnieniami (8) i zakresem bota, a następnie wysyła link na kanał.
+</block>
+
+<block type="code" title="Składnia">
+text: $getBotInvent
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: Invite me: $getBotInvent
+</block>
+
+<block type="callout" kind="note">
+text: Wygenerowany link zawiera wszystkie uprawnienia (permissions=8). Format linku to: https://discord.com/oauth2/authorize?client_id={id}&permissions=8&scope=bot
+</block>
+</dash>

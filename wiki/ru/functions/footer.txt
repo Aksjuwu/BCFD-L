@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: Устанавливает текст footer создаваемого эмбеда.
+category: Конструктор эмбедов
+
+<block type="text" title="Как работает команда?">
+text: $footer принимает текстовый аргумент и устанавливает его как footer текущего создаваемого эмбеда. Footer отображается в самом низу эмбеда более мелким и светлым текстом.
+</block>
+
+<block type="code" title="Syntax">
+text: $footer[text]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: Footer полезен для указания автора, временных меток или дополнительного контекста. Он отображается мелким серым текстом внизу эмбеда.
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: text|text|Required|Текст footer для эмбеда
+</details>

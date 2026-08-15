@@ -1,0 +1,26 @@
+<dash>
+name: $isAdmin
+desc: 检查用户是否在服务器中具有管理员权限。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: $isAdmin 接受一个用户 ID 或提及，并检查该用户是否具有管理员权限、是否是服务器所有者或是否是机器人账户。返回 "true" 或 "false"。
+</block>
+
+<block type="code" title="语法">
+text: $isAdmin[userID]
+</block>
+
+<block type="code" title="可复制示例">
+text: $isAdmin[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: 如果用户是服务器所有者、机器人或具有"管理员"权限，则返回 "true"。否则返回 "false"，或当在服务器中找不到该用户时返回 "false"。
+</block>
+</dash>
+
+<details>
+syntax: $isAdmin[userID]
+param: userID|text|Required|要检查的用户 ID 或 @提及。支持变量和占位符。
+</details>

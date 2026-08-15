@@ -1,0 +1,28 @@
+<dash>
+name: $wait
+desc: Приостанавливает выполнение скрипта на указанный период времени.
+category: Тайминги и задержки
+
+<block type="text" title="Как работает команда?">
+text: $wait замораживает выполнение всего скрипта на указанный период. Ни одна последующая команда скрипта не будет выполнена, пока не пройдёт период ожидания.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $wait[time]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $sendMessage[Starting...]
+$wait[5s]
+$sendMessage[Done after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: Формат времени: s (секунды), m (минуты), h (часы), d (дни). Во время ожидания весь скрипт заморожен — другие скрипты других пользователей не затрагиваются.
+</block>
+</dash>
+
+<details>
+syntax: $wait[time]
+param: time|text|Required|Время ожидания. Формат: число + единица измерения (s/m/h/d), например, 5s, 10m, 1h, 1d
+</details>

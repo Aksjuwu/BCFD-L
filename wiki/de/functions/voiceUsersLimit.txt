@@ -1,0 +1,26 @@
+<dash>
+name: $voiceUsersLimit
+desc: Gibt das Benutzerlimit eines Sprach- oder Bühnenkanals zurück.
+category: Kanal
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $voiceUsersLimit nimmt die ID eines Sprach- oder Bühnenkanals entgegen und gibt dessen Benutzerlimit zurück. Ein Wert von 0 bedeutet, dass es kein Limit gibt. Gibt einen Fehler zurück, wenn der Kanal kein Sprach-/Bühnenkanal ist.
+</block>
+
+<block type="code" title="Syntax">
+text: $voiceUsersLimit[voice channel ID]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $voiceUsersLimit[123456789012345678]
+</block>
+
+<block type="callout" kind="note">
+text: Gibt 0 zurück, wenn für den Kanal kein Benutzerlimit festgelegt ist. Kann inline für Bedingungsprüfungen verwendet werden.
+</block>
+</dash>
+
+<details>
+syntax: $voiceUsersLimit[voice channel ID]
+param: channelID|text|Erforderlich|Die ID eines Sprach- oder Bühnenkanals.
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $onVoiceJoined
+desc: Bir üye sesli kanala katıldığında tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $onVoiceJoined, bir üye sesli kanala katıldığında bir FDScript tetikleyen bir olay önekidir. Betik, üye ve sesli kanal bilgilerini alır. Çıktıyı belirli bir metin kanalına yönlendirmek için ilk satırda isteğe bağlı olarak bir kanal ID'si belirtebilirsiniz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$onVoiceJoined
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: #PREFIX:$onVoiceJoined
+ sendMessage[$mention joined a voice channel!]
+</block>
+
+<block type="callout" kind="note">
+text: Bunu FDScript dosyanızın ilk satırına yerleştirin. Betik, herhangi bir üye sesli kanala katıldığında otomatik olarak çalışır.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onVoiceJoined
+</details>

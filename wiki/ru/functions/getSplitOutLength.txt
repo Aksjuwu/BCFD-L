@@ -1,0 +1,26 @@
+<dash>
+name: $getSplitOutLength
+desc: Возвращает количество элементов в результате разделения $splitIn.
+category: Строковые утилиты
+
+<block type="text" title="Как работает команда?">
+text: $getSplitOutLength возвращает, сколько частей было создано последним вызовом $splitIn. Это полезно для проверки наличия достаточного количества данных перед использованием $splitOut. Значение отправляется в канал или может использоваться inline.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $getSplitOutLength
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $splitIn[apple,banana,cherry; ,]
+$getSplitOutLength
+</block>
+
+<block type="callout" kind="note">
+text: Возвращает "0", когда разделение ещё не выполнялось. То же значение можно использовать inline, например, с $if.
+</block>
+</dash>
+
+<details>
+syntax: $getSplitOutLength
+</details>

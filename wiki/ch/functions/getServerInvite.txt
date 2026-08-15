@@ -1,0 +1,27 @@
+<dash>
+name: $getServerInvite
+desc: 生成并发送服务器的邀请链接。
+category: 工具
+
+<block type="text" title="命令如何工作？">
+text: 当 $getServerInvite 无参数调用时，它会为当前服务器生成一个邀请链接。当使用服务器 ID 调用时，它会为该特定服务器生成邀请。机器人首先检查服务器是否有 vanity URL。如果没有，它会找到一个机器人具有"创建邀请"权限的频道，并生成一个永久邀请链接。
+</block>
+
+<block type="code" title="语法">
+text: $getServerInvite
+text: $getServerInvite[(guildID)]
+</block>
+
+<block type="code" title="可复制示例">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: 机器人必须是目标服务器的成员，并具有"创建邀请"权限。如果服务器设置了 vanity URL，将返回它而不是创建新邀请。不带参数时使用当前服务器。
+</block>
+</dash>
+
+<details>
+syntax: $getServerInvite[(guildID)]
+param: guildID|snowflake|Optional|要获取邀请链接的其他服务器的 ID。如果省略，则使用当前服务器。
+</details>

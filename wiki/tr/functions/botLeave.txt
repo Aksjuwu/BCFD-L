@@ -1,0 +1,27 @@
+<dash>
+name: $botLeave
+desc: Botun bir sunucudan (guild) ayrılmasını sağlar.
+category: Sunucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $botLeave, botun belirtilen sunucudan ayrılmasını sağlar. Sunucu kimliği (guild ID) verilmediğinde bot, komutun kullanıldığı sunucudan ayrılır. Bir sunucu kimliği verildiğinde bunun yerine o sunucudan ayrılır (bu, botun hedef sunucunun üyesi olması koşuluyla bir DM üzerinden bile çalışır).
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $botLeave
+text: $botLeave[guildID]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $botLeave
+</block>
+
+<block type="callout" kind="warning">
+text: Bu, botu sunucudan hemen kaldırır. Sunucu kimliği sağlanmazsa ve komut bir sunucu dışında (DM'lerde) kullanılırsa bir hata döndürülür. Sunucu kimliği bağımsız değişkeni sayısal bir snowflake olmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $botLeave[(guildID)]
+param: guildID|snowflake|Optional|Ayrılacak sunucunun kimliği (ID). Belirtilmezse geçerli sunucudan ayrılır.
+</details>

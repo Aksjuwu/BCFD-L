@@ -1,0 +1,28 @@
+<dash>
+name: $httpAddHeader
+desc: يضيف ترويسة HTTP مخصصة تُرسل مع طلب HTTP التالي.
+category: HTTP
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يسجّل $httpAddHeader ترويسة (اسم وقيمة) ستُرفق بطلب HTTP التالي المُنفَّذ عبر $httpGet أو $httpPost أو $httpPut أو $httpPatch أو $httpDelete. تُمسح الترويسات تلقائيًا بعد الطلب.
+</block>
+
+<block type="code" title="الصيغة">
+text: $httpAddHeader[name; value]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $httpAddHeader[Authorization; Bearer token123]
+$httpGet[https://api.example.com/data]
+</block>
+
+<block type="callout" kind="note">
+text: إضافة الاسم نفسه مرتين يستبدل القيمة السابقة. تُمسح الترويسات المخزنة بعد إرسال الطلب.
+</block>
+</dash>
+
+<details>
+syntax: $httpAddHeader[name; value]
+param: name|text|مطلوب|اسم الترويسة (مثل Authorization)
+param: value|text|مطلوب|قيمة الترويسة
+</details>

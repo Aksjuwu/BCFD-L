@@ -1,0 +1,26 @@
+<dash>
+name: $isNSFW
+desc: Bir kanalın NSFW olarak işaretlenip işaretlenmediğini kontrol eder.
+category: Kanal
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $isNSFW bir kanal bahsetmesi veya kimliği alır ve kanalın NSFW (Not Safe For Work) olarak işaretlenip işaretlenmediğini kontrol eder. Kanal NSFW ise "true", aksi halde "false" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $isNSFW[channel mention/ID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $isNSFW[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: Kanalların yaş derecelendirmesine göre içeriği kısıtlamak için koşullu mantıkta kullanışlıdır.
+</block>
+</dash>
+
+<details>
+syntax: $isNSFW[channel mention/ID]
+param: channel|text|Required|Kontrol edilecek kanal bahsetmesi veya sayısal kimlik.
+</details>

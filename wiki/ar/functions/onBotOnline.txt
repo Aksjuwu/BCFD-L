@@ -1,0 +1,30 @@
+<dash>
+name: $onBotOnline
+desc: حدث يُطلق مرة واحدة عندما يصبح البوت متصلًا.
+category: الحدث
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $onBotOnline هو بادئة حدث تُطلق سكربت FDScript مرة واحدة، مباشرة بعد تسجيل دخول البوت بنجاح. يعمل بدون أي رسالة مستخدم، لذلك لا تتوفر معلومات المؤلف أو محتوى الرسالة أو سياق القناة. استخدمه للإعداد لمرة واحدة مثل تخزين المتغيرات أو تسجيل بدء تشغيل البوت.
+</block>
+
+<block type="code" title="الصيغة">
+text: #PREFIX:$onBotOnline
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: #PREFIX:$onBotOnline
+$setVar[botStartupTime; $addTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: نظرًا لعدم وجود رسالة مشغّلة، يتطلب إرسال الإخراج بأوامر مثل $sendMessage استخدام $useChannel لاختيار قناة مستهدفة أولاً؛ الرموز المبنية على المؤلف/القناة مثل $channelID أو $message غير متاحة.
+</block>
+
+<block type="callout" kind="important">
+text: يعمل هذا الحدث في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotOnline
+</details>

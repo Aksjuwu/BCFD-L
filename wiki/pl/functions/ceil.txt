@@ -1,0 +1,26 @@
+<dash>
+name: $ceil
+desc: Zaokrągla liczbę w górę do najbliższej liczby całkowitej.
+category: Matematyka i liczby
+
+<block type="text" title="Jak działa ta komenda?">
+text: $ceil przyjmuje pojedynczą wartość liczbową i zaokrągla ją w górę do najbliższej liczby całkowitej (sufit). Na przykład 3.1 staje się 4, a 5.0 pozostaje 5. Działa zarówno jako samodzielna komenda, jak i bezpośrednio wewnątrz innych komend.
+</block>
+
+<block type="code" title="Składnia">
+text: $ceil[number]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Result is $ceil[3.2]]
+</block>
+
+<block type="callout" kind="note">
+text: $ceil[3.1] zwraca 4. $ceil[-2.5] zwraca -2. $ceil[5.0] zwraca 5. Wynik jest zawsze liczbą całkowitą.
+</block>
+</dash>
+
+<details>
+syntax: $ceil[number]
+param: number|number|Required|Liczba do zaokrąglenia w górę do najbliższej liczby całkowitej, np. 3.1, -2.5, 10
+</details>

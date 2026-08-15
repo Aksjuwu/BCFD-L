@@ -1,0 +1,26 @@
+<dash>
+name: $isBooster
+desc: Bir kullanıcının sunucu destekçisi (boost) olup olmadığını (aktif bir Nitro boost'u olup olmadığını) kontrol eder.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $isBooster bir kullanıcı kimliği veya bahsetmesi alır ve o kullanıcının sunucuyu şu anda boost'layıp boost'lamadığını (aktif bir premium aboneliği olup olmadığını) kontrol eder. "true" veya "false" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $isBooster[userID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $isBooster[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Kullanıcının sunucu için aktif bir Nitro boost'u varsa "true", aksi halde "false" döndürür. Kullanıcı sunucunun bir üyesi olmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $isBooster[userID]
+param: userID|text|Required|Kontrol edilecek kullanıcı kimliği veya @bahsetmesi. Değişkenleri ve yer tutucuları destekler.
+</details>

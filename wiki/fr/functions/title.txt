@@ -1,0 +1,26 @@
+<dash>
+name: $title
+desc: Définit le titre de l'embed en cours de construction.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $title prend un argument textuel et le définit comme titre de l'embed en cours de construction. Le titre apparaît en haut de l'embed dans un texte plus grand et en gras.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $title[text]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $title[Server Rules]
+</block>
+
+<block type="callout" kind="note">
+text: Le titre prend en charge le formatage markdown de Discord. Il apparaît comme en-tête principal en haut de l'embed.
+</block>
+</dash>
+
+<details>
+syntax: $title[text]
+param: text|text|Requis|Le texte du titre de l'embed
+</details>

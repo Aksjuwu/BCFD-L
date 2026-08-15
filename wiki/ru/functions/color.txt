@@ -1,0 +1,26 @@
+<dash>
+name: $color
+desc: Задаёт цвет создаваемого embed.
+category: Редактор embed
+
+<block type="text" title="Как работает команда?">
+text: $color принимает значение цвета в hex или название цвета и применяет его к текущему создаваемому embed. Цвет отображается в виде цветовой полосы на левой стороне embed.
+</block>
+
+<block type="code" title="Syntax">
+text: $color[hex or name]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $color[#FF5733]
+</block>
+
+<block type="callout" kind="note">
+text: Вы можете использовать hex-коды (например, #FF5733, FF5733) или именованные цвета. Эта команда влияет только на embed, отправленные после её вызова.
+</block>
+</dash>
+
+<details>
+syntax: $color[hex or name]
+param: hex or name|text|Required|Hex-код цвета (например, #FF5733) или именованный цвет для установки цвета полосы embed
+</details>

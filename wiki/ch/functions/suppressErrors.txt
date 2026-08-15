@@ -1,0 +1,30 @@
+<dash>
+name: $suppressErrors
+desc: 抑制脚本的所有错误消息，并可选择发送自定义消息代替。
+category: 访问控制
+
+<block type="text" title="此命令如何工作？">
+text: 当 $suppressErrors 出现在脚本中的任何位置时，所有错误消息（语法、逻辑、运行时、环境）都会被抑制。脚本不会显示实际错误，而是静默中止，或发送自定义消息（如果提供了的话）。
+</block>
+
+<block type="code" title="语法">
+text: $suppressErrors[custom message]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $suppressErrors[Something went wrong! Please try again.]
+</block>
+
+<block type="callout" kind="note">
+text: 此命令在解析时被检测到——它必须出现在脚本中的任何位置（即使是单独一行）。启用时，所有错误都会在内部记录，但不会显示给用户。如果提供了自定义消息，则会发送该消息代替错误。
+</block>
+
+<block type="callout" kind="warning">
+text: 请谨慎使用——抑制错误会使调试变得困难。脚本在出错时仍会中止，只是静默进行。
+</block>
+</dash>
+
+<details>
+syntax: $suppressErrors[(custom message)]
+param: custom message|text|Optional|发生任何错误时发送给用户的消息，代替默认的错误消息。如果省略，则静默抑制错误。
+</details>

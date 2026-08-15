@@ -1,0 +1,23 @@
+<dash>
+name: $clientTyping
+desc: يعرض مؤشر "يكتب..." للبوت في القناة الحالية.
+category: أدوات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: عند استدعاء $clientTyping، يعرض البوت مؤشر "البوت يكتب..." في القناة الحالية، مما يشير للمستخدمين إلى أن البوت يعالج أو يحضّر ردًا. يستمر هذا المؤشر حتى يرسل البوت رسالة أو ينتهي السكربت.
+</block>
+
+<block type="code" title="الصيغة">
+text: $clientTyping
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $clientTyping
+$wait[3s]
+$sendMessage[Done!]
+</block>
+
+<block type="callout" kind="note">
+text: هذه الدالة مفيدة لمحاكاة تدفق محادثة أكثر طبيعية. اجمعها مع $wait لإنشاء تأخير متعمد قبل أن يرسل البوت رسالته التالية.
+</block>
+</dash>

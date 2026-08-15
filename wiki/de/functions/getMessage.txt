@@ -1,0 +1,28 @@
+<dash>
+name: $getMessage
+desc: Ruft eine Nachricht aus einem beliebigen Kanal ab und sendet Informationen darüber.
+category: Werkzeug
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $getMessage ruft eine Nachricht aus dem angegebenen Kanal ab und extrahiert daraus eine Information. Das type-Argument bestimmt, was gesendet wird: content (der Nachrichtentext), name (der Anzeigename des Autors), id (die Benutzer-ID des Autors) oder avatar (die Avatar-URL des Autors). Wenn der extrahierte Wert leer ist, wird stattdessen ein Nullbreitenzeichen gesendet.
+</block>
+
+<block type="code" title="Syntax">
+text: $getMessage[channelID; messageID; (type)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $getMessage[123456789; 987654321; content]
+</block>
+
+<block type="callout" kind="note">
+text: Das type-Argument ist optional und standardmäßig auf content eingestellt. Gültige Typen: content, name, id, avatar. Der Bot muss den Kanal sehen können und die Berechtigung „Nachrichtenverlauf lesen“ besitzen.
+</block>
+</dash>
+
+<details>
+syntax: $getMessage[channelID; messageID; (type)]
+param: channelID|snowflake|Erforderlich|Die ID des Kanals, der die Nachricht enthält
+param: messageID|snowflake|Erforderlich|Die ID der abzurufenden Nachricht
+param: type|text|Optional|Was gesendet werden soll: content (Standard), name, id oder avatar
+</details>

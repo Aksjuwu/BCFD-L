@@ -1,0 +1,27 @@
+<dash>
+name: $mul
+desc: 将两个或更多数字相乘并返回结果。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $mul 接受两个或更多数字参数并返回它们的乘积。既可作为独立命令使用，也可内联在其他命令中使用。
+</block>
+
+<block type="code" title="语法">
+text: $mul[a; b; ...]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[$mul[3; 4]]
+</block>
+
+<block type="callout" kind="note">
+text: 支持任意数量的参数。$mul[2; 3; 4] 的计算结果为 24。如果乘积没有小数部分，结果为整数。
+</block>
+</dash>
+
+<details>
+syntax: $mul[a; b; ...]
+param: a|number|Required|要相乘的第一个数字
+param: b|number|Required|要相乘的第二个数字（也接受更多数字）
+</details>

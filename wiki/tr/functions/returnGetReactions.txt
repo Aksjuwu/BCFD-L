@@ -1,0 +1,31 @@
+<dash>
+name: $returnGetReactions
+desc: Bir mesajda belirli bir emojiye tepki veren kullanıcıları getirir ve sonucu saklar.
+category: Dönüş Komutları
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $returnGetReactions belirli bir mesajı getirir, verilen bir emojiye tepki veren kullanıcıları bulur ve sonucu saklar. Tepki veren kullanıcıların kimliklerini veya toplam tepki sayısını saklayabilirsiniz. Botlar her zaman hariç tutulur — yalnızca gerçek kullanıcılar dikkate alınır.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $returnGetReactions[$channelID; 123456789; usersID; reactors; ,; 👍]
+</block>
+
+<block type="callout" kind="note">
+text: type parametresi "usersID" (tepki veren kullanıcıların kimliklerini ayraçla birleştirerek saklamak için) veya "tr" (yalnızca gerçek kullanıcılardan gelen toplam tepki sayısını saklamak için) değerlerini kabul eder. Emoji mesajda bulunamazsa: "tr" sessizce "0" saklar, "usersID" ise bir hata verir. "usersID" modunda emojiye hiçbir gerçek kullanıcı tepki vermemişse de bir hata verilir. Sonuç değişkende saklanır ve daha sonra $return[var] ile alınır.
+</block>
+</dash>
+
+<details>
+syntax: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+param: channelID|snowflake|Required|Mesajı içeren kanalın kimliği
+param: messageID|snowflake|Required|Tepkilerin kontrol edileceği mesajın kimliği
+param: type|text|Required|Tepki veren kullanıcıların kimliklerini saklamak için usersID veya toplam tepki sayısını saklamak için tr (yalnızca gerçek kullanıcılar)
+param: var|text|Required|Sonucun saklanacağı değişken adı
+param: separator|text|Required|Birden çok kullanıcı kimliği arasındaki ayraç (örn. , veya ;). Adlandırılmış ayraçlar kullanabilirsiniz: dot, com, apo, sem, colon
+param: emoji|text|Required|Tepki olarak aranacak emoji (dize biçimine veya adına göre eşleştirilir)
+</details>

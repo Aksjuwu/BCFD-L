@@ -1,0 +1,23 @@
+<dash>
+name: $clientTyping
+desc: Wyświetla wskaźnik „pisze...” bota na bieżącym kanale.
+category: Narzędzia
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy wywoływany jest $clientTyping, bot wyświetla na bieżącym kanale wskaźnik „Bot pisze...”, sygnalizując użytkownikom, że bot przetwarza lub przygotowuje odpowiedź. Wskaźnik pozostaje, dopóki bot nie wyśle wiadomości lub skrypt się nie zakończy.
+</block>
+
+<block type="code" title="Składnia">
+text: $clientTyping
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $clientTyping
+$wait[3s]
+$sendMessage[Done!]
+</block>
+
+<block type="callout" kind="note">
+text: Ta komenda jest przydatna do symulowania bardziej naturalnego przebiegu rozmowy. Połącz ją z $wait, aby stworzyć celowe opóźnienie przed wysłaniem przez bota kolejnej wiadomości.
+</block>
+</dash>

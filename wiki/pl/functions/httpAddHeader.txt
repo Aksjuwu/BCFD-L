@@ -1,0 +1,28 @@
+<dash>
+name: $httpAddHeader
+desc: Dodaje niestandardowy nagłówek HTTP wysyłany z następnym żądaniem HTTP.
+category: HTTP
+
+<block type="text" title="Jak działa komenda?">
+text: $httpAddHeader rejestruje nagłówek (nazwę i wartość), który zostanie dołączony do następnego żądania HTTP wykonanego za pomocą $httpGet, $httpPost, $httpPut, $httpPatch lub $httpDelete. Nagłówki są automatycznie czyszczone po wysłaniu żądania.
+</block>
+
+<block type="code" title="Składnia">
+text: $httpAddHeader[name; value]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $httpAddHeader[Authorization; Bearer token123]
+$httpGet[https://api.example.com/data]
+</block>
+
+<block type="callout" kind="note">
+text: Dodanie tej samej nazwy drugi raz nadpisuje poprzednią wartość. Zapisane nagłówki są czyszczone po wysłaniu żądania.
+</block>
+</dash>
+
+<details>
+syntax: $httpAddHeader[name; value]
+param: name|text|Required|Nazwa nagłówka (np. Authorization)
+param: value|text|Required|Wartość nagłówka
+</details>

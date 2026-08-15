@@ -1,0 +1,26 @@
+<dash>
+name: $isOwner
+desc: Bir kullanıcının sunucunun sahibi olup olmadığını kontrol eder.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $isOwner bir kullanıcı kimliği veya bahsetmesi alır ve o kullanıcının geçerli sunucunun sahibi olup olmadığını kontrol eder. "true" veya "false" döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $isOwner[userID]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $isOwner[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: Yalnızca kullanıcı sunucu sahibiyse "true" döndürür. Kullanıcı sahip değilse veya sunucuda bulunamazsa "false" döndürür.
+</block>
+</dash>
+
+<details>
+syntax: $isOwner[userID]
+param: userID|text|Required|Kontrol edilecek kullanıcı kimliği veya @bahsetmesi. Değişkenleri ve yer tutucuları destekler.
+</details>

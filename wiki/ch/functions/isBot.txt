@@ -1,0 +1,26 @@
+<dash>
+name: $isBot
+desc: 检查用户是否为机器人账户。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: $isBot 接受一个用户 ID 或提及，并检查该用户是否为 Discord 机器人账户。返回 "true" 或 "false"。
+</block>
+
+<block type="code" title="语法">
+text: $isBot[userID]
+</block>
+
+<block type="code" title="可复制示例">
+text: $isBot[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: 如果用户是机器人账户，则返回 "true"，如果是人类用户，则返回 "false"。用户必须是服务器的成员。
+</block>
+</dash>
+
+<details>
+syntax: $isBot[userID]
+param: userID|text|Required|要检查的用户 ID 或 @提及。支持变量和占位符。
+</details>

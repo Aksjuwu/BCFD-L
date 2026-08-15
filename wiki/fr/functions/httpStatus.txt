@@ -1,0 +1,28 @@
+<dash>
+name: $httpStatus
+desc: Renvoie le code de statut HTTP de la dernière requête.
+category: HTTP
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $httpStatus renvoie le code de statut stocké par la dernière requête HTTP. Il renvoie "0" lorsqu'aucune requête n'a encore été effectuée.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $httpStatus
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $httpGet[https://api.example.com/data]
+$if[$httpStatus == 200] {
+  $reply[Request succeeded]
+}
+</block>
+
+<block type="callout" kind="note">
+text: En cas d'échec d'une requête, le code de statut est défini sur 500.
+</block>
+</dash>
+
+<details>
+syntax: $httpStatus
+</details>

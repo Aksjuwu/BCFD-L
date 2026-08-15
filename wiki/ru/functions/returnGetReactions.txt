@@ -1,0 +1,31 @@
+<dash>
+name: $returnGetReactions
+desc: Получает пользователей, отреагировавших определённым эмодзи на сообщении, и сохраняет результат.
+category: Возвращаемые команды
+
+<block type="text" title="Как работает команда?">
+text: $returnGetReactions получает конкретное сообщение, находит пользователей, отреагировавших указанным эмодзи, и сохраняет результат. Можно сохранить ID отреагировавших пользователей или общее количество реакций. Боты всегда исключаются — учитываются только реальные пользователи.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $returnGetReactions[$channelID; 123456789; usersID; reactors; ,; 👍]
+</block>
+
+<block type="callout" kind="note">
+text: Параметр type принимает "usersID" (для сохранения ID отреагировавших пользователей, объединённых через разделитель) или "tr" (для сохранения общего количества реакций только от реальных пользователей). Если эмодзи нет на сообщении: "tr" молча сохраняет "0", а "usersID" вызывает ошибку. В режиме "usersID" ошибка также возникает, если на эмодзи не отреагировал ни один реальный пользователь. Результат сохраняется в переменную и позже извлекается через $return[var].
+</block>
+</dash>
+
+<details>
+syntax: $returnGetReactions[channelID; messageID; type; var; separator; emoji]
+param: channelID|snowflake|Required|ID канала, в котором находится сообщение
+param: messageID|snowflake|Required|ID сообщения, у которого проверяются реакции
+param: type|text|Required|usersID для сохранения ID отреагировавших пользователей или tr для сохранения общего количества реакций (только от людей)
+param: var|text|Required|Имя переменной, в которую сохраняется результат
+param: separator|text|Required|Разделитель между несколькими ID пользователей (например, , или ;). Можно использовать именованные разделители: dot, com, apo, sem, colon
+param: emoji|text|Required|Эмодзи, для которого ищутся реакции (сопоставляется по строковому виду или имени)
+</details>

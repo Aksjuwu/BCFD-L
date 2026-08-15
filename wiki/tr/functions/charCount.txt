@@ -1,0 +1,26 @@
+<dash>
+name: $charCount
+desc: Verilen metindeki alfasayısal karakter sayısını döndürür.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $charCount bir metin bağımsız değişkeni alır ve yalnızca alfasayısal karakterleri (harfler ve rakamlar) sayar; boşlukları, sembolleri ve noktalama işaretlerini yok sayar. Sayımı bir sayı olarak döndürür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $charCount[text]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $charCount[Hello World!]
+</block>
+
+<block type="callout" kind="note">
+text: Yalnızca harfler (herhangi bir dilden) ve rakamlar (0-9) sayılır. Boşluklar, noktalama işaretleri ve özel karakterler sayıma dahil edilmez.
+</block>
+</dash>
+
+<details>
+syntax: $charCount[text]
+param: text|text|Required|Alfasayısal karakterlerin sayılacağı metin. Sayım yapılmadan önce değişkenler ve yer tutucular çözümlenir.
+</details>

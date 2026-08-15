@@ -1,0 +1,26 @@
+<dash>
+name: $randomstr
+desc: Sağlanan argümanlardan rastgele seçilen bir dize döndürür.
+category: Rastgelelik
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $randomstr bir veya daha fazla dize argümanı alır ve rastgele birini seçer, ardından kanala gönderir. Bu, rastgele yanıtlar, alıntılar veya mesajlar için kullanışlıdır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $randomstr[string1; string2; string3; ...]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $randomstr[Hello!; Hi there!; Hey!; What's up?]
+</block>
+
+<block type="callout" kind="note">
+text: Her argüman olası bir çıktıdır. Biri eşit olasılıkla rastgele seçilir. En az bir dize sağlanmalıdır.
+</block>
+</dash>
+
+<details>
+syntax: $randomstr[string1; string2; string3; ...]
+param: string|text|Required|Arasından seçim yapılacak bir veya daha fazla dize. Biri rastgele seçilir ve gönderilir.
+</details>

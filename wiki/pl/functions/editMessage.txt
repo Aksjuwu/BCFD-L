@@ -1,0 +1,36 @@
+<dash>
+name: $editMessage
+desc: Edytuje wcześniej wysłaną wiadomość bota na dowolnym kanale, opcjonalnie zamieniając ją na embed.
+category: Wiadomości
+
+<block type="text" title="Jak działa ta komenda?">
+text: $editMessage pobiera konkretną wiadomość bota po ID kanału i ID wiadomości, a następnie edytuje jej treść. Opcjonalnie możesz podać tytuł, opis, kolor i stopkę, aby zamienić wiadomość w embed.
+</block>
+
+<block type="code" title="Składnia">
+text: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $editMessage[$channelID; 123456789; Updated content!]
+</block>
+
+<block type="callout" kind="note">
+text: Docelowa wiadomość musi zostać wysłana przez tego bota. Jeśli podano opcjonalne parametry embedu, wiadomość zostanie edytowana tak, aby zawierała embed obok treści.
+</block>
+
+<block type="callout" kind="warning">
+text: Bot musi mieć uprawnienie do przeglądania i edytowania wiadomości na kanale docelowym.
+</block>
+</dash>
+
+<details>
+syntax: $editMessage[channelID; messageID; content; (title; description; color; footer)]
+param: channelID|snowflake|Required|ID kanału zawierającego wiadomość
+param: messageID|snowflake|Required|ID wiadomości bota do edycji
+param: content|text|Required|Nowa treść tekstowa wiadomości
+param: title|text|Optional|Tytuł embedu do dołączenia do wiadomości
+param: description|text|Optional|Opis embedu
+param: color|text|Optional|Kolor hex embedu
+param: footer|text|Optional|Tekst stopki embedu
+</details>

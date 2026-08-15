@@ -1,0 +1,46 @@
+<dash>
+name: $math
+desc: 计算数学表达式并返回结果。
+category: 数学与数字
+
+<block type="text" title="命令如何工作？">
+text: $math 接受一个数学表达式，使用 Python 的 AST 解析器对其进行安全求值，然后发送结果。支持基本算术、指数运算以及常见数学函数。
+</block>
+
+<block type="code" title="语法">
+text: $math[expression]
+</block>
+
+<block type="code" title="可复制示例">
+text: $math[2 + 2 * 3]
+</block>
+
+<block type="options" title="支持的运算符">
+option: +|加法
+option: -|减法
+option: *|乘法
+option: /|除法
+option: //|向下取整除
+option: %|取模
+option: **|指数
+</block>
+
+<block type="options" title="支持的函数">
+option: sqrt|平方根
+option: abs|绝对值
+option: ceil|向上取整
+option: floor|向下取整
+option: round|四舍五入
+option: log/log2/log10|对数
+option: sin/cos/tan|三角函数
+</block>
+
+<block type="callout" kind="note">
+text: 常量 pi、e 和 inf 可用。表达式会被安全求值 —— 不可能执行任意代码。除以零会返回错误。
+</block>
+</dash>
+
+<details>
+syntax: $math[expression]
+param: expression|text|Required|要计算的数学表达式，例如 2 + 2、sqrt(16)、pi * 2
+</details>

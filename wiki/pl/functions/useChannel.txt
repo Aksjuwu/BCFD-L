@@ -1,0 +1,33 @@
+<dash>
+name: $useChannel
+desc: Przekierowuje całe wyjście skryptu od tego punktu do konkretnego kanału na dowolnym serwerze.
+category: Kontrola dostępu
+
+<block type="text" title="Jak działa komenda?">
+text: $useChannel jest wykonywane w miejscu, w kolejności, w jakiej linie pojawiają się w skrypcie. Gdy interpreter do niego dotrze, przekierowuje wyjście wszystkiego, co następuje po nim (wszystkie $sendMessage, $sendEmbedMessage, $reply, buforowany tekst itd.) na określony kanał. Linie przed nim nie są zmieniane.
+</block>
+
+<block type="code" title="Składnia">
+text: $useChannel[guildID; channelID]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[This goes to the current channel]
+$useChannel[1234567890; 9876543210]
+$sendMessage[This goes to the specified channel!]
+</block>
+
+<block type="callout" kind="note">
+text: Oba argumenty są rozwiązywane przed sprawdzeniem, ale muszą być liczbowe. Bot musi być członkiem określonego serwera i widzieć docelowy kanał. Jeśli serwer lub kanał nie zostanie znaleziony albo argumenty nie są liczbowe, komenda jest po cichu ignorowana i tworzony jest wpis w logu.
+</block>
+
+<block type="callout" kind="warning">
+text: Po ustawieniu przekierowanie dotyczy całego dalszego wyjścia skryptu — oryginalny kanał nie jest już używany. W interakcji z przyciskiem odpowiedź na interakcję jest opóźniana, a kolejne wiadomości są wysyłane na docelowy kanał.
+</block>
+</dash>
+
+<details>
+syntax: $useChannel[guildID; channelID]
+param: guildID|number|Required|ID serwera, na którym znajduje się docelowy kanał
+param: channelID|number|Required|ID kanału, na który ma zostać przekierowane całe wyjście
+</details>

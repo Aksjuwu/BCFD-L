@@ -1,0 +1,30 @@
+<dash>
+name: $sendEmbedMessage
+desc: 向指定频道发送带有标题、描述、颜色和页脚的嵌入消息。
+category: 消息发送
+
+<block type="text" title="此命令如何工作？">
+text: $sendEmbedMessage 使用提供的标题、描述、颜色和页脚构建嵌入消息，然后将其发送到指定的频道。所有五个参数都是必需的。
+</block>
+
+<block type="code" title="语法">
+text: $sendEmbedMessage[channelID; title; description; color; footer]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $sendEmbedMessage[$channelID; Welcome!; Thanks for joining; #00FF00; Enjoy your stay]
+</block>
+
+<block type="callout" kind="note">
+text: color 参数接受十六进制值（例如 #FF5733）。机器人必须在目标频道中拥有 "发送消息" 和 "嵌入链接" 权限。
+</block>
+</dash>
+
+<details>
+syntax: $sendEmbedMessage[channelID; title; description; color; footer]
+param: channelID|snowflake|Required|要发送嵌入消息的目标频道的 ID
+param: title|text|Required|嵌入消息的标题
+param: description|text|Required|嵌入消息的描述/正文文本
+param: color|text|Required|嵌入消息强调色条的十六进制颜色代码（例如 #FF5733）
+param: footer|text|Required|显示在嵌入消息底部的页脚文本
+</details>

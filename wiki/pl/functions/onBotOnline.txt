@@ -1,0 +1,30 @@
+<dash>
+name: $onBotOnline
+desc: Zdarzenie wyzwalane jednorazowo, gdy bot przechodzi do trybu online.
+category: Zdarzenie
+
+<block type="text" title="Jak działa to zdarzenie?">
+text: $onBotOnline to prefiks zdarzenia, który wyzwala skrypt FDScript jednokrotnie, tuż po pomyślnym zalogowaniu się bota. Działa bez żadnej wiadomości użytkownika, więc nie ma dostępnego autora, treści wiadomości ani kontekstu kanału. Użyj go do jednorazowej konfiguracji, takiej jak przechowywanie zmiennych lub rejestrowanie, że bot został uruchomiony.
+</block>
+
+<block type="code" title="Składnia">
+text: #PREFIX:$onBotOnline
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: #PREFIX:$onBotOnline
+$setVar[botStartupTime; $addTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: Ponieważ nie ma wiadomości wyzwalającej, wysyłanie danych wyjściowych za pomocą komend takich jak $sendMessage wymaga najpierw wybrania kanału docelowego za pomocą $useChannel; tokeny oparte o autora/kanał, takie jak $channelID lub $message, nie są dostępne.
+</block>
+
+<block type="callout" kind="important">
+text: To zdarzenie działa w folderze bot_events, a nie bot_commands. Utwórz tam swój plik .fds.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotOnline
+</details>

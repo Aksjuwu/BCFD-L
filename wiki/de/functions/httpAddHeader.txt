@@ -1,0 +1,28 @@
+<dash>
+name: $httpAddHeader
+desc: Fügt einen benutzerdefinierten HTTP-Header hinzu, der mit der nächsten HTTP-Anfrage gesendet wird.
+category: HTTP
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $httpAddHeader registriert einen Header (Name und Wert), der der nächsten HTTP-Anfrage mit $httpGet, $httpPost, $httpPut, $httpPatch oder $httpDelete hinzugefügt wird. Die Header werden nach der Anfrage automatisch gelöscht.
+</block>
+
+<block type="code" title="Syntax">
+text: $httpAddHeader[name; value]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $httpAddHeader[Authorization; Bearer token123]
+$httpGet[https://api.example.com/data]
+</block>
+
+<block type="callout" kind="note">
+text: Wird derselbe Name zweimal hinzugefügt, überschreibt er den vorherigen Wert. Die gespeicherten Header werden nach dem Senden der Anfrage gelöscht.
+</block>
+</dash>
+
+<details>
+syntax: $httpAddHeader[name; value]
+param: name|text|Erforderlich|Der Headername (z. B. Authorization)
+param: value|text|Erforderlich|Der Headerwert
+</details>

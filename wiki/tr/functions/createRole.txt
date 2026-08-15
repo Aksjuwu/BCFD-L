@@ -1,0 +1,37 @@
+<dash>
+name: $createRole
+desc: Sunucuda belirtilen ad, renk ve izinlerle yeni bir rol oluşturur.
+category: Moderasyon
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $createRole, verilen ad, renk ve izinlerle yeni bir rol oluşturur. İzinler, bir ön ayar (cosmetic, member, mod, manager) veya ham bir izin numarası olarak belirtilebilir. İsteğe bağlı olarak, rolün ayrı olarak görüntülenip görüntülenmeyeceğini ve etiketlenebilir olup olmadığını kontrol edebilirsiniz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $createRole[role name; color; permissions; (display role; mention role)]
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: $createRole[VIP; #FFD700; member; yes; no]
+</block>
+
+<block type="options" title="İzin ön ayarları">
+option: cosmetic|Özel izin yok (yalnızca görüntüleme amaçlı rol)
+option: member|Temel üye izinleri (mesaj gönderme, tepki verme, bağlanma vb.)
+option: mod / moderator|Moderasyon izinleri (kick, ban, mesajları yönetme, timeout vb.)
+option: manager / admin|Tam yönetim izinleri (kanalları, rolleri, webhook'ları yönetme vb.)
+</block>
+
+<block type="callout" kind="note">
+text: Oluşturulan rolün kimliği (ID), daha sonra kullanılmak üzere $return[createdRoleID] içinde saklanır. Botun "Rolleri Yönet" iznine sahip olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $createRole[role name; color; permissions; (display role; mention role)]
+param: role name|text|Required|Yeni rolün adı (en fazla 100 karakter)
+param: color|text|Required|Hex renk kodu (ör. #FF5733) veya varsayılan için boş bırakın
+param: permissions|text|Required|Bir ön ayar (cosmetic, member, mod/moderator, manager/admin) veya ham bir izin tam sayısı
+param: display role|yes/no|Optional|Rolü üye listesinde ayrı olarak görüntülemek için yes (varsayılan: no)
+param: mention role|yes/no|Optional|Rolü herkes için etiketlenebilir yapmak için yes (varsayılan: no)
+</details>

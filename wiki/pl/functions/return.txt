@@ -1,0 +1,27 @@
+<dash>
+name: $return
+desc: Pobiera wartość zapisaną przez komendę $returnXxx i wysyła ją na kanał.
+category: Zmienne
+
+<block type="text" title="Jak działa komenda?">
+text: $return przyjmuje nazwę zmiennej i sprawdza jej wartość w magazynie zmiennych zwrotnych. Ten magazyn jest wypełniany przez komendy takie jak $returnGuildUsersID, $returnGuildChannelsID itd. Użyte samodzielnie, pobrana wartość jest wysyłana na kanał; użyte w tekście jako argument innej komendy, wartość jest podstawiana bezpośrednio do tekstu.
+</block>
+
+<block type="code" title="Składnia">
+text: $return[var]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $returnGuildUsersID[$guildID; cache; userIDs; ,]
+$sendMessage[User IDs: $return[userIDs]]
+</block>
+
+<block type="callout" kind="note">
+text: Jeśli nazwa zmiennej nie istnieje w magazynie zmiennych zwrotnych, zwracany jest błąd. Upewnij się, że przed użyciem $return wywołasz odpowiednią komendę $returnXxx.
+</block>
+</dash>
+
+<details>
+syntax: $return[var]
+param: var|text|Required|Nazwa zmiennej zwrotnej do pobrania (np. userIDs, channelIDs, roleIDs)
+</details>

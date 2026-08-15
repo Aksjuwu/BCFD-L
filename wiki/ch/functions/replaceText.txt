@@ -1,0 +1,29 @@
+<dash>
+name: $replaceText
+desc: 将文本中的某个子字符串替换为新的文本。
+category: 字符串工具
+
+<block type="text" title="此命令如何工作？">
+text: $replaceText 接受一条消息、要查找的旧文本以及用于替换的新文本。可选地，您可以指定要替换的次数。返回修改后的文本。
+</block>
+
+<block type="code" title="语法">
+text: $replaceText[message; old; new; (amount)]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $replaceText[Hello World; World; FDScript]
+</block>
+
+<block type="callout" kind="note">
+text: 默认情况下，所有匹配项都会被替换。提供第 4 个参数中的数字可限制替换次数。使用 -1 或省略以替换全部。
+</block>
+</dash>
+
+<details>
+syntax: $replaceText[message; old; new; (amount)]
+param: message|text|Required|要在其中搜索的原始文本
+param: old|text|Required|要查找并替换的子字符串
+param: new|text|Required|替换用的新文本
+param: amount|number|Optional|最大替换次数。-1 或省略 = 替换所有匹配项
+</details>

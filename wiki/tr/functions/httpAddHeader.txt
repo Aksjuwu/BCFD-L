@@ -1,0 +1,28 @@
+<dash>
+name: $httpAddHeader
+desc: Bir sonraki HTTP isteğiyle birlikte gönderilecek özel bir HTTP başlığı ekler.
+category: HTTP
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $httpAddHeader, $httpGet, $httpPost, $httpPut, $httpPatch veya $httpDelete ile yapılacak bir sonraki HTTP isteğine eklenecek bir başlığı (ad ve değer) kaydeder. Başlıklar istekten sonra otomatik olarak temizlenir.
+</block>
+
+<block type="code" title="Söz Dizimi">
+text: $httpAddHeader[name; value]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $httpAddHeader[Authorization; Bearer token123]
+$httpGet[https://api.example.com/data]
+</block>
+
+<block type="callout" kind="note">
+text: Aynı adı iki kez eklemek önceki değerin üzerine yazar. Saklanan başlıklar istek gönderildikten sonra temizlenir.
+</block>
+</dash>
+
+<details>
+syntax: $httpAddHeader[name; value]
+param: name|text|Required|Başlık adı (örn. Authorization)
+param: value|text|Required|Başlık değeri
+</details>

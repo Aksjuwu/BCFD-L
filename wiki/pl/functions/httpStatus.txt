@@ -1,0 +1,28 @@
+<dash>
+name: $httpStatus
+desc: Zwraca kod statusu HTTP ostatniego żądania.
+category: HTTP
+
+<block type="text" title="Jak działa komenda?">
+text: $httpStatus zwraca kod statusu zapisany przez ostatnie żądanie HTTP. Zwraca "0", gdy żadne żądanie nie zostało jeszcze wykonane.
+</block>
+
+<block type="code" title="Składnia">
+text: $httpStatus
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $httpGet[https://api.example.com/data]
+$if[$httpStatus == 200] {
+  $reply[Request succeeded]
+}
+</block>
+
+<block type="callout" kind="note">
+text: W przypadku nieudanego żądania kod statusu jest ustawiany na 500.
+</block>
+</dash>
+
+<details>
+syntax: $httpStatus
+</details>

@@ -1,0 +1,30 @@
+<dash>
+name: $elif
+desc: Önceki koşullar yanlış olduğunda $if bloğu içinde alternatif bir koşul sağlar.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $elif, ek koşullar eklemek için bir $if bloğunun içinde kullanılır. Kendisinden önceki $if (veya $elif) koşulu yanlış olduğunda, bir sonraki $elif koşulu kontrol edilir. Koşul doğruysa, kendi kod bloğu çalıştırılır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $elif[condition]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $if[$message == hello]
+  Hi there!
+$elif[$message == bye]
+  Goodbye!
+$endif
+</block>
+
+<block type="callout" kind="note">
+text: $elif, bir $if ile bir $endif arasına yerleştirilmelidir. Birden fazla $elif bloğu zincirlenebilir. Yalnızca eşleşen ilk koşulun kod bloğu çalıştırılır.
+</block>
+</dash>
+
+<details>
+syntax: $elif[condition]
+param: condition|expression|Required|Değerlendirilecek koşul (ör. $message == hello, $authorID == 123). $if ile aynı operatörleri kullanır.
+</details>

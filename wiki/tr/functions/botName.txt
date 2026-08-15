@@ -1,0 +1,21 @@
+<dash>
+name: $botName
+desc: Botun kullanıcı adını döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $botName çağrıldığında bot, kendi kullanıcı adını alır ve düz metin dizesi olarak doğrudan kanala gönderir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $botName
+</block>
+
+<block type="code" title="Kopyalanmaya hazır örnek">
+text: I am $botName!
+</block>
+
+<block type="callout" kind="note">
+text: Bu, botun geçerli kullanıcı adını döndürür. Botun kullanıcı adı Geliştirici Portalı (Developer Portal) üzerinden değiştirilirse, bir sonraki çağrı güncellenen adı yansıtır.
+</block>
+</dash>

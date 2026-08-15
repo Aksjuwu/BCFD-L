@@ -1,0 +1,27 @@
+<dash>
+name: $cloneRole
+desc: Tworzy kopię istniejącej roli z tymi samymi uprawnieniami i ustawieniami.
+category: Moderacja
+
+<block type="text" title="Jak działa ta komenda?">
+text: $cloneRole przyjmuje identyfikator/wzmiankę roli i opcjonalnie nową nazwę. Bot pobiera właściwości oryginalnej roli (uprawnienia, kolor, hoist, mentionable) i tworzy nową rolę z tymi samymi ustawieniami.
+</block>
+
+<block type="code" title="Składnia">
+text: $cloneRole[role ID or @mention; (optional new name)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $cloneRole[&123456789; Cloned Role]
+</block>
+
+<block type="callout" kind="note">
+text: Jeśli nie podano nowej nazwy, sklonowana rola zachowuje nazwę oryginalnej roli. Bot musi mieć uprawnienie „Zarządzanie rolami”.
+</block>
+</dash>
+
+<details>
+syntax: $cloneRole[role ID or @mention; (optional new name)]
+param: role ID or @mention|text|Required|Identyfikator lub @wzmianka roli do sklonowania
+param: optional new name|text|Optional|Własna nazwa dla sklonowanej roli. Jeśli pominięta, używana jest oryginalna nazwa.
+</details>

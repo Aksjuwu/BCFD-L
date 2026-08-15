@@ -1,0 +1,30 @@
+<dash>
+name: $onBotOnline
+desc: Событие, срабатывающее один раз при запуске бота.
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $onBotOnline — это префикс события, который запускает FDScript один раз, сразу после успешного входа бота в систему. Событие запускается без сообщения пользователя, поэтому недоступны ни автор, ни содержимое сообщения, ни контекст канала. Используйте его для разовой настройки, например для сохранения переменных или записи в журнал факта запуска бота.
+</block>
+
+<block type="code" title="Синтаксис">
+text: #PREFIX:$onBotOnline
+</block>
+
+<block type="code" title="Пример для копирования">
+text: #PREFIX:$onBotOnline
+$setVar[botStartupTime; $addTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: Поскольку сообщения-триггера нет, для отправки вывода командами вроде $sendMessage требуется сначала выбрать целевой канал с помощью $useChannel; токены, основанные на авторе или канале, например $channelID или $message, недоступны.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие работает в папке bot_events, а не bot_commands. Создавайте там свой .fds файл.
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotOnline
+</details>

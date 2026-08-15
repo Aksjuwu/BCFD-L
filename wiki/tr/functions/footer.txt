@@ -1,0 +1,26 @@
+<dash>
+name: $footer
+desc: Oluşturulan embed'in alt bilgi metnini ayarlar.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $footer bir metin argümanı alır ve onu oluşturulmakta olan geçerli embed'in alt bilgisi olarak ayarlar. Alt bilgi, embed'in en altında daha küçük ve açık renkli metin olarak görünür.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $footer[text]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $footer[Requested by $authorName]
+</block>
+
+<block type="callout" kind="note">
+text: Alt bilgi; atıf, zaman damgaları veya ek bağlam için kullanışlıdır. Embed'in altında daha küçük gri metin olarak görünür.
+</block>
+</dash>
+
+<details>
+syntax: $footer[text]
+param: text|text|Required|Embed için alt bilgi metni
+</details>

@@ -1,0 +1,26 @@
+<dash>
+name: $description
+desc: 设置正在构建的嵌入消息的描述文本。
+category: 嵌入构建
+
+<block type="text" title="命令如何工作？">
+text: $description 接受一个文本参数，并将其设置为当前正在构建的嵌入消息的主体/描述。这是嵌入消息的主要内容区域。
+</block>
+
+<block type="code" title="语法">
+text: $description[text]
+</block>
+
+<block type="code" title="可复制示例">
+text: $description[This is the embed body text]
+</block>
+
+<block type="callout" kind="note">
+text: 描述支持 Discord 的 Markdown 格式（粗体、斜体、代码块等）。它显示在嵌入消息的标题下方。
+</block>
+</dash>
+
+<details>
+syntax: $description[text]
+param: text|text|Required|嵌入消息的描述文本。支持 Discord Markdown 格式。
+</details>

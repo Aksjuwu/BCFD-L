@@ -1,0 +1,28 @@
+<dash>
+name: $cropText
+desc: Coupe un texte à un nombre maximal de caractères, en ajoutant éventuellement une fin comme "...".
+category: Utilitaires de texte
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $cropText raccourcit un texte jusqu'au nombre de caractères indiqué. Si le texte est plus long, il est coupé et la fin optionnelle (par exemple "..." ou "... [more]") est ajoutée. Si le texte est déjà assez court, il est renvoyé sans modification.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $cropText[text; max characters; (ending)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $cropText[This is a very long message; 10; ...]
+</block>
+
+<block type="callout" kind="note">
+text: L'argument max characters doit être un entier non négatif. Si aucune fin n'est fournie, le texte est simplement coupé à la limite.
+</block>
+</dash>
+
+<details>
+syntax: $cropText[text; max characters; (ending)]
+param: text|text|Requis|Le texte à couper
+param: max characters|number|Requis|Nombre maximal de caractères à conserver (doit être un entier non négatif)
+param: ending|text|Optionnel|Texte ajouté lorsque l'entrée dépasse la limite (par ex. "...")
+</details>

@@ -1,0 +1,39 @@
+<dash>
+name: $if
+desc: Bir koşulu değerlendirir ve koşul doğruysa içindeki kod bloğunu çalıştırır.
+category: Akış Kontrolü
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $if bir koşul ifadesi alır ve değerlendirir. Koşul doğruysa, $if ile sonraki $elif, $else veya $endif arasındaki kod çalıştırılır. Yanlışsa, yürütme sonraki eşleşen dala atlar.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $if[condition]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $if[$authorID == 123456789]
+  Hello Admin!
+$else
+  You are not an admin.
+$endif
+</block>
+
+<block type="options" title="Karşılaştırma operatörleri">
+option: ==|Eşittir (iki taraf da sayıysa sayısal olarak karşılaştırır)
+option: !=|Eşit değildir
+option: >|Büyüktür
+option: <|Küçüktür
+option: >=|Büyüktür veya eşittir
+option: <=|Küçüktür veya eşittir
+</block>
+
+<block type="callout" kind="note">
+text: İç içe $if bloklarını destekler. Ek koşullar için $elif ve bir yedek için $else kullanabilirsiniz. Her zaman $endif ile kapatın.
+</block>
+</dash>
+
+<details>
+syntax: $if[condition]
+param: condition|expression|Required|Değerlendirilecek bir koşul, ör. $authorID == 123, $var[score] >= 90, $isNumber[int; $message]. ==, !=, >, <, >=, <= operatörlerini destekler.
+</details>

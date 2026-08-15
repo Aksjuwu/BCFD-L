@@ -1,0 +1,21 @@
+<dash>
+name: $onlyAdmin
+desc: 将脚本执行限制为仅服务器管理员和服务器所有者。
+category: 访问控制
+
+<block type="text" title="命令如何工作？">
+text: 调用 $onlyAdmin 时，机器人会检查命令发起者是否为服务器管理员或服务器所有者。如果检查失败，脚本执行会立即中止。可以选择显示自定义错误消息。
+</block>
+
+<block type="code" title="语法">
+text: $onlyAdmin
+</block>
+
+<block type="code" title="可复制示例">
+text: $onlyAdmin[You need admin permissions!]
+</block>
+
+<block type="callout" kind="note">
+text: 此命令仅在服务器内有效（在私信中无效）。如果用户拥有“Administrator”（管理员）权限或是服务器所有者，则通过检查。如果未提供错误消息，脚本会直接静默中止。
+</block>
+</dash>

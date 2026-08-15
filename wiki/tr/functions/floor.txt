@@ -1,0 +1,26 @@
+<dash>
+name: $floor
+desc: Bir sayıyı en yakın tam sayıya aşağı yuvarlar.
+category: Matematik ve Sayılar
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $floor tek bir sayısal değer alır ve onu en yakın tam sayıya aşağı yuvarlar (taban). Örneğin, 3.9, 3 olur ve -2.1, -3 olur. Hem bağımsız bir komut olarak hem de diğer komutların içinde satır içinde çalışır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $floor[number]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Result is $floor[3.9]]
+</block>
+
+<block type="callout" kind="note">
+text: $floor[3.9] ifadesi 3 döndürür. $floor[-2.1] ifadesi -3 döndürür. $floor[5.0] ifadesi 5 döndürür. Sonuç her zaman bir tam sayıdır.
+</block>
+</dash>
+
+<details>
+syntax: $floor[number]
+param: number|number|Required|En yakın tam sayıya aşağı yuvarlanacak sayı, ör. 3.9, -2.1, 10
+</details>

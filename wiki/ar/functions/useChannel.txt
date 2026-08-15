@@ -1,0 +1,33 @@
+<dash>
+name: $useChannel
+desc: يعيد توجيه جميع مخرجات السكربت من هذه النقطة فصاعدًا إلى قناة محددة في أي سيرفر.
+category: التحكم في الوصول
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: يتم تنفيذ $useChannel في مكانه، بترتيب الأسطر في السكربت. عندما يصل إليها المفسّر، يعيد توجيه مخرجات كل ما يليها (جميع $sendMessage و$sendEmbedMessage و$reply والنصوص المؤقتة وغيرها) إلى القناة المحددة. الأسطر التي قبلها لا تتأثر.
+</block>
+
+<block type="code" title="الصيغة">
+text: $useChannel[guildID; channelID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[This goes to the current channel]
+$useChannel[1234567890; 9876543210]
+$sendMessage[This goes to the specified channel!]
+</block>
+
+<block type="callout" kind="note">
+text: يتم حل كلا الوسيطين قبل التحقق، لكن يجب أن يكونا رقميين. يجب أن يكون البوت عضوًا في السيرفر المحدد وقادرًا على رؤية القناة المستهدفة. إذا لم يتم العثور على السيرفر أو القناة، أو لم تكن الوسائط رقمية، يتم تجاهل الدالة بصمت ويتم إنشاء إدخال سجل.
+</block>
+
+<block type="callout" kind="warning">
+text: بمجرد الضبط، ينطبق إعادة التوجيه على جميع المخرجات اللاحقة في السكربت — لم تعد القناة الأصلية مستخدمة. في تفاعل زر، يتم تأجيل استجابة التفاعل وتُرسل الرسائل اللاحقة إلى القناة المستهدفة بدلاً من ذلك.
+</block>
+</dash>
+
+<details>
+syntax: $useChannel[guildID; channelID]
+param: guildID|number|مطلوب|معرّف السيرفر الذي توجد فيه القناة المستهدفة
+param: channelID|number|مطلوب|معرّف القناة التي سيتم توجيه جميع المخرجات إليها
+</details>

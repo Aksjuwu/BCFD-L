@@ -1,0 +1,34 @@
+<dash>
+name: $strictArgs
+desc: Wymusza określone ograniczenie liczby słów w argumentach komendy użytkownika.
+category: Kontrola dostępu
+
+<block type="text" title="Jak działa komenda?">
+text: $strictArgs sprawdza, czy liczba słów podanych przez użytkownika spełnia określone ograniczenie. Jeśli sprawdzenie nie powiedzie się, wyświetlany jest komunikat błędu, a skrypt jest przerywany.
+</block>
+
+<block type="code" title="Składnia">
+text: $strictArgs[comparison; error_message]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $strictArgs[>2; Please provide more than 2 words!]
+</block>
+
+<block type="options" title="Operatory porównania">
+option: >|Więcej niż — użytkownik musi podać więcej niż N słów
+option: <|Mniej niż — użytkownik musi podać mniej niż N słów
+option: (none)|Równe (np. dokładnie 2) — użytkownik musi podać dokładnie N słów
+option: !|Różne od — użytkownik NIE może podać dokładnie N słów
+</block>
+
+<block type="callout" kind="note">
+text: Liczba słów nie obejmuje samej nazwy komendy. Na przykład, jeśli użytkownik wpisze „!cmd hello world", liczba słów wynosi 2.
+</block>
+</dash>
+
+<details>
+syntax: $strictArgs[comparison; error_message]
+param: comparison|text|Required|Ograniczenie takie jak >2, <2, 2 lub !2, gdzie liczba jest wymaganą liczbą słów (samo 2 oznacza dokładnie 2)
+param: error_message|text|Required|Komunikat wyświetlany, jeśli liczba słów nie spełnia ograniczenia
+</details>

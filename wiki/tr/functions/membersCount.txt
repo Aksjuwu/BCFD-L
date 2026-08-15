@@ -1,0 +1,28 @@
+<dash>
+name: $membersCount
+desc: Bir sunucudaki üye sayısını döndürür.
+category: Bilgi
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $membersCount argüman olmadan çağrıldığında, bot geçerli sunucudaki bot olmayan tüm insan üyeleri sayar ve sayıyı gönderir. Bir sunucu ID'si ve evet/hayır bayrağıyla çağrıldığında, o belirli sunucudaki üyeleri sayar ve isteğe bağlı olarak botları da dahil eder.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $membersCount
+text: $membersCount[guildID; includeBots]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: We have $membersCount members!
+</block>
+
+<block type="callout" kind="note">
+text: Varsayılan olarak botlar sayıma dahil edilmez. Botları dahil etmek için $membersCount[guildID; yes] kullanın. Argüman olmadan bu komut yalnızca bir sunucu içinde çalışır. Bir sunucu ID'si verirken botun o sunucunun üyesi olması gerekir.
+</block>
+</dash>
+
+<details>
+syntax: $membersCount[(guildID; includeBots)]
+param: guildID|snowflake|Optional|Üyelerin sayılacağı farklı bir sunucunun ID'si. Atlandığında geçerli sunucu kullanılır.
+param: includeBots|yes/no|Optional|Sayıma bot hesaplarını dahil etmek için "yes" olarak ayarlayın. Atlandığında yalnızca insan üyeler sayılır.
+</details>

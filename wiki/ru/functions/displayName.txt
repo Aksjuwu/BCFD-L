@@ -1,0 +1,26 @@
+<dash>
+name: $displayName
+desc: Возвращает отображаемое имя пользователя.
+category: Пользователь
+
+<block type="text" title="Как работает команда?">
+text: $displayName возвращает отображаемое имя (серверный ник или имя пользователя) пользователя. Если аргумент не указан, возвращается отображаемое имя автора команды. Если указан ID или упоминание пользователя, возвращается отображаемое имя этого пользователя.
+</block>
+
+<block type="code" title="Syntax">
+text: $displayName[(user mention/ID)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: Hello, $displayName!
+</block>
+
+<block type="callout" kind="note">
+text: Отображаемое имя — это серверный ник, если он задан, в противном случае — глобальное имя пользователя. Можно использовать встроенно (внутри других команд).
+</block>
+</dash>
+
+<details>
+syntax: $displayName[(user mention/ID)]
+param: user|text|Optional|Упоминание пользователя или числовой ID. Если пусто, используется автор команды.
+</details>

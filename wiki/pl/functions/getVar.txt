@@ -1,0 +1,27 @@
+<dash>
+name: $getVar
+desc: Pobiera wartość trwałej zmiennej po nazwie.
+category: Zmienne
+
+<block type="text" title="Jak działa ta komenda?">
+text: $getVar wyszukuje zapisaną zmienną po jej nazwie. Z jednym argumentem pobiera zmienną globalną. Z dwoma argumentami (nazwa i ID użytkownika) pobiera zmienną specyficzną dla użytkownika. Zapisana wartość jest wysyłana na kanał.
+</block>
+
+<block type="code" title="Składnia">
+text: $getVar[name]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: $getVar[mySetting]
+</block>
+
+<block type="callout" kind="note">
+text: Zmienne są trwałe — przetrwają ponowne uruchomienie bota. Użyj $setVar, aby przechowywać wartości. Jeśli zmienna nie istnieje, zwracany jest pusty ciąg.
+</block>
+</dash>
+
+<details>
+syntax: $getVar[name; (userID)]
+param: name|text|Required|Nazwa zmiennej do pobrania
+param: userID|snowflake|Optional|Jeśli podane, pobiera wartość specyficzną dla użytkownika dla tej zmiennej zamiast wartości globalnej
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $wait
+desc: 暂停脚本执行指定的时长。
+category: 计时与延迟
+
+<block type="text" title="此命令如何工作？">
+text: $wait 在指定时长内冻结整个脚本的执行。在等待期结束前，脚本中的后续命令都不会执行。
+</block>
+
+<block type="code" title="语法">
+text: $wait[time]
+</block>
+
+<block type="code" title="可直接复制的示例">
+text: $sendMessage[Starting...]
+$wait[5s]
+$sendMessage[Done after 5 seconds!]
+</block>
+
+<block type="callout" kind="note">
+text: 时间格式使用：s（秒）、m（分钟）、h（小时）、d（天）。在等待期间整个脚本会被冻结——其他用户的脚本不受影响。
+</block>
+</dash>
+
+<details>
+syntax: $wait[time]
+param: time|text|Required|要等待的时长。格式：数字 + 单位（s/m/h/d），例如 5s、10m、1h、1d
+</details>

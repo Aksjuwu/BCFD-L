@@ -1,0 +1,26 @@
+<dash>
+name: $channelExists
+desc: 检查频道是否存在于服务器中。
+category: 频道
+
+<block type="text" title="命令如何工作？">
+text: $channelExists 接受一个频道提及或 ID，并检查机器人能否在服务器中找到该频道。如果频道存在则返回“true”，否则返回“false”。如果未提供参数，则默认返回“true”。
+</block>
+
+<block type="code" title="语法">
+text: $channelExists[channel mention/ID]
+</block>
+
+<block type="code" title="可复制示例">
+text: $channelExists[<#123456789012345678>]
+</block>
+
+<block type="callout" kind="note">
+text: 此命令可以内联使用，以便在对频道执行其他操作之前检查频道是否存在。
+</block>
+</dash>
+
+<details>
+syntax: $channelExists[channel mention/ID]
+param: channel|text|Optional|要检查的频道提及或数字 ID。如果为空，返回“true”。
+</details>

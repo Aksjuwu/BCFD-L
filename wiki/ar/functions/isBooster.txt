@@ -1,0 +1,26 @@
+<dash>
+name: $isBooster
+desc: يفحص ما إذا كان المستخدم معززاً للسيرفر (لديه تعزيز Nitro نشط).
+category: معلومات
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: $isBooster يأخذ معرف مستخدم أو منشن ويفحص ما إذا كان ذلك المستخدم يعزز السيرفر حالياً (لديه اشتراك مميز نشط). يعيد "true" أو "false".
+</block>
+
+<block type="code" title="الصيغة">
+text: $isBooster[userID]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $isBooster[$authorID]
+</block>
+
+<block type="callout" kind="note">
+text: يعيد "true" إذا كان المستخدم يمتلك تعزيز Nitro نشطاً للسيرفر، و"false" في الحالات الأخرى. يجب أن يكون المستخدم عضواً في السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $isBooster[userID]
+param: userID|text|مطلوب|معرف المستخدم أو @منشن لفحصه. يدعم المتغيرات والحقول البديلة.
+</details>

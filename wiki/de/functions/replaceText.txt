@@ -1,0 +1,29 @@
+<dash>
+name: $replaceText
+desc: Ersetzt Vorkommen einer Teilzeichenfolge innerhalb eines Texts durch neuen Text.
+category: Textwerkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $replaceText nimmt eine Nachricht, einen alten Text zum Suchen und einen neuen Text zum Ersetzen entgegen. Optional kannst du angeben, wie viele Vorkommen ersetzt werden sollen. Gibt den geänderten Text zurück.
+</block>
+
+<block type="code" title="Syntax">
+text: $replaceText[message; old; new; (amount)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $replaceText[Hello World; World; FDScript]
+</block>
+
+<block type="callout" kind="note">
+text: Standardmäßig werden alle Vorkommen ersetzt. Gib eine Zahl als 4. Argument an, um die Ersetzungen zu begrenzen. Verwende -1 oder lasse es weg, um alle zu ersetzen.
+</block>
+</dash>
+
+<details>
+syntax: $replaceText[message; old; new; (amount)]
+param: Nachricht|text|Erforderlich|Der ursprüngliche Text, in dem gesucht werden soll
+param: alt|text|Erforderlich|Die zu suchende und zu ersetzende Teilzeichenfolge
+param: neu|text|Erforderlich|Der Ersatztext
+param: Anzahl|number|Optional|Maximale Anzahl von Ersetzungen. -1 oder ausgelassen = alle Vorkommen ersetzen
+</details>

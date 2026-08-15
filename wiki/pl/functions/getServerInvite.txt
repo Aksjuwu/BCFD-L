@@ -1,0 +1,27 @@
+<dash>
+name: $getServerInvite
+desc: Generuje i wysyła link zapraszający dla serwera.
+category: Narzędzia
+
+<block type="text" title="Jak działa ta komenda?">
+text: Gdy $getServerInvite zostanie wywołane bez argumentów, generuje link zapraszający dla bieżącego serwera. Gdy zostanie wywołane z ID serwera, generuje zaproszenie dla tego konkretnego serwera. Bot najpierw sprawdza, czy serwer ma niestandardowy URL (vanity). Jeśli nie, znajduje kanał, na którym bot ma uprawnienia "Tworzenie zaproszeń", i generuje stały link zapraszający.
+</block>
+
+<block type="code" title="Składnia">
+text: $getServerInvite
+text: $getServerInvite[(guildID)]
+</block>
+
+<block type="code" title="Przykład do skopiowania">
+text: Join our server: $getServerInvite
+</block>
+
+<block type="callout" kind="note">
+text: Bot musi być członkiem docelowego serwera i mieć uprawnienia "Tworzenie zaproszeń". Jeśli dla serwera ustawiono niestandardowy URL (vanity), zostanie on zwrócony zamiast tworzenia nowego zaproszenia. Bez argumentów używany jest bieżący serwer.
+</block>
+</dash>
+
+<details>
+syntax: $getServerInvite[(guildID)]
+param: guildID|snowflake|Optional|ID innego serwera, dla którego uzyskać zaproszenie. Jeśli pominięte, używany jest bieżący serwer.
+</details>

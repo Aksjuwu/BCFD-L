@@ -1,0 +1,21 @@
+<dash>
+name: $message
+desc: 返回用户命令消息中的参数/单词。
+category: 信息
+
+<block type="text" title="命令如何工作？">
+text: 不带参数调用 $message 时，它会返回用户在命令名称之后输入的所有内容（完整的参数字符串）。当传入索引数字时，它会返回该位置处的特定单词。
+</block>
+
+<block type="code" title="语法">
+text: $message
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[You said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: 不带参数时，返回命令之后的所有文本。使用 $message[1] 返回第一个单词，$message[2] 返回第二个单词，依此类推。如果索引超出范围，则返回空字符串。
+</block>
+</dash>

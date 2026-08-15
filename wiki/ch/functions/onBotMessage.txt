@@ -1,0 +1,31 @@
+<dash>
+name: $onBotMessage
+desc: 每当机器人（包括其他机器人）发送消息时触发的事件。
+category: 事件
+
+<block type="text" title="事件如何工作？">
+text: $onBotMessage 是一个事件前缀，每当机器人发送消息时都会触发一个 FDScript。默认情况下，脚本会忽略机器人自己发送的消息，只响应其他机器人。将参数设置为 yes 以同时在该机器人自己的消息上运行脚本，或设置为 no 以跳过其自己的消息（参数为空时这也是默认行为）。
+</block>
+
+<block type="code" title="语法">
+text: #PREFIX:$onBotMessage[yes/no]
+</block>
+
+<block type="code" title="可复制示例">
+text: #PREFIX:$onBotMessage[no]
+$sendMessage[Another bot said: $message]
+</block>
+
+<block type="callout" kind="note">
+text: 使用 yes 来关注机器人自己的消息，或使用 no 仅响应其他机器人。上面的示例使用 $message 来读取机器人消息的内容。
+</block>
+
+<block type="callout" kind="important">
+text: 此事件在 bot_events 文件夹中运行，而不是 bot_commands。请在其中创建你的 .fds 文件。
+</block>
+</dash>
+
+<details>
+syntax: #PREFIX:$onBotMessage[(yes/no)]
+param: yes/no|text|Optional|yes 表示同时在该机器人自己的消息上运行，no（默认）表示仅响应其他机器人
+</details>
