@@ -106,7 +106,6 @@
   - Fixed more commands & vars
   - Fixed Color-Code
   - Fixed some ui on view command
-  - Fixed some ui on view command
   - Fix server
   - add 3 languages ch(chinese) & ru(russian) & tr(turkish)
 
@@ -128,12 +127,12 @@
   - some Fixed in command editor
   - some Fixed the color text on FDSB.apk
 
-- **2.3.1** - Fixed App
- - update the load secren
- - fixed the them and luang
- - update variables view
- - update wiki view
- - some fixed commands
+- **2.3.1** - App Fixed
+  - update the load screen
+  - fixed the them and luang
+  - update variables view
+  - update wiki view
+  - some fixed commands
   
 ---
 
