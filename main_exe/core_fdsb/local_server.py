@@ -148,9 +148,6 @@ def _get_token(bot_dir: str) -> str:
 # ══════════════════════════════════════════════════════════════
 
 def set_flet_page(page: ft.Page):
-    """يجب استدعاؤها من واجهة التطبيق الفعلية (main.py) لتسجيل الصفحة
-    حتى تعمل send_flet_notification، لأن main_gui() لا يتم تشغيلها في
-    مسار التطبيق الحقيقي."""
     global _flet_page
     _flet_page = page
 
@@ -194,11 +191,6 @@ def _schedule_on_flet_loop(coro):
         return None
 
 def ensure_background_mode(page: ft.Page):
-    """
-    يسجّل خدمات الخلفية (Foreground Service + Wakelock) في سياق
-    صفحة Flet حتى تعمل استدعاءاتها عبر حلقة Flet.
-    يُستدعى من داخل main(page) قبل تشغيل البوت.
-    """
     global _android_notifications, _wakelock, _flet_session_loop
     if not _is_android():
         return
@@ -220,10 +212,6 @@ def ensure_background_mode(page: ft.Page):
         _schedule_on_flet_loop(_start_background_mode(str(_client.user) or 'FDSB Bot'))
 
 async def start_android_foreground_service(bot_name: str):
-    """
-    يبدأ Foreground Service حقيقي مع إشعار دائم.
-    هذا يساعد على إبقاء العملية حية في الخلفية.
-    """
     global _fgs_running
 
     if not _is_android():
@@ -234,30 +222,29 @@ async def start_android_foreground_service(bot_name: str):
         print("[FGS] flet-android-notifications not registered")
         return
 
-    if _fgs_running:
-        return
-
     title = bot_name or "FDSB Bot"
-    body = "🟢 البوت متصل ويعمل في الخلفية"
+    body = "🟢 البوت نشط ويعمل حالياً في الخلفية"
 
     try:
         await notifications.request_permissions()
 
         await notifications.start_foreground_service(
-            notification_id=1,
+            notification_id=101,
             title=title,
             body=body,
             foreground_service_types=["special_use"],
-            start_type="start_sticky",
-            ongoing=True,
+            start_type="start_sticky", 
+            ongoing=True, 
+            show_when_locked=True,
+            show_badge=True
         )
         _fgs_running = True
-        print("[FGS] Foreground Service started")
+        print(f"[FGS] Foreground Service started/updated for {title}")
     except Exception as e:
         print(f"[FGS] start failed: {e}")
 
+
 async def stop_android_foreground_service():
-    """يوقف Foreground Service ويزيل الإشعار."""
     global _fgs_running
 
     if not _is_android():
@@ -493,7 +480,6 @@ def stop_bot() -> None:
         
     send_flet_notification("تم إيقاف خدمة البوت.")
 
-    # إيقاف Foreground Service عبر حلقة Flet (دالة invoke)
     _schedule_on_flet_loop(_stop_background_mode())
 
 # ══════════════════════════════════════════════════════════════

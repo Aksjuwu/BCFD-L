@@ -19,13 +19,6 @@ from main_exe.core_fdsb.FDCore   import set_vars_dir as _fd_set_vars_dir
 # ══════════════════════════════════════════════════════════════════════════════
 
 def _vars_dir(bot_dir: str) -> str:
-    try:
-        from main_exe.core_fdsb.local_server import get_vars_dir
-        path = get_vars_dir()
-        if path and os.path.isdir(path):
-            return path
-    except Exception:
-        pass
     return os.path.join(os.path.dirname(os.path.abspath(bot_dir)), 'bot_vars')
 
 
@@ -33,12 +26,6 @@ def _sync_fdcore(bot_dir: str):
     path = _vars_dir(bot_dir)
     os.makedirs(path, exist_ok=True)
     _fd_set_vars_dir(path)
-
-# ══════════════════════════════════════════════════════════════════════════════
-# Per-user variable data ($getVar[var; userID] / $setVar[var; value; userID])
-# Mirrors FDCore._get_ids_data_path(): a single ids_data.json living in a
-# 'bot_ids' directory that is a sibling of the vars dir.
-# ══════════════════════════════════════════════════════════════════════════════
 
 def _ids_data_path(bot_dir: str) -> str:
     vars_dir = _vars_dir(bot_dir)
@@ -721,7 +708,7 @@ class BotVariablesTab:
 
     def _update_scoped_btn_visibility(self):
         name = (self._name_inp.value or '').strip()
-        self._scoped_btn.visible = bool(name and self._ids_data.get(name))
+        self._scoped_btn.visible = bool(name)
 
     # ── List rendering ────────────────────────────────────────────────────────
 
@@ -850,10 +837,10 @@ class BotVariablesTab:
             print('[Variables] bot_dir not set')
             return False
 
+        _sync_fdcore(self._bot_dir)
         self._edit_path = _write_var(
             self._bot_dir, name, value, self._edit_path
         )
-        _sync_fdcore(self._bot_dir)
 
         self._editor_title.value = _ar(f'{name}.json')
 
@@ -1008,7 +995,6 @@ class BotVariablesTab:
             self._page.update()
             return
 
-        # Values are stored as strings by $setVar — normalize non-string values.
         normalized = {str(uid): ('' if v is None else str(v)) for uid, v in parsed.items()}
 
         if not self._bot_dir:

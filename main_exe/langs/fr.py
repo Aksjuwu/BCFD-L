@@ -181,4 +181,24 @@ FRENCH_DICT = {
     'info_var':             (1156, 'Info variable'),
     'invalid_json':         (1157, 'JSON invalide'),
     'json_must_be_object':  (1158, 'La valeur de niveau supérieur doit être un objet JSON ({"userID": "value"}).'),
+
+    # ── Mise à jour de l'application ───────────────
+    'app_update_title':          (1159, 'Mise à jour disponible'),
+    'app_update_new_version':    (1160, 'Nouvelle version'),
+    'app_update_current_version':(1161, 'Actuelle'),
+    'app_update_no_changelog':   (1162, 'Aucun journal de modifications disponible pour cette mise à jour.'),
+    'app_update_later':          (1163, 'Plus tard'),
+    'app_update_now':            (1164, 'Mettre à jour maintenant'),
+    'app_update_downloading':    (1165, 'Téléchargement en cours'),
+    'app_update_done':           (1166, 'Téléchargement terminé ✓'),
+    'app_update_failed':         (1167, 'Échec du téléchargement'),
+    'app_update_open_installer': (1168, 'Ouvrir l\'installateur'),
+    'app_update_installer_opened':(1169, 'Installateur ouvert. Terminez l\'installation, puis rouvrez l\'application.'),
+    'app_update_open_failed':    (1170, 'Impossible d\'ouvrir le fichier de l\'installateur'),
+
+    # ── Filtres wiki (étendus) ─────────────────────────────
+    'filter_variable':      (1171, 'Variables'),
+    'filter_discord':       (1172, 'Discord'),
+    'filter_time':          (1173, 'Temps'),
+    'filter_other':         (1174, 'Autre'),
 }

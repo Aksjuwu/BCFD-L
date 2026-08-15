@@ -181,4 +181,24 @@ ARABIC_DICT = {
     'info_var':             (1156, 'معلومات المتغير'),
     'invalid_json':         (1157, 'JSON غير صالح'),
     'json_must_be_object':  (1158, 'يجب أن تكون القيمة العلوية كائن JSON ({"userID": "value"}).'),
+
+    # ── ⁨تحديث التطبيق⁩ ────────────────────────────
+    'app_update_title':          (1159, '⁨تحديث متاح⁩'),
+    'app_update_new_version':    (1160, '⁨الإصدار الجديد⁩'),
+    'app_update_current_version':(1161, '⁨الحالي⁩'),
+    'app_update_no_changelog':   (1162, '⁨لا يوجد سجل تغييرات لهذا التحديث.⁩'),
+    'app_update_later':          (1163, '⁨لاحقاً⁩'),
+    'app_update_now':            (1164, '⁨تحديث الآن⁩'),
+    'app_update_downloading':    (1165, '⁨جارٍ التحميل⁩'),
+    'app_update_done':           (1166, '⁨اكتمل التحميل⁩ ✓'),
+    'app_update_failed':         (1167, '⁨فشل التحميل⁩'),
+    'app_update_open_installer': (1168, '⁨فتح المثبت⁩'),
+    'app_update_installer_opened':(1169, '⁨تم فتح المثبت. أكمل التثبيت ثم أعد فتح التطبيق.⁩'),
+    'app_update_open_failed':    (1170, '⁨تعذر فتح ملف المثبت⁩'),
+
+    # ── wiki_view filters (extended) ─────────────────────────
+    'filter_variable':      (1171, 'المتغيرات'),
+    'filter_discord':       (1172, 'Discord'),
+    'filter_time':          (1173, 'الوقت'),
+    'filter_other':         (1174, 'أخرى'),
 }

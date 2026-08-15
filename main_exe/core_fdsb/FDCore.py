@@ -101,21 +101,26 @@ KNOWN_COMMANDS: set[str] = {
     # c
     "ceil", "changeUsername", "channelExists", "channelID", "channelName",
     "channelType", "charCount", "clear", "clientTyping", "cloneRole",
-    "color", "cooldown", "createChannel", "createRole", "customID",
+    "color", "cooldown", "createChannel", "createRole", "cropText", "customID",
     # d
     "deleteChannels", "deletecommand", "deleteRole", "description",
     "displayName", "div", "dm",
     # e
-    "editButton", "editChannelPerms", "editIn", "editMessage",
+    "editButton", "editChannelPerms", "editIn", "editMessage", "editSplitOut",
     "elif", "else", "endfor", "endif", "endwhile",
     # f
     "findChannel", "findRole", "floor", "footer", "for",
     # g
-    "getBotInvent", "getMessage", "getServerInvite", "getUserStatus",
-    "getVar", "guildID", "guildName",
+    "getBotInvent", "getMessage", "getServerInvite", "getSplitOutLength",
+    "getUserStatus", "getVar", "guildID", "guildName",
+    # h
+    "httpAddHeader", "httpDelete", "httpGet", "httpPatch", "httpPost",
+    "httpPut", "httpResult", "httpStatus",
     # i
     "if", "image", "isAdmin", "isBooster", "isBot", "isNSFW",
     "isNumber", "isOwner",
+    # j
+    "joinSplitOut",
     # k
     "kick",
     # l
@@ -129,8 +134,8 @@ KNOWN_COMMANDS: set[str] = {
     "ping", "power",
     # r
     "randomint", "randomRoleID", "randomRoleMention", "randomstr",
-    "randomUserID", "removeButtons", "removeComponent", "replaceText",
-    "reply", "replyIn", "return", "returnGetReactions",
+    "randomUserID", "removeButtons", "removeComponent", "removeSplitOutElement",
+    "replaceText", "reply", "replyIn", "return", "returnGetReactions",
     "returnGuildChannelsID", "returnGuildRolesID", "returnGuildUsersID",
     "roleAssign", "round",
     # s
@@ -144,7 +149,7 @@ KNOWN_COMMANDS: set[str] = {
     # v
     "var", "voiceUsersLimit",
     # w
-    "wait", "while"
+    "wait", "while",
 }
 
 def get_reserved_names() -> set[str]:
@@ -1013,7 +1018,7 @@ _INLINE_VARS: set[str] = {
     'message', 'messageID', 'ping', 'uptime', 'mention',
     'authorID', 'authorName', 'botID', 'botName',
     'channelID', 'channelName', 'guildID', 'guildName',
-    'addTimestamp', 'randomUserID', 'customID'
+    'addTimestamp', 'randomUserID', 'customID',
 }
 
 _INLINE_WITH_ARGS: set[str] = {
@@ -1022,7 +1027,11 @@ _INLINE_WITH_ARGS: set[str] = {
     'randomint', 'randomstr',
     'sum', 'sub', 'mul', 'div', 'mod',
     'floor', 'ceil', 'power',
-    'replaceText',
+    'replaceText', 'cropText',
+    'editSplitOut',
+    'joinSplitOut',
+    'removeSplitOutElement','httpAddHeader', 'httpGet', 'httpPost', 'httpPut', 
+    'httpDelete', 'httpPatch', 'httpResult',
 }
 
 def tokenise_line(line: str, base_line_no: int = 1) -> list:

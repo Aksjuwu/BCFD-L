@@ -181,4 +181,24 @@ CHINESE_DICT = {
     'info_var':             (1156, '變數資訊'),
     'invalid_json':         (1157, '無效的 JSON'),
     'json_must_be_object':  (1158, '頂層值必須是 JSON 物件 ({"userID": "value"}).'),
+
+    # ── 应用更新 ───────────────────────────────────────
+    'app_update_title':          (1159, '有可用更新'),
+    'app_update_new_version':    (1160, '新版本'),
+    'app_update_current_version':(1161, '当前'),
+    'app_update_no_changelog':   (1162, '此更新没有可用的更新日志。'),
+    'app_update_later':          (1163, '稍后'),
+    'app_update_now':            (1164, '立即更新'),
+    'app_update_downloading':    (1165, '下载中'),
+    'app_update_done':           (1166, '下载完成 ✓'),
+    'app_update_failed':         (1167, '下载失败'),
+    'app_update_open_installer': (1168, '打开安装程序'),
+    'app_update_installer_opened':(1169, '安装程序已打开。完成安装后，请重新打开应用。'),
+    'app_update_open_failed':    (1170, '无法打开安装程序文件'),
+
+    # ── wiki_view filters (extended) ─────────────────────────
+    'filter_variable':      (1171, '变量'),
+    'filter_discord':       (1172, 'Discord'),
+    'filter_time':          (1173, '时间'),
+    'filter_other':         (1174, '其他'),
 }

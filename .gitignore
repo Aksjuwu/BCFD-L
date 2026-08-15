@@ -4,10 +4,7 @@ app_data/
 .vscode/
 functions_ar/
 wiki/
-.gitignore/
-pyproject.toml/
-requirements.txt/
-build_apk.ps1/
 storage/
-pyproject.toml/
-requirements.txt/
+requirements.txt
+build_apk.ps1
+pyproject.toml

@@ -41,14 +41,18 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
             return
 
         data = _load_ids_data()
+        global_data = _load_data()
+        
         existed = name in data and user_id in data.get(name, {})
+        global_exists = name in global_data
+        
         if name not in data:
             data[name] = {}
         data[name][user_id] = value
         _save_ids_data(data)
         ctx.log_event(f"setVar [{name}] for user {user_id} ← {_truncate(value)!r} (persistent)")
 
-        if not existed:
+        if not existed and not global_exists:
             await _send_warning(ch, FDEnvironmentError(
                 f"Variable `{name}` is not among the predefined variables. "
                 f"A new variable `{name}` has been created with the provided value. "

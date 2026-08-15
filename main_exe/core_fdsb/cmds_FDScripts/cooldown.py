@@ -12,6 +12,28 @@ def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
     return ""
 
 
+def _humanize_remaining(seconds: float) -> str:
+    """Format remaining cooldown time the same way BDFD's %time% does, e.g. '27 Seconds'."""
+    total = max(0, round(seconds))
+
+    units = (
+        ("Day", 86400),
+        ("Hour", 3600),
+        ("Minute", 60),
+        ("Second", 1),
+    )
+
+    for name, size in units:
+        if total >= size or size == 1:
+            amount = total // size
+            return f"{amount} {name}{'' if amount == 1 else 's'}"
+
+    return "0 Seconds"  # unreachable, safety net
+
+
+_DISCORD_TS_RE = re.compile(r"<t:(?:%time%|\{time\})(?::([tTdDfFR]))?>")
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if len(args) < 1:
         await _send_error(ch, FDLogicError(
@@ -20,8 +42,8 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
-    time_str  = args[0].strip()
-    error_msg = args[1].strip() if len(args) >= 2 and args[1].strip() else None
+    time_str  = ctx.resolve(args[0]).strip()
+    error_msg = ctx.resolve(args[1]).strip() if len(args) >= 2 and args[1].strip() else None
 
     match = re.match(r"^(\d+)([smhd])$", time_str.lower())
     if not match:
@@ -53,10 +75,18 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
             remaining = expiry - current_time
 
             if error_msg:
+                time_display = _humanize_remaining(remaining)
+                expiry_epoch = int(round(expiry))
+
+                def _ts_sub(m: "re.Match[str]") -> str:
+                    fmt = m.group(1) or "R"
+                    return f"<t:{expiry_epoch}:{fmt}>"
+
+                formatted_error = _DISCORD_TS_RE.sub(_ts_sub, error_msg)
                 formatted_error = (
-                    error_msg
-                    .replace("{time}", f"{remaining:.1f}s")
-                    .replace("%time%", f"{remaining:.1f}s")
+                    formatted_error
+                    .replace("{time}", time_display)
+                    .replace("%time%", time_display)
                 )
 
                 ctx.stop_typing()

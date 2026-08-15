@@ -13,6 +13,18 @@ def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
     return ""
 
 
+async def _resolve_target_message(ctx: ExecutionContext, base_msg: discord.Message) -> discord.Message:
+    override_channel = getattr(ctx, "_channel_override", None)
+    if override_channel is None:
+        return base_msg
+    if getattr(base_msg.channel, "id", None) == override_channel.id:
+        return base_msg
+    try:
+        return await override_channel.fetch_message(base_msg.id)
+    except (discord.NotFound, discord.Forbidden, discord.HTTPException):
+        return base_msg
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
     if not args:
         await _send_error(ch, FDLogicError("`$addBotReactions` requires at least one emoji argument"))
@@ -33,7 +45,7 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         await _send_error(ch, FDLogicError(f"Too many emojis (max {_REACTIONS_MAX})"))
         return
 
-    target_msg: discord.Message = ctx.last_bot_message
+    target_msg: discord.Message = await _resolve_target_message(ctx, ctx.last_bot_message)
     added: int = 0
     errors: list[str] = []
 

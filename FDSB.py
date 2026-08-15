@@ -99,6 +99,7 @@ from main_exe.langs.translations import Translations
 from main_exe.settings import get_current_lang, get_current_theme, apply_theme_globally
 from main_exe.theme_engine import ThemeEngine
 from main_exe.main import BotDashboardScreen
+from main_exe.load.updater import check_for_updates
 
 logging.getLogger('discord').setLevel(logging.INFO)
 
@@ -449,7 +450,6 @@ class CreateBotDialog:
         name  = self._name_field.value.strip() or 'My Bot'
         token = self._token_field.value.strip()
 
-        # ── 1. التحقق من وجود التوكن ──────────────────────────────────
         if not token:
             self._token_field.error_text = _t('token_required')
             self._page.update()
@@ -621,7 +621,7 @@ class MainView:
 #  NAVIGATION HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _show_main(page: ft.Page):
+def _show_main(page: ft.Page): 
     page.clean()
 
     def open_dashboard(bot_data: dict):
@@ -709,6 +709,7 @@ def main(page: ft.Page):
 
     _show_main(page)
 
+    page.run_task(check_for_updates, page, APP_DATA_DIR, get_platform())
 
 if __name__ == '__main__':
     ft.run(main)

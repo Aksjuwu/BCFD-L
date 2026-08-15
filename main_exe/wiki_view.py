@@ -5,6 +5,7 @@
 # main_exe/wiki_view.py — Wiki tab (Flet 0.80+ / v1 API)
 #
 
+from operator import index
 import os
 import re
 import json
@@ -39,6 +40,73 @@ _CALLOUT_STYLES: Dict[str, Tuple[str, str, str, str]] = {
     'question':  ('#22C55E', 'QUESTION_MARK_ROUNDED',             'callout_question',   'What is this?'),
 }
 _CALLOUT_DEFAULT_ICON = 'INFO_OUTLINE_ROUNDED'
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  Category Filter System — key: (translation_key, icon, color)
+# ══════════════════════════════════════════════════════════════════════════════
+
+_CATEGORY_META: Dict[str, Tuple[str, str, str]] = {
+    'command':  ('filter_command',  'TERMINAL_ROUNDED',     '#6366F1'),
+    'event':    ('filter_event',    'BOLT_ROUNDED',          '#F59E0B'),
+    'variable': ('filter_variable', 'DATA_OBJECT_ROUNDED',   '#8B5CF6'),
+    'discord':  ('filter_discord',  'TAG_ROUNDED',           '#5865F2'),
+    'time':     ('filter_time',     'SCHEDULE_ROUNDED',      '#10B981'),
+}
+_CATEGORY_DEFAULT_ICON  = 'LABEL_ROUNDED'
+_CATEGORY_DEFAULT_COLOR = '#6B7280'
+
+# Localized category names used by the wiki data (obgwew/FDSB), normalized,
+# mapped to the canonical category keys above so colors/icons stay consistent
+# across languages.  Extend this map whenever a language adds/renames a category.
+_CATEGORY_ALIASES: Dict[str, str] = {
+    # event
+    'event':                   'event',
+    'الحدث':                   'event',
+    'événement':               'event',
+    'ereignis':                'event',
+
+    # variable
+    'variables':               'variable',
+    'المتغيرات':               'variable',
+    'variablen':               'variable',
+
+    # time
+    'timing & delays':         'time',
+    'التوقيت والتأخير':         'time',
+    'minutage & délais':       'time',
+    'timing & verzögerungen':  'time',
+}
+
+
+def _normalize_category(cat: Optional[str]) -> str:
+    return (cat or '').strip().lower()
+
+
+def _canonical_category(cat: Optional[str]) -> str:
+    key = _normalize_category(cat)
+    if key in _CATEGORY_META:
+        return key
+    return _CATEGORY_ALIASES.get(key, key)
+
+
+def _category_label(cat: str) -> str:
+    key = _canonical_category(cat)
+    if key in _CATEGORY_META:
+        return _t(_CATEGORY_META[key][0])
+    if key:
+        return cat.strip()
+    return _t('filter_other')
+
+
+def _category_icon(cat: str) -> str:
+    key = _canonical_category(cat)
+    icon_name = _CATEGORY_META[key][1] if key in _CATEGORY_META else _CATEGORY_DEFAULT_ICON
+    return getattr(ft.Icons, icon_name, ft.Icons.LABEL_ROUNDED)
+
+
+def _category_color(cat: str) -> str:
+    key = _canonical_category(cat)
+    return _CATEGORY_META[key][2] if key in _CATEGORY_META else _CATEGORY_DEFAULT_COLOR
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Syntax Highlighting Constants
@@ -325,16 +393,12 @@ class WikiCache:
         with open(os.path.join(folder, file_name), 'w', encoding='utf-8') as f:
             f.write(text)
 
-        # Keep the lightweight meta index in sync as each file is saved,
-        # instead of re-scanning/parsing the whole folder later.
         entry = WikiParser.parse(text, file_name)
         if entry is not None:
             cls._update_meta(lang, cls._entry_meta(entry))
 
     @classmethod
     def load_all_entries(cls, lang: str) -> List[WikiEntry]:
-        """Full parse of every cached file. Kept for compatibility but no
-        longer used by the UI on load — prefer load_light_entries()."""
         folder = os.path.join(cls.lang_dir(lang), 'functions')
         entries: List[WikiEntry] = []
         if not os.path.isdir(folder):
@@ -351,7 +415,7 @@ class WikiCache:
                 entries.append(entry)
         return entries
 
-    # ── Lazy loading (meta index + on-demand single file) ──────────────────
+    # ── Lazy loading ──────────────────
 
     @classmethod
     def _meta_path(cls, lang: str) -> str:
@@ -393,9 +457,6 @@ class WikiCache:
 
     @classmethod
     def _rebuild_meta(cls, lang: str) -> List[Dict]:
-        """One-time migration only (e.g. cache created by an older version
-        without meta.json). Scans the folder once and persists the index so
-        future loads never need to touch the files themselves."""
         folder = os.path.join(cls.lang_dir(lang), 'functions')
         items: List[Dict] = []
         if not os.path.isdir(folder):
@@ -416,9 +477,6 @@ class WikiCache:
 
     @classmethod
     def load_light_entries(cls, lang: str) -> List[WikiEntry]:
-        """Loads only name/desc/category/has_details for every entry from
-        the small meta.json index — never opens the whole functions folder
-        at once. This is what powers the list view."""
         raw = cls._load_meta_raw(lang)
         if not raw:
             raw = cls._rebuild_meta(lang)
@@ -439,8 +497,6 @@ class WikiCache:
 
     @classmethod
     def load_entry_full(cls, lang: str, file_name: str) -> Optional['WikiEntry']:
-        """Reads and parses a single wiki file on demand — called only when
-        the user actually opens a card, not for the whole folder up-front."""
         if not file_name:
             return None
         path = os.path.join(cls.lang_dir(lang), 'functions', file_name)
@@ -512,8 +568,9 @@ class BotWikiTab:
         self._on_open_dashboard = on_open_dashboard
 
         self._lang    = get_current_lang() or 'en'
-        self._entries: List[WikiEntry] = WikiCache.load_light_entries(self._lang)
-        self._filtered: List[WikiEntry] = list(self._entries)
+        
+        self._entries: List[WikiEntry] = []
+        self._filtered: List[WikiEntry] = []
 
         self._view_mode  = 'list'
         self._current: Optional[WikiEntry] = None
@@ -521,10 +578,6 @@ class BotWikiTab:
 
         self._busy = False
 
-        # Colors are cached from the same theme snapshot commands_view.py
-        # uses (populated in _on_theme), instead of calling ThemeEngine.hex()
-        # fresh on every highlight pass — this guarantees the wiki code
-        # blocks always match the command editor's colors exactly.
         self._hl_colors: Dict[str, str] = {}
 
         self._header_title = ft.Text(
@@ -551,34 +604,7 @@ class BotWikiTab:
             on_click=self._check_updates,
         )
 
-        self._filter_all_btn = ft.Container(
-            content=ft.Text(_t('filter_all'), size=11, color='#FFFFFF', weight=ft.FontWeight.W_600),
-            bgcolor=_c('accent'),
-            border_radius=6,
-            padding=ft.Padding(left=10, top=4, right=10, bottom=4),
-            on_click=lambda e: self._on_filter_change(None),
-            ink=True,
-        )
-        self._filter_cmd_btn = ft.Container(
-            content=ft.Text(_t('filter_command'), size=11, color=_c('text'), weight=ft.FontWeight.W_600),
-            bgcolor=_c('card_border'),
-            border_radius=6,
-            padding=ft.Padding(left=10, top=4, right=10, bottom=4),
-            on_click=lambda e: self._on_filter_change('command'),
-            ink=True,
-        )
-        self._filter_event_btn = ft.Container(
-            content=ft.Text(_t('filter_event'), size=11, color=_c('text'), weight=ft.FontWeight.W_600),
-            bgcolor=_c('card_border'),
-            border_radius=6,
-            padding=ft.Padding(left=10, top=4, right=10, bottom=4),
-            on_click=lambda e: self._on_filter_change('event'),
-            ink=True,
-        )
-        self._filter_row = ft.Row(
-            [self._filter_all_btn, self._filter_cmd_btn, self._filter_event_btn],
-            spacing=6,
-        )
+        self._filter_row = ft.Row(controls=[], spacing=6, scroll=ft.ScrollMode.AUTO)
 
         self._header = ft.Container(
             content=ft.Column(
@@ -679,9 +705,6 @@ class BotWikiTab:
 
         self._root = ft.Container(expand=True)
 
-        # Populate _hl_colors with sane fallbacks before the first theme
-        # event arrives, so the very first render isn't left with an
-        # empty dict (which would previously fall back silently).
         self._hl_colors = {
             'base':    '#2ECC71',
             'control': '#9B59B6',
@@ -692,13 +715,12 @@ class BotWikiTab:
             'comment': '#7F8C8D',
         }
 
+        self._build_filter_chips()
         self._render()
 
         ThemeEngine.subscribe(self._on_theme)
 
     def _is_rtl(self) -> bool:
-        # Overall interface layout stays LTR regardless of language;
-        # only card content is mirrored to RTL when the language is Arabic.
         return (self._lang or '').lower().startswith('ar')
 
     def _status_label(self) -> str:
@@ -728,10 +750,6 @@ class BotWikiTab:
         self._detail_back_btn.bgcolor   = get('accent')
         self._detail_title.color        = get('text')
 
-        # Same lookup/fallbacks commands_view.py uses for its own
-        # _hl_colors, sourced from the exact same `data` snapshot — this
-        # is what keeps the wiki's code highlighting pixel-identical to
-        # the command editor's.
         self._hl_colors = {
             'base':    get('success'),
             'control': get('syntax_control_flow'),
@@ -742,16 +760,19 @@ class BotWikiTab:
             'comment': get('text_dim'),
         }
 
-        self._update_filter_btns()
+        self._build_filter_chips()
         self._render()
         self._page.update()
 
     def build(self) -> ft.Control:
         self._lang = get_current_lang() or 'en'
-        self._render()
+        if not self._busy:
+            self._render()
         return self._root
 
     def _render(self):
+        if self._busy:
+            return
         if self._view_mode == 'list':
             self._root.content = self._list_root
         elif self._view_mode == 'dash':
@@ -765,29 +786,75 @@ class BotWikiTab:
 
     def _on_filter_change(self, filter_type: Optional[str]):
         self._filter_type = filter_type
-        self._update_filter_btns()
+        self._build_filter_chips()
         self._apply_filters()
         self._page.update()
 
-    def _update_filter_btns(self):
-        btns = [
-            (self._filter_all_btn, None),
-            (self._filter_cmd_btn, 'command'),
-            (self._filter_event_btn, 'event'),
+    def _make_filter_chip(self, value: Optional[str], label: str,
+                           icon: str, color: str) -> ft.Container:
+        is_active = self._filter_type == value
+        return ft.Container(
+            content=ft.Row(
+                [
+                    ft.Icon(icon, size=13, color='#FFFFFF' if is_active else color),
+                    ft.Text(label, size=11, color='#FFFFFF' if is_active else color,
+                            weight=ft.FontWeight.W_600),
+                ],
+                spacing=4, tight=True,
+            ),
+            bgcolor=color if is_active else _tint(color, 24),
+            border_radius=6,
+            padding=ft.Padding(left=10, top=4, right=10, bottom=4),
+            on_click=lambda e, v=value: self._on_filter_change(v),
+            ink=True,
+        )
+
+    def _build_filter_chips(self):
+        known_order = ['command', 'event', 'variable', 'discord', 'time']
+        seen_keys: set = set()
+        cats: List[str] = []
+        has_other = False
+
+        for entry in self._entries:
+            key = _canonical_category(entry.category)
+            if not key:
+                has_other = True
+                continue
+            if key not in seen_keys:
+                seen_keys.add(key)
+                cats.append(entry.category.strip())
+
+        def _sort_key(raw: str):
+            key = _canonical_category(raw)
+            if key in known_order:
+                return (0, known_order.index(key))
+            return (1, key)
+
+        cats.sort(key=_sort_key)
+
+        chips = [
+            self._make_filter_chip(None, _t('filter_all'), ft.Icons.APPS_ROUNDED, _c('accent')),
         ]
-        for btn, ftype in btns:
-            is_active = self._filter_type == ftype
-            btn.bgcolor = _c('accent') if is_active else _c('card_border')
-            btn.content.color = '#FFFFFF' if is_active else _c('text')
+        for raw in cats:
+            chips.append(self._make_filter_chip(
+                _canonical_category(raw), _category_label(raw), _category_icon(raw), _category_color(raw),
+            ))
+        if has_other:
+            chips.append(self._make_filter_chip(
+                '', _t('filter_other'), _category_icon(''), _CATEGORY_DEFAULT_COLOR,
+            ))
+
+        self._filter_row.controls = chips
 
     def _apply_filters(self):
         query = (self._search_field.value or '').strip().lower()
         result = list(self._entries)
 
-        if self._filter_type == 'event':
-            result = [en for en in result if en.category.lower() == 'event']
-        elif self._filter_type == 'command':
-            result = [en for en in result if en.category.lower() != 'event']
+        if self._filter_type is not None:
+            result = [
+                en for en in result
+                if _canonical_category(en.category) == self._filter_type
+            ]
 
         if query:
             result = [
@@ -822,7 +889,7 @@ class BotWikiTab:
             ft.Text(entry.name, size=15, weight=ft.FontWeight.BOLD, color=_c('text')),
         ]
         if entry.category:
-            header_children.append(_badge(entry.category, _c('accent')))
+            header_children.append(_badge(_category_label(entry.category), _category_color(entry.category)))
 
         dash_btn = _ink_btn(
             content=ft.Row(
@@ -832,7 +899,7 @@ class BotWikiTab:
                 spacing=6, alignment=ft.MainAxisAlignment.CENTER,
             ),
             bgcolor=_c('accent'),
-            on_click=(lambda e, en=entry: self._open_dash(en)),
+            on_click=(lambda e, en=entry: self._page.run_task(self._async_open_dash, en)),
             disabled=False,
         )
 
@@ -846,7 +913,7 @@ class BotWikiTab:
                     spacing=6, alignment=ft.MainAxisAlignment.CENTER,
                 ),
                 bgcolor=_c('accent'),
-                on_click=(lambda e, en=entry: self._open_detail(en)),
+                on_click=(lambda e, en=entry: self._page.run_task(self._async_open_detail, en)),
                 disabled=False,
             )
             card_buttons.append(info_btn)
@@ -942,9 +1009,6 @@ class BotWikiTab:
             r'|(?P<text>[^#"\'$\[\];]+)'
         )
 
-        # Sourced from self._hl_colors (refreshed in _on_theme), so this is
-        # guaranteed to be the same dict commands_view.py builds for the
-        # command editor — no more drift between the two views.
         colors = self._hl_colors
         base_color = colors.get('base', '#2ECC71')
 
@@ -991,16 +1055,6 @@ class BotWikiTab:
                 ft.IconButton(
                     icon=ft.Icons.COPY_ROUNDED, icon_color=_c('text_dim'), icon_size=18,
                     tooltip=_t('copy_syntax'),
-                    # IMPORTANT: on_click must be the async function itself,
-                    # not a sync lambda that merely *calls* it. Flet decides
-                    # whether to `await` a handler by checking
-                    # inspect.iscoroutinefunction(handler) on whatever is
-                    # assigned to on_click. A `lambda e: self._copy_syntax(e)`
-                    # is itself a plain sync function — calling it just
-                    # creates (and immediately drops) a coroutine object
-                    # without ever running a single line inside it. Using a
-                    # small async closure factory keeps on_click a real
-                    # coroutine function while still capturing `text`.
                     on_click=self._make_copy_handler(text),
                 ),
             ],
@@ -1008,11 +1062,6 @@ class BotWikiTab:
         )
 
     def _show_snack(self, snack: ft.SnackBar):
-        """Show a SnackBar in a way that's compatible across Flet versions.
-        Newer Flet (>=0.24-ish) exposes `Page.open(control)`.
-        Some builds bundled with serious_python don't have it, so we
-        fall back to the classic `page.snack_bar = ...; open = True`.
-        """
         page = self._page
         opener = getattr(page, 'open', None)
         if callable(opener):
@@ -1021,7 +1070,6 @@ class BotWikiTab:
                 return
             except Exception as ex:
                 print(f'[Wiki] page.open(snack_bar) failed, falling back: {ex}')
-        # Fallback for Flet builds without Page.open
         page.snack_bar = snack
         snack.open = True
         page.update()
@@ -1032,13 +1080,6 @@ class BotWikiTab:
         return _handler
 
     async def _copy_syntax(self, e, text: str):
-        # `Page.set_clipboard` was deprecated in Flet 0.80.0 and no longer
-        # exists as of this build (0.85.x) — confirmed via:
-        #   AttributeError: type object 'Page' has no attribute
-        #   'set_clipboard'. Did you mean: 'clipboard'?
-        # The current API is the standalone Clipboard *service*:
-        #   await ft.Clipboard().set(text)
-        # https://docs.flet.dev/services/clipboard/
         ok = False
         try:
             await ft.Clipboard().set(text)
@@ -1130,18 +1171,25 @@ class BotWikiTab:
 
         return ft.Container(height=0)
 
-    def _open_dash(self, entry: WikiEntry):
-        # Only the single selected file is read/parsed here, on demand.
-        full_entry = WikiCache.load_entry_full(self._lang, entry.file_name) or entry
+    async def _async_open_dash(self, entry: WikiEntry):
+        self._view_mode = 'dash'
+        self._dash_title.value = entry.name
+        self._dash_body.controls.clear()
+        self._dash_body.controls.append(ft.ProgressRing(color=_c('accent')))
+        self._render()
+        self._page.update()
+
+        loop = asyncio.get_event_loop()
+        full_entry = await loop.run_in_executor(None, WikiCache.load_entry_full, self._lang, entry.file_name)
+        full_entry = full_entry or entry
 
         self._current   = full_entry
-        self._view_mode = 'dash'
         self._dash_title.value = full_entry.name
 
         controls: List[ft.Control] = []
         if full_entry.category:
             controls.append(
-                ft.Row([_badge(full_entry.category, _c('accent'))],
+                ft.Row([_badge(_category_label(full_entry.category), _category_color(full_entry.category))],
                        alignment=ft.MainAxisAlignment.START)
             )
         if full_entry.desc:
@@ -1153,17 +1201,25 @@ class BotWikiTab:
         self._dash_body = ft.Column(controls, spacing=18, scroll=ft.ScrollMode.AUTO,
                                      expand=True, rtl=self._is_rtl())
         self._dash_root.content.controls[1] = self._dash_body
-
         self._render()
         self._page.update()
 
-    def _open_detail(self, entry: WikiEntry):
-        # Only the single selected file is read/parsed here, on demand.
-        full_entry = WikiCache.load_entry_full(self._lang, entry.file_name)
-        if full_entry is None or full_entry.details is None:
-            return
-        self._current   = full_entry
+    async def _async_open_detail(self, entry: WikiEntry):
         self._view_mode = 'detail'
+        self._detail_title.value = f'${entry.name}'
+        self._detail_body.controls.clear()
+        self._detail_body.controls.append(ft.ProgressRing(color=_c('accent')))
+        self._render()
+        self._page.update()
+
+        loop = asyncio.get_event_loop()
+        full_entry = await loop.run_in_executor(None, WikiCache.load_entry_full, self._lang, entry.file_name)
+        
+        if full_entry is None or full_entry.details is None:
+            self._back_to_list(None)
+            return
+
+        self._current   = full_entry
         self._detail_title.value = f'${full_entry.name}'
         self._build_detail_body(full_entry)
         self._render()
@@ -1255,6 +1311,8 @@ class BotWikiTab:
         self._update_btn.opacity = 0.6 if busy else 1.0
         if label:
             self._status_text.value = label
+        if not busy:
+            self._render()
         self._page.update()
 
     async def _check_updates(self, e):
@@ -1276,6 +1334,28 @@ class BotWikiTab:
         if remote_version <= local_version:
             self._set_busy(False, _t('up_to_date').format(v=local_version))
             return
+        
+        try:
+            if hasattr(self._page, 'platform') and self._page.platform in ['android', 'ios', getattr(ft.PagePlatform, 'ANDROID', 'android'), getattr(ft.PagePlatform, 'IOS', 'ios')]:
+                if hasattr(ft, 'PermissionType'):
+                    self._page.request_permission(ft.PermissionType.NOTIFICATION)
+        except Exception as ex:
+            print(f"[Wiki] Error requesting notification permissions: {ex}")
+
+        self._show_snack(ft.SnackBar(
+            content=ft.Row(
+                [
+                    ft.Icon(ft.Icons.CLOUD_DOWNLOAD_ROUNDED, color="#FFFFFF", size=20),
+                    ft.Text(_t('downloading'), color="#FFFFFF", size=14, weight=ft.FontWeight.W_600)
+                ],
+                spacing=10,
+                vertical_alignment=ft.CrossAxisAlignment.CENTER
+            ),
+            bgcolor=_c('accent'),
+            duration=4000
+        ))
+        
+        # ----------------------------------------------------------------------
 
         from main_exe.load.loading_view import LoadingScreen
 
@@ -1296,13 +1376,11 @@ class BotWikiTab:
                 done_count += 1
                 screen.set_progress(done_count / total, f'{done_count}/{total}')
 
-            chunk_size = 5
+            chunk_size = 45
             for i in range(0, len(index), chunk_size):
                 chunk = index[i:i + chunk_size]
-
                 await asyncio.gather(*[_fetch_one(fn) for fn in chunk])
-
-                await asyncio.sleep(20)
+                await asyncio.sleep(0.5)
 
             WikiCache.save_index(lang, index)
             WikiCache.set_local_version(lang, remote_version)
@@ -1320,9 +1398,8 @@ class BotWikiTab:
         self._entries  = WikiCache.load_light_entries(lang)
         self._filtered = list(self._entries)
         self._filter_type = None
-        self._update_filter_btns()
+        self._build_filter_chips()
         self._apply_filters()
-        self._render()
 
         self._set_busy(False, _t('up_to_date').format(v=remote_version))
 
@@ -1332,10 +1409,28 @@ class BotWikiTab:
         ))
             
     def load_bot(self, *_args, **_kwargs):
-        self._lang    = get_current_lang() or 'en'
-        self._entries = WikiCache.load_light_entries(self._lang)
+        self._lang = get_current_lang() or 'en'
+        
+        self._list_view.controls.clear()
+        self._list_view.controls.append(
+            ft.Container(
+                content=ft.ProgressRing(color=_c('accent')),
+                alignment=ft.Alignment(0, 0),
+                padding=ft.Padding(0, 40, 0, 0)
+            )
+        )
+        self._status_text.value = _t('loading')
+        self._page.update()
+
+        self._page.run_task(self._async_load_bot_task)
+
+    async def _async_load_bot_task(self, *args):
+        loop = asyncio.get_event_loop()
+        self._entries = await loop.run_in_executor(None, WikiCache.load_light_entries, self._lang)
+        
         self._filter_type = None
         self._filtered = list(self._entries)
         self._status_text.value = self._status_label()
-        self._update_filter_btns()
-        self._apply_filters()
+        self._build_filter_chips()
+        self._apply_filters() 
+        self._page.update()

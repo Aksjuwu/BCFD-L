@@ -1,7 +1,0 @@
-aiohttp==3.9.5
-arabic-reshaper==3.0.0
-certifi>=2025.6.15
-git+https://github.com/DA-344/d.py.git@b699e7e5e569646b6b4208ef6b60bf432ee7cf4b
-flet==0.85.2
-python-bidi==0.4.2
-pyjnius

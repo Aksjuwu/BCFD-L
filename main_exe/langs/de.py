@@ -181,4 +181,24 @@ GERMAN_DICT = {
     'info_var':             (1156, 'Variableninfo'),
     'invalid_json':         (1157, 'Ungültiges JSON'),
     'json_must_be_object':  (1158, 'Der oberste Wert muss ein JSON-Objekt sein ({"userID": "value"}).'),
+
+    # ── App Updater ───────────────────────────────────────────
+    'app_update_title':           (1159, 'Update verfügbar'),
+    'app_update_new_version':     (1160, 'Neue Version'),
+    'app_update_current_version': (1161, 'Aktuell'),
+    'app_update_no_changelog':    (1162, 'Kein Änderungsprotokoll für dieses Update verfügbar.'),
+    'app_update_later':           (1163, 'Später'),
+    'app_update_now':             (1164, 'Jetzt aktualisieren'),
+    'app_update_downloading':     (1165, 'Wird heruntergeladen'),
+    'app_update_done':            (1166, 'Download abgeschlossen ✓'),
+    'app_update_failed':          (1167, 'Download fehlgeschlagen'),
+    'app_update_open_installer':  (1168, 'Installer öffnen'),
+    'app_update_installer_opened':(1169, 'Installer geöffnet. Schließen Sie die Installation ab und öffnen Sie die App erneut.'),
+    'app_update_open_failed':     (1170, 'Installer konnte nicht geöffnet werden'),
+
+    # ── Wiki-Filter (erweitert) ────────────────────────────
+    'filter_variable':      (1171, 'Variablen'),
+    'filter_discord':       (1172, 'Discord'),
+    'filter_time':          (1173, 'Zeit'),
+    'filter_other':         (1174, 'Andere'),
 }

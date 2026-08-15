@@ -181,4 +181,24 @@ TURKISH_DICT = {
     'info_var':             (1156, 'Değişken bilgisi'),
     'invalid_json':         (1157, 'Geçersiz JSON'),
     'json_must_be_object':  (1158, 'Üst düzey değer bir JSON nesnesi olmalıdır ({"userID": "value"}).'),
+
+    # ── Uygulama Güncelleyici ──────────────────────
+    'app_update_title':          (1159, 'Güncelleme mevcut'),
+    'app_update_new_version':    (1160, 'Yeni Sürüm'),
+    'app_update_current_version':(1161, 'Mevcut'),
+    'app_update_no_changelog':   (1162, 'Bu güncelleme için değişiklik günlüğü yok.'),
+    'app_update_later':          (1163, 'Sonra'),
+    'app_update_now':            (1164, 'Şimdi Güncelle'),
+    'app_update_downloading':    (1165, 'İndiriliyor'),
+    'app_update_done':           (1166, 'İndirme tamamlandı ✓'),
+    'app_update_failed':         (1167, 'İndirme başarısız'),
+    'app_update_open_installer': (1168, 'Kurulumu Aç'),
+    'app_update_installer_opened':(1169, 'Kurulum açıldı. Kurulumu tamamlayın ve uygulamayı yeniden açın.'),
+    'app_update_open_failed':    (1170, 'Kurulum dosyası açılamadı'),
+
+    # ── wiki_view filters (extended) ─────────────────────────
+    'filter_variable':      (1171, 'Değişkenler'),
+    'filter_discord':       (1172, 'Discord'),
+    'filter_time':          (1173, 'Zaman'),
+    'filter_other':         (1174, 'Diğer'),
 }

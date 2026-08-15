@@ -63,12 +63,12 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
-    target_id = args[0].strip()
-    label = args[1]
-    style_str = args[2].strip().lower()
-    disabled = len(args) > 3 and args[3].strip().lower() == "yes"
-    emoji = args[4].strip() if len(args) > 4 and args[4].strip() else None
-    message_id_arg = args[5].strip() if len(args) > 5 and args[5].strip() else None
+    target_id = ctx.resolve(args[0]).strip()
+    label = ctx.resolve(args[1])
+    style_str = ctx.resolve(args[2]).strip().lower()
+    disabled = len(args) > 3 and ctx.resolve(args[3]).strip().lower() == "yes"
+    emoji = ctx.resolve(args[4]).strip() if len(args) > 4 and args[4].strip() else None
+    message_id_arg = ctx.resolve(args[5]).strip() if len(args) > 5 and args[5].strip() else None
 
     if not target_id:
         await _send_error(ch, FDLogicError("`$editButton` — the ID/URL argument (1st arg) cannot be empty"))
@@ -76,14 +76,14 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
 
     if style_str not in BUTTON_STYLES:
         await _send_error(ch, FDLogicError(
-            f"`$editButton` — unknown style `{args[2]}`. "
+            f"`$editButton` — unknown style `{style_str}`. "
             f"Valid styles: primary, secondary, success, danger, link"
         ))
         return
 
     style = BUTTON_STYLES[style_str]
 
-    # ── رسالة محددة بـ messageID ────────────────────────────────────────
+    # ── messageID ────────────────────────────────────────
     if message_id_arg is not None:
         if not message_id_arg.isdigit():
             await _send_error(ch, FDLogicError(
@@ -110,7 +110,6 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
             ))
             return
 
-        # نستخدم الـ view المخزنة إن كانت لنفس الرسالة، وإلا نبني واحدة جديدة
         if (getattr(ctx, '_edit_view_msg_id', None) == target_message.id
                 and getattr(ctx, '_edit_view', None) is not None):
             view = ctx._edit_view
@@ -138,7 +137,7 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
                 ))
                 return
             _sync_ctx_message(ctx, updated_message)
-            # ننظف بعد الإرسال
+
             ctx._edit_view = None
             ctx._edit_view_msg_id = None
             ctx._edit_view_target = None
@@ -147,7 +146,6 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
                       + ("" if do_edit else " (batched)"))
         return
 
-    # ── الـ View المعلقة (لم تُرسل بعد) ─────────────────────────────────
     if ctx.view is not None:
         btn = _find_button(ctx.view, target_id)
         if btn is not None:
@@ -155,7 +153,6 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
             ctx.log_event(f"$editButton → edited [{target_id}] in pending view")
             return
 
-    # ── رسالة التفاعل ──────────────────────────────────────────────────
     if ctx.interaction is not None and ctx.interaction.message is not None:
         source_message = ctx.interaction.message
 
@@ -191,7 +188,6 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
                       + ("" if do_edit else " (batched)"))
         return
 
-    # ── آخر رسالة أرسلها البوت ─────────────────────────────────────────
     if ctx.last_bot_message is not None:
         target_message = ctx.last_bot_message
 

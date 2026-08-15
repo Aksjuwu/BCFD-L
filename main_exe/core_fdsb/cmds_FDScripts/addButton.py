@@ -96,13 +96,13 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
-    new_line = args[0].strip().lower() == "yes"
-    url_or_id = args[1].strip()
-    label = args[2]
-    style_str = args[3].strip().lower()
-    disabled = len(args) > 4 and args[4].strip().lower() == "yes"
-    emoji = args[5].strip() if len(args) > 5 and args[5].strip() else None
-    message_id_arg = args[6].strip() if len(args) > 6 and args[6].strip() else None
+    new_line = ctx.resolve(args[0]).strip().lower() == "yes"
+    url_or_id = ctx.resolve(args[1]).strip()
+    label = ctx.resolve(args[2])
+    style_str = ctx.resolve(args[3]).strip().lower()
+    disabled = len(args) > 4 and ctx.resolve(args[4]).strip().lower() == "yes"
+    emoji = ctx.resolve(args[5]).strip() if len(args) > 5 and args[5].strip() else None
+    message_id_arg = ctx.resolve(args[6]).strip() if len(args) > 6 and args[6].strip() else None
 
     if not label.strip() and not emoji:
         label = "\u200b"
@@ -112,7 +112,7 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
 
     if style_str not in BUTTON_STYLES:
         await _send_error(ch, FDLogicError(
-            f"`$addButton` — unknown style `{args[3]}`. "
+            f"`$addButton` — unknown style `{style_str}`. "
             f"Valid styles: primary, secondary, success, danger, link"
         ))
         return

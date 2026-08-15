@@ -133,6 +133,7 @@ _LANG_LABELS: dict[str, str] = {
     'tr': 'Türkçe',
     'ch': '中文',
     'ru': 'Русский',
+    'pl': 'Polski',
 
     # soon...
     'es': 'Español',

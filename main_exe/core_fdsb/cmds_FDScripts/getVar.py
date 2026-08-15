@@ -26,13 +26,17 @@ async def _send_warning(ch, warning) -> None:
 
 def _ensure_exists(name: str, data: dict, save_fn, is_user_scoped: bool = False, user_id: str = None) -> bool:
     if is_user_scoped:
+        global_data = _load_data()
+        global_exists = name in global_data
+        
         existed = name in data and user_id in data.get(name, {})
         if not existed:
             if name not in data:
                 data[name] = {}
             data[name][user_id] = ''
             save_fn(data)
-        return not existed
+        
+        return not existed and not global_exists
     else:
         existed = name in data
         if not existed:

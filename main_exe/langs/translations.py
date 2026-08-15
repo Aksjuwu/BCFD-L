@@ -8,6 +8,7 @@ from .de import GERMAN_DICT
 from .ch import CHINESE_DICT
 from .ru import RUSSIAN_DICT
 from .tr import TURKISH_DICT
+from .pl import POLISH_DICT
 
 
 class Translations:
@@ -20,7 +21,8 @@ class Translations:
         'de': GERMAN_DICT,
         'ch': CHINESE_DICT,
         'ru': RUSSIAN_DICT,
-        'tr': TURKISH_DICT
+        'tr': TURKISH_DICT,
+        'pl': POLISH_DICT,
     }
 
     @staticmethod

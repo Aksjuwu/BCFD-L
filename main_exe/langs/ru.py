@@ -181,4 +181,24 @@ RUSSIAN_DICT = {
     'info_var':             (1156, 'Информация о переменной'),
     'invalid_json':         (1157, 'Неверный JSON'),
     'json_must_be_object':  (1158, 'Верхний уровень должен быть JSON-объектом ({"userID": "value"}).'),
+
+    # ── Обновление приложения ──────────────────────
+    'app_update_title':          (1159, 'Доступно обновление'),
+    'app_update_new_version':    (1160, 'Новая версия'),
+    'app_update_current_version':(1161, 'Текущая'),
+    'app_update_no_changelog':   (1162, 'Нет журнала изменений для этого обновления.'),
+    'app_update_later':          (1163, 'Позже'),
+    'app_update_now':            (1164, 'Обновить сейчас'),
+    'app_update_downloading':    (1165, 'Загрузка'),
+    'app_update_done':           (1166, 'Загрузка завершена ✓'),
+    'app_update_failed':         (1167, 'Ошибка загрузки'),
+    'app_update_open_installer': (1168, 'Открыть установщик'),
+    'app_update_installer_opened':(1169, 'Установщик открыт. Завершите установку, затем перезапустите приложение.'),
+    'app_update_open_failed':    (1170, 'Не удалось открыть файл установщика'),
+
+    # ── wiki_view filters (extended) ─────────────────────────
+    'filter_variable':      (1171, 'Переменные'),
+    'filter_discord':       (1172, 'Discord'),
+    'filter_time':          (1173, 'Время'),
+    'filter_other':         (1174, 'Другое'),
 }
