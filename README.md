@@ -1,6 +1,6 @@
 ![FDSB.png](./main_exe/icons/FDSB.png)
   <p>
-    <img src="https://img.shields.io/badge/version-2.3.1-blue.svg?cacheSeconds=2592000" alt="Version" />
+    <img src="https://img.shields.io/badge/version-2.3.2-blue.svg?cacheSeconds=2592000" alt="Version" />
   </p>
 
 # FDSB - Free Design Studio Bot's
