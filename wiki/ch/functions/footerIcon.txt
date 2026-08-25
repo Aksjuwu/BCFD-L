@@ -1,0 +1,28 @@
+<dash>
+name: $footerIcon
+desc: 通过 URL 设置嵌入消息页脚的图标图片。
+category: 嵌入消息构建
+
+<block type="text" title="命令如何工作？">
+text: $footerIcon 在目标嵌入的页脚文本旁放置一张小的圆形图片。任何包含有效网址的参数都可以——命令会提取找到的第一个 URL。最后的数字参数（可选）用于选择要编辑的嵌入。
+</block>
+
+<block type="code" title="语法">
+text: $footerIcon[url;(index)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $footer[(c) My Community]
+text: $footerIcon[https://example.com/logo.png]
+</block>
+
+<block type="callout" kind="note">
+text: URL 必须以 http:// 或 https:// 开头。URL 后面的标点符号（如 . 或 ））会被自动去除。未找到有效 URL 时会报错。
+</block>
+</dash>
+
+<details>
+syntax: $footerIcon[url;(index)]
+param: url|text|必填|包含图片链接的文本（http:// 或 https://）
+param: index|number|可选|构建多个嵌入时要编辑的嵌入编号（默认 1）
+</details>

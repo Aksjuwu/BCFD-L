@@ -1,0 +1,29 @@
+<dash>
+name: $returnGuildBansID
+desc: Zbiera identyfikatory wszystkich zbanowanych użytkowników z serwera i zapisuje je.
+category: Komendy zwrotne
+
+<block type="text" title="Jak działa komenda?">
+text: $returnGuildBansID pobiera listę banów wskazanego serwera i zapisuje identyfikator każdego zbanowanego członka pod podaną nazwą zmiennej, rozdzielone separatorem. Zapisany ciąg pobierzesz później przez $return[var].
+</block>
+
+<block type="code" title="Składnia">
+text: $returnGuildBansID[GuildID; var; separator]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $returnGuildBansID[$guildID; bannedIDs; ,]
+text: $sendMessage[Banned users: $return[bannedIDs]]
+</block>
+
+<block type="callout" kind="important">
+text: Wymaga uprawnienia „Banuj członków" - bez niego polecenie kończy się błędem uprawnień. Pusta zmienna oznacza, że nikt nie jest zbanowany.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildBansID[GuildID; var; separator]
+param: GuildID|snowflake|Wymagany|ID serwera, którego lista banów jest odczytywana
+param: var|text|Wymagany|Nazwa zmiennej dla wyniku (odczyt przez $return[])
+param: separator|text|Wymagany|Separator między identyfikatorami (np. ,). Działają też separatory nazwane: dot, com, apo, sem, colon
+</details>

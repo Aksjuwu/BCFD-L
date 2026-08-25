@@ -1,0 +1,27 @@
+<dash>
+name: $author
+desc: Bir embed'in üst kısmındaki yazar adını ayarlar veya günceller.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $author, embed'in üst kısmında simgesinin yanında görünen yazar adını ayarlar. İsteğe bağlı index parametresi, tek bir mesajda birden fazla embed oluşturulurken hangisinin düzenleneceğini seçer. Mevcut yazar simgesi ve bağlantısı korunur.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $author[name;(index)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $author[Server Staff Team]
+</block>
+
+<block type="callout" kind="note">
+text: Resim eklemek için $authorIcon ile, adın tıklanabilir olması için $authorURL ile birlikte kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $author[name;(index)]
+param: name|text|Zorunlu|Embed'in üst kısmında görünen yazar adı
+param: index|number|İsteğe bağlı|Birden fazla embed oluşturulurken düzenlenecek embed'in numarası (varsayılan 1)
+</details>

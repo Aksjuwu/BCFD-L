@@ -1,0 +1,28 @@
+<dash>
+name: $thumbnail
+desc: Ustawia miniaturę osadzenia (embed) na podstawie adresu URL.
+category: Kreator embedów
+
+<block type="text" title="Jak działa komenda?">
+text: $thumbnail umieszcza duży obrazek w prawym górnym rogu docelowego embedu. Dowolny argument zawierający poprawny adres internetowy zadziała - polecenie wyodrębnia pierwszy znaleziony URL. Ostatni numeryczny argument (opcjonalny) wybiera embed do edycji.
+</block>
+
+<block type="code" title="Składnia">
+text: $thumbnail[url;(index)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $title[Server stats]
+text: $thumbnail[https://example.com/chart.png]
+</block>
+
+<block type="callout" kind="note">
+text: Adres URL musi zaczynać się od http:// lub https://. Interpunkcja po adresie jest automatycznie usuwana. Brak poprawnego URL skutkuje błędem.
+</block>
+</dash>
+
+<details>
+syntax: $thumbnail[url;(index)]
+param: url|text|Wymagany|Tekst zawierający adres URL obrazka (http:// lub https://)
+param: index|number|Opcjonalny|Numer embedu do edycji przy budowie kilku embedów (domyślnie 1)
+</details>

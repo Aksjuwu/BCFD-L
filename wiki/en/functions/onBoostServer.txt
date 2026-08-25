@@ -1,0 +1,26 @@
+<dash>
+name: $onBoostServer
+desc: Event triggered when someone boosts the server or raises its boost level.
+category: Event
+
+<block type="text" title="How does the event work?">
+text: $onBoostServer fires whenever Discord posts a system message about server boosts - including a new boost and the server reaching Level 1, 2 or 3. Inside the event script you can reach the boosting member through commands like $authorID or $mention, and the channel context points to the channel where Discord posted the system message.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onBoostServer
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: #PREFIX:$onBoostServer
+text:  sendMessage[Thanks $mention for boosting! This server now has $boostCount boosts]
+</block>
+
+<block type="callout" kind="note">
+text: Only real boost system messages trigger this event - normal chat never will. Thanking boosters here pairs well with $boostLevel and $boostCount.
+</block>
+
+<block type="callout" kind="important">
+text: This event runs in the bot_events folder, not bot_commands. Create your .fds file there.
+</block>
+</dash>

@@ -1,0 +1,26 @@
+<dash>
+name: $getCreationDateTimestamp
+desc: يحوّل أي معرّف إلى تاريخ إنشائه كطابع زمني Unix.
+category: التوقيت والتأخير
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: كل كائن في Discord (مستخدم، قناة، دور، رسالة...) يحمل وقت إنشائه داخل معرّف snowflake الخاص به. تفك $getCreationDateTimestamp هذا الترميز وتعيد لحظة الإنشاء كطابع زمني Unix (الثواني منذ 1 يناير 1970). تُقبل المنشنز وتُنظف تلقائيًا.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getCreationDateTimestamp[idOrMention]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Your account was created on <t:$getCreationDateTimestamp[$authorID]>]
+</block>
+
+<block type="callout" kind="note">
+text: تعمل مع أي معرّف snowflake: مستخدمين، أعضاء، قنوات، أدوار، سيرفرات ورسائل. ادمجها مع صيغة <t:TIMESTAMP> في Discord لعرض تاريخ مقروء.
+</block>
+</dash>
+
+<details>
+syntax: $getCreationDateTimestamp[idOrMention]
+param: idOrMention|text|مطلوب|معرّف snowflake أو منشن (<@id>، <#id>، <@&id>) لأي كائن في Discord
+</details>

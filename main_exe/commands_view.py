@@ -11,12 +11,19 @@ import threading
 
 from main_exe.theme_engine import ThemeEngine
 from main_exe.langs.translations import Translations
-from main_exe.settings import get_current_lang
+from main_exe.settings import get_current_lang, is_mobile
 
 try:
-    from main_exe.core_fdsb.FDCore import KNOWN_COMMANDS
+    from main_exe.core_fdsb.FDCore import (
+        KNOWN_COMMANDS, CONTROL_FLOW_COMMANDS, FUNCTION_COMMANDS,
+    )
 except ImportError:
     KNOWN_COMMANDS = set()
+    CONTROL_FLOW_COMMANDS = {
+        "if", "elif", "else", "endif", "while", "endwhile", "for", "endfor",
+        "break", "return", "and", "or", "onlyIf", "onlyAdmin", "log"
+    }
+    FUNCTION_COMMANDS = {"func", "endfunc", "call"}
 
 try:
     from main_exe.core_fdsb.local_server import EVENT_PREFIXES
@@ -51,18 +58,20 @@ def _c(key: str) -> str:
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Constants & Syntax Rules
+#  CONTROL_FLOW_COMMANDS / FUNCTION_COMMANDS come from the FDScript core
 # ══════════════════════════════════════════════════════════════════════════════
 
-CONTROL_FLOW_COMMANDS = {
-    "if", "elif", "else", "endif", "while", "endwhile", "for", "endfor",
-    "break", "return", "and", "or", "onlyIf", "onlyAdmin", "log"
-}
+_HL_FUNC_COLOR = '#F1C40F'
 
-_HL_FONT_SIZE     = 14
+_HL_FONT_SIZE     = 15
 _HL_LINE_HEIGHT   = 1.5
 _HL_FONT_FAMILY   = "Consolas"
 _HL_FONT_WEIGHT   = ft.FontWeight.W_400
 _HL_LETTER_SPACE  = 0
+
+# Mobile: smaller editor footprint so emoji keyboard has room
+_MOBILE_MIN_LINES = 6
+_DESKTOP_MIN_LINES = 15
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  File utilities
@@ -322,12 +331,20 @@ class CommandEditorView:
         self._cmd_path = ''
         self._debounce_timer = None
         self._body_col = None
+        self._is_mobile = is_mobile()
 
         # ── Dirty-tracking ────────────────────────────────────────────────────
         self._is_dirty = False
         self._snapshot: dict = {}
 
         self._hl_colors = {}
+
+        # Keyboard avoidance spacer (grows with emoji keyboard etc.)
+        self._kb_spacer = ft.Container(height=0, visible=True)
+        self._last_kb_inset = 0.0
+        self._media_handler_bound = False
+
+        min_lines = _MOBILE_MIN_LINES if self._is_mobile else _DESKTOP_MIN_LINES
 
         self._name_field = ft.TextField(
             key="cmd_name_field",
@@ -407,7 +424,7 @@ class CommandEditorView:
             cursor_color=_c('syntax_cmd'),
             border=ft.InputBorder.NONE,
             content_padding=0,                 
-            min_lines=15,
+            min_lines=min_lines,
             max_lines=99999,
             on_change=self._on_code_change,
             on_focus=self._on_code_focus,
@@ -462,9 +479,6 @@ class CommandEditorView:
             self._name_field.focused_border_color = _c('accent')
 
     async def _scroll_to_name_error_async(self):
-        # scroll_to() و focus() في Flet كلاهما async، لذا يجب await لهما،
-        # ويجب استدعاء scroll_to على الحاوية القابلة للتمرير الفعلية
-        # (body_col) وليس على page، لأن page ليست هي من يقوم بالتمرير هنا.
         if self._body_col is not None:
             try:
                 await self._body_col.scroll_to(
@@ -569,18 +583,84 @@ class CommandEditorView:
         self._hl_colors = {
             'base':    g('success',              '#2ECC71'),
             'control': g('syntax_control_flow',  '#9B59B6'),
+            'func':    g('syntax_func',          _HL_FUNC_COLOR),
             'known':   g('syntax_cmd',            '#3498DB'),
             'bracket': g('syntax_brackets',       '#FC2323'),
             'semi':    g('syntax_semicolon',      '#8A200D'),
-            'string':  g('warning',               '#FC2323'),
+            #'string':  g('warning',               '#FC2323'),
             'comment': g('text_dim',              '#7F8C8D'),
         }
 
         self._apply_highlights()
 
+    # ── Keyboard avoidance (mobile / emoji keyboard) ──────────────────────────
+
+    def _bind_media_handler(self):
+        if self._media_handler_bound or not self._page:
+            return
+        try:
+            # Prefer on_media_change if available (Flet 0.8x+)
+            if hasattr(self._page, 'on_media_change'):
+                prev = getattr(self._page, 'on_media_change', None)
+
+                def _combined(e):
+                    if callable(prev):
+                        try:
+                            prev(e)
+                        except Exception:
+                            pass
+                    self._on_media_change(e)
+
+                self._page.on_media_change = _combined
+                self._media_handler_bound = True
+        except Exception as ex:
+            print(f'[Commands] media handler bind failed: {ex}')
+
+    def _get_kb_inset(self) -> float:
+        """Return current keyboard (view_insets.bottom) height in logical pixels."""
+        try:
+            media = getattr(self._page, 'media', None)
+            if media is None:
+                return 0.0
+            insets = getattr(media, 'view_insets', None)
+            if insets is None:
+                return 0.0
+            bottom = getattr(insets, 'bottom', 0) or 0
+            return float(bottom)
+        except Exception:
+            return 0.0
+
+    def _apply_kb_inset(self, inset: float = None):
+        if inset is None:
+            inset = self._get_kb_inset()
+
+        # Only react when the value actually changes (emoji switch is the main case)
+        if abs(inset - self._last_kb_inset) < 1.0:
+            return
+
+        self._last_kb_inset = inset
+
+        # Extra breathing room above the keyboard so the cursor stays visible
+        extra = 24.0 if inset > 0 else 0.0
+        target = max(0.0, inset + extra)
+
+        self._kb_spacer.height = target
+
+        if self._page:
+            self._page.update()
+
+        # After the layout settles, scroll the editor back into view
+        if inset > 0 and self._page:
+            self._page.run_task(self._scroll_to_editor_async)
+
+    def _on_media_change(self, e=None):
+        self._apply_kb_inset()
+
     # ── Build ─────────────────────────────────────────────────────────────────
 
     def build(self) -> ft.Control:
+        self._bind_media_handler()
+
         header = ft.Container(
             content=ft.Row(
                 [
@@ -667,12 +747,17 @@ class CommandEditorView:
                 ft.Text(_t('command_editor'), size=12,
                         weight=ft.FontWeight.BOLD, color=_c('text')),
                 editor_area,
+                # Dynamic spacer that grows with keyboard / emoji panel
+                self._kb_spacer,
             ],
             spacing=10,
             expand=True,
             scroll=ft.ScrollMode.ADAPTIVE,
         )
         self._body_col = body_col
+
+        # Apply current inset immediately (in case keyboard is already open)
+        self._apply_kb_inset()
 
         return ft.Column(
             [
@@ -726,6 +811,8 @@ class CommandEditorView:
                 pass
 
     def _on_code_focus(self, e):
+        # Refresh inset immediately (emoji panel may already be open)
+        self._apply_kb_inset()
         if self._page:
             self._page.run_task(self._scroll_to_editor_async)
 
@@ -746,17 +833,24 @@ class CommandEditorView:
             control_flow_escaped = '|'.join(
                 sorted(CONTROL_FLOW_COMMANDS, key=len, reverse=True)
             )
+            func_escaped = '|'.join(
+                sorted(FUNCTION_COMMANDS - CONTROL_FLOW_COMMANDS,
+                       key=len, reverse=True)
+            ) if FUNCTION_COMMANDS else ''
             known_escaped = '|'.join(
-                sorted(known_cmds - CONTROL_FLOW_COMMANDS, key=len, reverse=True)
+                sorted(known_cmds - CONTROL_FLOW_COMMANDS - FUNCTION_COMMANDS,
+                       key=len, reverse=True)
             )
 
             control_part = rf'\$(?:{control_flow_escaped})\b' if control_flow_escaped else r'(?!x)x'
-            known_part   = rf'\$(?:{known_escaped})\b'        if known_escaped        else r'(?!x)x'
+            func_part    = rf'\$(?:{func_escaped})\b'         if func_escaped        else r'(?!x)x'
+            known_part   = rf'\$(?:{known_escaped})\b'        if known_escaped       else r'(?!x)x'
 
             master_pattern = (
                 r'(?P<comment>#.*)'
                 r'|(?P<string>".*?"|\'.*?\')'
                 rf'|(?P<control>{control_part})'
+                rf'|(?P<func>{func_part})'
                 rf'|(?P<known>{known_part})'
                 r'|(?P<token>\$\w*)'
                 r'|(?P<punct>[\[\];])'
@@ -790,6 +884,8 @@ class CommandEditorView:
                     spans.append(_span(value, colors.get('string', base_color)))
                 elif group == 'control':
                     spans.append(_span(value, colors.get('control', base_color)))
+                elif group == 'func':
+                    spans.append(_span(value, colors.get('func', _HL_FUNC_COLOR)))
                 elif group == 'known':
                     spans.append(_span(value, colors.get('known', base_color)))
                 elif group == 'punct':
@@ -823,6 +919,10 @@ class CommandEditorView:
         self._apply_highlights()
         self._mark_dirty()
 
+        # Emoji insertion can change keyboard height without a media event on some devices
+        if self._is_mobile:
+            self._apply_kb_inset()
+
     # ── Load / Save ───────────────────────────────────────────────────────────
 
     def load(self, bot_dir: str, cmd_data: dict = None):
@@ -855,6 +955,10 @@ class CommandEditorView:
 
         self._apply_highlights()
 
+        # Reset keyboard spacer when loading a new command
+        self._last_kb_inset = -1
+        self._apply_kb_inset(0)
+
     def _save(self, _) -> bool:
         name    = (self._name_field.value or '').strip()
         prefix  = (self._prefix_field.value or '').strip()
@@ -886,6 +990,13 @@ class CommandEditorView:
         self._clear_dirty()
 
         if self._page:
+            self._page.show_dialog(
+                ft.SnackBar(
+                    content=ft.Text(_t('saved_successfully'), color='#FFFFFF'),
+                    bgcolor=_c('success'),
+                    duration=2000,
+                )
+            )
             self._page.update()
 
         if callable(self._on_saved):

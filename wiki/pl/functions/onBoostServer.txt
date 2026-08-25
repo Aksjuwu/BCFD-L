@@ -1,0 +1,26 @@
+<dash>
+name: $onBoostServer
+desc: Zdarzenie wyzwalane, gdy ktoś ulepsza serwer lub podnosi jego poziom ulepszeń.
+category: Zdarzenie
+
+<block type="text" title="Jak działa to zdarzenie?">
+text: $onBoostServer uruchamia się za każdym razem, gdy Discord publikuje komunikat systemowy o ulepszeniach serwera - w tym o nowym ulepszeniu oraz osiągnięciu poziomu 1, 2 lub 3. W skrypcie zdarzenia możesz uzyskać dostęp do członka ulepszającego poprzez polecenia takie jak $authorID czy $mention, a kontekst kanału wskazuje kanał, na którym Discord opublikował komunikat systemowy.
+</block>
+
+<block type="code" title="Składnia">
+text: #PREFIX:$onBoostServer
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: #PREFIX:$onBoostServer
+text:  sendMessage[Thanks $mention for boosting! This server now has $boostCount boosts]
+</block>
+
+<block type="callout" kind="note">
+text: To zdarzenie wyzwalają tylko prawdziwe komunikaty systemowe o ulepszeniach - zwykły czat nigdy. Podziękowanie ulepszającym dobrze łączy się z $boostLevel i $boostCount.
+</block>
+
+<block type="callout" kind="important">
+text: To zdarzenie działa w folderze bot_events, a nie bot_commands. Utwórz tam swój plik .fds.
+</block>
+</dash>

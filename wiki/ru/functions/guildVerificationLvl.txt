@@ -1,0 +1,21 @@
+<dash>
+name: $guildVerificationLvl
+desc: Возвращает настройку уровня проверки сервера.
+category: Сервер
+
+<block type="text" title="Как работает команда?">
+text: $guildVerificationLvl возвращает уровень безопасности, который должны пройти новые участники, прежде чем писать, как внутреннее значение от NONE (0) до VERY_HIGH (4): 0 = нет, 1 = низкий, 2 = средний, 3 = высокий, 4 = наивысший.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $guildVerificationLvl
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $sendMessage[Verification level here: $guildVerificationLvl]
+</block>
+
+<block type="callout" kind="important">
+text: Работает только внутри сервера - в личных сообщениях возникает ошибка окружения и скрипт останавливается.
+</block>
+</dash>

@@ -11,6 +11,7 @@ import json
 import shutil
 import logging
 import asyncio
+import zipfile
 
 import flet as ft
 
@@ -212,6 +213,86 @@ def _c(key: str) -> str:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+#  BACK-BUTTON HANDLING  (Android hardware back / AppBar back / browser back)
+# ══════════════════════════════════════════════════════════════════════════════
+
+_NAV_STACK: list = []  
+_CURRENT_SCREEN = {'kind': None, 'dashboard': None}   
+
+
+def _nav_push(back_fn):
+    _NAV_STACK.append(back_fn)
+
+
+def _nav_pop() -> bool:
+    if _NAV_STACK:
+        _NAV_STACK.pop()()
+        return True
+    return False
+
+
+def _nav_clear():
+    _NAV_STACK.clear()
+
+
+def _dashboard_has_open_subview(dashboard) -> bool:
+    active = dashboard._tab_views.get(dashboard._active)
+    cur = getattr(active, '_current_view', None)
+    if cur is not None:
+        return cur != 'list'
+    in_editor = getattr(active, '_in_editor', None)
+    if in_editor is not None:
+        return bool(in_editor)
+    return False
+
+
+def _close_dashboard_subview(dashboard):
+    active = dashboard._tab_views.get(dashboard._active)
+    guard = getattr(active, 'guard_tab_change', None)
+    if callable(guard):
+        guard(lambda: None)
+    else:
+        close_fn = getattr(active, '_close_editor', None)
+        if callable(close_fn):
+            close_fn()
+    dashboard._page.update()
+
+
+def _set_body(page: ft.Page, content: ft.Control):
+    body = ft.SafeArea(content=content, expand=True) if is_mobile() else content
+
+    async def _handle_back(e):
+        view = page.views[0]
+
+        if _CURRENT_SCREEN['kind'] == 'dashboard':
+            dashboard = _CURRENT_SCREEN['dashboard']
+            if dashboard is not None and _dashboard_has_open_subview(dashboard):
+                _close_dashboard_subview(dashboard)
+                await view.confirm_pop(False)
+                return
+
+        if _nav_pop():
+            await view.confirm_pop(False)
+        else:
+            await view.confirm_pop(True)
+
+    if not page.views:
+        page.views.append(
+            ft.View(
+                route='/',
+                controls=[body],
+                padding=0,
+                can_pop=False,
+                on_confirm_pop=_handle_back,
+            )
+        )
+    else:
+        page.views[0].controls = [body]
+
+    page.update()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 #  WARNING DIALOG
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -351,10 +432,12 @@ class CreateBotDialog:
             border_color=_c('input_border'),
             focused_border_color=_c('accent'),
             cursor_color=_c('accent'),
-            bgcolor='#F5F5F5',
+            bgcolor=_c('input_bg'),
             border_radius=10,
             label_style=ft.TextStyle(color=_c('text'), size=13),
             text_style=ft.TextStyle(color=_c('text'), size=13),
+            hint_style=ft.TextStyle(color=_c('text_dim'), size=13),
+            on_change=lambda e: self._refresh_import_availability(),
         )
         self._token_field = ft.TextField(
             label=_t('token_label') or 'Bot Token',
@@ -364,13 +447,43 @@ class CreateBotDialog:
             border_color=_c('input_border'),
             focused_border_color=_c('accent'),
             cursor_color=_c('accent'),
-            bgcolor='#F5F5F5',
+            bgcolor=_c('input_bg'),
             border_radius=10,
             label_style=ft.TextStyle(color=_c('text'), size=13),
             text_style=ft.TextStyle(color=_c('text'), size=13),
+            hint_style=ft.TextStyle(color=_c('text_dim'), size=13),
+            on_change=lambda e: self._refresh_import_availability(),
         )
 
         self._file_picker = ft.FilePicker()
+
+        # ── Restore from backup (side button, gated on name + valid token) ──
+        self._import_zip_path    = ''
+        self._import_file_picker = ft.FilePicker()
+        self._import_status_text = ft.Text('', size=11)
+        self._import_btn = ft.OutlinedButton(
+            content=ft.Row(
+                [ft.Icon(ft.Icons.UNARCHIVE_OUTLINED, size=16, color=_c('accent')),
+                 ft.Text(_t('import_zip_btn'), size=13, color=_c('accent'))],
+                spacing=6, tight=True,
+            ),
+            on_click=self._pick_import_zip,
+            disabled=True,
+            style=ft.ButtonStyle(
+                side=ft.BorderSide(1, _c('accent')),
+                shape=ft.RoundedRectangleBorder(radius=10),
+                padding=ft.Padding(left=12, top=8, right=12, bottom=8),
+            ),
+        )
+        self._import_clear_btn = ft.IconButton(
+            icon=ft.Icons.CLOSE,
+            icon_size=16,
+            icon_color=_c('danger'),
+            visible=False,
+            tooltip=_t('import_zip_clear'),
+            on_click=self._clear_import_zip,
+        )
+        self._refresh_import_availability()
 
         self._dlg = ft.AlertDialog(
             modal=True,
@@ -390,6 +503,11 @@ class CreateBotDialog:
                     ),
                     self._name_field,
                     self._token_field,
+                    ft.Row(
+                        [self._import_btn, self._import_clear_btn],
+                        spacing=4, vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                    ),
+                    self._import_status_text,
                 ],
                 tight=True,
                 spacing=14,
@@ -446,6 +564,70 @@ class CreateBotDialog:
         )
         self._page.update()
 
+    def _refresh_import_availability(self):
+        name_ok  = bool((self._name_field.value or '').strip())
+        token    = (self._token_field.value or '').strip()
+        token_ok = bool(token) and is_valid_discord_token(token)
+        ready    = name_ok and token_ok
+
+        self._import_btn.disabled = not ready
+
+        if self._import_zip_path:
+            pass 
+        elif not ready:
+            self._import_status_text.value = _t('import_zip_disabled_hint')
+            self._import_status_text.color = _c('text_dim')
+        else:
+            self._import_status_text.value = ''
+
+        if hasattr(self, '_dlg'):
+            self._page.update()
+
+    @staticmethod
+    def _is_valid_backup_zip(path: str) -> bool:
+        try:
+            with zipfile.ZipFile(path, 'r') as zf:
+                names = zf.namelist()
+        except Exception:
+            return False
+        return any(n.startswith('bot_commands/') or n.startswith('bot_vars/') for n in names)
+
+    async def _pick_import_zip(self, _):
+        if self._import_file_picker not in self._page.services:
+            self._page.services.append(self._import_file_picker)
+
+        files = await self._import_file_picker.pick_files(
+            dialog_title=_t('import_zip_pick_title'),
+            file_type=ft.FilePickerFileType.CUSTOM,
+            allowed_extensions=['zip'],
+        )
+        if not files:
+            return
+        path = files[0].path
+        if not path or not os.path.isfile(path):
+            return
+
+        if not self._is_valid_backup_zip(path):
+            self._import_zip_path = ''
+            self._import_clear_btn.visible = False
+            self._import_status_text.value = _t('import_zip_invalid')
+            self._import_status_text.color = _c('danger')
+            self._page.update()
+            return
+
+        self._import_zip_path = path
+        self._import_clear_btn.visible = True
+        self._import_status_text.value = _t('import_zip_selected').format(
+            file_name=os.path.basename(path)
+        )
+        self._import_status_text.color = _c('success')
+        self._page.update()
+
+    def _clear_import_zip(self, _):
+        self._import_zip_path = ''
+        self._import_clear_btn.visible = False
+        self._refresh_import_availability()
+
     def _submit(self, _):
         name  = self._name_field.value.strip() or 'My Bot'
         token = self._token_field.value.strip()
@@ -465,7 +647,12 @@ class CreateBotDialog:
 
         self._token_field.error_text = None
         self._page.pop_dialog()
-        self._on_create({'name': name, 'token': token, 'image': self._img_path})
+        self._on_create({
+            'name': name,
+            'token': token,
+            'image': self._img_path,
+            'import_zip': self._import_zip_path,
+        })
 
     def _cancel(self, _):
         self._page.pop_dialog()
@@ -597,9 +784,26 @@ class MainView:
         if bot_exists(name):
             _show_warning(self._page, _t('name_taken'))
             return
-        self._push_card(save_bot_data(data))
+
+        config = save_bot_data(data)
+
+        import_zip = data.get('import_zip', '')
+        if import_zip and os.path.isfile(import_zip):
+            self._restore_bot_backup(get_bot_dir(config.get('name', name)), import_zip)
+
+        self._push_card(config)
         self._refresh_content_area()
         self._page.update()
+
+    @staticmethod
+    def _restore_bot_backup(bot_dir: str, zip_path: str):
+        try:
+            with zipfile.ZipFile(zip_path, 'r') as zf:
+                for member in zf.namelist():
+                    if member.startswith('bot_commands/') or member.startswith('bot_vars/'):
+                        zf.extract(member, bot_dir)
+        except Exception as e:
+            print(f'[MainView] backup restore failed: {e}')
 
     def _push_card(self, bot_data: dict):
         card = build_bot_card(
@@ -621,21 +825,18 @@ class MainView:
 #  NAVIGATION HELPERS
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _show_main(page: ft.Page): 
-    page.clean()
-
+def _show_main(page: ft.Page):
     def open_dashboard(bot_data: dict):
         _show_dashboard(page, bot_data)
 
     view = MainView(page=page, on_open_dashboard=open_dashboard)
 
-    if is_mobile():
-        page.add(ft.SafeArea(content=view.build(), expand=True))
-    else:
-        page.add(view.build())
+    _CURRENT_SCREEN['kind']      = 'main'
+    _CURRENT_SCREEN['dashboard'] = None
+    _nav_clear()        
 
-    page.update()
-    
+    _set_body(page, view.build())
+
 
 def _show_dashboard(page: ft.Page, bot_data: dict):
     bot_name  = bot_data.get('name', 'bot')
@@ -645,16 +846,13 @@ def _show_dashboard(page: ft.Page, bot_data: dict):
 
     bot_dir = os.path.join(get_app_data_dir(), safe_name)
 
-    page.clean()
-
     dashboard = BotDashboardScreen(page=page, bot_dir=bot_dir, on_back=lambda: _show_main(page))
 
-    if is_mobile():
-        page.add(ft.SafeArea(content=dashboard.build(), expand=True))
-    else:
-        page.add(dashboard.build())
+    _CURRENT_SCREEN['kind']      = 'dashboard'
+    _CURRENT_SCREEN['dashboard'] = dashboard
+    _nav_push(lambda: _show_main(page))  
 
-    page.update()
+    _set_body(page, dashboard.build())
 
 
 # ══════════════════════════════════════════════════════════════════════════════

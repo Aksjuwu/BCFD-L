@@ -1,0 +1,21 @@
+<dash>
+name: $guildVerificationLvl
+desc: Renvoie le niveau de vérification configuré sur le serveur.
+category: Serveur
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $guildVerificationLvl renvoie le niveau de sécurité que les nouveaux membres doivent passer avant de pouvoir écrire, sous forme de valeur interne de NONE (0) à VERY_HIGH (4) : 0 = Aucune, 1 = Basse, 2 = Moyenne, 3 = Haute, 4 = Maximale.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $guildVerificationLvl
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Verification level here: $guildVerificationLvl]
+</block>
+
+<block type="callout" kind="important">
+text: Utilisable uniquement dans un serveur - en MP, une erreur d'environnement est levée et le script s'arrête.
+</block>
+</dash>

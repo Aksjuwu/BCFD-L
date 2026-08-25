@@ -1,0 +1,26 @@
+<dash>
+name: $setBotStatus
+desc: Меняет статус присутствия бота (online, idle, dnd или invisible).
+category: Сервер
+
+<block type="text" title="Как работает команда?">
+text: $setBotStatus переключает индикатор присутствия бота между online (в сети), idle (неактивен), dnd (не беспокоить) и invisible (невидимка). Статус сохраняется до следующего изменения - перезапуск приложения сбрасывает его согласно сохранённым настройкам.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $setBotStatus[online|idle|dnd|invisible]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $setBotStatus[idle]
+</block>
+
+<block type="callout" kind="important">
+text: Внутреннее ограничение - одно изменение каждые 12 секунд; дополнительные вызовы в этом окне молча игнорируются. offline принимается как псевдоним invisible. Любое другое значение вызывает ошибку.
+</block>
+</dash>
+
+<details>
+syntax: $setBotStatus[online|idle|dnd|invisible]
+param: status|text|Обязательный|Одно из значений: online, idle, dnd, invisible (offline - псевдоним invisible)
+</details>

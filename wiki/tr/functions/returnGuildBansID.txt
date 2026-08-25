@@ -1,0 +1,29 @@
+<dash>
+name: $returnGuildBansID
+desc: Sunucudaki tüm yasaklı kullanıcıların kimliklerini toplar ve saklar.
+category: Dönüş Komutları
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $returnGuildBansID belirtilen sunucunun yasaklama listesini ister ve her yasaklı üyenin kullanıcı kimliğini verilen değişken adı altında, ayraçla ayrılmış olarak saklar. Saklanan dizgiyi daha sonra $return[var] ile alın.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $returnGuildBansID[GuildID; var; separator]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $returnGuildBansID[$guildID; bannedIDs; ,]
+text: $sendMessage[Banned users: $return[bannedIDs]]
+</block>
+
+<block type="callout" kind="important">
+text: Üyeleri Yasakla izni gerekir - izin yoksa komut bir yetki hatasıyla başarısız olur. Boş değişken, kimsenin yasaklanmadığı anlamına gelir.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildBansID[GuildID; var; separator]
+param: GuildID|snowflake|Zorunlu|Yasaklama listesi okunacak sunucunun kimliği
+param: var|text|Zorunlu|Sonucun saklanacağı değişken adı ($return[] ile okunur)
+param: separator|text|Zorunlu|Kimlikler arasındaki ayraç (örn. ,). Adlandırılmış ayraçlar da geçerlidir: dot, com, apo, sem, colon
+</details>

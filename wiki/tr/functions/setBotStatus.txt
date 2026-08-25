@@ -1,0 +1,26 @@
+<dash>
+name: $setBotStatus
+desc: Botun durum bilgisini değiştirir (online, idle, dnd veya invisible).
+category: Sunucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $setBotStatus, botun durum göstergesini online (çevrimiçi), idle (boşta), dnd (rahatsız etmeyin) ve invisible (çevrimdışı görünür) arasında değiştirir. Durum tekrar değiştirilene kadar kalır - uygulamayı yeniden başlatmak onu kayıtlı ayarlara göre sıfırlar.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $setBotStatus[online|idle|dnd|invisible]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $setBotStatus[idle]
+</block>
+
+<block type="callout" kind="important">
+text: Dahili olarak 12 saniyede bir değişiklikle sınırlıdır - bu süredeki ek çağrılar sessizce başarısız olur. offline, invisible için takma ad olarak kabul edilir. Diğer değerler hata verir.
+</block>
+</dash>
+
+<details>
+syntax: $setBotStatus[online|idle|dnd|invisible]
+param: status|text|Zorunlu|Şunlardan biri: online, idle, dnd, invisible (offline, invisible için takma addır)
+</details>

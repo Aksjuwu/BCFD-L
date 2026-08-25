@@ -1,0 +1,21 @@
+<dash>
+name: $getTimestamp
+desc: Returns the current time as a Unix timestamp.
+category: Timing & Delays
+
+<block type="text" title="How does the command work?">
+text: $getTimestamp returns the number of seconds elapsed since January 1, 1970 (UTC) as plain digits - the classic Unix epoch time. It is refreshed every time the script runs, so it always reflects the exact moment of execution.
+</block>
+
+<block type="code" title="Syntax">
+text: $getTimestamp
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Now in Unix time: $getTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: Combine it with <t:$getTimestamp> in your message text to let Discord render a live local date and time for every reader.
+</block>
+</dash>

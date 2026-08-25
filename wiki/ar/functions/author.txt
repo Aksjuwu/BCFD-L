@@ -1,0 +1,27 @@
+<dash>
+name: $author
+desc: يضبط أو يحدّث اسم المؤلف في أعلى الإيمبد.
+category: منشئ الإيمبد
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تضبط $author اسم المؤلف الظاهر في أعلى الإيمبد بجانب أيقونته. يحدد المعامل الاختياري index الإيمبد المراد تعديله عند بناء عدة إيمبدات في رسالة واحدة. يتم الحفاظ على أيقونة المؤلف ورابطه الحاليين.
+</block>
+
+<block type="code" title="الصيغة">
+text: $author[name;(index)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $author[Server Staff Team]
+</block>
+
+<block type="callout" kind="note">
+text: ادمجها مع $authorIcon لإضافة صورة ومع $authorURL لجعل الاسم قابلاً للنقر.
+</block>
+</dash>
+
+<details>
+syntax: $author[name;(index)]
+param: name|text|مطلوب|اسم المؤلف المعروض في أعلى الإيمبد
+param: index|number|اختياري|رقم الإيمبد المراد تعديله عند بناء عدة إيمبدات (افتراضيًا 1)
+</details>

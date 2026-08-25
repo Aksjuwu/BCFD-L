@@ -113,14 +113,18 @@ def _category_color(cat: str) -> str:
 # ══════════════════════════════════════════════════════════════════════════════
 
 try:
-    from main_exe.core_fdsb.FDCore import KNOWN_COMMANDS
+    from main_exe.core_fdsb.FDCore import (
+        KNOWN_COMMANDS, CONTROL_FLOW_COMMANDS, FUNCTION_COMMANDS,
+    )
 except ImportError:
     KNOWN_COMMANDS = set()
+    CONTROL_FLOW_COMMANDS = {
+        "if", "elif", "else", "endif", "while", "endwhile", "for", "endfor",
+        "break", "return", "and", "or", "onlyIf", "onlyAdmin", "log"
+    }
+    FUNCTION_COMMANDS = {"func", "endfunc", "call"}
 
-CONTROL_FLOW_COMMANDS = {
-    "if", "elif", "else", "endif", "while", "endwhile", "for", "endfor",
-    "break", "return", "and", "or", "onlyIf", "onlyAdmin", "log"
-}
+_HL_FUNC_COLOR = '#F1C40F'
 
 _HL_FONT_SIZE   = 13
 _HL_FONT_FAMILY = 'Consolas'
@@ -708,6 +712,7 @@ class BotWikiTab:
         self._hl_colors = {
             'base':    '#2ECC71',
             'control': '#9B59B6',
+            'func':    _HL_FUNC_COLOR,
             'known':   '#3498DB',
             'bracket': '#FC2323',
             'semi':    '#8A200D',
@@ -753,6 +758,7 @@ class BotWikiTab:
         self._hl_colors = {
             'base':    get('success'),
             'control': get('syntax_control_flow'),
+            'func':    data.get('syntax_func', _HL_FUNC_COLOR),
             'known':   get('syntax_cmd'),
             'bracket': get('syntax_brackets'),
             'semi':    get('syntax_semicolon'),
@@ -994,15 +1000,24 @@ class BotWikiTab:
     def _highlight_code(self, text: str) -> List[ft.TextSpan]:
         known_cmds = set(KNOWN_COMMANDS) if KNOWN_COMMANDS else set()
         control_flow_escaped = '|'.join(sorted(CONTROL_FLOW_COMMANDS, key=len, reverse=True))
-        known_escaped = '|'.join(sorted(known_cmds - CONTROL_FLOW_COMMANDS, key=len, reverse=True))
+        func_escaped = '|'.join(
+            sorted(FUNCTION_COMMANDS - CONTROL_FLOW_COMMANDS,
+                   key=len, reverse=True)
+        ) if FUNCTION_COMMANDS else ''
+        known_escaped = '|'.join(
+            sorted(known_cmds - CONTROL_FLOW_COMMANDS - FUNCTION_COMMANDS,
+                   key=len, reverse=True)
+        )
 
         control_part = rf'\$(?:{control_flow_escaped})\b' if control_flow_escaped else r'(?!x)x'
-        known_part   = rf'\$(?:{known_escaped})\b'        if known_escaped        else r'(?!x)x'
+        func_part    = rf'\$(?:{func_escaped})\b'         if func_escaped        else r'(?!x)x'
+        known_part   = rf'\$(?:{known_escaped})\b'        if known_escaped       else r'(?!x)x'
 
         master_pattern = (
             r'(?P<comment>#.*)'
             r'|(?P<string>".*?"|\'.*?\')'
             rf'|(?P<control>{control_part})'
+            rf'|(?P<func>{func_part})'
             rf'|(?P<known>{known_part})'
             r'|(?P<token>\$\w*)'
             r'|(?P<punct>[\[\];])'
@@ -1030,6 +1045,7 @@ class BotWikiTab:
             if group == 'comment': spans.append(_span(value, colors.get('comment', base_color)))
             elif group == 'string': spans.append(_span(value, colors.get('string', base_color)))
             elif group == 'control': spans.append(_span(value, colors.get('control', base_color)))
+            elif group == 'func': spans.append(_span(value, colors.get('func', _HL_FUNC_COLOR)))
             elif group == 'known': spans.append(_span(value, colors.get('known', base_color)))
             elif group == 'punct':
                 b_color = colors.get('semi', base_color) if value == ';' else colors.get('bracket', base_color)

@@ -1,0 +1,28 @@
+<dash>
+name: $thumbnail
+desc: Définit la miniature d'un embed via une URL.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $thumbnail place une grande image dans le coin supérieur droit de l'embed visé. Tout argument contenant une adresse web valide fonctionne - la commande extrait la première URL trouvée. Le dernier argument numérique, facultatif, choisit quel embed modifier.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $thumbnail[url;(index)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $title[Server stats]
+text: $thumbnail[https://example.com/chart.png]
+</block>
+
+<block type="callout" kind="note">
+text: L'URL doit commencer par http:// ou https://. La ponctuation suivant l'URL est automatiquement retirée. Une erreur survient si aucune URL valide n'est trouvée.
+</block>
+</dash>
+
+<details>
+syntax: $thumbnail[url;(index)]
+param: url|text|Requis|Texte contenant l'URL de l'image (http:// ou https://)
+param: index|number|Facultatif|Numéro de l'embed à modifier quand plusieurs embeds sont construits (par défaut 1)
+</details>

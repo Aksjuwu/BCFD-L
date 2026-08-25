@@ -1,0 +1,28 @@
+<dash>
+name: $footerIcon
+desc: Sets the footer icon image of an embed using a URL.
+category: Embed Builder
+
+<block type="text" title="How does the command work?">
+text: $footerIcon places a small round picture next to the footer text of the target embed. Any argument containing a valid web address works - the command extracts the first URL found. The optional last numeric argument selects which embed to edit.
+</block>
+
+<block type="code" title="Syntax">
+text: $footerIcon[url;(index)]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $footer[(c) My Community]
+text: $footerIcon[https://example.com/logo.png]
+</block>
+
+<block type="callout" kind="note">
+text: The URL must start with http:// or https://. Trailing punctuation after the URL (like . or )) is trimmed automatically. An error is raised if no valid URL is found.
+</block>
+</dash>
+
+<details>
+syntax: $footerIcon[url;(index)]
+param: url|text|Required|Text containing the image URL (http:// or https://)
+param: index|number|Optional|Embed number to edit when several embeds are being built (default 1)
+</details>

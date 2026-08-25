@@ -1,0 +1,26 @@
+<dash>
+name: $boostCount
+desc: يعيد عدد التعزيزات (Boosts) الحالية للسيرفر.
+category: السيرفر
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تعيد $boostCount العدد الحالي لتعزيزات السيرفر (الاشتراكات المميزة). بدون معاملات تقرأ السيرفر الذي حدث فيه الحدث. يمكنك تمرير معرّف أي سيرفر يشترك فيه البوت لقراءة عدد تعزيزاته.
+</block>
+
+<block type="code" title="الصيغة">
+text: $boostCount[(guildID)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[This server has $boostCount boosts!]
+</block>
+
+<block type="callout" kind="note">
+text: هذا هو عدد التعزيزات وليس مستوى التعزيز - استخدم $boostLevel للمستوى.
+</block>
+</dash>
+
+<details>
+syntax: $boostCount[(guildID)]
+param: guildID|snowflake|اختياري|معرّف السيرفر الذي ستُقرأ تعزيزاته (افتراضيًا السيرفر الحالي)
+</details>

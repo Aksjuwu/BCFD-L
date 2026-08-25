@@ -1,0 +1,28 @@
+<dash>
+name: $authorURL
+desc: Embed'in yazar adını tıklanabilir bir bağlantıya dönüştürür.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $authorURL, embed'in yazar adına bir bağlantı ekler; tıklandığında belirtilen adres açılır. Birden fazla embed oluşturulurken isteğe bağlı index hangisinin düzenleneceğini seçer. Henüz bir yazar adı ayarlanmadıysa bağlantının çalışması için boş bir yer tutucu ad kullanılır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $authorURL[url;(index)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $author[Visit our site]
+text: $authorURL[https://example.com]
+</block>
+
+<block type="callout" kind="note">
+text: URL, http:// veya https:// ile başlamalıdır. Discord, adın tıklanabilir olduğunu görsel olarak belirtmez; bunu metinde belirtmek iyi olur.
+</block>
+</dash>
+
+<details>
+syntax: $authorURL[url;(index)]
+param: url|text|Zorunlu|Hedef bağlantı (http:// veya https://)
+param: index|number|İsteğe bağlı|Birden fazla embed oluşturulurken düzenlenecek embed'in numarası (varsayılan 1)
+</details>

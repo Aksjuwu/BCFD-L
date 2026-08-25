@@ -1,0 +1,26 @@
+<dash>
+name: $onBoostServer
+desc: 有人为服务器助力或提升其助力等级时触发的事件。
+category: 事件
+
+<block type="text" title="事件如何工作？">
+text: 每当 Discord 发布关于服务器助力的系统消息时，$onBoostServer 就会触发——包括新的助力以及服务器达到等级 1、2 或 3。在事件脚本中，可以通过 $authorID 或 $mention 等命令获取助力成员，频道上下文指向 Discord 发布系统消息的频道。
+</block>
+
+<block type="code" title="语法">
+text: #PREFIX:$onBoostServer
+</block>
+
+<block type="code" title="可复制示例">
+text: #PREFIX:$onBoostServer
+text:  sendMessage[Thanks $mention for boosting! This server now has $boostCount boosts]
+</block>
+
+<block type="callout" kind="note">
+text: 只有真正的助力系统消息才会触发此事件——普通聊天永远不会。在这里感谢助力者可以配合使用 $boostLevel 和 $boostCount。
+</block>
+
+<block type="callout" kind="important">
+text: 此事件在 bot_events 文件夹中运行，而不是 bot_commands。请在其中创建你的 .fds 文件。
+</block>
+</dash>

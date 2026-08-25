@@ -1,0 +1,27 @@
+<dash>
+name: $author
+desc: Setzt oder aktualisiert den Autorennamen oben im Embed.
+category: Embed-Ersteller
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $author setzt den Autorennamen, der oben im Embed neben dem Symbol angezeigt wird. Der optionale Index wählt aus, welches Embed bearbeitet wird, wenn mehrere Embeds in einer Nachricht erstellt werden. Vorhandenes Symbol und Link des Autors bleiben erhalten.
+</block>
+
+<block type="code" title="Syntax">
+text: $author[name;(index)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $author[Server Staff Team]
+</block>
+
+<block type="callout" kind="note">
+text: Kombiniere ihn mit $authorIcon für ein Bild und mit $authorURL, um den Namen klickbar zu machen.
+</block>
+</dash>
+
+<details>
+syntax: $author[name;(index)]
+param: name|text|Erforderlich|Der Autorenname, der oben im Embed angezeigt wird
+param: index|number|Optional|Nummer des zu bearbeitenden Embeds bei mehreren Embeds (Standard 1)
+</details>

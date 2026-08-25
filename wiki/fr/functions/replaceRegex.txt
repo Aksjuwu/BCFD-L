@@ -1,0 +1,28 @@
+<dash>
+name: $replaceRegex
+desc: Remplace le texte correspondant à une règle de caractères par un nouveau texte.
+category: Utilitaires de texte
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $replaceRegex parcourt le texte d'entrée à la recherche de groupes de caractères décrits par la règle et remplace chaque correspondance par le texte de remplacement. Une règle [abc] cible ces caractères, -[abc] tout le reste ; toute autre règle est traitée comme du texte littéral. Un groupe correspondant peut couvrir plusieurs caractères d'affilée.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $replaceRegex[text; rule; replacement]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $replaceRegex[Banana; [aeiou]; *]
+</block>
+
+<block type="callout" kind="note">
+text: La recherche est gourmande : les caractères consécutifs correspondants ne donnent qu'un seul remplacement. Pour supprimer complètement des caractères, utilisez un remplacement vide.
+</block>
+</dash>
+
+<details>
+syntax: $replaceRegex[text; rule; replacement]
+param: text|text|Requis|Le texte original à traiter
+param: rule|text|Requis|Règle de caractères : [caractères] vise les caractères listés, -[caractères] tout le reste, sinon texte littéral
+param: replacement|text|Requis|Texte inséré à la place de chaque correspondance
+</details>

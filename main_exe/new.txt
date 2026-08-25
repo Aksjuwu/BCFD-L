@@ -1,13 +1,22 @@
-welcome to update 2.3.2
+welcome to update 2.4.0
 
 # add:
-- speed up the download wiki
+- add all embed & more 
 
-- add http commands
+- add function
 
-- add more split commands
+- add evnt boost
+
+- add a dedicated button to edit the
+bot's status in settings
+
+# ui
+
+- main & setting modification
 
 # fixed:
-- some fixeds to ui app
+- some fixeds ui on android
+
+- fixed http commands
 
 - some fixed commands

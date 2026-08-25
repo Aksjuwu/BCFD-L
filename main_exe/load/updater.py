@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # -*- coding: utf-8 -*-
-# main_exe/updater.py
+# main_exe/load/updater.py
 
 import re
 import json
@@ -28,7 +28,7 @@ def _c(key: str) -> str:
 
 # ── Config ───────────────────────────────────────────────────────────
 
-APP_VERSION = "2.3.2"
+APP_VERSION = "2.4.0"
 GITHUB_REPO = "obgwew/FDSB"
 GITHUB_API_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 

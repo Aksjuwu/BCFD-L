@@ -1,0 +1,26 @@
+<dash>
+name: $onBoostServer
+desc: حدث يُطلق عندما يدعم أحدٌ السيرفر أو يرتفع مستوى تعزيزه.
+category: الحدث
+
+<block type="text" title="كيف يعمل الحدث؟">
+text: تُنفَّذ $onBoostServer كلما نشر Discord رسالة نظام عن تعزيز السيرفر - بما فيها التعزيز الجديد، ووصول السيرفر إلى المستوى 1 أو 2 أو 3. داخل سكربت الحدث يمكنك الوصول إلى العضو الداعم عبر أوامر مثل $authorID أو $mention، ويشير سياق القناة إلى القناة التي نشر فيها Discord رسالة النظام.
+</block>
+
+<block type="code" title="الصيغة">
+text: #PREFIX:$onBoostServer
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: #PREFIX:$onBoostServer
+text:  sendMessage[Thanks $mention for boosting! This server now has $boostCount boosts]
+</block>
+
+<block type="callout" kind="note">
+text: لا تُفعِّل هذا الحدث إلا رسائل نظام التعزيز الحقيقية - ولن تفعّله أبدًا رسائل الدردشة العادية. يتناسب شكر الداعمين هنا جيدًا مع $boostLevel و $boostCount.
+</block>
+
+<block type="callout" kind="important">
+text: يعمل هذا الحدث في مجلد bot_events وليس bot_commands. أنشئ ملف .fds الخاص بك هناك.
+</block>
+</dash>

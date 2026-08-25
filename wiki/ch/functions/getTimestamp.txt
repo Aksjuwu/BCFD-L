@@ -1,0 +1,21 @@
+<dash>
+name: $getTimestamp
+desc: 以 Unix 时间戳的形式返回当前时间。
+category: 计时与延迟
+
+<block type="text" title="命令如何工作？">
+text: $getTimestamp 以纯数字形式返回自1970年1月1日（UTC）以来经过的秒数——经典的 Unix 纪元时间。每次脚本运行时都会刷新，始终反映执行的确切时刻。
+</block>
+
+<block type="code" title="语法">
+text: $getTimestamp
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[Now in Unix time: $getTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: 在消息文本中与 <t:$getTimestamp> 结合使用，Discord 会为每位读者显示其本地日期和时间。
+</block>
+</dash>

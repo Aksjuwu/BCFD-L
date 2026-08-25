@@ -5,12 +5,12 @@ from FDScript import ExecutionContext, Command
 
 def _process(args: list[str], ctx: ExecutionContext) -> str:
     result = getattr(ctx, "http_result", "")
-    
+
     if not args:
         if isinstance(result, (dict, list)):
             return json.dumps(result, ensure_ascii=False)
         return str(result)
-        
+
     if isinstance(result, (dict, list)):
         current_val = result
         for key_raw in args:
@@ -24,14 +24,14 @@ def _process(args: list[str], ctx: ExecutionContext) -> str:
                     return ""
             except (KeyError, IndexError):
                 return ""
-                
+
             if current_val is None:
                 return ""
-                
+
         if isinstance(current_val, (dict, list)):
             return json.dumps(current_val, ensure_ascii=False)
         return str(current_val)
-        
+
     return ""
 
 def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:

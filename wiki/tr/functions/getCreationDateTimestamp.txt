@@ -1,0 +1,26 @@
+<dash>
+name: $getCreationDateTimestamp
+desc: Herhangi bir kimliği oluşturulma tarihinin Unix zaman damgasına çevirir.
+category: Zamanlama ve Gecikmeler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: Her Discord nesnesi (kullanıcı, kanal, rol, mesaj ...) kendi snowflake kimliği içinde oluşturulma zamanını taşır. $getCreationDateTimestamp bunu çözümler ve oluşturulma anını Unix zaman damgası (1 Ocak 1970ten beri saniye) olarak döndürür. Etiketler (mention) otomatik kabul edilir ve temizlenir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $getCreationDateTimestamp[idOrMention]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Your account was created on <t:$getCreationDateTimestamp[$authorID]>]
+</block>
+
+<block type="callout" kind="note">
+text: Her snowflake kimliğiyle çalışır: kullanıcılar, üyeler, kanallar, roller, sunucular ve mesajlar. Okunabilir bir tarih için Discord'un <t:ZAMAN_DAMGASI> biçimiyle birlikte kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $getCreationDateTimestamp[idOrMention]
+param: idOrMention|text|Zorunlu|Herhangi bir Discord nesnesinin snowflake kimliği veya etiketi (<@id>, <#id>, <@&id>)
+</details>

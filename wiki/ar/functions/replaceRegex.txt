@@ -1,0 +1,28 @@
+<dash>
+name: $replaceRegex
+desc: يستبدل النص المطابق لقاعدة حرفية بنص جديد.
+category: أدوات النصوص
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تبحث $replaceRegex في النص المدخل عن مجموعات الحروف الموصوفة في القاعدة وتستبدل كل تطابق بالنص البديل. القاعدة المكتوبة [abc] تستهدف تلك الحروف، و -[abc] تستهدف كل ما عداها، وأي قاعدة أخرى تعامل كنص حرفي. قد تشمل المجموعة المتطابقة عدة أحرف متجاورة دفعة واحدة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $replaceRegex[text; rule; replacement]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $replaceRegex[Banana; [aeiou]; *]
+</block>
+
+<block type="callout" kind="note">
+text: المطابقة جشعة: الأحرف المتطابقة المتتالية تنهار في استبدال واحد. لإزالة الأحرف تمامًا استخدم نصًا بديلًا فارغًا.
+</block>
+</dash>
+
+<details>
+syntax: $replaceRegex[text; rule; replacement]
+param: text|text|مطلوب|النص الأصلي المراد معالجته
+param: rule|text|مطلوب|القاعدة الحرفية: [chars] تطابق الحروف المذكورة، و-[chars] تطابق كل ما عداها، وإلا تعامل كنص حرفي
+param: replacement|text|مطلوب|النص الموضوع مكان كل تطابق
+</details>

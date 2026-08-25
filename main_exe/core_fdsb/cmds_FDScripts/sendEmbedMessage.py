@@ -1,4 +1,6 @@
 # cmds_FDScripts/sendEmbedMessage.py
+from datetime import datetime, timezone
+
 import discord
 from FDScript import (
     ExecutionContext, Command,
@@ -11,11 +13,20 @@ def resolve_inline(args: list[str], ctx: ExecutionContext) -> str:
     return ""
 
 
+def _arg(args: list[str], index: int) -> str:
+    return args[index].strip() if index < len(args) else ""
+
+
+def _is_yes(raw: str) -> bool:
+    return raw.strip().lower() == "yes"
+
+
 async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: discord.abc.Messageable) -> None:
-    if len(args) < 5 or not args[4].strip():
+    if len(args) < 1 or not args[0].strip():
         await _send_error(ch, FDLogicError(
-            "`$sendEmbedMessage` requires 5 mandatory arguments:\n"
-            "`$sendEmbedMessage[channelID; title; description; color; footer]`"
+            "`$sendEmbedMessage` requires at least the channel ID:\n"
+            "`$sendEmbedMessage[Channel ID;Content;(Title;Title URL;Description;Color hex;"
+            "Author;Author icon;Footer;Footer icon;Thumbnail;Image;Add timestamp?;Return ID?)]`"
         ))
         return
 
@@ -35,19 +46,52 @@ async def execute(cmd: Command, args: list[str], ctx: ExecutionContext, ch: disc
         ))
         return
 
-    embed = discord.Embed(
-        title=args[1],
-        description=args[2],
-        color=_parse_color(args[3]),
-    )
-    if args[4].strip():
-        embed.set_footer(text=args[4])
+    content       = args[1] if len(args) > 1 else ""
+    title         = _arg(args, 2)
+    title_url     = _arg(args, 3)
+    description   = _arg(args, 4)
+    color_hex     = _arg(args, 5)
+    author        = _arg(args, 6)
+    author_icon   = _arg(args, 7)
+    footer        = _arg(args, 8)
+    footer_icon   = _arg(args, 9)
+    thumbnail     = _arg(args, 10)
+    image         = _arg(args, 11)
+    add_timestamp = _arg(args, 12)
+    return_id     = _arg(args, 13)
+
+    embed = discord.Embed(color=_parse_color(color_hex))
+    if title:
+        embed.title = title
+    if title_url:
+        embed.url = title_url
+    if description:
+        embed.description = description
+    if author or author_icon:
+        embed.set_author(name=author or "\u200b", icon_url=author_icon or None)
+    if footer or footer_icon:
+        embed.set_footer(text=footer or "\u200b", icon_url=footer_icon or None)
+    if thumbnail:
+        embed.set_thumbnail(url=thumbnail)
+    if image:
+        embed.set_image(url=image)
+    if _is_yes(add_timestamp):
+        embed.timestamp = datetime.now(timezone.utc)
 
     try:
         ctx.stop_typing()
-        sent = await target_ch.send(embed=embed)
+        sent = await target_ch.send(content=content or None, embed=embed)
         ctx.last_bot_message = sent
-        ctx.log_event(f"sendEmbedMessage [{_truncate(args[1])}] → sent to channel {ch_id_str}")
+
+        if _is_yes(return_id):
+            id_content = f"{content}\n{sent.id}" if content else str(sent.id)
+            try:
+                await sent.edit(content=id_content)
+            except discord.HTTPException:
+                pass
+
+        log_label = title or content
+        ctx.log_event(f"sendEmbedMessage [{_truncate(log_label)}] → sent to channel {ch_id_str}")
     except discord.Forbidden:
         await _send_error(ch, FDEnvironmentError(
             f"`$sendEmbedMessage` — bot lacks permission to send in channel `{ch_id_str}`"

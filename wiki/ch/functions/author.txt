@@ -1,0 +1,27 @@
+<dash>
+name: $author
+desc: 设置或更新嵌入消息顶部的作者名称。
+category: 嵌入消息构建
+
+<block type="text" title="命令如何工作？">
+text: $author 设置嵌入顶部显示的作者名称，位于其图标旁边。可选的 index 参数用于在一条消息中构建多个嵌入时选择要编辑的嵌入。现有的作者图标和链接会被保留。
+</block>
+
+<block type="code" title="语法">
+text: $author[name;(index)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $author[Server Staff Team]
+</block>
+
+<block type="callout" kind="note">
+text: 可与 $authorIcon（添加图片）和 $authorURL（让名称可点击）配合使用。
+</block>
+</dash>
+
+<details>
+syntax: $author[name;(index)]
+param: name|text|必填|显示在嵌入顶部的作者名称
+param: index|number|可选|构建多个嵌入时要编辑的嵌入编号（默认 1）
+</details>

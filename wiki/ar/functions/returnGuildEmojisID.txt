@@ -1,0 +1,30 @@
+<dash>
+name: $returnGuildEmojisID
+desc: يجمع معرّفات الإيموجي من السيرفر حسب النوع ويخزنها.
+category: أوامر الإرجاع
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تجمع $returnGuildEmojisID معرّفات الإيموجي المخصصة من السيرفر المحدد وتخزنها تحت اسم متغير مفصولة بالفاصل. يختار مرشّح النوع بين كل الإيموجي أو الثابتة منها (png) أو المتحركة (gif).
+</block>
+
+<block type="code" title="الصيغة">
+text: $returnGuildEmojisID[GuildID; type; var; separator]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $returnGuildEmojisID[$guildID; animated; animEmojis; ,]
+text: $sendMessage[Animated emojis: $return[animEmojis]]
+</block>
+
+<block type="callout" kind="note">
+text: تقبل قيمة type‏: all أو static أو animated. يجب أن يكون البوت عضوًا في السيرفر المستهدف. لا يُضمن أن يكون ترتيب النتائج مطابقًا لقائمة إيموجي السيرفر.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildEmojisID[GuildID; type; var; separator]
+param: GuildID|snowflake|مطلوب|معرّف السيرفر الذي تُجمع إيموجيه
+param: type|text|مطلوب|المرشّح: all أو static أو animated
+param: var|text|مطلوب|اسم المتغير لتخزين النتيجة (يُقرأ بـ $return[])
+param: separator|text|مطلوب|الفاصل بين المعرّفات (مثال: ،). تعمل الفواصل المسماة أيضًا: dot، com، apo، sem، colon
+</details>

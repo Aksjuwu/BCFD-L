@@ -1,0 +1,27 @@
+<dash>
+name: $authorIcon
+desc: 通过 URL 设置嵌入消息的作者图标图片。
+category: 嵌入消息构建
+
+<block type="text" title="命令如何工作？">
+text: $authorIcon 在嵌入消息的作者名称旁放置一张小的圆形图片。当构建多个嵌入时，可用可选的 index 选择要编辑的嵌入。如果尚未设置作者名称，将使用空白占位名称以便图标仍然显示。
+</block>
+
+<block type="code" title="语法">
+text: $authorIcon[url;(index)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $authorIcon[https://example.com/bot.png]
+</block>
+
+<block type="callout" kind="note">
+text: URL 必须以 http:// 或 https:// 开头。使用 $author 设置图标旁显示的名称。
+</block>
+</dash>
+
+<details>
+syntax: $authorIcon[url;(index)]
+param: url|text|必填|图片的直接链接（http:// 或 https://）
+param: index|number|可选|构建多个嵌入时要编辑的嵌入编号（默认 1）
+</details>

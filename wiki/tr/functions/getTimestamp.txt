@@ -1,0 +1,21 @@
+<dash>
+name: $getTimestamp
+desc: Geçerli zamanı Unix zaman damgası olarak döndürür.
+category: Zamanlama ve Gecikmeler
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $getTimestamp, 1 Ocak 1970'ten (UTC) bu yana geçen saniye sayısını düz rakamlarla döndürür - klasik Unix çağı zamanı. Betik her çalıştığında yenilenir ve her zaman yürütme anını tam olarak yansıtır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $getTimestamp
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Now in Unix time: $getTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: Mesaj metninizde <t:$getTimestamp> ile birlikte kullanın; Discord her okuyucuya yerel tarih ve saatini gösterir.
+</block>
+</dash>

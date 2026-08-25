@@ -1,0 +1,28 @@
+<dash>
+name: $footerIcon
+desc: Legt das Fußzeilen-Symbolbild eines Embeds über eine URL fest.
+category: Embed-Ersteller
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $footerIcon platziert ein kleines rundes Bild neben dem Fußzeilentext des Ziel-Embeds. Jedes Argument mit einer gültigen Webadresse funktioniert - der Befehl extrahiert die erste gefundene URL. Das letzte numerische Argument wählt optional das zu bearbeitende Embed.
+</block>
+
+<block type="code" title="Syntax">
+text: $footerIcon[url;(index)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $footer[(c) My Community]
+text: $footerIcon[https://example.com/logo.png]
+</block>
+
+<block type="callout" kind="note">
+text: Die URL muss mit http:// oder https:// beginnen. Nachgestellte Satzzeichen nach der URL (z. B. . oder )) werden automatisch entfernt. Ohne gültige URL wird ein Fehler ausgelöst.
+</block>
+</dash>
+
+<details>
+syntax: $footerIcon[url;(index)]
+param: url|text|Erforderlich|Text, der die Bild-URL enthält (http:// oder https://)
+param: index|number|Optional|Nummer des zu bearbeitenden Embeds bei mehreren Embeds (Standard 1)
+</details>

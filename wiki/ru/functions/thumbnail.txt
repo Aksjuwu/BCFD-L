@@ -1,0 +1,28 @@
+<dash>
+name: $thumbnail
+desc: Задаёт миниатюру эмбеда по ссылке.
+category: Конструктор embed
+
+<block type="text" title="Как работает команда?">
+text: $thumbnail размещает крупное изображение в правом верхнем углу целевого эмбеда. Подходит любой аргумент, содержащий корректный веб-адрес - команда извлекает первую найденную ссылку. Последний числовой аргумент (необязательно) выбирает редактируемый эмбед.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $thumbnail[url;(index)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $title[Server stats]
+text: $thumbnail[https://example.com/chart.png]
+</block>
+
+<block type="callout" kind="note">
+text: Ссылка должна начинаться с http:// или https://. Конечная пунктуация после ссылки удаляется автоматически. Если ссылка не найдена, возникнет ошибка.
+</block>
+</dash>
+
+<details>
+syntax: $thumbnail[url;(index)]
+param: url|text|Обязательный|Текст, содержащий ссылку на картинку (http:// или https://)
+param: index|number|Необязательный|Номер редактируемого эмбеда при создании нескольких (по умолчанию 1)
+</details>

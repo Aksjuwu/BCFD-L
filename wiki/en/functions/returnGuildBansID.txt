@@ -1,0 +1,29 @@
+<dash>
+name: $returnGuildBansID
+desc: Collects the IDs of all banned users from a guild and stores them.
+category: Return Commands
+
+<block type="text" title="How does the command work?">
+text: $returnGuildBansID requests the ban list of the specified guild and stores every banned member's user ID under the given variable name, joined by the separator. Retrieve the stored string later with $return[var].
+</block>
+
+<block type="code" title="Syntax">
+text: $returnGuildBansID[GuildID; var; separator]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $returnGuildBansID[$guildID; bannedIDs; ,]
+text: $sendMessage[Banned users: $return[bannedIDs]]
+</block>
+
+<block type="callout" kind="important">
+text: Requires the Ban Members permission - without it the command fails with a permissions error. An empty variable means nobody is banned.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildBansID[GuildID; var; separator]
+param: GuildID|snowflake|Required|The ID of the guild whose ban list is read
+param: var|text|Required|Variable name to store the result in (read back with $return[])
+param: separator|text|Required|Separator between IDs (e.g., ,). Named separators work too: dot, com, apo, sem, colon
+</details>

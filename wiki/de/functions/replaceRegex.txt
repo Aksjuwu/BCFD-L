@@ -1,0 +1,28 @@
+<dash>
+name: $replaceRegex
+desc: Ersetzt Text, der einer Zeichenregel entspricht, durch neuen Text.
+category: Textwerkzeuge
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $replaceRegex durchsucht den Eingabetext nach Gruppen von Zeichen, die der Regel entsprechen, und ersetzt jeden Treffer durch den Ersatztext. Eine Regel [abc] zielt auf diese Zeichen, -[abc] auf alles andere; jede andere Regel gilt als wörtlicher Text. Eine Treffergruppe kann mehrere Zeichen auf einmal umfassen.
+</block>
+
+<block type="code" title="Syntax">
+text: $replaceRegex[text; rule; replacement]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $replaceRegex[Banana; [aeiou]; *]
+</block>
+
+<block type="callout" kind="note">
+text: Das Suchen ist gierig: Aufeinanderfolgende Trefferzeichen werden zu einem einzigen Ersatz zusammengefasst. Zum vollständigen Entfernen eine leeren Ersatz verwenden.
+</block>
+</dash>
+
+<details>
+syntax: $replaceRegex[text; rule; replacement]
+param: text|text|Erforderlich|Der ursprüngliche Text
+param: rule|text|Erforderlich|Zeichenregel: [Zeichen] trifft die gelisteten Zeichen, -[Zeichen] alles andere, sonst wörtlicher Text
+param: replacement|text|Erforderlich|Text, der anstelle jedes Treffers eingesetzt wird
+</details>

@@ -1,0 +1,29 @@
+<dash>
+name: $returnGuildBansID
+desc: Собирает ID всех заблокированных пользователей сервера и сохраняет их.
+category: Возвращаемые команды
+
+<block type="text" title="Как работает команда?">
+text: $returnGuildBansID запрашивает список банов указанного сервера и сохраняет ID каждого заблокированного участника под заданным именем переменной, разделяя их разделителем. Получить сохранённую строку позже можно через $return[var].
+</block>
+
+<block type="code" title="Синтаксис">
+text: $returnGuildBansID[GuildID; var; separator]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $returnGuildBansID[$guildID; bannedIDs; ,]
+text: $sendMessage[Banned users: $return[bannedIDs]]
+</block>
+
+<block type="callout" kind="important">
+text: Требуется право «Банить участников» - без него команда завершится ошибкой прав доступа. Пустая переменная означает, что заблокированных нет.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildBansID[GuildID; var; separator]
+param: GuildID|snowflake|Обязательный|ID сервера, список банов которого читается
+param: var|text|Обязательный|Имя переменной для результата (читается через $return[])
+param: separator|text|Обязательный|Разделитель между ID (например ,). Работают и именованные разделители: dot, com, apo, sem, colon
+</details>

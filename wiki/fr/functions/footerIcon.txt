@@ -1,0 +1,28 @@
+<dash>
+name: $footerIcon
+desc: Définit l'icône de pied de page d'un embed via une URL.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $footerIcon place une petite image ronde à côté du texte de pied de page de l'embed visé. Tout argument contenant une adresse web valide fonctionne - la commande extrait la première URL trouvée. Le dernier argument numérique, facultatif, choisit quel embed modifier.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $footerIcon[url;(index)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $footer[(c) My Community]
+text: $footerIcon[https://example.com/logo.png]
+</block>
+
+<block type="callout" kind="note">
+text: L'URL doit commencer par http:// ou https://. La ponctuation qui suit l'URL (comme . ou )) est automatiquement retirée. Une erreur survient si aucune URL valide n'est trouvée.
+</block>
+</dash>
+
+<details>
+syntax: $footerIcon[url;(index)]
+param: url|text|Requis|Texte contenant l'URL de l'image (http:// ou https://)
+param: index|number|Facultatif|Numéro de l'embed à modifier quand plusieurs embeds sont construits (par défaut 1)
+</details>

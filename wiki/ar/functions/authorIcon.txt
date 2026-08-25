@@ -1,0 +1,27 @@
+<dash>
+name: $authorIcon
+desc: يضبط صورة أيقونة المؤلف في الإيمبد باستخدام رابط.
+category: منشئ الإيمبد
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تضع $authorIcon صورة دائرية صغيرة بجانب اسم المؤلف في الإيمبد. يحدد المعامل الاختياري index الإيمبد المراد تعديله عند بناء عدة إيمبدات. إذا لم يُضبط اسم مؤلف بعد، يُستخدم اسم فارغ مؤقت حتى تظهر الأيقونة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $authorIcon[url;(index)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $authorIcon[https://example.com/bot.png]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يبدأ الرابط بـ http:// أو https://. استخدم $author لضبط الاسم الظاهر بجانب الأيقونة.
+</block>
+</dash>
+
+<details>
+syntax: $authorIcon[url;(index)]
+param: url|text|مطلوب|رابط مباشر لصورة (http:// أو https://)
+param: index|number|اختياري|رقم الإيمبد المراد تعديله عند بناء عدة إيمبدات (افتراضيًا 1)
+</details>

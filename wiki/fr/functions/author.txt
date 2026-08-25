@@ -1,0 +1,27 @@
+<dash>
+name: $author
+desc: Définit ou met à jour le nom de l'auteur en haut d'un embed.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $author définit le nom de l'auteur affiché en haut d'un embed, à côté de son icône. L'index facultatif permet de choisir quel embed modifier lorsque plusieurs embeds sont construits dans un même message. L'icône et le lien existants de l'auteur sont conservés.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $author[name;(index)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $author[Server Staff Team]
+</block>
+
+<block type="callout" kind="note">
+text: Combinez-le avec $authorIcon pour ajouter une image et $authorURL pour rendre le nom cliquable.
+</block>
+</dash>
+
+<details>
+syntax: $author[name;(index)]
+param: name|text|Requis|Le nom de l'auteur affiché en haut de l'embed
+param: index|number|Facultatif|Numéro de l'embed à modifier quand plusieurs embeds sont construits (par défaut 1)
+</details>

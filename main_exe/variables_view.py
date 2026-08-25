@@ -849,6 +849,13 @@ class BotVariablesTab:
         self._clear_dirty()
 
         if self._page:
+            self._page.show_dialog(
+                ft.SnackBar(
+                    content=ft.Text(_t('saved_successfully'), color='#FFFFFF'),
+                    bgcolor=_c('success'),
+                    duration=2000,
+                )
+            )
             self._page.update()
 
         return True
@@ -1012,3 +1019,13 @@ class BotVariablesTab:
         self._json_editor_dirty_dot.visible = False
         self._close_json_editor()
         self._refresh_list()
+
+        if self._page:
+            self._page.show_dialog(
+                ft.SnackBar(
+                    content=ft.Text(_t('saved_successfully'), color='#FFFFFF'),
+                    bgcolor=_c('success'),
+                    duration=2000,
+                )
+            )
+            self._page.update()

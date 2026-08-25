@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: Gibt die aktuelle Boost-Stufe des Servers von 0 bis 3 zurück.
+category: Server
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $boostLevel gibt die Boost-Stufe des Servers als Zahl zurück: 0 (keine Stufe), 1 (Stufe 1), 2 (Stufe 2) oder 3 (Stufe 3). Die Stufen werden bei jeweils 2, 7 bzw. 14 Boosts erreicht.
+</block>
+
+<block type="code" title="Syntax">
+text: $boostLevel
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: Kann nur innerhalb eines Servers verwendet werden - in DMs löst sie einen Umgebungsfehler aus und stoppt das Skript.
+</block>
+</dash>

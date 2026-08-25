@@ -1,0 +1,26 @@
+<dash>
+name: $boostCount
+desc: Renvoie le nombre actuel de boosts du serveur.
+category: Serveur
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $boostCount renvoie le nombre actuel de boosts du serveur (abonnements premium). Sans argument, elle lit le serveur où l'événement s'est produit. Vous pouvez passer n'importe quel ID de serveur partagé par le bot pour lire son nombre de boosts.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $boostCount[(guildID)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[This server has $boostCount boosts!]
+</block>
+
+<block type="callout" kind="note">
+text: Il s'agit du nombre de boosts, pas du niveau de boost - utilisez $boostLevel pour cela.
+</block>
+</dash>
+
+<details>
+syntax: $boostCount[(guildID)]
+param: guildID|snowflake|Facultatif|ID du serveur dont on lit le nombre de boosts (par défaut : serveur actuel)
+</details>

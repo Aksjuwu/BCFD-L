@@ -1,0 +1,26 @@
+<dash>
+name: $onBoostServer
+desc: Ereignis, das ausgelöst wird, wenn jemand den Server boosted oder dessen Boost-Stufe erhöht.
+category: Ereignis
+
+<block type="text" title="Wie funktioniert das Ereignis?">
+text: $onBoostServer feuert, sobald Discord eine Systemnachricht über Server-Boosts postet - einschließlich eines neuen Boosts und des Erreichens von Stufe 1, 2 oder 3. Im Ereignisskript erreichst du das boostende Mitglied über Befehle wie $authorID oder $mention, und der Kanal-Kontext zeigt auf den Kanal, in dem Discord die Systemnachricht gepostet hat.
+</block>
+
+<block type="code" title="Syntax">
+text: #PREFIX:$onBoostServer
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: #PREFIX:$onBoostServer
+text:  sendMessage[Thanks $mention for boosting! This server now has $boostCount boosts]
+</block>
+
+<block type="callout" kind="note">
+text: Nur echte Boost-Systemnachrichten lösen dieses Ereignis aus - normaler Chat niemals. Dank an Booster passt hier gut mit $boostLevel und $boostCount zusammen.
+</block>
+
+<block type="callout" kind="important">
+text: Dieses Ereignis wird im Ordner bot_events ausgeführt, nicht in bot_commands. Erstelle deine .fds-Datei dort.
+</block>
+</dash>

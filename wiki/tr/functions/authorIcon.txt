@@ -1,0 +1,27 @@
+<dash>
+name: $authorIcon
+desc: URL kullanarak embed'in yazar simge resmini ayarlar.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $authorIcon, embed'in yazar adının yanına küçük yuvarlak bir resim yerleştirir. Birden fazla embed oluşturulurken isteğe bağlı index hangisinin düzenleneceğini seçer. Henüz bir yazar adı ayarlanmadıysa simgenin yine de görünmesi için boş bir yer tutucu ad kullanılır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $authorIcon[url;(index)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $authorIcon[https://example.com/bot.png]
+</block>
+
+<block type="callout" kind="note">
+text: URL, http:// veya https:// ile başlamalıdır. Simgenin yanında görünen adı ayarlamak için $author kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $authorIcon[url;(index)]
+param: url|text|Zorunlu|Doğrudan resim bağlantısı (http:// veya https://)
+param: index|number|İsteğe bağlı|Birden fazla embed oluşturulurken düzenlenecek embed'in numarası (varsayılan 1)
+</details>

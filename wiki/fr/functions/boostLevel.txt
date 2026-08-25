@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: Renvoie le niveau de boost actuel du serveur, de 0 à 3.
+category: Serveur
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $boostLevel renvoie le niveau de boost du serveur sous forme de nombre : 0 (aucun niveau), 1 (niveau 1), 2 (niveau 2) ou 3 (niveau 3). Les niveaux se débloquent à 2, 7 ou 14 boosts respectivement.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $boostLevel
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: Utilisable uniquement dans un serveur - en MP, une erreur d'environnement est levée et le script s'arrête.
+</block>
+</dash>

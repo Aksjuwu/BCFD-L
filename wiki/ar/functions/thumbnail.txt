@@ -1,0 +1,28 @@
+<dash>
+name: $thumbnail
+desc: يضبط الصورة المصغرة في الإيمبد باستخدام رابط.
+category: منشئ الإيمبد
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تضع $thumbnail صورة كبيرة في الزاوية اليمنى العلوية من الإيمبد المستهدف. يكفي أن يحتوي أي معامل على عنوان ويب صالح - تستخرج الدالة أول رابط تجده. المعامل الرقمي الأخير الاختياري يحدد الإيمبد المراد تعديله.
+</block>
+
+<block type="code" title="الصيغة">
+text: $thumbnail[url;(index)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $title[Server stats]
+text: $thumbnail[https://example.com/chart.png]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يبدأ الرابط بـ http:// أو https://. تُقتطع علامات الترقيم الزائدة بعد الرابط تلقائيًا. يظهر خطأ إذا لم يوجد رابط صالح.
+</block>
+</dash>
+
+<details>
+syntax: $thumbnail[url;(index)]
+param: url|text|مطلوب|نص يحتوي على رابط الصورة (http:// أو https://)
+param: index|number|اختياري|رقم الإيمبد المراد تعديله عند بناء عدة إيمبدات (افتراضيًا 1)
+</details>

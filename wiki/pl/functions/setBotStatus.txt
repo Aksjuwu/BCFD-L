@@ -1,0 +1,26 @@
+<dash>
+name: $setBotStatus
+desc: Zmienia status obecności bota (online, idle, dnd lub invisible).
+category: Serwer
+
+<block type="text" title="Jak działa komenda?">
+text: $setBotStatus przełącza wskaźnik obecności bota między online (dostępny), idle (bezczynny), dnd (nie przeszkadzać) i invisible (niewidoczny). Status pozostaje do następnej zmiany - ponowne uruchomienie aplikacji przywraca go zgodnie z zapisanymi ustawieniami.
+</block>
+
+<block type="code" title="Składnia">
+text: $setBotStatus[online|idle|dnd|invisible]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $setBotStatus[idle]
+</block>
+
+<block type="callout" kind="important">
+text: Wewnętrznie ograniczone do jednej zmiany co 12 sekund - dodatkowe wywołania w tym oknie kończą się po cichu niepowodzeniem. offline działa jako alias invisible. Jakakolwiek inna wartość powoduje błąd.
+</block>
+</dash>
+
+<details>
+syntax: $setBotStatus[online|idle|dnd|invisible]
+param: status|text|Wymagany|Jedna z wartości: online, idle, dnd, invisible (offline jako alias invisible)
+</details>

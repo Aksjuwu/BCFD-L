@@ -1,0 +1,26 @@
+<dash>
+name: $boostCount
+desc: 返回服务器当前的助力（Boost）数量。
+category: 服务器
+
+<block type="text" title="命令如何工作？">
+text: $boostCount 返回服务器当前的帮助数量（高级订阅数）。不带参数时读取事件发生的服务器。可以传入机器人所在任意服务器的 ID 来读取该服务器的数量。
+</block>
+
+<block type="code" title="语法">
+text: $boostCount[(guildID)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[This server has $boostCount boosts!]
+</block>
+
+<block type="callout" kind="note">
+text: 这是助力数量而不是助力等级——等级请使用 $boostLevel。
+</block>
+</dash>
+
+<details>
+syntax: $boostCount[(guildID)]
+param: guildID|snowflake|可选|要读取助力数量的服务器 ID（默认为当前服务器）
+</details>

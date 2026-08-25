@@ -1,0 +1,26 @@
+<dash>
+name: $onBoostServer
+desc: Событие срабатывает, когда кто-то бустит сервер или повышает его уровень буста.
+category: События
+
+<block type="text" title="Как работает событие?">
+text: $onBoostServer срабатывает всякий раз, когда Discord публикует системное сообщение о бустах сервера - включая новый буст и достижение сервером уровней 1, 2 или 3. Внутри скрипта события можно получить доступ к участнику-бустеру через команды вроде $authorID или $mention, а контекст канала указывает на канал, где Discord опубликовал системное сообщение.
+</block>
+
+<block type="code" title="Синтаксис">
+text: #PREFIX:$onBoostServer
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: #PREFIX:$onBoostServer
+text:  sendMessage[Thanks $mention for boosting! This server now has $boostCount boosts]
+</block>
+
+<block type="callout" kind="note">
+text: Это событие запускают только настоящие системные сообщения о бустах - обычный чат никогда. Благодарность бустерам здесь хорошо сочетается с $boostLevel и $boostCount.
+</block>
+
+<block type="callout" kind="important">
+text: Это событие работает в папке bot_events, а не bot_commands. Создавайте там свой .fds файл.
+</block>
+</dash>

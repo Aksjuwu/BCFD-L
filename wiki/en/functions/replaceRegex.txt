@@ -1,0 +1,28 @@
+<dash>
+name: $replaceRegex
+desc: Replaces text matching a character rule with new text.
+category: String Utilities
+
+<block type="text" title="How does the command work?">
+text: $replaceRegex scans the input text for runs of characters described by the rule and swaps every match for the replacement. A rule written as [abc] targets those characters, -[abc] targets everything except them, and any other rule is treated as literal text. A matching run can cover several consecutive characters at once.
+</block>
+
+<block type="code" title="Syntax">
+text: $replaceRegex[text; rule; replacement]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $replaceRegex[Banana; [aeiou]; *]
+</block>
+
+<block type="callout" kind="note">
+text: Matching is greedy: consecutive matching characters collapse into one replacement. To remove characters entirely, use an empty replacement.
+</block>
+</dash>
+
+<details>
+syntax: $replaceRegex[text; rule; replacement]
+param: text|text|Required|The original text to process
+param: rule|text|Required|Character rule: [chars] matches the listed characters, -[chars] matches everything else, otherwise literal text
+param: replacement|text|Required|Text inserted in place of every match
+</details>

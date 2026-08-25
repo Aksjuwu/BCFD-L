@@ -18,6 +18,7 @@ import flet as ft
 from main_exe.langs.translations import Translations
 from main_exe.theme_engine import ThemeEngine
 from main_exe.load.loading_view import LoadingScreen
+from main_exe.status.status_view import BotStatusView
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  PERSISTENT STORAGE PATHS (writable — settings, bot configs, app_data/)
@@ -98,7 +99,6 @@ _FALLBACKS = {
     'save':              'Save',
     'design_section':    'Appearance',
     'info_section':      'Information',
-    'wiki':              'Wiki',
     'github':            'GitHub',
     'discord':           'Discord',
     'link':              '↗ Open link',
@@ -123,6 +123,9 @@ _FALLBACKS = {
     'captcha_hint':      'Enter the 3 digits shown above',
     'confirm_delete':    'Confirm Delete',
     'captcha_wrong':     'Incorrect code — try again',
+    'status_bot_section': 'Bot Status',
+    'status_bot_desc':    "Configure your bot's presence and rotating status messages",
+    'open_status_bot':    'Manage Status',
 }
 
 _LANG_LABELS: dict[str, str] = {
@@ -390,6 +393,14 @@ def _border_all(w: float, color: str) -> ft.Border:
     s = ft.BorderSide(w, color)
     return ft.Border(left=s, top=s, right=s, bottom=s)
 
+def _soft_shadow(blur: int = 16, dy: int = 6, opacity: float = 0.10) -> ft.BoxShadow:
+    return ft.BoxShadow(
+        spread_radius=0,
+        blur_radius=blur,
+        color=ft.Colors.with_opacity(opacity, '#000000'),
+        offset=ft.Offset(0, dy),
+    )
+
 def _card_container(content: ft.Control) -> ft.Container:
     return ft.Container(
         content=content,
@@ -397,6 +408,19 @@ def _card_container(content: ft.Control) -> ft.Container:
         border=_border_all(1, _c('card_border')),
         border_radius=14,
         padding=ft.Padding(left=16, top=14, right=16, bottom=14),
+        shadow=_soft_shadow(),
+    )
+
+
+def _icon_chip(icon: str, bgcolor: str = None, icon_color: str = None,
+               size: int = 30) -> ft.Container:
+    """Small rounded icon badge used to give sections/rows a visual anchor."""
+    return ft.Container(
+        content=ft.Icon(icon, size=15, color=icon_color or '#FFFFFF'),
+        width=size, height=size,
+        border_radius=size * 0.34,
+        bgcolor=bgcolor or _c('accent'),
+        alignment=ft.Alignment(0, 0),
     )
 
 
@@ -405,6 +429,7 @@ def _card_container(content: ft.Control) -> ft.Container:
 # ══════════════════════════════════════════════════════════════════════════════
 
 class BotSettingsTab:
+    _current_view = property(lambda self: 'editor' if self._status_view else 'list')
 
     def __init__(self, page: ft.Page, bot_data: dict = None,
                  on_bot_save=None, on_theme_change=None, on_lang_change=None):
@@ -438,6 +463,7 @@ class BotSettingsTab:
             border_color=_c('card_border'),
             focused_border_color=_c('danger'),
             cursor_color=_c('danger'),
+            border_radius=10,
             text_style=ft.TextStyle(color=_c('text'), size=13),
         )
         self._captcha_section = ft.Column([], spacing=8, visible=False)
@@ -456,9 +482,11 @@ class BotSettingsTab:
         self._name_field = ft.TextField(
             label=_t('bot_name_hint'),
             dense=True,
+            prefix_icon=ft.Icons.SMART_TOY_OUTLINED,
             border_color=_c('card_border'),
             focused_border_color=_c('accent'),
             cursor_color=_c('accent'),
+            border_radius=10,
             label_style=ft.TextStyle(color=_c('text_dim'), size=12),
             text_style=ft.TextStyle(color=_c('text'), size=13),
             bgcolor=_c('card_bg'),
@@ -468,9 +496,11 @@ class BotSettingsTab:
             dense=True,
             password=True,
             can_reveal_password=True,
+            prefix_icon=ft.Icons.VPN_KEY_OUTLINED,
             border_color=_c('card_border'),
             focused_border_color=_c('accent'),
             cursor_color=_c('accent'),
+            border_radius=10,
             label_style=ft.TextStyle(color=_c('text_dim'), size=12),
             text_style=ft.TextStyle(color=_c('text'), size=13),
             bgcolor=_c('card_bg'),
@@ -480,6 +510,7 @@ class BotSettingsTab:
         self._lang_dropdown: ft.Dropdown = None
 
         self._root_col: ft.Column = None
+        self._status_view: BotStatusView | None = None
         
     async def _open_link(self, url: str):
         await self._page.launch_url(url)
@@ -495,13 +526,14 @@ class BotSettingsTab:
                 ft.Column(
                     [
                         self._build_general_section(),
+                        self._build_status_bot_section(),
                         self._build_export_section(),
                         self._build_design_section(),
                         self._build_info_section(),
                         self._build_delete_section(),
                         ft.Container(height=16),
                     ],
-                    spacing=20,
+                    spacing=22,
                     scroll=ft.ScrollMode.AUTO,
                     expand=True,
                 ),
@@ -509,7 +541,11 @@ class BotSettingsTab:
             expand=True,
         )
 
-        self._container = ft.Container(content=self._root_col, expand=True)
+        self._container = ft.Container(
+            content=self._root_col,
+            padding=ft.Padding(left=16, top=16, right=16, bottom=0),
+            expand=True,
+        )
         return self._container
 
     # ── In-place rebuild (language change without parent callback) ────────────
@@ -520,6 +556,7 @@ class BotSettingsTab:
         inner = self._root_col.controls[0]
         inner.controls = [
             self._build_general_section(),
+            self._build_status_bot_section(),
             self._build_export_section(),
             self._build_design_section(),
             self._build_info_section(),
@@ -535,7 +572,7 @@ class BotSettingsTab:
 
         return ft.Column(
             [
-                self._section_title(_t('general_section')),
+                self._section_title(_t('general_section'), ft.Icons.TUNE_ROUNDED),
                 _card_container(
                     ft.Column(
                         [
@@ -669,7 +706,7 @@ class BotSettingsTab:
     def _build_export_section(self) -> ft.Control:
         return ft.Column(
             [
-                self._section_title(_t('export_section')),
+                self._section_title(_t('export_section'), ft.Icons.ARCHIVE_OUTLINED),
                 _card_container(
                     ft.Column(
                         [
@@ -702,6 +739,53 @@ class BotSettingsTab:
             spacing=8,
         )
 
+    # ── Section: Status Bot ────────────────────────────────────────────────────
+
+    def _build_status_bot_section(self) -> ft.Control:
+        return ft.Column(
+            [
+                self._section_title(_t('status_bot_section'), ft.Icons.BUBBLE_CHART_OUTLINED),
+                _card_container(
+                    ft.Column(
+                        [
+                            ft.Text(
+                                _t('status_bot_desc'),
+                                size=12, color=_c('text_dim'),
+                            ),
+                            ft.Divider(color=_c('divider'), height=1),
+                            ft.FilledButton(
+                                content=ft.Row(
+                                    [ft.Icon(ft.Icons.BUBBLE_CHART_OUTLINED, color='#FFFFFF', size=16),
+                                     ft.Text(_t('open_status_bot'),
+                                             color='#FFFFFF', weight=ft.FontWeight.BOLD)],
+                                    spacing=6, tight=True,
+                                ),
+                                on_click=self._open_status_bot,
+                                style=ft.ButtonStyle(bgcolor=_c('accent'), color='#FFFFFF',
+                                                      shape=ft.RoundedRectangleBorder(radius=10)),
+                            ),
+                        ],
+                        spacing=10,
+                    ),
+                ),
+            ],
+            spacing=8,
+        )
+
+    def _open_status_bot(self, _):
+        if self._status_view is None:
+            self._status_view = BotStatusView(
+                self._page, theme_hex=_c, bot_data=self._bot_data,
+                lang=self._lang, on_back=self._close_status_bot,
+            )
+        self._container.content = self._status_view.build()
+        self._page.update()
+
+    def _close_status_bot(self, _=None):
+        self._status_view = None
+        self._container.content = self._root_col
+        self._page.update()
+
     # ── Section: Design / Themes ──────────────────────────────────────────────
 
     def _build_design_section(self) -> ft.Control:
@@ -715,7 +799,7 @@ class BotSettingsTab:
 
         return ft.Column(
             [
-                self._section_title(_t('design_section')),
+                self._section_title(_t('design_section'), ft.Icons.PALETTE_OUTLINED),
                 _card_container(self._design_col),
             ],
             spacing=8,
@@ -725,13 +809,12 @@ class BotSettingsTab:
 
     def _build_info_section(self) -> ft.Control:
         rows = [
-            ('wiki',    'https://github.com/obgwew/FDSB/blob/main/wiki.md'),
             ('github',  'https://github.com/obgwew/FDSB'),
             ('discord', 'https://discord.gg/JngaJRC6Y9'),
         ]
         return ft.Column(
             [
-                self._section_title(_t('info_section')),
+                self._section_title(_t('info_section'), ft.Icons.INFO_OUTLINE_ROUNDED),
                 _card_container(
                     ft.Column(
                         [self._info_row(lk, url) for lk, url in rows],
@@ -774,9 +857,23 @@ class BotSettingsTab:
 
         return ft.Column(
             [
-                ft.Text(_t('danger_zone'), size=13, weight=ft.FontWeight.BOLD, color=_c('danger')),
-                _card_container(
-                    ft.Column([self._delete_init_btn, self._captcha_section], spacing=10),
+                ft.Row(
+                    [
+                        _icon_chip(ft.Icons.WARNING_AMBER_ROUNDED, bgcolor=_c('bg'),
+                                   icon_color=_c('danger'), size=24),
+                        ft.Text(_t('danger_zone'), size=13, weight=ft.FontWeight.BOLD,
+                                color=_c('danger')),
+                    ],
+                    spacing=8,
+                    vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                ),
+                ft.Container(
+                    content=ft.Column([self._delete_init_btn, self._captcha_section], spacing=10),
+                    bgcolor=_c('card_bg'),
+                    border=_border_all(1, _c('danger')),
+                    border_radius=14,
+                    padding=ft.Padding(left=16, top=14, right=16, bottom=14),
+                    shadow=_soft_shadow(opacity=0.06),
                 ),
             ],
             spacing=8,
@@ -784,11 +881,16 @@ class BotSettingsTab:
 
     # ── UI element builders ───────────────────────────────────────────────────
 
-    def _section_title(self, text: str) -> ft.Text:
-        return ft.Text(
-            text, size=12,
-            weight=ft.FontWeight.BOLD,
-            color=_c('text_dim'),
+    def _section_title(self, text: str, icon: str = None) -> ft.Control:
+        if not icon:
+            return ft.Text(text, size=12, weight=ft.FontWeight.BOLD, color=_c('text_dim'))
+        return ft.Row(
+            [
+                _icon_chip(icon, bgcolor=_c('bg'), icon_color=_c('accent'), size=24),
+                ft.Text(text, size=13, weight=ft.FontWeight.BOLD, color=_c('text')),
+            ],
+            spacing=8,
+            vertical_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
     def _theme_row(self, theme_key: str) -> ft.Control:
@@ -816,10 +918,11 @@ class BotSettingsTab:
         swatch = ft.Container(
             content=ft.Row(swatch_widgets, spacing=0),
             border=_border_all(1, _c('card_border')),
-            border_radius=8,
+            border_radius=10,
             clip_behavior=ft.ClipBehavior.HARD_EDGE,
             width=18 * len(swatches),
             height=34,
+            shadow=_soft_shadow(blur=8, dy=3, opacity=0.14),
         )
 
         sel_btn = ft.FilledButton(
@@ -854,41 +957,40 @@ class BotSettingsTab:
                 spacing=12,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            height=52,
-            border_radius=10,
+            height=56,
+            border_radius=12,
             bgcolor=_c('accent') + '18' if is_sel else 'transparent',
-            padding=ft.Padding(left=6, right=6, top=0, bottom=0),
+            border=_border_all(1, _c('accent')) if is_sel else None,
+            padding=ft.Padding(left=8, right=8, top=0, bottom=0),
+            ink=True,
+            on_click=lambda _, k=theme_key: self._page.run_task(self._select_theme, k),
         )
 
     def _info_row(self, label_key: str, url: str) -> ft.Control:
-        icons = {'wiki': ft.Icons.MENU_BOOK_OUTLINED,
-                 'github': ft.Icons.CODE,
+        icons = {'github': ft.Icons.CODE_ROUNDED,
                  'discord': ft.Icons.TAG}
-        colors = {'wiki': _c('accent'),
-                  'github': _c('accent'),
+
+        colors = {'github': _c('accent'),
                   'discord': '#5865F2'}
 
         return ft.Container(
             content=ft.Row(
                 [
-                    ft.Icon(icons.get(label_key, ft.Icons.LINK),
-                            color=colors.get(label_key, _c('accent')), size=18),
+                    _icon_chip(icons.get(label_key, ft.Icons.LINK),
+                               bgcolor=_c('bg'),
+                               icon_color=colors.get(label_key, _c('accent')), size=32),
                     ft.Text(_t(label_key), size=13, color=_c('text'),
                             weight=ft.FontWeight.W_500, expand=True),
-                    ft.IconButton(
-                        icon=ft.Icons.OPEN_IN_NEW_ROUNDED,
-                        icon_color=_c('text_dim'),
-                        icon_size=16,
-                        on_click=lambda _, u=url: self._page.run_task(self._open_link, u),
-                        style=ft.ButtonStyle(shape=ft.CircleBorder()),
-                    ),
+                    ft.Icon(ft.Icons.OPEN_IN_NEW_ROUNDED, color=_c('text_dim'), size=16),
                 ],
                 spacing=10,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            height=44,
-            border_radius=8,
-            padding=ft.Padding(left=4, right=0, top=0, bottom=0),
+            height=52,
+            border_radius=10,
+            padding=ft.Padding(left=6, right=10, top=0, bottom=0),
+            ink=True,
+            on_click=lambda _, u=url: self._page.run_task(self._open_link, u),
         )
 
     # ── Theme selection ───────────────────────────────────────────────────────

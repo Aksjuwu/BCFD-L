@@ -37,7 +37,43 @@ EVENT_PREFIXES: set[str] = {
     '$messageContainsAll',
     '$onBotOnline',
     '$onBotMessage',
+    '$onBoostServer',
 }
+
+_BOOST_MESSAGE_TYPES = {
+    discord.MessageType.premium_guild_subscription,
+    discord.MessageType.premium_guild_tier_1,
+    discord.MessageType.premium_guild_tier_2,
+    discord.MessageType.premium_guild_tier_3,
+}
+
+# ══════════════════════════════════════════════════════════════
+#  Status Bot — presence rotation (mirrors status_view.py)
+# ══════════════════════════════════════════════════════════════
+
+_STATUS_DISCORD_STATE = {
+    'online':    discord.Status.online,
+    'idle':      discord.Status.idle,
+    'dnd':       discord.Status.dnd,
+    'invisible': discord.Status.invisible,
+}
+
+_STATUS_ACTIVITY_TYPE = {
+    'playing':    discord.ActivityType.playing,
+    'listening':  discord.ActivityType.listening,
+    'watching':   discord.ActivityType.watching,
+    'competing':  discord.ActivityType.competing,
+}
+
+_STATUS_LOOP_UNIT_SECONDS = {
+    'second': 1,
+    'minute': 60,
+    'hour':   3600,
+    'day':    86400,
+}
+
+_STATUS_LOOP_TIME_MIN_SECONDS = 12
+_STATUS_POLL_IDLE_SECONDS = 15
 
 # ══════════════════════════════════════════════════════════════
 #  PrefixManager 
@@ -116,6 +152,7 @@ _thread          = None
 _loop            = None
 _stopping        = False
 _vars_dir_path   = ''
+_status_task     = None
 prefix_manager   = PrefixManager()
 _flet_page       = None  
 
@@ -142,6 +179,101 @@ def _get_token(bot_dir: str) -> str:
             except Exception:
                 pass
     return ''
+
+def _load_status_config(bot_dir: str) -> dict | None:
+    possible_paths = [
+        os.path.join(bot_dir, 'bot_files', 'status_config.json'),
+        os.path.join(bot_dir, 'status_config.json'),
+        os.path.join(os.path.dirname(bot_dir), 'bot_files', 'status_config.json'),
+        os.path.join(os.path.dirname(bot_dir), 'status_config.json'),
+    ]
+
+    for path in possible_paths:
+        if os.path.exists(path):
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception:
+                pass
+    return None
+
+def _build_status_activity(entry: dict):
+    activity_type = (entry.get('activity_type') or 'playing').strip().lower()
+    status_text   = (entry.get('status') or '').strip()
+
+    if activity_type == 'streaming':
+        url = (entry.get('stream_url') or '').strip()
+        if not url:
+            return None
+        return discord.Streaming(name=status_text or 'Live', url=url)
+
+    if not status_text:
+        return None
+
+    activity_enum = _STATUS_ACTIVITY_TYPE.get(
+        activity_type, discord.ActivityType.playing
+    )
+    return discord.Activity(type=activity_enum, name=f"● {status_text}")
+
+async def _status_rotator(bot, bot_dir: str):
+    try:
+        while not bot.is_closed():
+            config = _load_status_config(bot_dir)
+
+            if not config or not config.get('enabled'):
+                await asyncio.sleep(_STATUS_POLL_IDLE_SECONDS)
+                continue
+
+            discord_status = _STATUS_DISCORD_STATE.get(
+                (config.get('status') or 'online').strip().lower(),
+                discord.Status.online,
+            )
+
+            raw_entries = config.get('entries') or []
+            entries = [
+                e for e in raw_entries
+                if (e.get('status') or '').strip()
+                or (
+                    (e.get('activity_type') or '').strip().lower() == 'streaming'
+                    and (e.get('stream_url') or '').strip()
+                )
+            ]
+
+            loop_unit = (config.get('loop_unit') or 'second').strip().lower()
+            try:
+                loop_time = int(config.get('loop_time') or 30)
+            except (TypeError, ValueError):
+                loop_time = 30
+            interval = max(
+                loop_time * _STATUS_LOOP_UNIT_SECONDS.get(loop_unit, 1),
+                _STATUS_LOOP_TIME_MIN_SECONDS,
+            )
+
+            if not entries:
+                try:
+                    await bot.change_presence(status=discord_status, activity=None)
+                except Exception:
+                    pass
+                await asyncio.sleep(_STATUS_POLL_IDLE_SECONDS)
+                continue
+
+            for entry in entries:
+                if bot.is_closed():
+                    return
+
+                activity = _build_status_activity(entry)
+                try:
+                    await bot.change_presence(
+                        status=discord_status,
+                        activity=activity,
+                    )
+                except Exception:
+                    pass
+
+                await asyncio.sleep(interval)
+
+    except asyncio.CancelledError:
+        pass
 
 # ══════════════════════════════════════════════════════════════
 #  Flet Notifications (Safe & Native SnackBar)
@@ -223,7 +355,7 @@ async def start_android_foreground_service(bot_name: str):
         return
 
     title = bot_name or "FDSB Bot"
-    body = "🟢 البوت نشط ويعمل حالياً في الخلفية"
+    body = "Bot is active and running in the background"
 
     try:
         await notifications.request_permissions()
@@ -288,10 +420,6 @@ async def _stop_background_mode():
     await stop_android_foreground_service()
 
 async def update_android_status_notification(bot_name: str, online: bool):
-    """
-    عند الاتصال: يشغّل FGS (مجدولاً على حلقة Flet).
-    عند الانقطاع: يوقف FGS.
-    """
     if online:
         future = _schedule_on_flet_loop(_start_background_mode(bot_name))
     else:
@@ -306,7 +434,7 @@ async def update_android_status_notification(bot_name: str, online: bool):
 # event_FDScripts
 # ══════════════════════════════════════════════════════════════
 
-def _make_bot():
+def _make_bot(bot_dir: str):
     intents = discord.Intents.default()
     intents.message_content = True
     intents.members = True
@@ -322,6 +450,10 @@ def _make_bot():
         send_flet_notification(f"البوت نشط الآن: {bot.user}")
         await asyncio.sleep(2)
         await update_android_status_notification(str(bot.user), online=True)
+
+        global _status_task
+        if _status_task is None or _status_task.done():
+            _status_task = bot.loop.create_task(_status_rotator(bot, bot_dir))
 
         scripts = prefix_manager.get_event_scripts("$onBotOnline")
         if scripts:
@@ -388,6 +520,15 @@ def _make_bot():
 
     @bot.event
     async def on_message(message):
+        if message.type in _BOOST_MESSAGE_TYPES:
+            scripts = prefix_manager.get_event_scripts("$onBoostServer")
+            if scripts:
+                from main_exe.core_fdsb.event_FDScripts.onBoostServer import handle_event
+                for script_text in scripts:
+                    try: await handle_event(message, bot, script_text)
+                    except Exception: pass
+            return
+
         if message.author.bot:
             try:
                 from main_exe.core_fdsb.event_FDScripts.onBotMessage import handle_event as handle_bot_message
@@ -461,7 +602,7 @@ def start_bot(bot_dir: str) -> bool:
     os.makedirs(_vars_dir_path, exist_ok=True)
     set_vars_dir(_vars_dir_path)
 
-    _client = _make_bot()
+    _client = _make_bot(bot_root)
     _thread = threading.Thread(target=_runner, args=(token,))
     _thread.start()
 
@@ -471,13 +612,17 @@ def start_bot(bot_dir: str) -> bool:
     return True
 
 def stop_bot() -> None:
-    global _stopping
+    global _stopping, _status_task
     if _stopping: return
     if _client is None or _client.is_closed(): return
     _stopping = True
     if _loop and _loop.is_running():
         asyncio.run_coroutine_threadsafe(_client.close(), _loop)
-        
+
+    if _status_task and not _status_task.done():
+        _status_task.cancel()
+    _status_task = None
+
     send_flet_notification("تم إيقاف خدمة البوت.")
 
     _schedule_on_flet_loop(_stop_background_mode())
@@ -539,10 +684,8 @@ def main_gui(page: ft.Page):
 
         if is_running:
             status_icon.color = ft.Colors.GREEN
-            status_text.value = "البوت متصل ويعمل حالياً"
         else:
             status_icon.color = ft.Colors.RED
-            status_text.value = "فشل بدء البوت"
             
         page.update()
 

@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: Returns the server's current boost level from 0 to 3.
+category: Server
+
+<block type="text" title="How does the command work?">
+text: $boostLevel returns the server's boost tier as a number: 0 (no level), 1 (Level 1), 2 (Level 2), or 3 (Level 3). Levels are unlocked by reaching 2, 7 or 14 boosts respectively.
+</block>
+
+<block type="code" title="Syntax">
+text: $boostLevel
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: Can only be used inside a server - in DMs it raises an environment error and stops the script.
+</block>
+</dash>

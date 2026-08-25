@@ -1,0 +1,28 @@
+<dash>
+name: $authorURL
+desc: يجعل اسم المؤلف في الإيمبد رابطًا قابلاً للنقر.
+category: منشئ الإيمبد
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تربط $authorURL رابطًا باسم المؤلف في الإيمبد، بحيث يؤدي النقر عليه إلى فتح العنوان المحدد. يحدد المعامل الاختياري index الإيمبد المراد تعديله عند بناء عدة إيمبدات. إذا لم يُضبط اسم مؤلف بعد، يُستخدم اسم فارغ مؤقت حتى يعمل الرابط.
+</block>
+
+<block type="code" title="الصيغة">
+text: $authorURL[url;(index)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $author[Visit our site]
+text: $authorURL[https://example.com]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يبدأ الرابط بـ http:// أو https://. لا يظهر في Discord أي مؤشر بصري على أن الاسم قابل للنقر، لذا يُفضل التنبيه إلى ذلك في النص.
+</block>
+</dash>
+
+<details>
+syntax: $authorURL[url;(index)]
+param: url|text|مطلوب|رابط الوجهة (http:// أو https://)
+param: index|number|اختياري|رقم الإيمبد المراد تعديله عند بناء عدة إيمبدات (افتراضيًا 1)
+</details>

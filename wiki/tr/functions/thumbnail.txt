@@ -1,0 +1,28 @@
+<dash>
+name: $thumbnail
+desc: URL kullanarak embed'in küçük resmini (thumbnail) ayarlar.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $thumbnail, hedef embed'in sağ üst köşesine büyük bir resim yerleştirir. Geçerli bir web adresi içeren herhangi bir argüman çalışır - komut bulunan ilk URL'yi çıkarır. Son sayısal argüman (isteğe bağlı) düzenlenecek embed'i seçer.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $thumbnail[url;(index)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $title[Server stats]
+text: $thumbnail[https://example.com/chart.png]
+</block>
+
+<block type="callout" kind="note">
+text: URL, http:// veya https:// ile başlamalıdır. URL'den sonra gelen noktalama işaretleri otomatik temizlenir. Geçerli bir URL bulunamazsa hata oluşur.
+</block>
+</dash>
+
+<details>
+syntax: $thumbnail[url;(index)]
+param: url|text|Zorunlu|Resim bağlantısını içeren metin (http:// veya https://)
+param: index|number|İsteğe bağlı|Birden fazla embed oluşturulurken düzenlenecek embed'in numarası (varsayılan 1)
+</details>

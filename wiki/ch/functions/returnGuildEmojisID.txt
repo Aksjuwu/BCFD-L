@@ -1,0 +1,30 @@
+<dash>
+name: $returnGuildEmojisID
+desc: 从服务器收集表情符号（Emoji）ID 并按类型筛选后存储。
+category: 返回命令
+
+<block type="text" title="命令如何工作？">
+text: $returnGuildEmojisID 收集指定服务器的自定义表情 ID，按分隔符连接后存入变量名下。类型筛选可在全部表情、静态表情（png）和动态表情（gif）之间选择。
+</block>
+
+<block type="code" title="语法">
+text: $returnGuildEmojisID[GuildID; type; var; separator]
+</block>
+
+<block type="code" title="可复制示例">
+text: $returnGuildEmojisID[$guildID; animated; animEmojis; ,]
+text: $sendMessage[Animated emojis: $return[animEmojis]]
+</block>
+
+<block type="callout" kind="note">
+text: type 接受：all、static、animated。机器人必须是目标服务器的成员。不保证存储顺序与服务器的表情列表一致。
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildEmojisID[GuildID; type; var; separator]
+param: GuildID|snowflake|必填|要收集表情的服务器 ID
+param: type|text|必填|筛选条件：all、static 或 animated
+param: var|text|必填|存储结果的变量名（用 $return[] 读取）
+param: separator|text|必填|ID 之间的分隔符（例如 ，）。也支持命名分隔符：dot、com、apo、sem、colon
+</details>

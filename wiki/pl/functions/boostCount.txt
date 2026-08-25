@@ -1,0 +1,26 @@
+<dash>
+name: $boostCount
+desc: Zwraca aktualną liczbę ulepszeń serwera.
+category: Serwer
+
+<block type="text" title="Jak działa komenda?">
+text: $boostCount zwraca aktualną liczbę ulepszeń (Boost) serwera (subskrypcji premium). Bez argumentów odczytuje serwer, na którym wystąpiło zdarzenie. Można podać identyfikator dowolnego serwera, na którym jest bot, aby odczytać jego liczbę ulepszeń.
+</block>
+
+<block type="code" title="Składnia">
+text: $boostCount[(guildID)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[This server has $boostCount boosts!]
+</block>
+
+<block type="callout" kind="note">
+text: To liczba ulepszeń, a nie poziom ulepszenia - poziom sprawdzisz przez $boostLevel.
+</block>
+</dash>
+
+<details>
+syntax: $boostCount[(guildID)]
+param: guildID|snowflake|Opcjonalny|ID serwera, którego liczba ulepszeń ma zostać odczytana (domyślnie bieżący serwer)
+</details>

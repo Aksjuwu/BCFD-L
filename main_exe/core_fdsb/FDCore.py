@@ -6,6 +6,7 @@
 # ─────────────────────────────────────────────────────────────
 
 import asyncio
+from datetime import datetime as _datetime
 import discord
 import io
 import json
@@ -95,11 +96,11 @@ def _save_ids_data(data: dict):
 KNOWN_COMMANDS: set[str] = {
     # a
     "addBotReactions", "addButton", "addTimestamp", "addUserReactions", "and",
-    "authorID", "authorName",
+    "author", "authorIcon", "authorID", "authorName", "authorURL",
     # b
-    "ban", "botID", "botLeave", "botName", "break",
+    "ban", "boostCount", "boostLevel", "botID", "botLeave", "botName", "break",
     # c
-    "ceil", "changeUsername", "channelExists", "channelID", "channelName",
+    "call", "ceil", "changeUsername", "channelExists", "channelID", "channelName",
     "channelType", "charCount", "clear", "clientTyping", "cloneRole",
     "color", "cooldown", "createChannel", "createRole", "cropText", "customID",
     # d
@@ -107,12 +108,13 @@ KNOWN_COMMANDS: set[str] = {
     "displayName", "div", "dm",
     # e
     "editButton", "editChannelPerms", "editIn", "editMessage", "editSplitOut",
-    "elif", "else", "endfor", "endif", "endwhile",
+    "elif", "else", "endfor", "endfunc", "endif", "endwhile",
     # f
-    "findChannel", "findRole", "floor", "footer", "for",
+    "findChannel", "findRole", "floor", "footer", "footerIcon", "for", "func",
     # g
-    "getBotInvent", "getMessage", "getServerInvite", "getSplitOutLength",
-    "getUserStatus", "getVar", "guildID", "guildName",
+    "getBotInvent", "getCreationDateTimestamp", "getMessage", "getServerInvite",
+    "getSplitOutLength", "getTimestamp", "getUserStatus", "getVar",
+    "guildID", "guildName", "guildVerificationLvl",
     # h
     "httpAddHeader", "httpDelete", "httpGet", "httpPatch", "httpPost",
     "httpPut", "httpResult", "httpStatus",
@@ -135,21 +137,35 @@ KNOWN_COMMANDS: set[str] = {
     # r
     "randomint", "randomRoleID", "randomRoleMention", "randomstr",
     "randomUserID", "removeButtons", "removeComponent", "removeSplitOutElement",
-    "replaceText", "reply", "replyIn", "return", "returnGetReactions",
-    "returnGuildChannelsID", "returnGuildRolesID", "returnGuildUsersID",
+    "replaceRegex", "replaceText", "reply", "replyIn", "return",
+    "returnGetReactions", "returnGuildBansID", "returnGuildChannelsID",
+    "returnGuildEmojisID", "returnGuildRolesID", "returnGuildUsersID",
     "roleAssign", "round",
     # s
-    "sendEmbedMessage", "sendMessage", "serverOwnerID", "setVar",
+    "sendEmbedMessage", "sendMessage", "serverOwnerID", "setBotStatus", "setVar",
     "slowmode", "splitIn", "splitOut", "strictArgs", "sub", "sum",
     "suppressErrors", "switch",
     # t
-    "timeout", "title",
+    "timeout", "title", "thumbnail",
     # u
     "unban", "untimeout", "uptime", "useChannel",
     # v
     "var", "voiceUsersLimit",
     # w
     "wait", "while",
+}
+
+CONTROL_FLOW_COMMANDS: set[str] = {
+    "if", "elif", "else", "endif",
+    "while", "endwhile",
+    "for", "endfor",
+    "break", "return",
+    "and", "or",
+    "onlyIf", "onlyAdmin", "log",
+}
+
+FUNCTION_COMMANDS: set[str] = {
+    "func", "endfunc", "call",
 }
 
 def get_reserved_names() -> set[str]:
@@ -350,15 +366,45 @@ _NAMED_SEPARATORS: dict[str, str] = {
 def _parse_separator(raw: str) -> str:
     return _NAMED_SEPARATORS.get(raw.strip(), raw.strip())
 
+class _EmbedAuthor:
+    __slots__ = ("name", "url", "icon_url")
+
+    def __init__(self, name: str | None = None, url: str | None = None, icon_url: str | None = None):
+        self.name = name
+        self.url = url
+        self.icon_url = icon_url
+
 class _EmbedBuilder:
     def __init__(self):
         self.title:       str | None = None
         self.description: str | None = None
         self.color:       int | None = None
         self.footer:      str | None = None
+        self.footer_icon: str | None = None
+        self.image:       str | None = None
+        self.thumbnail:   str | None = None
+        self.timestamp:   _datetime | None = None
+        self.author:      _EmbedAuthor | None = None   # ← إضافة
 
     def is_set(self) -> bool:
-        return any(v is not None for v in (self.title, self.description, self.color, self.footer))
+        return any(v is not None for v in (
+            self.title, self.description, self.color,
+            self.footer, self.footer_icon,
+            self.image, self.thumbnail, self.timestamp,
+            self.author,
+        ))
+
+    def set_author(
+        self,
+        name: str | None = None,
+        url: str | None = None,
+        icon_url: str | None = None,
+    ) -> None:
+        has_content = bool((name and name != "\u200b") or url or icon_url)
+        if not has_content:
+            self.author = None
+            return
+        self.author = _EmbedAuthor(name=name, url=url, icon_url=icon_url)
 
     def build(self) -> discord.Embed:
         e = discord.Embed(
@@ -366,8 +412,31 @@ class _EmbedBuilder:
             description=self.description or "",
             color=self.color if self.color is not None else 0x2B2D31,
         )
+
         if self.footer:
-            e.set_footer(text=self.footer)
+            if self.footer_icon:
+                e.set_footer(text=self.footer, icon_url=self.footer_icon)
+            else:
+                e.set_footer(text=self.footer)
+        elif self.footer_icon:
+            e.set_footer(text="\u200b", icon_url=self.footer_icon)
+
+        if self.image:
+            e.set_image(url=self.image)
+
+        if self.thumbnail:
+            e.set_thumbnail(url=self.thumbnail)
+
+        if self.timestamp:
+            e.timestamp = self.timestamp
+
+        if self.author:
+            e.set_author(
+                name=self.author.name or "\u200b",
+                url=self.author.url,
+                icon_url=self.author.icon_url,
+            )
+
         return e
 
 async def _resolve_dm_target(
@@ -497,6 +566,10 @@ class ExecutionContext:
         self.bot = bot
         self.is_event = is_event
         self.interaction = interaction
+        try:
+            self._main_loop = asyncio.get_running_loop()
+        except RuntimeError:
+            self._main_loop = None
         self.suppress_errors: bool = False
         self.suppress_errors_message: str | None = None
         self.view = None
@@ -509,7 +582,7 @@ class ExecutionContext:
         self._log_step: int = 0
         self._pending_logs: list[_PendingLog] = []
         self._last_log_step: int = 0
-        self.embed_builder: _EmbedBuilder = _EmbedBuilder()
+        self.embed_builders: dict[int, _EmbedBuilder] = {}
         self.return_vars: dict = {}
         self.dm_target: discord.User | discord.Member | None = None
         self._channel_override: discord.abc.Messageable | None = None
@@ -517,6 +590,7 @@ class ExecutionContext:
         self._resolve_root_text: str = ''
         self.text_buffer = ""
         self._pending_inline_actions = []
+        self._inline_call_values: dict[str, str] = {}
 
         if interaction is not None:
             self.message = interaction.message or message
@@ -576,9 +650,22 @@ class ExecutionContext:
             self.message = None
             self.builtins = {}
 
+    def queue_inline_action(self, coro) -> None:
+        self._pending_inline_actions.append(coro)
+
     def log_event(self, entry: str):
         self._log_step += 1
         self.execution_log.append(f"{self._log_step}. {entry}")
+        
+    def get_embed_builder(self, index: int = 1) -> _EmbedBuilder:
+        index = max(1, min(10, index))
+        if index not in self.embed_builders:
+            self.embed_builders[index] = _EmbedBuilder()
+        return self.embed_builders[index]
+
+    @property
+    def embed_builder(self) -> _EmbedBuilder:
+        return self.get_embed_builder(1)
 
     def snapshot_log(self, channel_id: int, name_code: str):
         slice_entries = self.execution_log[self._last_log_step:]
@@ -667,7 +754,15 @@ class ExecutionContext:
             return text
         processed = _process_escapes(text)
         self._resolve_root_text = processed
-        return self._resolve_pass(processed, base_offset=0)
+        resolved = self._resolve_pass(processed, base_offset=0)
+        if self._inline_call_values and '\uE000' in resolved:
+            for sentinel, value in self._inline_call_values.items():
+                if sentinel in resolved:
+                    resolved = resolved.replace(sentinel, value)
+        return resolved
+
+    def resolve_sync(self, text: str) -> str:
+        return self.resolve(text)
 
     def _resolve_pass(self, text: str, base_offset: int = 0) -> str:
         result: list[str] = []
@@ -755,6 +850,18 @@ class ExecutionContext:
         return None
 
     def _apply_cmd(self, cmd_name: str, inner: str, pos: int = 0) -> str:
+        _ASYNC_ONLY_COMMANDS = ('httpGet', 'httpPost', 'httpPut', 'httpPatch', 'httpDelete')
+        if cmd_name in _ASYNC_ONLY_COMMANDS:
+            self._abort_with_error(
+                FDLogicError(
+                    f"`${cmd_name}` performs a network request and can only be used as its own "
+                    f"standalone line (e.g. `${cmd_name}[...]` on its own line), not nested inside "
+                    f"another command's arguments like `$description[...]`. Run it on its own line "
+                    f"first, then read the result with `$httpResult[...]`."
+                ),
+                pos
+            )
+
         if cmd_name == 'var':
             parts = _split_args(inner)
             if len(parts) == 1:
@@ -971,7 +1078,7 @@ def tokenise(line: str) -> 'Command | str | None':
         return line
 
     body = line[1:]
-    if body in {"else", "endif", "endwhile", "endfor", "break"}:
+    if body in {"else", "endif", "endwhile", "endfor", "endfunc", "break"}:
         return Command(body, [], line)
 
     bracket_pos = body.find("[")
@@ -1018,7 +1125,7 @@ _INLINE_VARS: set[str] = {
     'message', 'messageID', 'ping', 'uptime', 'mention',
     'authorID', 'authorName', 'botID', 'botName',
     'channelID', 'channelName', 'guildID', 'guildName',
-    'addTimestamp', 'randomUserID', 'customID',
+    'randomUserID', 'customID','boostLevel', "guildVerificationLvl",
 }
 
 _INLINE_WITH_ARGS: set[str] = {
@@ -1030,8 +1137,13 @@ _INLINE_WITH_ARGS: set[str] = {
     'replaceText', 'cropText',
     'editSplitOut',
     'joinSplitOut',
-    'removeSplitOutElement','httpAddHeader', 'httpGet', 'httpPost', 'httpPut', 
-    'httpDelete', 'httpPatch', 'httpResult',
+    'removeSplitOutElement', 'httpAddHeader', 'httpResult',
+    # NOTE: httpGet/httpPost/httpPut/httpPatch/httpDelete are deliberately
+    # NOT in this set. They perform real network I/O and must only run as
+    # standalone statement lines (dispatched through execute()), never as
+    # an inline expression nested inside another command's arguments —
+    # resolve()/_apply_cmd() are synchronous and cannot await a request.
+    # Also see the explicit guard for them at the top of _apply_cmd().
 }
 
 def tokenise_line(line: str, base_line_no: int = 1) -> list:

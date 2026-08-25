@@ -1,0 +1,29 @@
+<dash>
+name: $returnGuildBansID
+desc: 收集服务器中所有被封禁用户的 ID 并存储。
+category: 返回命令
+
+<block type="text" title="命令如何工作？">
+text: $returnGuildBansID 获取指定服务器的封禁名单，并把每个被封禁成员的用户 ID 按分隔符连接后存入给定变量名下。之后可以用 $return[var] 取回存储的字符串。
+</block>
+
+<block type="code" title="语法">
+text: $returnGuildBansID[GuildID; var; separator]
+</block>
+
+<block type="code" title="可复制示例">
+text: $returnGuildBansID[$guildID; bannedIDs; ,]
+text: $sendMessage[Banned users: $return[bannedIDs]]
+</block>
+
+<block type="callout" kind="important">
+text: 需要“封禁成员”权限——没有该权限时命令会因权限错误而失败。变量为空表示没有人被封禁。
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildBansID[GuildID; var; separator]
+param: GuildID|snowflake|必填|要读取封禁列表的服务器 ID
+param: var|text|必填|存储结果的变量名（用 $return[] 读取）
+param: separator|text|必填|ID 之间的分隔符（例如 ，）。也支持命名分隔符：dot、com、apo、sem、colon
+</details>

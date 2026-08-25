@@ -7,6 +7,8 @@
 import os
 import json
 import base64
+import threading
+import time
 
 import flet as ft
 
@@ -31,6 +33,29 @@ def _t(key: str) -> str:
 
 def _ar(text: str) -> str:
     return text
+
+def _t_safe(key: str, fallback_en: str, fallback_ar: str = None) -> str:
+    """Like _t(), but falls back to a hardcoded string instead of leaking
+    a raw translation key when it isn't defined in the langs files yet."""
+    try:
+        val = Translations.get(key, get_current_lang())
+    except Exception:
+        val = None
+    if val and val != key:
+        return val
+    if get_current_lang() == 'ar' and fallback_ar:
+        return fallback_ar
+    return fallback_en
+
+
+def _run_bg(page: ft.Page, fn, *args):
+    """Run fn(*args) off the UI thread so long calls (bot start/stop,
+    network lookups) never freeze the interface."""
+    runner = getattr(page, 'run_thread', None)
+    if callable(runner):
+        runner(fn, *args)
+    else:
+        threading.Thread(target=fn, args=args, daemon=True).start()
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  Helpers
@@ -74,6 +99,32 @@ def _ink_btn(content: ft.Control, bgcolor: str, on_click,
         ink=True,
         width=width,
         alignment=ft.Alignment(0, 0),
+        animate_opacity=150,
+    )
+
+
+def _soft_shadow(blur: int = 16, dy: int = 6, opacity: float = 0.10) -> ft.BoxShadow:
+    return ft.BoxShadow(
+        spread_radius=0,
+        blur_radius=blur,
+        color=ft.Colors.with_opacity(opacity, '#000000'),
+        offset=ft.Offset(0, dy),
+    )
+
+
+def _card(content: ft.Control, bgcolor: str, border_color: str,
+          radius: int = 14, padding=None, expand=False) -> ft.Container:
+    return ft.Container(
+        content=content,
+        bgcolor=bgcolor,
+        border=ft.Border(
+            left=ft.BorderSide(1, border_color), top=ft.BorderSide(1, border_color),
+            right=ft.BorderSide(1, border_color), bottom=ft.BorderSide(1, border_color),
+        ),
+        border_radius=radius,
+        padding=padding or ft.Padding(left=16, top=14, right=16, bottom=14),
+        shadow=_soft_shadow(),
+        expand=expand,
     )
 
 
@@ -99,6 +150,7 @@ class BotMainTab:
     def __init__(self, page: ft.Page):
         self._page          = page
         self._server_online = False
+        self._busy          = False
         self._bot_data      = {}
 
         self._avatar_ctrl = ft.Container(
@@ -108,6 +160,11 @@ class BotMainTab:
             border_radius=48,
             bgcolor=_c('card_border'),
             alignment=ft.Alignment(0, 0),
+            border=ft.Border(
+                left=ft.BorderSide(3, _c('accent')), top=ft.BorderSide(3, _c('accent')),
+                right=ft.BorderSide(3, _c('accent')), bottom=ft.BorderSide(3, _c('accent')),
+            ),
+            shadow=_soft_shadow(blur=18, dy=8, opacity=0.16),
         )
 
         self._name_text = ft.Text(
@@ -126,54 +183,84 @@ class BotMainTab:
             width=210,
         )
 
-        self._srv_dot   = ft.Container(
-            width=12, height=12, border_radius=6,
-            bgcolor='#E53935',
+        self._srv_dot = ft.Container(
+            width=10, height=10, border_radius=5,
+            bgcolor=_c('offline'),
         )
         self._srv_state = ft.Text(
-            'Offline', size=13,
-            color='#E53935',
-            weight=ft.FontWeight.W_700,
+            'Offline', size=12, color=_c('offline'), weight=ft.FontWeight.W_700,
         )
-        self._srv_card  = ft.Container(
-            content=ft.Row(
-                controls=[
-                    self._srv_dot,
-                    ft.Text(
-                        'State Server',
-                        size=13,
-                        color='#2D3748',
-                        weight=ft.FontWeight.W_600,
-                    ),
-                    ft.Container(expand=True),
+        self._srv_icon_wrap = ft.Container(
+            content=ft.Icon(ft.Icons.DNS_ROUNDED, size=16, color=_c('text_dim')),
+            width=28, height=28, border_radius=8,
+            bgcolor=_c('bg'), alignment=ft.Alignment(0, 0),
+        )
+        self._srv_card = _card(
+            content=ft.Column(
+                [
+                    ft.Row([self._srv_icon_wrap, self._srv_dot], spacing=6,
+                           vertical_alignment=ft.CrossAxisAlignment.CENTER),
+                    ft.Text(_t_safe('status_bot_section', 'Server Status', 'حالة الخادم'),
+                            size=11, color=_c('text_dim'), weight=ft.FontWeight.W_500),
                     self._srv_state,
                 ],
-                vertical_alignment=ft.CrossAxisAlignment.CENTER,
-                spacing=8,
+                spacing=4,
             ),
-            height=44,
-            bgcolor='#EEF2F7',
-            border_radius=10,
-            padding=ft.Padding(left=14, top=0, right=14, bottom=0),
-            border=ft.Border(
-                left=ft.BorderSide(1, '#CBD5E0'),
-                top=ft.BorderSide(1, '#CBD5E0'),
-                right=ft.BorderSide(1, '#CBD5E0'),
-                bottom=ft.BorderSide(1, '#CBD5E0'),
-            ),
+            bgcolor=_c('card_bg'), border_color=_c('card_border'),
+            radius=12, padding=ft.Padding(left=12, top=10, right=12, bottom=10),
+            expand=True,
         )
 
-        self._toggle_icon  = ft.Icon(ft.Icons.PLAY_ARROW_ROUNDED, color='#FFFFFF', size=20)
-        self._toggle_label = ft.Text(_t('start'), color='#FFFFFF', size=14,
-                                     weight=ft.FontWeight.W_500)
+        # ── Guild-count chip (tap to refresh) ─────────────────────────────
+        self._guild_count_text = ft.Text('—', size=15, color=_c('text'),
+                                          weight=ft.FontWeight.BOLD)
+        self._guild_refresh_icon = ft.Icon(ft.Icons.REFRESH_ROUNDED, size=15,
+                                            color=_c('text_dim'))
+        self._guild_icon_wrap = ft.Container(
+            content=ft.Icon(ft.Icons.GROUPS_ROUNDED, size=16, color=_c('text_dim')),
+            width=28, height=28, border_radius=8,
+            bgcolor=_c('bg'), alignment=ft.Alignment(0, 0),
+        )
+        self._guild_card = _card(
+            content=ft.Column(
+                [
+                    ft.Row([self._guild_icon_wrap, ft.Container(expand=True),
+                            self._guild_refresh_icon],
+                           vertical_alignment=ft.CrossAxisAlignment.CENTER),
+                    ft.Text(_t_safe('servers_count', 'Servers', 'عدد السيرفرات'),
+                            size=11, color=_c('text_dim'), weight=ft.FontWeight.W_500),
+                    self._guild_count_text,
+                ],
+                spacing=4,
+            ),
+            bgcolor=_c('card_bg'), border_color=_c('card_border'),
+            radius=12, padding=ft.Padding(left=12, top=10, right=12, bottom=10),
+            expand=True,
+        )
+        self._guild_card.on_click  = self._refresh_guild_count
+        self._guild_card.ink       = True
+
+        self._status_row = ft.Row(
+            [self._srv_card, self._guild_card], spacing=10,
+            vertical_alignment=ft.CrossAxisAlignment.START,
+        )
+
+        # ── Start / Stop toggle ───────────────────────────────────────────
+        self._toggle_icon      = ft.Icon(ft.Icons.PLAY_ARROW_ROUNDED, color='#FFFFFF', size=20)
+        self._toggle_icon_slot = ft.Container(content=self._toggle_icon,
+                                               alignment=ft.Alignment(0, 0))
+        self._toggle_label     = ft.Text(_t('start'), color='#FFFFFF', size=14,
+                                         weight=ft.FontWeight.W_500)
         self._toggle_container = _ink_btn(
-            content=ft.Row([self._toggle_icon, self._toggle_label],
+            content=ft.Row([self._toggle_icon_slot, self._toggle_label],
                            spacing=8, alignment=ft.MainAxisAlignment.CENTER),
             bgcolor=_c('success'),
             on_click=self._toggle_server,
-            width=180,
-            padding=ft.Padding(left=20, top=12, right=20, bottom=12),
+            width=220,
+            padding=ft.Padding(left=20, top=13, right=20, bottom=13),
         )
+        self._toggle_container.border_radius = 12
+        self._toggle_container.shadow = _soft_shadow(blur=14, dy=5, opacity=0.18)
 
         self._news_text = ft.Text(_read_new_txt(), size=13, color=_c('text_dim'))
 
@@ -194,47 +281,187 @@ class BotMainTab:
     def _set_online_state(self, online: bool):
         self._server_online = online
         if online:
-            self._srv_dot.bgcolor          = '#43A047'
-            self._srv_state.value          = 'Online'
-            self._srv_state.color          = '#43A047'
+            self._srv_dot.bgcolor          = _c('online')
+            self._srv_state.value          = _t_safe('online', 'Online', 'متصل')
+            self._srv_state.color          = _c('online')
             self._toggle_icon.name         = ft.Icons.STOP_ROUNDED
             self._toggle_label.value       = _t('stop')
             self._toggle_container.bgcolor = _c('danger')
         else:
-            self._srv_dot.bgcolor          = '#E53935'
-            self._srv_state.value          = 'Offline'
-            self._srv_state.color          = '#E53935'
+            self._srv_dot.bgcolor          = _c('offline')
+            self._srv_state.value          = _t_safe('offline', 'Offline', 'غير متصل')
+            self._srv_state.color          = _c('offline')
             self._toggle_icon.name         = ft.Icons.PLAY_ARROW_ROUNDED
             self._toggle_label.value       = _t('start')
             self._toggle_container.bgcolor = _c('success')
+            self._guild_count_text.value   = '—'
+        # restore the plain icon (a busy cycle may have swapped this slot
+        # for a spinner) and make sure the button is interactive again
+        self._toggle_icon_slot.content = self._toggle_icon
+        self._toggle_container.disabled = False
+        self._toggle_container.opacity  = 1.0
+
+    # ── Real bot-client status helpers (talks to local_server's live client) ────
+
+    @staticmethod
+    def _bot_client():
+        try:
+            from main_exe.core_fdsb import local_server
+            return local_server, getattr(local_server, '_client', None)
+        except Exception:
+            return None, None
+
+    def _client_is_ready(self) -> bool:
+        _, client = self._bot_client()
+        if client is None:
+            return False
+        try:
+            return (not client.is_closed()) and client.is_ready()
+        except Exception:
+            return False
+
+    def _client_guild_count(self):
+        _, client = self._bot_client()
+        if client is None:
+            return None
+        try:
+            if not client.is_closed():
+                return len(client.guilds)
+        except Exception:
+            pass
+        return None
+
+    def _wait_until(self, predicate, timeout: float = 25.0, interval: float = 0.4) -> bool:
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            if predicate():
+                return True
+            time.sleep(interval)
+        return predicate()
+
+    # ── Start / stop busy handling ──────────────────────────────────────────────
+
+    def _set_busy(self, going_online: bool):
+        self._busy = True
+        self._toggle_container.disabled = True
+        self._toggle_container.opacity  = 0.55
+        self._toggle_icon_slot.content  = ft.ProgressRing(
+            width=16, height=16, stroke_width=2, color='#FFFFFF',
+        )
+        self._toggle_label.value = (
+            _t_safe('starting', 'Starting…', 'جاري التشغيل…') if going_online
+            else _t_safe('stopping', 'Stopping…', 'جاري الإيقاف…')
+        )
+        try:
+            self._page.update()
+        except Exception:
+            pass
+
+    def _toggle_server(self, _):
+        if self._busy:
+            return
+        going_online = not self._server_online
+        self._set_busy(going_online)
+
+        def work():
+            local_server, _client = self._bot_client()
+            ok = local_server is not None
+
+            if ok:
+                try:
+                    local_server.set_flet_page(self._page)
+                    if going_online:
+                        try:
+                            if self._page.platform.value in ('android', 'ios'):
+                                self._page.run_task(
+                                    local_server.request_flet_permissions, self._page,
+                                )
+                        except (AttributeError, Exception):
+                            pass
+                        launched = local_server.start_bot(self._bot_data.get('bot_dir', ''))
+                        # start_bot() only spins up the connection thread — the bot
+                        # isn't actually online until on_ready fires, so wait for it.
+                        ok = launched and self._wait_until(self._client_is_ready, timeout=25)
+                    else:
+                        local_server.stop_bot()
+                        ok = self._wait_until(lambda: not self._client_is_ready(), timeout=15)
+                except Exception as e:
+                    print(f'[Dashboard] {"start" if going_online else "stop"} failed: {e}')
+                    ok = False
+
+            final_online = going_online if ok else self._server_online
+            self._busy = False
+            self._set_online_state(final_online)
+            if final_online:
+                self._fetch_guild_count(apply=True)
+            try:
+                self._page.update()
+            except Exception:
+                pass
+
+        _run_bg(self._page, work)
+
+    # ── Guild count ───────────────────────────────────────────────────────────
+
+    def _fetch_guild_count(self, apply: bool = False):
+        count = str(self._client_guild_count()) if self._client_is_ready() else '—'
+        if apply:
+            self._guild_count_text.value = count
+        return count
+
+    def _refresh_guild_count(self, _):
+        if not self._server_online:
+            return
+        self._guild_count_text.value = '…'
+        try:
+            self._page.update()
+        except Exception:
+            pass
+
+        def work():
+            self._fetch_guild_count(apply=True)
+            try:
+                self._page.update()
+            except Exception:
+                pass
+
+        _run_bg(self._page, work)
 
     # ── Theme ─────────────────────────────────────────────────────────────────
 
     def _on_theme(self, data: dict):
         get = lambda k: data.get(k, '#888888')
-        self._name_text.color    = get('text')
-        self._news_text.color    = get('text_dim')
-        self._invite_btn.bgcolor = get('btn_invite')
+        self._name_text.color        = get('text')
+        self._news_text.color        = get('text_dim')
+        self._invite_btn.bgcolor     = get('btn_invite')
+        self._avatar_ctrl.border     = ft.Border(
+            left=ft.BorderSide(3, get('accent')), top=ft.BorderSide(3, get('accent')),
+            right=ft.BorderSide(3, get('accent')), bottom=ft.BorderSide(3, get('accent')),
+        )
+        for card, icon_wrap in ((self._srv_card, self._srv_icon_wrap),
+                                 (self._guild_card, self._guild_icon_wrap)):
+            card.bgcolor = get('card_bg')
+            card.border  = ft.Border(
+                left=ft.BorderSide(1, get('card_border')), top=ft.BorderSide(1, get('card_border')),
+                right=ft.BorderSide(1, get('card_border')), bottom=ft.BorderSide(1, get('card_border')),
+            )
+            icon_wrap.bgcolor = get('bg')
+        self._guild_count_text.color   = get('text')
+        self._guild_refresh_icon.color = get('text_dim')
         self._set_online_state(self._server_online)
         self._page.update()
 
     # ── Build ─────────────────────────────────────────────────────────────────
 
     def build(self) -> ft.Control:
-        server_card = self._srv_card
-
         top_section = ft.Container(
             content=ft.Column(
                 [
-                    ft.Row([self._avatar_ctrl],
-                           alignment=ft.MainAxisAlignment.CENTER),
-                    ft.Row([self._name_text],
-                           alignment=ft.MainAxisAlignment.CENTER),
-                    ft.Row([self._invite_btn],
-                           alignment=ft.MainAxisAlignment.CENTER),
-                    server_card,
-                    ft.Row([self._toggle_container],
-                           alignment=ft.MainAxisAlignment.CENTER),
+                    ft.Row([self._avatar_ctrl], alignment=ft.MainAxisAlignment.CENTER),
+                    ft.Row([self._name_text], alignment=ft.MainAxisAlignment.CENTER),
+                    ft.Row([self._invite_btn], alignment=ft.MainAxisAlignment.CENTER),
+                    self._status_row,
+                    ft.Row([self._toggle_container], alignment=ft.MainAxisAlignment.CENTER),
                     ft.Divider(color=_c('divider')),
                     ft.Text(_t('whats_new'), size=15,
                             weight=ft.FontWeight.BOLD, color=_c('text')),
@@ -245,24 +472,23 @@ class BotMainTab:
             padding=ft.Padding(left=16, top=16, right=16, bottom=0),
         )
 
-        news_card = ft.Container(
-            content=ft.Column(
-                [self._news_text],
-                scroll=ft.ScrollMode.AUTO,
-                expand=True,
-            ),
-            bgcolor=_c('card_bg'),
-            border=self._card_border(),
-            border_radius=12,
-            padding=ft.Padding(left=16, top=12, right=16, bottom=12),
-            expand=True,
-            margin=ft.Margin(left=16, top=8, right=16, bottom=16),
+        news_card = _card(
+            content=ft.Column([self._news_text], scroll=ft.ScrollMode.AUTO),
+            bgcolor=_c('card_bg'), border_color=_c('card_border'),
+            radius=12, padding=ft.Padding(left=16, top=12, right=16, bottom=12),
         )
+        news_card.margin = ft.Margin(left=16, top=8, right=16, bottom=16)
+        news_card.height = 260
 
+        # The whole tab scrolls as one page instead of flex-squeezing the
+        # news card to nothing when the content above it grows (extra
+        # cards, longer bot name, small window, phone screen, etc.) — the
+        # news text always gets its full, readable height.
         return ft.Column(
             [top_section, news_card],
             spacing=0,
             expand=True,
+            scroll=ft.ScrollMode.AUTO,
             horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
         )
 
@@ -287,7 +513,13 @@ class BotMainTab:
             )
             self._avatar_ctrl.bgcolor = _c('card_border')
 
-        self._set_online_state(False)
+        # local_server keeps one global client across tab rebuilds (e.g. a
+        # theme switch recreates this tab) — reflect the real state instead
+        # of assuming the bot is offline.
+        is_online = self._client_is_ready()
+        self._set_online_state(is_online)
+        if is_online:
+            self._fetch_guild_count(apply=True)
         self._news_text.value = _read_new_txt()
 
     async def _invite_bot(self, e):
@@ -296,31 +528,6 @@ class BotMainTab:
             url = f'https://discord.com/oauth2/authorize?client_id={bot_id}&permissions=8&scope=bot'
             
             await self._page.launch_url(url)
- 
-    def _toggle_server(self, _):
-        new_state = not self._server_online
-        self._set_online_state(new_state)
-        if new_state:
-            try:
-                from main_exe.core_fdsb import local_server
-                local_server.set_flet_page(self._page)
-                try:
-                    if self._page.platform.value in ('android', 'ios'):
-                        self._page.run_task(local_server.request_flet_permissions, self._page)
-                except (AttributeError, Exception):
-                    pass
-                local_server.start_bot(self._bot_data.get('bot_dir', ''))
-            except Exception as e:
-                print(f'[Dashboard] start failed: {e}')
-                self._set_online_state(False)
-        else:
-            try:
-                from main_exe.core_fdsb import local_server
-                local_server.set_flet_page(self._page)
-                local_server.stop_bot()
-            except Exception as e:
-                print(f'[Dashboard] stop failed: {e}')
-        self._page.update()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -461,6 +668,7 @@ class BotDashboardScreen:
             border=ft.Border(bottom=ft.BorderSide(1, _c('divider'))),
             padding=ft.Padding(left=14, top=10, right=14, bottom=10),
             height=52,
+            shadow=_soft_shadow(blur=10, dy=2, opacity=0.06),
         )
 
         self._switch_tab('main')

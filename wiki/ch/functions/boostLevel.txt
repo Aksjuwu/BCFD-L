@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: 返回服务器当前的助力等级（0 到 3）。
+category: 服务器
+
+<block type="text" title="命令如何工作？">
+text: $boostLevel 以数字形式返回服务器的助力等级：0（无等级）、1（等级 1）、2（等级 2）或 3（等级 3）。达到 2、7、14 个助力时分别解锁相应等级。
+</block>
+
+<block type="code" title="语法">
+text: $boostLevel
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: 只能在服务器内使用——在私信中会引发环境错误并停止脚本。
+</block>
+</dash>

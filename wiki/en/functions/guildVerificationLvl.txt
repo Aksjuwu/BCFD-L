@@ -1,0 +1,21 @@
+<dash>
+name: $guildVerificationLvl
+desc: Returns the server's verification level setting.
+category: Server
+
+<block type="text" title="How does the command work?">
+text: $guildVerificationLvl returns the security level new members must pass before they can talk, as its internal value from NONE (0) to VERY_HIGH (4): 0 = None, 1 = Low, 2 = Medium, 3 = High, 4 = Highest.
+</block>
+
+<block type="code" title="Syntax">
+text: $guildVerificationLvl
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Verification level here: $guildVerificationLvl]
+</block>
+
+<block type="callout" kind="important">
+text: Can only be used inside a server - in DMs it raises an environment error and stops the script.
+</block>
+</dash>

@@ -1,0 +1,27 @@
+<dash>
+name: $author
+desc: Задаёт или обновляет имя автора вверху эмбеда.
+category: Конструктор embed
+
+<block type="text" title="Как работает команда?">
+text: $author задаёт имя автора, отображаемое вверху эмбеда рядом с его иконкой. Необязательный индекс выбирает, какой эмбед редактировать, когда в одном сообщении создаётся несколько эмбедов. Существующие иконка и ссылка автора сохраняются.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $author[name;(index)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $author[Server Staff Team]
+</block>
+
+<block type="callout" kind="note">
+text: Используйте вместе с $authorIcon, чтобы добавить картинку, и с $authorURL, чтобы сделать имя кликабельным.
+</block>
+</dash>
+
+<details>
+syntax: $author[name;(index)]
+param: name|text|Обязательный|Имя автора, отображаемое вверху эмбеда
+param: index|number|Необязательный|Номер редактируемого эмбеда при создании нескольких (по умолчанию 1)
+</details>

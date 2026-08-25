@@ -1,0 +1,27 @@
+<dash>
+name: $authorIcon
+desc: Задаёт картинку иконки автора эмбеда по ссылке.
+category: Конструктор embed
+
+<block type="text" title="Как работает команда?">
+text: $authorIcon размещает маленькую круглую картинку рядом с именем автора эмбеда. Необязательный индекс выбирает редактируемый эмбед при создании нескольких. Если имя автора ещё не задано, используется пустое имя-заполнитель, чтобы иконка всё равно отображалась.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $authorIcon[url;(index)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $authorIcon[https://example.com/bot.png]
+</block>
+
+<block type="callout" kind="note">
+text: Ссылка должна начинаться с http:// или https://. Имя рядом с иконкой задаётся командой $author.
+</block>
+</dash>
+
+<details>
+syntax: $authorIcon[url;(index)]
+param: url|text|Обязательный|Прямая ссылка на картинку (http:// или https://)
+param: index|number|Необязательный|Номер редактируемого эмбеда при создании нескольких (по умолчанию 1)
+</details>

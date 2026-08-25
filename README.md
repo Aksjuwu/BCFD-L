@@ -141,7 +141,15 @@
   - add http commands
   - add more split commands
   - fixed more commands & ui
-  
+
+- **2.4.0** - New UI & Status Bot & more commands
+  - add all embed cmds & more cmds 
+  - add function commands
+  - add evnt & commands for boost
+  - new button to edit the bot's status
+  - some fixed http & some commands
+  - some fixed ui in android
+
 ---
 
 **Developers:** @y.lw (contributor) · [@obgwew](https://github.com/obgwew) (programming)

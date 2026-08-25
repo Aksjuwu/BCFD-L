@@ -1,0 +1,26 @@
+<dash>
+name: $getCreationDateTimestamp
+desc: Converts any ID into its creation date as a Unix timestamp.
+category: Timing & Delays
+
+<block type="text" title="How does the command work?">
+text: Every Discord object (user, channel, role, message...) contains its creation time inside its snowflake ID. $getCreationDateTimestamp decodes it and returns the creation moment as a Unix timestamp (seconds since January 1, 1970). Mentions are accepted and cleaned automatically.
+</block>
+
+<block type="code" title="Syntax">
+text: $getCreationDateTimestamp[idOrMention]
+</block>
+
+<block type="code" title="Ready-to-copy Example">
+text: $sendMessage[Your account was created on <t:$getCreationDateTimestamp[$authorID]>]
+</block>
+
+<block type="callout" kind="note">
+text: Works with any snowflake ID: users, members, channels, roles, servers and messages. Combine with Discord's <t:TIMESTAMP> format to display a readable date.
+</block>
+</dash>
+
+<details>
+syntax: $getCreationDateTimestamp[idOrMention]
+param: idOrMention|text|Required|A snowflake ID or mention (<@id>, <#id>, <@&id>) of any Discord object
+</details>

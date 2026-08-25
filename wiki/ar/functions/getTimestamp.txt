@@ -1,0 +1,21 @@
+<dash>
+name: $getTimestamp
+desc: يعيد الوقت الحالي كطابع زمني Unix.
+category: التوقيت والتأخير
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تعيد $getTimestamp عدد الثواني المنقضية منذ 1 يناير 1970 (بتوقيت UTC) كأرقام مجردة - وهو زمن Epoch الكلاسيكي. تُحدَّث القيمة عند كل تشغيل للسكربت، فتعكس دائمًا لحظة التنفيذ بدقة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $getTimestamp
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Now in Unix time: $getTimestamp]
+</block>
+
+<block type="callout" kind="note">
+text: ادمجها بصيغة <t:$getTimestamp> داخل نص رسالتك ليعرض Discord تاريخًا ووقتًا محليين حديثين لكل قارئ.
+</block>
+</dash>

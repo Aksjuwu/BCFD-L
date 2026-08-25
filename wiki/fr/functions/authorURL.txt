@@ -1,0 +1,28 @@
+<dash>
+name: $authorURL
+desc: Rend le nom de l'auteur de l'embed cliquable sous forme de lien.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $authorURL attache un lien au nom de l'auteur de l'embed ; cliquer dessus ouvre l'adresse indiquée. L'index facultatif choisit quel embed modifier lorsque plusieurs embeds sont construits. Si aucun nom d'auteur n'est encore défini, un nom vide est utilisé pour que le lien fonctionne quand même.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $authorURL[url;(index)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $author[Visit our site]
+text: $authorURL[https://example.com]
+</block>
+
+<block type="callout" kind="note">
+text: L'URL doit commencer par http:// ou https://. Discord n'indique pas visuellement que le nom est cliquable ; pensez à le mentionner dans le texte.
+</block>
+</dash>
+
+<details>
+syntax: $authorURL[url;(index)]
+param: url|text|Requis|Lien de destination (http:// ou https://)
+param: index|number|Facultatif|Numéro de l'embed à modifier quand plusieurs embeds sont construits (par défaut 1)
+</details>

@@ -1,0 +1,29 @@
+<dash>
+name: $returnGuildBansID
+desc: Sammelt die IDs aller gebannten Mitglieder eines Servers und speichert sie.
+category: Rückgabebefehle
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $returnGuildBansID ruft die Bannliste des angegebenen Servers ab und speichert die Benutzer-ID jedes gebannten Mitglieds unter dem angegebenen Variablennamen, getrennt durch das Trennzeichen. Rufe die gespeicherte Zeichenfolge später mit $return[var] ab.
+</block>
+
+<block type="code" title="Syntax">
+text: $returnGuildBansID[GuildID; var; separator]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $returnGuildBansID[$guildID; bannedIDs; ,]
+text: $sendMessage[Banned users: $return[bannedIDs]]
+</block>
+
+<block type="callout" kind="important">
+text: Erfordert die Berechtigung „Mitglieder bannen" - ohne sie schlägt der Befehl mit einem Berechtigungsfehler fehl. Eine leere Variable bedeutet, dass niemand gebannt ist.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildBansID[GuildID; var; separator]
+param: GuildID|snowflake|Erforderlich|Die ID des Servers, dessen Bannliste gelesen wird
+param: var|text|Erforderlich|Variablenname zum Speichern des Ergebnisses (Abruf mit $return[])
+param: separator|text|Erforderlich|Trennzeichen zwischen den IDs (z. B. ,). Benannte Trennzeichen funktionieren ebenfalls: dot, com, apo, sem, colon
+</details>

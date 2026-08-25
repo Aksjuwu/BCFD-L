@@ -1,0 +1,26 @@
+<dash>
+name: $setBotStatus
+desc: 更改机器人的在线状态（online、idle、dnd 或 invisible）。
+category: 服务器
+
+<block type="text" title="命令如何工作？">
+text: $setBotStatus 在 online（在线）、idle（闲置）、dnd（请勿打扰）和 invisible（隐身显示离线）之间切换机器人的状态指示。状态会一直保持，直到再次更改——重启应用后会根据已保存的设置重置。
+</block>
+
+<block type="code" title="语法">
+text: $setBotStatus[online|idle|dnd|invisible]
+</block>
+
+<block type="code" title="可复制示例">
+text: $setBotStatus[idle]
+</block>
+
+<block type="callout" kind="important">
+text: 内部限制为每 12 秒更改一次——该时间段内的额外调用会静默失败。offline 可作为 invisible 的别名。其他任何值都会引发错误。
+</block>
+</dash>
+
+<details>
+syntax: $setBotStatus[online|idle|dnd|invisible]
+param: status|text|必填|以下之一：online、idle、dnd、invisible（offline 可作为 invisible 的别名）
+</details>

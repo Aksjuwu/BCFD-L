@@ -1,0 +1,21 @@
+<dash>
+name: $guildVerificationLvl
+desc: 返回服务器的验证等级设置。
+category: 服务器
+
+<block type="text" title="命令如何工作？">
+text: $guildVerificationLvl 返回新成员在发言前必须通过的安全等级，取值从 NONE（0）到 VERY_HIGH（4）：0 = 无，1 = 低，2 = 中，3 = 高，4 = 最高。
+</block>
+
+<block type="code" title="语法">
+text: $guildVerificationLvl
+</block>
+
+<block type="code" title="可复制示例">
+text: $sendMessage[Verification level here: $guildVerificationLvl]
+</block>
+
+<block type="callout" kind="important">
+text: 只能在服务器内使用——在私信中会引发环境错误并停止脚本。
+</block>
+</dash>

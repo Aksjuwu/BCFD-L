@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: Zwraca aktualny poziom ulepszeń serwera od 0 do 3.
+category: Serwer
+
+<block type="text" title="Jak działa komenda?">
+text: $boostLevel zwraca poziom ulepszeń serwera jako liczbę: 0 (brak poziomu), 1 (poziom 1), 2 (poziom 2) lub 3 (poziom 3). Poziomy odblokowuje się przy odpowiednio 2, 7 lub 14 ulepszeniach.
+</block>
+
+<block type="code" title="Składnia">
+text: $boostLevel
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: Może być używane tylko wewnątrz serwera - w wiadomościach prywatnych pojawia się błąd środowiska i skrypt zostaje zatrzymany.
+</block>
+</dash>

@@ -1,0 +1,30 @@
+<dash>
+name: $returnGuildEmojisID
+desc: Collecte les ID des émojis d'un serveur, filtrés par type, et les stocke.
+category: Commandes de retour
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $returnGuildEmojisID rassemble les ID des émojis personnalisés du serveur indiqué et les stocke sous un nom de variable, joints par le séparateur. Le filtre de type distingue tous les émojis, ceux qui sont statiques (png) et animés (gif).
+</block>
+
+<block type="code" title="Syntaxe">
+text: $returnGuildEmojisID[GuildID; type; var; separator]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $returnGuildEmojisID[$guildID; animated; animEmojis; ,]
+text: $sendMessage[Animated emojis: $return[animEmojis]]
+</block>
+
+<block type="callout" kind="note">
+text: type accepte : all, static, animated. Le bot doit être membre du serveur ciblé. L'ordre stocké n'est pas garanti identique à la liste des émojis du serveur.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildEmojisID[GuildID; type; var; separator]
+param: GuildID|snowflake|Requis|ID du serveur dont on collecte les émojis
+param: type|text|Requis|Filtre : all, static ou animated
+param: var|text|Requis|Nom de la variable où stocker le résultat (à relire avec $return[])
+param: separator|text|Requis|Séparateur entre les ID (ex. ,). Les séparateurs nommés fonctionnent aussi : dot, com, apo, sem, colon
+</details>

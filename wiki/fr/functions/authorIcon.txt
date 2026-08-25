@@ -1,0 +1,27 @@
+<dash>
+name: $authorIcon
+desc: Définit l'image de l'icône d'auteur d'un embed via une URL.
+category: Constructeur d'embed
+
+<block type="text" title="Comment fonctionne la commande ?">
+text: $authorIcon place une petite image ronde à côté du nom de l'auteur de l'embed. L'index facultatif choisit quel embed modifier lorsque plusieurs embeds sont construits. Si aucun nom d'auteur n'a encore été défini, un nom vide est utilisé pour que l'icône s'affiche quand même.
+</block>
+
+<block type="code" title="Syntaxe">
+text: $authorIcon[url;(index)]
+</block>
+
+<block type="code" title="Exemple prêt à copier">
+text: $authorIcon[https://example.com/bot.png]
+</block>
+
+<block type="callout" kind="note">
+text: L'URL doit commencer par http:// ou https://. Utilisez $author pour définir le nom affiché à côté de l'icône.
+</block>
+</dash>
+
+<details>
+syntax: $authorIcon[url;(index)]
+param: url|text|Requis|URL directe de l'image (http:// ou https://)
+param: index|number|Facultatif|Numéro de l'embed à modifier quand plusieurs embeds sont construits (par défaut 1)
+</details>

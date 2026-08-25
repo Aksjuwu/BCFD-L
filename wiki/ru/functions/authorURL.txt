@@ -1,0 +1,28 @@
+<dash>
+name: $authorURL
+desc: Делает имя автора эмбеда кликабельной ссылкой.
+category: Конструктор embed
+
+<block type="text" title="Как работает команда?">
+text: $authorURL прикрепляет ссылку к имени автора эмбеда — нажатие на неё открывает указанный адрес. Необязательный индекс выбирает редактируемый эмбед при создании нескольких. Если имя автора ещё не задано, используется пустое имя-заполнитель, чтобы ссылка работала.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $authorURL[url;(index)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $author[Visit our site]
+text: $authorURL[https://example.com]
+</block>
+
+<block type="callout" kind="note">
+text: Ссылка должна начинаться с http:// или https://. Discord никак не выделяет кликабельность имени, поэтому лучше упомянуть об этом в тексте.
+</block>
+</dash>
+
+<details>
+syntax: $authorURL[url;(index)]
+param: url|text|Обязательный|Ссылка назначения (http:// или https://)
+param: index|number|Необязательный|Номер редактируемого эмбеда при создании нескольких (по умолчанию 1)
+</details>

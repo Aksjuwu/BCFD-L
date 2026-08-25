@@ -1,0 +1,26 @@
+<dash>
+name: $boostCount
+desc: Возвращает текущее количество бустов сервера.
+category: Сервер
+
+<block type="text" title="Как работает команда?">
+text: $boostCount возвращает текущее число бустов сервера (премиум-подписок). Без аргументов читается сервер, где произошло событие. Можно передать ID любого сервера, где есть бот, чтобы узнать количество его бустов.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $boostCount[(guildID)]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $sendMessage[This server has $boostCount boosts!]
+</block>
+
+<block type="callout" kind="note">
+text: Это количество бустов, а не уровень буста - для уровня используйте $boostLevel.
+</block>
+</dash>
+
+<details>
+syntax: $boostCount[(guildID)]
+param: guildID|snowflake|Необязательный|ID сервера, число бустов которого нужно узнать (по умолчанию текущий сервер)
+</details>

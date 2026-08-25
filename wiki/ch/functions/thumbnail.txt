@@ -1,0 +1,28 @@
+<dash>
+name: $thumbnail
+desc: 通过 URL 设置嵌入消息的缩略图。
+category: 嵌入消息构建
+
+<block type="text" title="命令如何工作？">
+text: $thumbnail 在目标嵌入右上角放置一张大图。任何包含有效网址的参数都可以——命令会提取找到的第一个 URL。最后的数字参数（可选）用于选择要编辑的嵌入。
+</block>
+
+<block type="code" title="语法">
+text: $thumbnail[url;(index)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $title[Server stats]
+text: $thumbnail[https://example.com/chart.png]
+</block>
+
+<block type="callout" kind="note">
+text: URL 必须以 http:// 或 https:// 开头。URL 后面的标点符号会被自动去除。未找到有效 URL 时会报错。
+</block>
+</dash>
+
+<details>
+syntax: $thumbnail[url;(index)]
+param: url|text|必填|包含图片链接的文本（http:// 或 https://）
+param: index|number|可选|构建多个嵌入时要编辑的嵌入编号（默认 1）
+</details>

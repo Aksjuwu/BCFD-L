@@ -1,0 +1,29 @@
+<dash>
+name: $returnGuildBansID
+desc: يجمع معرّفات جميع المحظورين من السيرفر ويخزنها.
+category: أوامر الإرجاع
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تطلب $returnGuildBansID قائمة الحظر في السيرفر المحدد وتخزن معرّف كل عضو محظور تحت اسم المتغير المعطى، مفصولة بالفاصل. استرجع النص المخزّن لاحقًا باستخدام $return[var].
+</block>
+
+<block type="code" title="الصيغة">
+text: $returnGuildBansID[GuildID; var; separator]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $returnGuildBansID[$guildID; bannedIDs; ,]
+text: $sendMessage[Banned users: $return[bannedIDs]]
+</block>
+
+<block type="callout" kind="important">
+text: تتطلب صلاحية Ban Members - بدونها تفشل الدالة بخطأ صلاحيات. المتغير الفارغ يعني أنه لا يوجد محظورون.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildBansID[GuildID; var; separator]
+param: GuildID|snowflake|مطلوب|معرّف السيرفر الذي ستُقرأ قائمة حظره
+param: var|text|مطلوب|اسم المتغير لتخزين النتيجة (يُقرأ بـ $return[])
+param: separator|text|مطلوب|الفاصل بين المعرّفات (مثال: ،). تعمل الفواصل المسماة أيضًا: dot، com، apo، sem، colon
+</details>

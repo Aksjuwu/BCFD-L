@@ -1,0 +1,28 @@
+<dash>
+name: $replaceRegex
+desc: 将符合字符规则的文本替换为新文本。
+category: 字符串工具
+
+<block type="text" title="命令如何工作？">
+text: $replaceRegex 在输入文本中查找符合规则的连续字符组，并将每个匹配替换为替换文本。规则写作 [abc] 表示匹配这些字符，-[abc] 表示匹配除它们之外的所有字符，其他任何规则都按字面文本处理。一次匹配可能覆盖多个连续字符。
+</block>
+
+<block type="code" title="语法">
+text: $replaceRegex[text; rule; replacement]
+</block>
+
+<block type="code" title="可复制示例">
+text: $replaceRegex[Banana; [aeiou]; *]
+</block>
+
+<block type="callout" kind="note">
+text: 匹配是贪婪的：连续匹配的字符会合并为一次替换。若要完全删除字符，请使用空替换文本。
+</block>
+</dash>
+
+<details>
+syntax: $replaceRegex[text; rule; replacement]
+param: text|text|必填|要处理的原始文本
+param: rule|text|必填|字符规则：[chars] 匹配列出的字符，-[chars] 匹配其余所有字符，否则按字面文本处理
+param: replacement|text|必填|插入到每个匹配位置的文本
+</details>

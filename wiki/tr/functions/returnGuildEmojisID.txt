@@ -1,0 +1,30 @@
+<dash>
+name: $returnGuildEmojisID
+desc: Sunucudaki emoji kimliklerini türe göre filtreleyip toplar ve saklar.
+category: Dönüş Komutları
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $returnGuildEmojisID belirtilen sunucudaki özel emojilerin kimliklerini toplar ve ayraçla ayrıştırılmış şekilde bir değişken adı altında saklar. Tür filtresi; tüm emojiler, sabit olanlar (png) ve animasyonlu olanlar (gif) arasında seçim yapar.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $returnGuildEmojisID[GuildID; type; var; separator]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $returnGuildEmojisID[$guildID; animated; animEmojis; ,]
+text: $sendMessage[Animated emojis: $return[animEmojis]]
+</block>
+
+<block type="callout" kind="note">
+text: type şu değerleri kabul eder: all, static, animated. Bot, hedef sunucunun üyesi olmalıdır. Saklama sırasının sunucunun emoji listesiyle aynı olacağı garanti edilmez.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildEmojisID[GuildID; type; var; separator]
+param: GuildID|snowflake|Zorunlu|Emojileri toplanacak sunucunun kimliği
+param: type|text|Zorunlu|Filtre: all, static veya animated
+param: var|text|Zorunlu|Sonucun saklanacağı değişken adı ($return[] ile okunur)
+param: separator|text|Zorunlu|Kimlikler arasındaki ayraç (örn. ,). Adlandırılmış ayraçlar da geçerlidir: dot, com, apo, sem, colon
+</details>

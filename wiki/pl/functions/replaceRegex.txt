@@ -1,0 +1,28 @@
+<dash>
+name: $replaceRegex
+desc: Zamienia tekst zgodny z regułą znakową na nowy tekst.
+category: Narzędzia tekstowe
+
+<block type="text" title="Jak działa komenda?">
+text: $replaceRegex przeszukuje tekst wejściowy w poszukiwaniu grup znaków opisanych regułą i zamienia każde dopasowanie na tekst zastępujący. Reguła [abc] celuje w te znaki, -[abc] we wszystkie pozostałe; każda inna reguła jest traktowana jako tekst dosłowny. Jedno dopasowanie może objąć naraz kilka sąsiadujących znaków.
+</block>
+
+<block type="code" title="Składnia">
+text: $replaceRegex[text; rule; replacement]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $replaceRegex[Banana; [aeiou]; *]
+</block>
+
+<block type="callout" kind="note">
+text: Dopasowanie jest chłonne: kolejne pasujące znaki łączą się w jedną zamianę. Aby całkowicie usunąć znaki, użyj pustego tekstu zastępującego.
+</block>
+</dash>
+
+<details>
+syntax: $replaceRegex[text; rule; replacement]
+param: text|text|Wymagany|Oryginalny tekst do przetworzenia
+param: rule|text|Wymagany|Reguła znakowa: [znaki] dopasowuje wymienione znaki, -[znaki] wszystko pozostałe, w innym przypadku tekst dosłowny
+param: replacement|text|Wymagany|Tekst wstawiany w miejsce każdego dopasowania
+</details>

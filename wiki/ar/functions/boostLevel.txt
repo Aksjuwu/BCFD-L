@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: يعيد مستوى تعزيز السيرفر الحالي من 0 إلى 3.
+category: السيرفر
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تعيد $boostLevel مستوى تعزيز السيرفر كرقم: 0 (بلا مستوى)، 1 (المستوى 1)، 2 (المستوى 2)، أو 3 (المستوى 3). تُفتح المستويات بالوصول إلى 2 أو 7 أو 14 تعزيزًا على التوالي.
+</block>
+
+<block type="code" title="الصيغة">
+text: $boostLevel
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: يمكن استخدامها داخل سيرفر فقط - في الرسائل الخاصة ترمي خطأ بيئة وتوقف السكربت.
+</block>
+</dash>

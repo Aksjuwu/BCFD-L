@@ -1,0 +1,27 @@
+<dash>
+name: $authorIcon
+desc: Legt das Autor-Symbolbild eines Embeds über eine URL fest.
+category: Embed-Ersteller
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $authorIcon platziert ein kleines rundes Bild neben dem Autorennamen des Embeds. Der optionale Index wählt das zu bearbeitende Embed, wenn mehrere erstellt werden. Wurde noch kein Autorenname festgelegt, wird ein leerer Platzhaltername verwendet, damit das Symbol trotzdem erscheint.
+</block>
+
+<block type="code" title="Syntax">
+text: $authorIcon[url;(index)]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $authorIcon[https://example.com/bot.png]
+</block>
+
+<block type="callout" kind="note">
+text: Die URL muss mit http:// oder https:// beginnen. Mit $author legst du den Namen neben dem Symbol fest.
+</block>
+</dash>
+
+<details>
+syntax: $authorIcon[url;(index)]
+param: url|text|Erforderlich|Direkte Bild-URL (http:// oder https://)
+param: index|number|Optional|Nummer des zu bearbeitenden Embeds bei mehreren Embeds (Standard 1)
+</details>

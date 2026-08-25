@@ -1,0 +1,30 @@
+<dash>
+name: $returnGuildEmojisID
+desc: Собирает ID эмодзи сервера с фильтром по типу и сохраняет их.
+category: Возвращаемые команды
+
+<block type="text" title="Как работает команда?">
+text: $returnGuildEmojisID собирает ID пользовательских эмодзи указанного сервера и сохраняет их под именем переменной, разделяя разделителем. Фильтр типа выбирает между всеми эмодзи, статичными (png) и анимированными (gif).
+</block>
+
+<block type="code" title="Синтаксис">
+text: $returnGuildEmojisID[GuildID; type; var; separator]
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $returnGuildEmojisID[$guildID; animated; animEmojis; ,]
+text: $sendMessage[Animated emojis: $return[animEmojis]]
+</block>
+
+<block type="callout" kind="note">
+text: type принимает: all, static, animated. Бот должен быть участником целевого сервера. Порядок хранения не гарантированно совпадает со списком эмодзи сервера.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildEmojisID[GuildID; type; var; separator]
+param: GuildID|snowflake|Обязательный|ID сервера, чьи эмодзи собираются
+param: type|text|Обязательный|Фильтр: all, static или animated
+param: var|text|Обязательный|Имя переменной для результата (читается через $return[])
+param: separator|text|Обязательный|Разделитель между ID (например ,). Работают и именованные разделители: dot, com, apo, sem, colon
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $footerIcon
+desc: يضبط صورة أيقونة التذييل في الإيمبد باستخدام رابط.
+category: منشئ الإيمبد
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تضع $footerIcon صورة دائرية صغيرة بجانب نص التذييل في الإيمبد المستهدف. يكفي أن يحتوي أي معامل على عنوان ويب صالح - تستخرج الدالة أول رابط تجده. المعامل الرقمي الأخير الاختياري يحدد الإيمبد المراد تعديله.
+</block>
+
+<block type="code" title="الصيغة">
+text: $footerIcon[url;(index)]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $footer[(c) My Community]
+text: $footerIcon[https://example.com/logo.png]
+</block>
+
+<block type="callout" kind="note">
+text: يجب أن يبدأ الرابط بـ http:// أو https://. تُقتطع علامات الترقيم الزائدة بعد الرابط تلقائيًا (مثل . أو )). يظهر خطأ إذا لم يوجد رابط صالح.
+</block>
+</dash>
+
+<details>
+syntax: $footerIcon[url;(index)]
+param: url|text|مطلوب|نص يحتوي على رابط الصورة (http:// أو https://)
+param: index|number|اختياري|رقم الإيمبد المراد تعديله عند بناء عدة إيمبدات (افتراضيًا 1)
+</details>

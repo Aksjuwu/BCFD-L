@@ -1,0 +1,26 @@
+<dash>
+name: $onBoostServer
+desc: Birisi sunucuyu takviye ettiğinde veya takviye seviyesini yükselttiğinde tetiklenen olay.
+category: Olay
+
+<block type="text" title="Olay nasıl çalışır?">
+text: $onBoostServer, Discord bir sunucu takviyesi sistem mesajı paylaştığında tetiklenir - yeni bir takviye ve sunucunun 1, 2 veya 3. seviyeye ulaşması dahil. Olay betiği içinde takviye yapan üyeye $authorID veya $mention gibi komutlarla ulaşabilirsiniz; kanal bağlamı ise Discord'un sistem mesajını paylaştığı kanalı işaret eder.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: #PREFIX:$onBoostServer
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: #PREFIX:$onBoostServer
+text:  sendMessage[Thanks $mention for boosting! This server now has $boostCount boosts]
+</block>
+
+<block type="callout" kind="note">
+text: Bu olayı yalnızca gerçek takviye sistem mesajları tetikler - normal sohbet asla tetiklemez. Takviye edenlere burada teşekkür etmek, $boostLevel ve $boostCount ile iyi bir ikili oluşturur.
+</block>
+
+<block type="callout" kind="important">
+text: Bu olay bot_commands değil, bot_events klasöründe çalışır. .fds dosyanızı orada oluşturun.
+</block>
+</dash>

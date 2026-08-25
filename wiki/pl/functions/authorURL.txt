@@ -1,0 +1,28 @@
+<dash>
+name: $authorURL
+desc: Sprawia, że nazwa autora osadzenia (embed) staje się klikalnym linkiem.
+category: Kreator embedów
+
+<block type="text" title="Jak działa komenda?">
+text: $authorURL dodaje link do nazwy autora embedu — kliknięcie otwiera podany adres. Opcjonalny indeks wybiera embed do edycji, gdy tworzonych jest kilka embedów. Jeśli nazwa autora nie jest jeszcze ustawiona, używana jest pusta nazwa zastępcza, aby link działał.
+</block>
+
+<block type="code" title="Składnia">
+text: $authorURL[url;(index)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $author[Visit our site]
+text: $authorURL[https://example.com]
+</block>
+
+<block type="callout" kind="note">
+text: Adres URL musi zaczynać się od http:// lub https://. Discord nie sygnalizuje wizualnie, że nazwa jest klikalna; warto o tym wspomnieć w treści.
+</block>
+</dash>
+
+<details>
+syntax: $authorURL[url;(index)]
+param: url|text|Wymagany|Link docelowy (http:// lub https://)
+param: index|number|Opcjonalny|Numer embedu do edycji przy budowie kilku embedów (domyślnie 1)
+</details>

@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: Возвращает текущий уровень буста сервера от 0 до 3.
+category: Сервер
+
+<block type="text" title="Как работает команда?">
+text: $boostLevel возвращает уровень буста сервера числом: 0 (нет уровня), 1 (уровень 1), 2 (уровень 2) или 3 (уровень 3). Уровни открываются при достижении 2, 7 или 14 бустов соответственно.
+</block>
+
+<block type="code" title="Синтаксис">
+text: $boostLevel
+</block>
+
+<block type="code" title="Готовый пример для копирования">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: Работает только внутри сервера - в личных сообщениях возникает ошибка окружения и скрипт останавливается.
+</block>
+</dash>

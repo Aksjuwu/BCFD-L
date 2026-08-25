@@ -1,0 +1,28 @@
+<dash>
+name: $footerIcon
+desc: Ustawia obrazek ikony stopki osadzenia (embed) na podstawie adresu URL.
+category: Kreator embedów
+
+<block type="text" title="Jak działa komenda?">
+text: $footerIcon umieszcza mały okrągły obrazek obok tekstu stopki docelowego embedu. Dowolny argument zawierający poprawny adres internetowy zadziała - polecenie wyodrębnia pierwszy znaleziony URL. Ostatni numeryczny argument (opcjonalny) wybiera embed do edycji.
+</block>
+
+<block type="code" title="Składnia">
+text: $footerIcon[url;(index)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $footer[(c) My Community]
+text: $footerIcon[https://example.com/logo.png]
+</block>
+
+<block type="callout" kind="note">
+text: Adres URL musi zaczynać się od http:// lub https://. Interpunkcja następująca po adresie (np. . lub )) jest automatycznie usuwana. Brak poprawnego URL skutkuje błędem.
+</block>
+</dash>
+
+<details>
+syntax: $footerIcon[url;(index)]
+param: url|text|Wymagany|Tekst zawierający adres URL obrazka (http:// lub https://)
+param: index|number|Opcjonalny|Numer embedu do edycji przy budowie kilku embedów (domyślnie 1)
+</details>

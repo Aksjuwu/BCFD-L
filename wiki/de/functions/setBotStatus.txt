@@ -1,0 +1,26 @@
+<dash>
+name: $setBotStatus
+desc: Ändert den Anwesenheitsstatus des Bots (online, idle, dnd oder invisible).
+category: Server
+
+<block type="text" title="Wie funktioniert der Befehl?">
+text: $setBotStatus schaltet die Anzeige des Bots zwischen online, idle, dnd (nicht stören) und invisible (offline erscheinen) um. Der Status bleibt bestehen, bis er erneut geändert wird - ein Neustart der App setzt ihn gemäß den gespeicherten Einstellungen zurück.
+</block>
+
+<block type="code" title="Syntax">
+text: $setBotStatus[online|idle|dnd|invisible]
+</block>
+
+<block type="code" title="Kopierfertiges Beispiel">
+text: $setBotStatus[idle]
+</block>
+
+<block type="callout" kind="important">
+text: Intern auf eine Änderung alle 12 Sekunden begrenzt - weitere Aufrufe in diesem Zeitfenster schlagen unbemerkt fehl. offline wird als Alias für invisible akzeptiert. Alles andere löst einen Fehler aus.
+</block>
+</dash>
+
+<details>
+syntax: $setBotStatus[online|idle|dnd|invisible]
+param: status|text|Erforderlich|Einer der Werte: online, idle, dnd, invisible (offline als Alias für invisible erlaubt)
+</details>

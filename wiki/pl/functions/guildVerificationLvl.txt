@@ -1,0 +1,21 @@
+<dash>
+name: $guildVerificationLvl
+desc: Zwraca ustawienie poziomu weryfikacji serwera.
+category: Serwer
+
+<block type="text" title="Jak działa komenda?">
+text: $guildVerificationLvl zwraca poziom bezpieczeństwa, jaki muszą przejść nowi członkowie przed pisaniem, jako wartość wewnętrzną od NONE (0) do VERY_HIGH (4): 0 = brak, 1 = niski, 2 = średni, 3 = wysoki, 4 = najwyższy.
+</block>
+
+<block type="code" title="Składnia">
+text: $guildVerificationLvl
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $sendMessage[Verification level here: $guildVerificationLvl]
+</block>
+
+<block type="callout" kind="important">
+text: Może być używane tylko wewnątrz serwera - w wiadomościach prywatnych pojawia się błąd środowiska i skrypt zostaje zatrzymany.
+</block>
+</dash>

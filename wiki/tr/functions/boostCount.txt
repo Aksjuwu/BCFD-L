@@ -1,0 +1,26 @@
+<dash>
+name: $boostCount
+desc: Sunucunun güncel takviye (Boost) sayısını döndürür.
+category: Sunucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $boostCount sunucunun güncel takviye sayısını (premium abonelikler) döndürür. Argüman verilmediğinde olayın gerçekleştiği sunucuyu okur. Botun bulunduğu herhangi bir sunucunun kimliğini geçerek onun sayısını okuyabilirsiniz.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $boostCount[(guildID)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[This server has $boostCount boosts!]
+</block>
+
+<block type="callout" kind="note">
+text: Bu, takviye seviyesi değil sayısıdır - seviye için $boostLevel kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $boostCount[(guildID)]
+param: guildID|snowflake|İsteğe bağlı|Takviye sayısı okunacak sunucunun kimliği (varsayılan: geçerli sunucu)
+</details>

@@ -1,0 +1,28 @@
+<dash>
+name: $authorURL
+desc: 使嵌入消息的作者名称成为可点击的链接。
+category: 嵌入消息构建
+
+<block type="text" title="命令如何工作？">
+text: $authorURL 为嵌入消息的作者名称附加链接，点击即可打开指定地址。构建多个嵌入时，可用可选的 index 选择要编辑的嵌入。如果尚未设置作者名称，将使用空白占位名称以便链接仍然有效。
+</block>
+
+<block type="code" title="语法">
+text: $authorURL[url;(index)]
+</block>
+
+<block type="code" title="可复制示例">
+text: $author[Visit our site]
+text: $authorURL[https://example.com]
+</block>
+
+<block type="callout" kind="note">
+text: URL 必须以 http:// 或 https:// 开头。Discord 不会显示名称可点击的提示，建议在正文中说明。
+</block>
+</dash>
+
+<details>
+syntax: $authorURL[url;(index)]
+param: url|text|必填|目标链接（http:// 或 https://）
+param: index|number|可选|构建多个嵌入时要编辑的嵌入编号（默认 1）
+</details>

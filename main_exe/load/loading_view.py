@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # -*- coding: utf-8 -*-
-# load/loading_view.py — Generic full-view loading screen (Flet 0.85.2+ / v1 API)
+# main_exe/load/loading_view.py — Generic full-view loading screen (Flet 0.85.2+ / v1 API)
 
 import asyncio
 import random

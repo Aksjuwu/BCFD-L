@@ -1,0 +1,21 @@
+<dash>
+name: $boostLevel
+desc: Sunucunun güncel takviye seviyesini 0 ile 3 arasında döndürür.
+category: Sunucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $boostLevel sunucunun takviye kademesini sayı olarak döndürür: 0 (seviye yok), 1 (Seviye 1), 2 (Seviye 2) veya 3 (Seviye 3). Seviyeler sırasıyla 2, 7 ve 14 takviyeye ulaşılınca açılır.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $boostLevel
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Boost level: $boostLevel]
+</block>
+
+<block type="callout" kind="important">
+text: Yalnızca sunucu içinde kullanılabilir - DM'lerde ortam hatası verir ve betiği durdurur.
+</block>
+</dash>

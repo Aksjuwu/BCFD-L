@@ -1,0 +1,28 @@
+<dash>
+name: $replaceRegex
+desc: Karakter kuralına uyan metni yeni metinle değiştirir.
+category: Dize İşlemleri
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $replaceRegex giriş metninde kuralla tanımlanan karakter gruplarını arar ve her eşleşmeyi yerine koyduğu metinle değiştirir. [abc] biçimindeki kural bu karakterleri, -[abc] ise bunların dışındakileri hedefler; diğer tüm kurallar düz metin sayılır. Tek bir eşleşme art arda gelen birden çok karakteri kapsayabilir.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $replaceRegex[text; rule; replacement]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $replaceRegex[Banana; [aeiou]; *]
+</block>
+
+<block type="callout" kind="note">
+text: Eşleşme açgözlüdür: ardışık eşleşen karakterler tek bir değişiklikte birleşir. Karakterleri tamamen kaldırmak için boş bir değiştirme metni kullanın.
+</block>
+</dash>
+
+<details>
+syntax: $replaceRegex[text; rule; replacement]
+param: text|text|Zorunlu|İşlenecek özgün metin
+param: rule|text|Zorunlu|Karakter kuralı: [karakterler] listelenen karakterleri, -[karakterler] diğer her şeyi eşler, aksi halde düz metin sayılır
+param: replacement|text|Zorunlu|Her eşleşmenin yerine konacak metin
+</details>

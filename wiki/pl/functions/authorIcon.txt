@@ -1,0 +1,27 @@
+<dash>
+name: $authorIcon
+desc: Ustawia obrazek ikony autora osadzenia (embed) na podstawie adresu URL.
+category: Kreator embedów
+
+<block type="text" title="Jak działa komenda?">
+text: $authorIcon umieszcza mały okrągły obrazek obok nazwy autora embedu. Opcjonalny indeks wybiera embed do edycji, gdy tworzonych jest kilka embedów. Jeśli nazwa autora nie została jeszcze ustawiona, używana jest pusta nazwa zastępcza, aby ikona mimo to się wyświetlała.
+</block>
+
+<block type="code" title="Składnia">
+text: $authorIcon[url;(index)]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $authorIcon[https://example.com/bot.png]
+</block>
+
+<block type="callout" kind="note">
+text: Adres URL musi zaczynać się od http:// lub https://. Użyj $author, aby ustawić nazwę wyświetlaną obok ikony.
+</block>
+</dash>
+
+<details>
+syntax: $authorIcon[url;(index)]
+param: url|text|Wymagany|Bezpośredni adres URL obrazka (http:// lub https://)
+param: index|number|Opcjonalny|Numer embedu do edycji przy budowie kilku embedów (domyślnie 1)
+</details>

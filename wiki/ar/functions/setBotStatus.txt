@@ -1,0 +1,26 @@
+<dash>
+name: $setBotStatus
+desc: يغيّر حالة حضور البوت (online أو idle أو dnd أو invisible).
+category: السيرفر
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تبدّل $setBotStatus مؤشر حضور البوت بين online (متصل) و idle (خامل) و dnd (عدم الإزعاج) و invisible (يظهر دون اتصال). تبقى الحالة كما هي حتى تتغير مرة أخرى - إعادة تشغيل التطبيق تعيدها حسب الإعدادات المحفوظة.
+</block>
+
+<block type="code" title="الصيغة">
+text: $setBotStatus[online|idle|dnd|invisible]
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $setBotStatus[idle]
+</block>
+
+<block type="callout" kind="important">
+text: محدودة داخليًا بتغيير واحد كل 12 ثانية - الاستدعاءات الإضافية خلال هذه الفترة تفشل بصمت. تُقبل offline كبديل عن invisible. أي قيمة أخرى ترمي خطأً.
+</block>
+</dash>
+
+<details>
+syntax: $setBotStatus[online|idle|dnd|invisible]
+param: status|text|مطلوب|إحدى القيم: online أو idle أو dnd أو invisible (تعمل offline بديلًا عن invisible)
+</details>

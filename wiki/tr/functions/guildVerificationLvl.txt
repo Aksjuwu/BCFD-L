@@ -1,0 +1,21 @@
+<dash>
+name: $guildVerificationLvl
+desc: Sunucunun doğrulama seviyesi ayarını döndürür.
+category: Sunucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $guildVerificationLvl, yeni üyelerin yazmadan önce geçmesi gereken güvenlik seviyesini NONE (0) ile VERY_HIGH (4) arasındaki dahili değeriyle döndürür: 0 = Yok, 1 = Düşük, 2 = Orta, 3 = Yüksek, 4 = En yüksek.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $guildVerificationLvl
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $sendMessage[Verification level here: $guildVerificationLvl]
+</block>
+
+<block type="callout" kind="important">
+text: Yalnızca sunucu içinde kullanılabilir - DM'lerde ortam hatası verir ve betiği durdurur.
+</block>
+</dash>

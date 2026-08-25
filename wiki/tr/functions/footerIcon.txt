@@ -1,0 +1,28 @@
+<dash>
+name: $footerIcon
+desc: URL kullanarak embed'in alt bilgi simge resmini ayarlar.
+category: Embed Oluşturucu
+
+<block type="text" title="Komut nasıl çalışır?">
+text: $footerIcon, hedef embed'in alt bilgi metninin yanına küçük yuvarlak bir resim yerleştirir. Geçerli bir web adresi içeren herhangi bir argüman çalışır - komut bulunan ilk URL'yi çıkarır. Son sayısal argüman (isteğe bağlı) düzenlenecek embed'i seçer.
+</block>
+
+<block type="code" title="Sözdizimi">
+text: $footerIcon[url;(index)]
+</block>
+
+<block type="code" title="Kopyalamaya Hazır Örnek">
+text: $footer[(c) My Community]
+text: $footerIcon[https://example.com/logo.png]
+</block>
+
+<block type="callout" kind="note">
+text: URL, http:// veya https:// ile başlamalıdır. URL'den sonra gelen noktalama işaretleri (. veya ) gibi) otomatik temizlenir. Geçerli bir URL bulunamazsa hata oluşur.
+</block>
+</dash>
+
+<details>
+syntax: $footerIcon[url;(index)]
+param: url|text|Zorunlu|Resim bağlantısını içeren metin (http:// veya https://)
+param: index|number|İsteğe bağlı|Birden fazla embed oluşturulurken düzenlenecek embed'in numarası (varsayılan 1)
+</details>

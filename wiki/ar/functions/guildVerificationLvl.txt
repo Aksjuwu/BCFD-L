@@ -1,0 +1,21 @@
+<dash>
+name: $guildVerificationLvl
+desc: يعيد إعداد مستوى التحقق في السيرفر.
+category: السيرفر
+
+<block type="text" title="كيف تعمل الدالة؟">
+text: تعيد $guildVerificationLvl مستوى الأمان الواجب على الأعضاء الجدد قبل تمكنهم من الكتابة، كقيمته الداخلية من NONE (0) إلى VERY_HIGH (4): 0 = لا شيء، 1 = منخفض، 2 = متوسط، 3 = مرتفع، 4 = الأعلى.
+</block>
+
+<block type="code" title="الصيغة">
+text: $guildVerificationLvl
+</block>
+
+<block type="code" title="مثال جاهز للنسخ">
+text: $sendMessage[Verification level here: $guildVerificationLvl]
+</block>
+
+<block type="callout" kind="important">
+text: يمكن استخدامها داخل سيرفر فقط - في الرسائل الخاصة ترمي خطأ بيئة وتوقف السكربت.
+</block>
+</dash>

@@ -1,0 +1,30 @@
+<dash>
+name: $returnGuildEmojisID
+desc: Zbiera identyfikatory emotikonów z serwera według typu i zapisuje je.
+category: Komendy zwrotne
+
+<block type="text" title="Jak działa komenda?">
+text: $returnGuildEmojisID zbiera identyfikatory niestandardowych emotikonów ze wskazanego serwera i zapisuje je pod nazwą zmiennej, rozdzielone separatorem. Filtr typu rozróżnia wszystkie emotikony oraz statyczne (png) i animowane (gif).
+</block>
+
+<block type="code" title="Składnia">
+text: $returnGuildEmojisID[GuildID; type; var; separator]
+</block>
+
+<block type="code" title="Przykład gotowy do skopiowania">
+text: $returnGuildEmojisID[$guildID; animated; animEmojis; ,]
+text: $sendMessage[Animated emojis: $return[animEmojis]]
+</block>
+
+<block type="callout" kind="note">
+text: type przyjmuje wartości: all, static, animated. Bot musi być członkiem docelowego serwera. Kolejność zapisu nie musi odpowiadać liście emotikonów serwera.
+</block>
+</dash>
+
+<details>
+syntax: $returnGuildEmojisID[GuildID; type; var; separator]
+param: GuildID|snowflake|Wymagany|ID serwera, z którego zbierane są emotikony
+param: type|text|Wymagany|Filtr: all, static lub animated
+param: var|text|Wymagany|Nazwa zmiennej dla wyniku (odczyt przez $return[])
+param: separator|text|Wymagany|Separator między identyfikatorami (np. ,). Działają też separatory nazwane: dot, com, apo, sem, colon
+</details>
